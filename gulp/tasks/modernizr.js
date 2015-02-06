@@ -5,6 +5,5 @@ var pkg       = require('../../package.json');
 gulp.task('modernizr', function() {
   gulp.src(pkg.folders.dest+'/static/js/*.js')
     .pipe(modernizr())
-    .pipe(uglify())
     .pipe(gulp.dest(pkg.folders.dest+'/static/js/vendor/'))
 });
