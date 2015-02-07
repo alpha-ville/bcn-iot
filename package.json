@@ -68,7 +68,7 @@
     "backbone": "backbone.js",
     "backbone-deep-model": "backbone-deep-model.js",
     "plugins": "plugins.js",
-    "tweenlite": "TweenLite.js",
+    "tweenmax": "TweenMax.min.js",
     "css-plugin": "CSSPlugin.js",
     "easepack": "EasePack.js",
     "pixi": "pixi.js",

@@ -2,6 +2,7 @@ AbstractView = require '../AbstractView'
 Circle       = require '../shapes/Circle'
 Triangle     = require '../shapes/Triangle'
 Square       = require '../shapes/Square'
+MiddleCircle = require '../shapes/MiddleCircle'
 
 class InteractiveCanvas extends AbstractView
 
@@ -37,6 +38,10 @@ class InteractiveCanvas extends AbstractView
             o = new objs[i%(objs.length)]
             o.move _.random(@w), _.random(@h)
             @stage.addChild o.sprite
+
+        middle = new MiddleCircle
+        middle.move @w/2, @h/2
+        @stage.addChild middle.sprite
 
         null
 
