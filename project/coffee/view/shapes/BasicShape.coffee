@@ -8,6 +8,7 @@ class BasicShape
     size    : null
     palette : null
     color   : null
+    vel     : null
 
     constructor : (@w = _.random(10, 60) / window.devicePixelRatio)->
 
@@ -25,12 +26,23 @@ class BasicShape
 
         @sprite.addChild @g
         @sprite.rotation = NumUtil.toRadians _.random(360)
+
+        @vel = 
+            x: .1 * (( Math.random() * 2 ) - 1)
+            y: .1 * (( Math.random() * 2 ) - 1)
+
         null
 
     init : =>
         console.log 'override this'
 
     animate : =>
+        null
+
+    update: ->
+        @sprite.x += @vel.x
+        @sprite.y += @vel.y
+
         null
 
     move : (x, y = 0) =>
