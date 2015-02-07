@@ -9,9 +9,9 @@ class BasicShape
     palette : null
     color   : null
 
-    constructor : ->
+    constructor : (@w = _.random(10, 60) / window.devicePixelRatio)->
 
-        @w = @h = _.random(10, 60)
+        @h = @w
 
         @palette = [0x19aeae, 0x662c6a, 0xfc3a85]
         @color = _.sample @palette
@@ -29,6 +29,9 @@ class BasicShape
 
     init : =>
         console.log 'override this'
+
+    animate : =>
+        null
 
     move : (x, y = 0) =>
         @sprite.x = x

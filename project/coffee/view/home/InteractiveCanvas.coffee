@@ -2,7 +2,6 @@ AbstractView = require '../AbstractView'
 Circle       = require '../shapes/Circle'
 Triangle     = require '../shapes/Triangle'
 Square       = require '../shapes/Square'
-MiddleCircle = require '../shapes/MiddleCircle'
 
 class InteractiveCanvas extends AbstractView
 
@@ -10,15 +9,15 @@ class InteractiveCanvas extends AbstractView
 
     init : ->
         PIXI.dontSayHello = true
-        @w = window.innerWidth
-        @h = window.innerHeight
+        @w = window.innerWidth / window.devicePixelRatio
+        @h = window.innerHeight / window.devicePixelRatio
 
         @stage = new PIXI.Stage()
         # @renderer = new PIXI.CanvasRenderer @w, @h,
         @renderer = PIXI.autoDetectRecommendedRenderer @w, @h,
             antialias : true
             transparent : true
-            # resolution : window.devicePixelRatio
+            resolution : window.devicePixelRatio
 
         @$el.append @renderer.view
 
@@ -39,9 +38,10 @@ class InteractiveCanvas extends AbstractView
             o.move _.random(@w), _.random(@h)
             @stage.addChild o.sprite
 
-        middle = new MiddleCircle
+        middle = new Circle 120 / window.devicePixelRatio
         middle.move @w/2, @h/2
         @stage.addChild middle.sprite
+        middle.animate()
 
         null
 
