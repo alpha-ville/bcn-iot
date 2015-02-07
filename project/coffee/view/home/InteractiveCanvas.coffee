@@ -27,17 +27,16 @@ class InteractiveCanvas extends AbstractView
         null
 
     addShapes : =>
-        a = new Circle 30, 30
-        t = new Triangle 30, 30
-        s = new Square 30, 30
 
-        @stage.addChild a.sprite
-        @stage.addChild t.sprite
-        @stage.addChild s.sprite
+        max = 100
 
-        a.move 300, 200
-        t.move 150, 300
-        s.move 200, 400
+        objs = [Circle, Triangle, Square]
+        range = _.shuffle(_.range(max))
+
+        for i in range
+            o = new objs[i%(objs.length)]
+            o.move _.random(@w), _.random(@h)
+            @stage.addChild o.sprite
 
         null
 

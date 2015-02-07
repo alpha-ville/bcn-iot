@@ -1,8 +1,8 @@
-class NumberUtils
+class NumUtil
 
-    @MATH_COS: Math.cos 
-    @MATH_SIN: Math.sin 
-    @MATH_RANDOM: Math.random 
+    @MATH_COS: Math.cos
+    @MATH_SIN: Math.sin
+    @MATH_RANDOM: Math.random
     @MATH_ABS: Math.abs
     @MATH_ATAN2: Math.atan2
 
@@ -34,11 +34,11 @@ class NumberUtils
         difference_ms = difference_ms/1000
         time.seconds  = Math.floor(difference_ms % 60)
 
-        difference_ms = difference_ms/60 
+        difference_ms = difference_ms/60
         time.minutes  = Math.floor(difference_ms % 60)
 
-        difference_ms = difference_ms/60 
-        time.hours    = Math.floor(difference_ms % 24)  
+        difference_ms = difference_ms/60
+        time.hours    = Math.floor(difference_ms % 24)
 
         time.days     = Math.floor(difference_ms/24)
 
@@ -47,7 +47,7 @@ class NumberUtils
     @map: ( num, min1, max1, min2, max2, round = false, constrainMin = true, constrainMax = true ) ->
         if constrainMin and num < min1 then return min2
         if constrainMax and num > max1 then return max2
-        
+
         num1 = (num - min1) / (max1 - min1)
         num2 = (num1 * (max2 - min2)) + min2
         if round then return Math.round(num2)
@@ -66,14 +66,10 @@ class NumberUtils
 
     # convert metres in to m / KM
     @getNiceDistance: (metres) =>
-
         if metres < 1000
-
             return "#{Math.round(metres)}M"
-
         else
-
             km = (metres/1000).toFixed(2)
             return "#{km}KM"
 
-module.exports = NumberUtils
+module.exports = NumUtil
