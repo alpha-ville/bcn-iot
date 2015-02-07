@@ -60,8 +60,8 @@ class InteractiveCanvas extends AbstractView
 
     setDims : (renderer=false)=>
         return unless @renderer
-        @w = window.innerWidth
-        @h = window.innerHeight
+        @w = window.innerWidth / window.devicePixelRatio
+        @h = window.innerHeight / window.devicePixelRatio
 
         @$el.css
             'max-height' : @h
