@@ -41,7 +41,16 @@
 
     <template id="overlay-content">
         <![CDATA[
-            <div id="overlay-content" class="overlay-content">
+            <div id="overlay-content" class="overlays overlay-content">
+                <div class="container">
+                </div>
+            </div>
+        ]]>
+    </template>
+
+    <template id="overlay-diagram">
+        <![CDATA[
+            <div id="overlay-diagram" class="overlays overlay-diagram">
                 <div class="container">
 
                     <svg id="line1" width="180px" height="5px" viewBox="0 0 180 5">

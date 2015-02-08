@@ -85,7 +85,7 @@ class AppView extends AbstractView
         return
 
     showModalTest :=>
-        @modalManager.showModal 'overlayContent'
+        @modalManager.showModal 'overlayDiagram'
         null
 
     onAllRendered : =>
