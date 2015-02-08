@@ -39,6 +39,7 @@ class ModalManager extends AbstractView
 
 		@modals[name].view = new @modals[name].classRef cb
 
+
 		null
 
 module.exports = ModalManager
