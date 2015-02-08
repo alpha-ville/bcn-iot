@@ -49,21 +49,23 @@
                         </div>
                     </div>
                     <h1>SOUND DEVICES</h1>
-                    <p>Aesthetic mixtape drinking vinegar, fingerstache yr Tumblr Austin. Tumblr four loko ugh Schlitz selvage Godard, cornhole gastropub vinyl seitan street art. Blue Bottle banh mi roof party, direct trade XOXO Pitchfork deep v Brooklyn vinyl typewriter High Life kitsch. Skateboard keffiyeh chambray, semiotics sartorial iPhone lumbersexual Marfa forage actually fanny pack YOLO quinoa cold-pressed. Authentic tattooed health goth umami, banjo direct trade street art Intelligentsia 8-bit migas Odd Future selvage. Cronut small batch typewriter fashion axe chambray. Put a bird on it +1 vegan cardigan.</p>
+                    <p><%= content %></p>
                     <ul class="lang-buttons">
                         <div class='shape'></div>
                         <li data-selected>ENGLISH</li>
                         <li>CATALAN</li>
                     </ul>
+                    <% if (video) { %>
                     <div class="video-player">
-                        <video id="example_video_1"
+                        <video id="video"
                           controls preload="auto" width="624" height="350"
-                          poster="/img/video-poster.jpg">
-                         <source src="/img/video/mov_bbb.mp4" type='video/mp4' />
-                         <source src="/img/video/mov_bbb.ogg" type='video/ogg' />
+                          poster="<%=video%>.jpg">
+                         <source src="<%=video%>.mp4" type='video/mp4' />
+                         <source src="<%=video%>.ogg" type='video/ogg' />
                          Your browser does not support the video tag.
                         </video>
                     </div>
+                    <% } %>
                 </div>
             </div>
         ]]>

@@ -12,7 +12,9 @@ class OverlayContent extends AbstractModal
 
     constructor : (@cb) ->
 
-        @templateVars = {@name}
+        @templateVars =
+            content : 'asdasd'
+            video : null
 
         super()
 
@@ -23,8 +25,6 @@ class OverlayContent extends AbstractModal
             $(b).removeAttr('data-selected')
 
         $(e.currentTarget).attr 'data-selected', true
-        # ul = e
-        # console.log ul
         null
 
     init : =>

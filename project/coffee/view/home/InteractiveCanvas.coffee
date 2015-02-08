@@ -56,14 +56,14 @@ class InteractiveCanvas extends AbstractView
 
             # behavior on bounds
             if ( shape.sprite.x > @w + shape.w )
-                shape.sprite.x = 0 - shape.w 
+                shape.sprite.x = 0 - shape.w
                 shape.sprite.y = Math.random() * @h
             else if ( shape.sprite.x < 0 - shape.w )
                 shape.sprite.x = @w + shape.w
                 shape.sprite.y = Math.random() * @h
 
             if ( shape.sprite.y > @h + shape.h )
-                shape.sprite.y = 0 - shape.h 
+                shape.sprite.y = 0 - shape.h
                 shape.sprite.x = Math.random() * @w
             else if ( shape.sprite.y < 0 - shape.h )
                 shape.sprite.y = @h + shape.h
