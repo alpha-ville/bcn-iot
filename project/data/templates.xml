@@ -18,23 +18,6 @@
     </template>
 
     <!--
-        HEADER
-    -->
-
-    <!-- <template id="site-header">
-        <![CDATA[
-            <header id="site-header">
-                <i><%= desc %></i>
-                <ul>
-                    <li><a href="<%= home.url %>"><%= home.label %></a></li>
-                    <li><a href="<%= example.url %>"><%= example.label %></a></li>
-                </ul>
-                <div class="breakpoint"></div>
-            </header>
-        ]]>
-    </template> -->
-
-    <!--
         Interactive
     -->
 
@@ -56,11 +39,70 @@
         ]]>
     </template>
 
-    <template id="page-example">
+    <template id="overlay-content">
         <![CDATA[
-            <section id="page-example" class="page page-example">
-                <i><%= desc %></i>
-            </section>
+            <div id="overlay-content" class="overlay-content">
+                <div class="container">
+
+                    <svg id="line1" width="180px" height="5px" viewBox="0 0 180 5">
+                        <line x1="0" x2="180" y1="1" y2="1" stroke="#b9b9b8" stroke-width="1" stroke-linecap="round" stroke-dasharray="1, 5"/>
+                    </svg>
+                    <svg id="line2" width="180px" height="5px" viewBox="0 0 180 5">
+                        <line x1="0" x2="180" y1="1" y2="1" stroke="#b9b9b8" stroke-width="1" stroke-linecap="round" stroke-dasharray="1, 5"/>
+                    </svg>
+                    <svg id="line3" width="180px" height="5px" viewBox="0 0 180 5">
+                        <line x1="0" x2="180" y1="1" y2="1" stroke="#b9b9b8" stroke-width="1" stroke-linecap="round" stroke-dasharray="1, 5"/>
+                    </svg>
+                    <svg id="line4" width="180px" height="5px" viewBox="0 0 180 5">
+                        <line x1="0" x2="180" y1="1" y2="1" stroke="#b9b9b8" stroke-width="1" stroke-linecap="round" stroke-dasharray="1, 5"/>
+                    </svg>
+                    <svg id="line5" width="180px" height="5px" viewBox="0 0 180 5">
+                        <line x1="0" x2="200" y1="1" y2="1" stroke="#b9b9b8" stroke-width="1" stroke-linecap="round" stroke-dasharray="1, 5"/>
+                    </svg>
+
+                    <div class="center-piece">
+                        <div class='triangle'>
+                            <span class="ion-android-laptop" data-pack="default"></span>
+                        </div>
+                        <div>text text</div>
+                    </div>
+
+                    <div class="top-center-piece">
+                        <div class='triangle'>
+                            <span class="ion-android-desktop" data-pack="default"></span>
+                        </div>
+                        <div>text text</div>
+                    </div>
+
+                    <div class="top-right-piece">
+                        <div class='square'>
+                            <span class="ion-android-desktop" data-pack="default"></span>
+                        </div>
+                        <div>text text</div>
+                    </div>
+
+                    <div class="bottom-right-piece">
+                        <div class='circle'>
+                            <span class="ion-ios-game-controller-b-outline" data-pack="default"></span>
+                        </div>
+                        <div>text text</div>
+                    </div>
+
+                    <div class="bottom-left-piece">
+                        <div class='circle'>
+                            <span class="ion-ios-flask-outline" data-pack="default"></span>
+                        </div>
+                        <div>text text</div>
+                    </div>
+
+                    <div class="top-left-piece">
+                        <div class='circle'>
+                            <span class="ion-ios-flame-outline" data-pack="default"></span>
+                        </div>
+                        <div>text text</div>
+                    </div>
+                </div>
+            </div>
         ]]>
     </template>
 

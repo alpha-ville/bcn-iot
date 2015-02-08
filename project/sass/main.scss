@@ -54,6 +54,16 @@
  *
  */
 
+ $red    : #d02a40;
+ $blue   : #2773be;
+ $yellow : #e79d33;
+
+ $alpha : .8;
+
+ $red-alpha    : rgba(208, 42, 64, $alpha);
+ $blue-alpha   : rgba(39, 115, 190, $alpha);
+ $yellow-alpha : rgba(231, 157, 51, $alpha);
+
 .page {
     position: absolute;
     top: 0;
@@ -74,3 +84,161 @@
         background: #f6f6f6;
     }
 }
+
+$size-shape : 70px;
+
+.overlay-content{
+    position: absolute;
+    background-color: rgba(246, 246, 246, .8);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    opacity: 0;
+
+    .container
+    {
+        max-width:1030px;
+        max-height:845px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+    }
+
+    svg
+    {
+        top: 50%;
+        left: 50%;
+        position: absolute;
+        transform-origin: 0 0;
+
+
+        &#line1
+        {
+            margin-left: -1px;
+            @include transform(rotate(-90deg));
+        }
+
+        &#line2
+        {
+            @include transform(rotate(-24deg));
+        }
+
+        &#line3
+        {
+            @include transform(rotate(49deg));
+        }
+
+        &#line4
+        {
+            @include transform(rotate(127deg));
+        }
+
+        &#line5
+        {
+            @include transform(rotate(204deg));
+        }
+    }
+
+    .piece
+    {
+        position: fixed;
+        @include transform(translateX(-50%) translateY(-50%));
+
+        span
+        {
+            font-size: 20px;
+            position: absolute;
+            top: $size-shape/2;
+            left: 50%;
+            color: white;
+            @include transform(translateX(-50%) translateY(-50%));
+        }
+        div:nth-child(1)
+        {
+            top: 50%;
+            left: 50%;
+        }
+        div:nth-child(2)
+        {
+            margin-top: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+    }
+
+    .center-piece
+    {
+        @extend .piece;
+    }
+
+    $distance : 140px;
+
+    .top-center-piece
+    {
+        @extend .piece;
+        @include transform(translateX(-50%) translateY(-$distance - $size-shape));
+    }
+
+    .top-right-piece
+    {
+        @extend .piece;
+        @include transform(translateX($distance) translateY(-75px - $size-shape/2));
+    }
+
+    .top-left-piece
+    {
+        @extend .piece;
+        @include transform(translateX(-$distance - $size-shape) translateY(-75px - $size-shape/2));
+    }
+
+    .bottom-right-piece
+    {
+        @extend .piece;
+        @include transform(translateX(95px) translateY(116px));
+    }
+
+    .bottom-left-piece
+    {
+        @extend .piece;
+        @include transform(translateX(-95px - $size-shape) translateY(116px));
+    }
+
+    .triangle
+    {
+        width: 0;
+        height: 0;
+        border-left: ($size-shape/2) solid transparent;
+        border-right: ($size-shape/2) solid transparent;
+        border-bottom: $size-shape * (sqrt(3)/2) solid $blue-alpha;
+
+        span
+        {
+            top: 45%;
+        }
+    }
+
+    .square
+    {
+        width: $size-shape * .9;
+        height: $size-shape * .9;
+        background-color: $yellow-alpha;
+        span
+        {
+            top: 40%;
+        }
+    }
+
+    .circle
+    {
+        width: $size-shape;
+        height: $size-shape;
+        border-radius: 100%;
+        background-color: $red-alpha;
+    }
+}
+
+

@@ -67,7 +67,7 @@ class AppView extends AbstractView
         @
             # .addChild @header
             .addChild @wrapper
-            # .addChild @footer
+            .addChild @modalManager
 
         @onAllRendered()
         return
@@ -80,7 +80,13 @@ class AppView extends AbstractView
 
         @onResize = _.debounce @onResize, 300
         @$window.on 'resize orientationchange', @onResize
+        @$window.on 'click', @showModalTest
+
         return
+
+    showModalTest :=>
+        @modalManager.showModal 'overlayContent'
+        null
 
     onAllRendered : =>
 
@@ -92,23 +98,21 @@ class AppView extends AbstractView
         return
 
     begin : =>
-
         @trigger 'start'
 
         @B().router.start()
 
         @preloader.hide()
+
         @updateMediaQueriesLog()
         return
 
     onResize : =>
-
         @getDims()
         @updateMediaQueriesLog()
         return
 
     updateMediaQueriesLog : =>
-
         if @header then @header.$el.find(".breakpoint").html "<div class='l'>CURRENT BREAKPOINT:</div><div class='b'>#{MediaQueries.getBreakpoint()}</div>"
         return
 

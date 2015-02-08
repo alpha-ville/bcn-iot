@@ -14,8 +14,6 @@ class BasicShape
 
     constructor : (@config, @w = _.random(10, 60) / window.devicePixelRatio) ->
 
-        console.log @config
-
         @h = @w
 
         # config =
