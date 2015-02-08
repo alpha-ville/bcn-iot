@@ -94,14 +94,11 @@ class InteractiveCanvas extends AbstractView
     updateLines: ->
         @linesObj.clear()
 
-
-        
-
         for shape in @shapes
             dist = NumUtil.distanceBetweenPoints shape.sprite.position, { x: @w/2, y: @h/2 }
 
             # @linesObj.lineStyle( 1, "#rgba(0, 0, 0, {NumUtil.map dist, 0, 300, 1, .1 )})" )
-            @linesObj.lineStyle( .5, 0x000000, .1 )
+            @linesObj.lineStyle( .5, 0x000000, NumUtil.map(dist, 0, 300, 1, .1) )
             @linesObj.moveTo(@w/2, @h/2);
             @linesObj.lineTo( shape.sprite.x , shape.sprite.y);
          
@@ -115,6 +112,9 @@ class InteractiveCanvas extends AbstractView
 
     bindEvents : =>
         @B().appView.on @B().appView.EVENT_UPDATE_DIMENSIONS, @setDims
+
+        # @$window.on 'resize orientationchange', @onResize
+
         null
 
     setDims : (renderer=false)=>
@@ -129,5 +129,9 @@ class InteractiveCanvas extends AbstractView
         @renderer.resize @w, @h
         null
 
+
+    onResize: () =>
+        console.log @
+        null
 
 module.exports = InteractiveCanvas
