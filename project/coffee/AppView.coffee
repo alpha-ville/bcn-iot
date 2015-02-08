@@ -81,7 +81,7 @@ class AppView extends AbstractView
         @onResize = _.debounce @onResize, 300
         @$window.on 'resize orientationchange', @onResize
 
-        # @$window.on 'click', @showModalTest
+        @$window.on 'click', @showModalTest
 
         return
 
