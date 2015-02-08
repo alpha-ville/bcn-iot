@@ -44,19 +44,19 @@
             <div id="overlay-content" class="overlay-content">
                 <div class="container">
 
-                    <svg id="line1" width="150px" height="5px" viewBox="0 0 150 5">
-                        <line x1="0" x2="150" y1="1" y2="1" stroke="#b9b9b8" stroke-width="1" stroke-linecap="round" stroke-dasharray="1, 5"/>
+                    <svg id="line1" width="180px" height="5px" viewBox="0 0 180 5">
+                        <line x1="0" x2="180" y1="1" y2="1" stroke="#b9b9b8" stroke-width="1" stroke-linecap="round" stroke-dasharray="1, 5"/>
                     </svg>
-                    <svg id="line2" width="150px" height="5px" viewBox="0 0 150 5">
-                        <line x1="0" x2="150" y1="1" y2="1" stroke="#b9b9b8" stroke-width="1" stroke-linecap="round" stroke-dasharray="1, 5"/>
+                    <svg id="line2" width="180px" height="5px" viewBox="0 0 180 5">
+                        <line x1="0" x2="180" y1="1" y2="1" stroke="#b9b9b8" stroke-width="1" stroke-linecap="round" stroke-dasharray="1, 5"/>
                     </svg>
-                    <svg id="line3" width="150px" height="5px" viewBox="0 0 150 5">
-                        <line x1="0" x2="150" y1="1" y2="1" stroke="#b9b9b8" stroke-width="1" stroke-linecap="round" stroke-dasharray="1, 5"/>
+                    <svg id="line3" width="180px" height="5px" viewBox="0 0 180 5">
+                        <line x1="0" x2="180" y1="1" y2="1" stroke="#b9b9b8" stroke-width="1" stroke-linecap="round" stroke-dasharray="1, 5"/>
                     </svg>
-                    <svg id="line4" width="150px" height="5px" viewBox="0 0 150 5">
-                        <line x1="0" x2="150" y1="1" y2="1" stroke="#b9b9b8" stroke-width="1" stroke-linecap="round" stroke-dasharray="1, 5"/>
+                    <svg id="line4" width="180px" height="5px" viewBox="0 0 180 5">
+                        <line x1="0" x2="180" y1="1" y2="1" stroke="#b9b9b8" stroke-width="1" stroke-linecap="round" stroke-dasharray="1, 5"/>
                     </svg>
-                    <svg id="line5" width="150px" height="5px" viewBox="0 0 150 5">
+                    <svg id="line5" width="180px" height="5px" viewBox="0 0 180 5">
                         <line x1="0" x2="200" y1="1" y2="1" stroke="#b9b9b8" stroke-width="1" stroke-linecap="round" stroke-dasharray="1, 5"/>
                     </svg>
 
