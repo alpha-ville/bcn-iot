@@ -54,20 +54,20 @@ class InteractiveCanvas extends AbstractView
         for shape in @shapes
             shape.update()
 
-            # bounds
-            if ( shape.sprite.x > @w )
-                shape.sprite.x = @w
-                shape.vel.x *= -1
-            else if ( shape.sprite.x < 0 )
-                shape.sprite.x = 0
-                shape.vel.x *= -1
+            # behavior on bounds
+            if ( shape.sprite.x > @w + shape.w )
+                shape.sprite.x = 0 - shape.w 
+                shape.sprite.y = Math.random() * @h
+            else if ( shape.sprite.x < 0 - shape.w )
+                shape.sprite.x = @w + shape.w
+                shape.sprite.y = Math.random() * @h
 
-            if ( shape.sprite.y > @h )
-                shape.sprite.y = @h
-                shape.vel.y *= -1
-            else if ( shape.sprite.y < 0 )
-                shape.sprite.y = 0
-                shape.vel.y *= -1
+            if ( shape.sprite.y > @h + shape.h )
+                shape.sprite.y = 0 - shape.h 
+                shape.sprite.x = Math.random() * @w
+            else if ( shape.sprite.y < 0 - shape.h )
+                shape.sprite.y = @h + shape.h
+                shape.sprite.x = Math.random() * @w
 
         @render()
         requestAnimFrame @update
