@@ -9,7 +9,7 @@ class Circle extends BasicShape
 
         @lines = []
 
-        for i in [0...4]
+        for i in [0...2]
             lS = new PIXI.Sprite()
             l = new PIXI.Graphics()
             l.beginFill @color, .8
@@ -29,7 +29,7 @@ class Circle extends BasicShape
 
     animateLine : (line, i) =>
         scale = 1.7
-        TweenMax.to line, 2, alpha: 0, delay: i / 2, width: scale, height: scale, repeat: -1
+        TweenMax.to line, 1.7, alpha: 0, delay: i - ( i * .7 ), width: scale, height: scale, repeat: -1
         null
 
 module.exports = Circle
