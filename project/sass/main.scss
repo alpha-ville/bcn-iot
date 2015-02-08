@@ -64,6 +64,21 @@
  $blue-alpha   : rgba(39, 115, 190, $alpha);
  $yellow-alpha : rgba(231, 157, 51, $alpha);
 
+ h1
+ {
+    @include font-size(5);
+ }
+
+ p
+ {
+    @include font-size(1.5);
+ }
+
+ body
+ {
+    overflow: hidden;
+ }
+
 .page {
     position: absolute;
     top: 0;
@@ -95,65 +110,140 @@
     height: 100%;
     visibility: hidden;
     opacity: 0;
-
-    $size-shape : 70px;
-
-    .container
-    {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-    }
-
-    .triangle
-    {
-        width: 0;
-        height: 0;
-        border-left: ($size-shape/2) solid transparent;
-        border-right: ($size-shape/2) solid transparent;
-        border-bottom: $size-shape * (sqrt(3)/2) solid $blue-alpha;
-
-        span
-        {
-            top: 45%;
-        }
-    }
-
-    .square
-    {
-        width: $size-shape * .9;
-        height: $size-shape * .9;
-        background-color: $yellow-alpha;
-        span
-        {
-            top: 40%;
-        }
-    }
-
-    .circle
-    {
-        width: $size-shape;
-        height: $size-shape;
-        border-radius: 100%;
-        background-color: $red-alpha;
-    }
+    display: table;
 
     &.overlay-content
     {
+        $size-shape : 120px;
+
+        .triangle
+        {
+            width: 0;
+            height: 0;
+            border-left: ($size-shape/2) solid transparent;
+            border-right: ($size-shape/2) solid transparent;
+            border-bottom: $size-shape * (sqrt(3)/2) solid $blue-alpha;
+        }
+
+        .square
+        {
+            width: $size-shape * .9;
+            height: $size-shape * .9;
+            background-color: $yellow-alpha;
+        }
+
+        .circle
+        {
+            width: $size-shape;
+            height: $size-shape;
+            border-radius: 100%;
+            background-color: $red-alpha;
+        }
+
+        .container
+        {
+            margin: 0 auto;
+            max-width: 1020px;
+            position: relative;
+            text-align: center;
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .container-shape
+        {
+            width: $size-shape;
+            margin: 0 auto;
+        }
+
+        $margin : 3;
+
+        h1
+        {
+            @include rem-fallback(margin-top, $margin);
+        }
+
+        p
+        {
+            margin: 0 auto;
+            @include rem-fallback(margin-top, $margin);
+            @include rem-fallback(line-height, 2.5);
+            max-width: 800px;
+        }
+
+        ul.lang-buttons
+        {
+            list-style: none;
+            margin: 0 auto;
+            @include rem-fallback(margin-top, $margin);
+            @include font-size(1.5);
+            border: 3px solid black;
+            display: inline-block;
+
+            li
+            {
+                padding: 7px 25px;
+                display: inline-block;
+                cursor: pointer;
+
+                &[data-selected]
+                {
+                    background-color: black;
+                    color: white;
+                }
+            }
+        }
+
+        .video-player
+        {
+            @include rem-fallback(margin-top, $margin);
+        }
+
         span
         {
-            font-size: 20px;
-            position: absolute;
-            top: $size-shape/2;
-            left: 50%;
+            font-size: 30px;
+            position: relative;
+            top: 45px;
+            left: -15px;
             color: white;
-            @include transform(translateX(-50%) translateY(-50%));
+            // @include transform(translateX(-50%) translateY(-50%));
         }
     }
 
     &.overlay-diagram{
 
         $size-shape : 70px;
+
+        .triangle
+        {
+            width: 0;
+            height: 0;
+            border-left: ($size-shape/2) solid transparent;
+            border-right: ($size-shape/2) solid transparent;
+            border-bottom: $size-shape * (sqrt(3)/2) solid $blue-alpha;
+        }
+
+        .square
+        {
+            width: $size-shape * .9;
+            height: $size-shape * .9;
+            background-color: $yellow-alpha;
+        }
+
+        .circle
+        {
+            width: $size-shape;
+            height: $size-shape;
+            border-radius: 100%;
+            background-color: $red-alpha;
+        }
+
+        .container
+        {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
 
         svg
         {
