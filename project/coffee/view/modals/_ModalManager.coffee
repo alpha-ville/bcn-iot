@@ -1,11 +1,11 @@
 AbstractView     = require '../AbstractView'
-OrientationModal = require './OrientationModal'
+OverlayContent = require './OverlayContent'
 
 class ModalManager extends AbstractView
 
 	# when new modal classes are created, add here, with reference to class name
 	modals :
-		orientationModal : classRef : OrientationModal, view : null
+		overlayContent : classRef : OverlayContent, view : null
 
 	constructor : ->
 

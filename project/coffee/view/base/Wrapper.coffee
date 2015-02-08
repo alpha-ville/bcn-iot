@@ -1,6 +1,6 @@
 AbstractView    = require '../AbstractView'
 HomeView        = require '../home/HomeView'
-ExamplePageView = require '../examplePage/ExamplePageView'
+# ExamplePageView = require '../examplePage/ExamplePageView'
 Nav             = require '../../router/Nav'
 
 class Wrapper extends AbstractView
@@ -19,7 +19,7 @@ class Wrapper extends AbstractView
 
 		@views =
 			home    : classRef : HomeView,        route : @B().nav.sections.HOME,    view : null, type : @VIEW_TYPE_PAGE
-			example : classRef : ExamplePageView, route : @B().nav.sections.EXAMPLE, view : null, type : @VIEW_TYPE_PAGE
+			# example : classRef : ExamplePageView, route : @B().nav.sections.EXAMPLE, view : null, type : @VIEW_TYPE_PAGE
 
 		@createClasses()
 
@@ -88,7 +88,6 @@ class Wrapper extends AbstractView
 			else if @currentView.type is @VIEW_TYPE_MODAL
 				@backgroundView = @views.home
 				@transitionViews false, @currentView.view, true
-
 		else
 
 			if @currentView.type is @VIEW_TYPE_PAGE and @previousView.type is @VIEW_TYPE_PAGE
