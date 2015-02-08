@@ -2,20 +2,33 @@ AbstractModal = require './AbstractModal'
 
 class OverlayContent extends AbstractModal
 
-	name     : 'overlayContent'
-	template : 'overlay-content'
-	cb       : null
+    name     : 'overlayContent'
+    template : 'overlay-content'
+    cb       : null
 
-	constructor : (@cb) ->
+    events:
+        'click ul>li' : "toggleLang"
+        # 'tap ul>li' : "toggleLang"
 
-		@templateVars = {@name}
+    constructor : (@cb) ->
 
-		super()
+        @templateVars =
+            content : 'asdasd'
+            video : null
 
-		return null
+        super()
 
-	init : =>
+        return null
 
-		null
+    toggleLang : (e) =>
+        @$el.find('li').each (a, b) =>
+            $(b).removeAttr('data-selected')
+
+        $(e.currentTarget).attr 'data-selected', true
+        null
+
+    init : =>
+
+        null
 
 module.exports = OverlayContent

@@ -43,6 +43,29 @@
         <![CDATA[
             <div id="overlay-content" class="overlays overlay-content">
                 <div class="container">
+                    <div class="container-shape">
+                        <div class='triangle'>
+                            <span class="ion-android-laptop" data-pack="default"></span>
+                        </div>
+                    </div>
+                    <h1>SOUND DEVICES</h1>
+                    <p><%= content %></p>
+                    <ul class="lang-buttons">
+                        <div class='shape'></div>
+                        <li data-selected>ENGLISH</li>
+                        <li>CATALAN</li>
+                    </ul>
+                    <% if (video) { %>
+                    <div class="video-player">
+                        <video id="video"
+                          controls preload="auto" width="624" height="350"
+                          poster="<%=video%>.jpg">
+                         <source src="<%=video%>.mp4" type='video/mp4' />
+                         <source src="<%=video%>.ogg" type='video/ogg' />
+                         Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <% } %>
                 </div>
             </div>
         ]]>

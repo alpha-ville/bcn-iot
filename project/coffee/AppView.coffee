@@ -80,12 +80,13 @@ class AppView extends AbstractView
 
         @onResize = _.debounce @onResize, 300
         @$window.on 'resize orientationchange', @onResize
+
         @$window.on 'click', @showModalTest
 
         return
 
     showModalTest :=>
-        @modalManager.showModal 'overlayDiagram'
+        @modalManager.showModal 'overlayContent'
         null
 
     onAllRendered : =>
@@ -95,6 +96,9 @@ class AppView extends AbstractView
         @$body.prepend @$el
 
         @begin()
+
+        @modalManager.showModal 'overlayContent'
+        # @modalManager.showModal 'overlayDiagram'
         return
 
     begin : =>
