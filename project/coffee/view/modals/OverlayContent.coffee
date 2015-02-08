@@ -21,6 +21,7 @@ class OverlayContent extends AbstractModal
             video       : node.get('video')
             shape       : node.get('data_type').toLowerCase()
             icon        : node.get('icon')
+            title       : node.get('value_type').toUpperCase()
 
         super()
 
