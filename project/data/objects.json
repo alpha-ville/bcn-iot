@@ -1,0 +1,42 @@
+[
+  {
+    "category": null,
+    "id": null,
+    "name": null,
+    "icon": null,
+    "data_type": "Circle",
+    "data_value": null,
+    "video": null,
+    "image": null
+  },
+  {
+    "category": null,
+    "id": null,
+    "name": null,
+    "icon": null,
+    "data_type": "Circle",
+    "data_value": null,
+    "video": null,
+    "image": null
+  },
+  {
+    "category": null,
+    "id": null,
+    "name": null,
+    "icon": null,
+    "data_type": "Square",
+    "data_value": null,
+    "video": null,
+    "image": null
+  },
+  {
+    "category": null,
+    "id": null,
+    "name": null,
+    "icon": null,
+    "data_type": "Triangle",
+    "data_value": null,
+    "video": null,
+    "image": null
+  }
+]

@@ -1,15 +1,12 @@
-Analytics    = require './utils/Analytics'
-AuthManager  = require './utils/AuthManager'
-Share        = require './utils/Share'
-Facebook     = require './utils/Facebook'
-GooglePlus   = require './utils/GooglePlus'
-Templates    = require './data/Templates'
-Locale       = require './data/Locale'
-Router       = require './router/Router'
-Nav          = require './router/Nav'
-AppData      = require './AppData'
-AppView      = require './AppView'
-MediaQueries = require './utils/MediaQueries'
+Analytics         = require './utils/Analytics'
+Share             = require './utils/Share'
+Templates         = require './data/Templates'
+Locale            = require './data/Locale'
+Router            = require './router/Router'
+Nav               = require './router/Nav'
+AppView           = require './AppView'
+MediaQueries      = require './utils/MediaQueries'
+ObjectsCollection = require './collections/ObjectsCollection'
 
 class App
 
@@ -54,16 +51,10 @@ class App
         @templates = new Templates "/data/templates#{(if @LIVE then '.min' else '')}.xml", @objectComplete
         @locale    = new Locale "/data/locales/strings.json", @objectComplete
         @analytics = new Analytics "/data/tracking.json", @objectComplete
-        @appData   = new AppData @objectComplete
+        @objects = new ObjectsCollection
+        @objects.fetch success : @objectComplete
 
         # if new objects are added don't forget to change the `@objectComplete` function
-
-        null
-
-    initSDKs : =>
-
-        Facebook.load()
-        GooglePlus.load()
 
         null
 
@@ -75,12 +66,9 @@ class App
         @appView = new AppView
         @router  = new Router
         @nav     = new Nav
-        @auth    = new AuthManager
         @share   = new Share
 
         @go()
-
-        @initSDKs()
 
         null
 

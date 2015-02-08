@@ -10,13 +10,21 @@ class BasicShape
     color   : null
     vel     : null
     velRot  : null
+    config  : null
 
-    constructor : (@w = _.random(10, 60) / window.devicePixelRatio)->
+    constructor : (@w = _.random(10, 60) / window.devicePixelRatio, @config) ->
 
         @h = @w
 
-        # @palette = [0x19aeae, 0x662c6a, 0xfc3a85]
-        # @color = _.sample @palette
+        # config =
+        #     category   : null
+        #     id         : null
+        #     name       : null
+        #     icon       : null
+        #     data_type  : null
+        #     data_value : null
+        #     video      : null
+        #     image      : null
 
         @sprite = new PIXI.Sprite()
 

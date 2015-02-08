@@ -6,10 +6,12 @@ Square       = require '../shapes/Square'
 class InteractiveCanvas extends AbstractView
 
     template : 'interactive-element'
+    shapes   : null
 
-    shapes: null
+    init : =>
 
-    init : ->
+        console.log @B().objects
+
         PIXI.dontSayHello = true
         @w = window.innerWidth / window.devicePixelRatio
         @h = window.innerHeight / window.devicePixelRatio
@@ -54,10 +56,10 @@ class InteractiveCanvas extends AbstractView
             shape.update()
 
             # bounds
-            if ( shape.sprite.x > @w ) 
+            if ( shape.sprite.x > @w )
                 shape.sprite.x = @w
                 shape.vel.x *= -1
-            else if ( shape.sprite.x < 0 ) 
+            else if ( shape.sprite.x < 0 )
                 shape.sprite.x = 0
                 shape.vel.x *= -1
 
