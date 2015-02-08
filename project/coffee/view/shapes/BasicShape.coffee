@@ -9,13 +9,14 @@ class BasicShape
     palette : null
     color   : null
     vel     : null
+    velRot  : null
 
     constructor : (@w = _.random(10, 60) / window.devicePixelRatio)->
 
         @h = @w
 
-        @palette = [0x19aeae, 0x662c6a, 0xfc3a85]
-        @color = _.sample @palette
+        # @palette = [0x19aeae, 0x662c6a, 0xfc3a85]
+        # @color = _.sample @palette
 
         @sprite = new PIXI.Sprite()
 
@@ -25,11 +26,13 @@ class BasicShape
         @init()
 
         @sprite.addChild @g
-        @sprite.rotation = NumUtil.toRadians _.random(360)
+        # @sprite.rotation = NumUtil.toRadians _.random(360)
 
-        @vel = 
+        @vel =
             x: .1 * (( Math.random() * 2 ) - 1)
             y: .1 * (( Math.random() * 2 ) - 1)
+
+        @velRot = .01 * (( Math.random() * 2 ) - 1)
 
         null
 
@@ -42,6 +45,8 @@ class BasicShape
     update: ->
         @sprite.x += @vel.x
         @sprite.y += @vel.y
+
+        @sprite.rotation += @velRot
 
         null
 

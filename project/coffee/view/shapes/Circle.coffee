@@ -2,7 +2,8 @@ BasicShape = require './BasicShape'
 
 class Circle extends BasicShape
 
-    @lines = null
+    lines : null
+    color : 0xe79d33
 
     init : =>
 
