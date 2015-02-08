@@ -24,6 +24,8 @@ class ModalManager extends AbstractView
         null
 
     showModal : (name, cb=null) =>
+        @hideOpenModal()
+
         return if @modals[name].view
         @modals[name].view = new @modals[name].classRef cb
         null

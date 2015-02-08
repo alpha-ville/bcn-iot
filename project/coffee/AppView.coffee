@@ -25,6 +25,8 @@ class AppView extends AbstractView
     events :
         'click a' : 'linkManager'
 
+    clicks : 0
+
     EVENT_UPDATE_DIMENSIONS : 'EVENT_UPDATE_DIMENSIONS'
 
     MOBILE_WIDTH : 700
@@ -86,19 +88,26 @@ class AppView extends AbstractView
         return
 
     showModalTest :=>
-        @modalManager.showModal 'overlayContent'
+        switch @clicks
+            when -1
+                @modalManager.hideOpenModal()
+                @clicks = 0
+
+            when 0
+                @modalManager.showModal 'overlayDiagram'
+                @clicks = 1
+
+            when 1
+                @modalManager.showModal 'overlayContent'
+                @clicks = -1
+
         null
 
     onAllRendered : =>
 
         # console.log "onAllRendered : =>"
-
         @$body.prepend @$el
-
         @begin()
-
-        @modalManager.showModal 'overlayContent'
-        # @modalManager.showModal 'overlayDiagram'
         return
 
     begin : =>
