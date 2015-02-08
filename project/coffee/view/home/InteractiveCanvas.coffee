@@ -10,8 +10,6 @@ class InteractiveCanvas extends AbstractView
 
     init : =>
 
-        console.log @B().objects
-
         PIXI.dontSayHello = true
         @w = window.innerWidth / window.devicePixelRatio
         @h = window.innerHeight / window.devicePixelRatio
@@ -33,18 +31,19 @@ class InteractiveCanvas extends AbstractView
         null
 
     addShapes : =>
-        max = 100
 
-        objs = [Circle, Triangle, Square]
-        range = _.shuffle(_.range(max))
+        objs =
+            "circle"   : Circle
+            "triangle" : Triangle
+            "square"   : Square
 
-        for i in range
-            o = new objs[i%(objs.length)]
+        @B().objects.each (data) =>
+            o = new objs[data.get('data_type').toLowerCase()](data)
             o.move _.random(@w), _.random(@h)
             @shapes.push( o )
             @stage.addChild o.sprite
 
-        middle = new Circle 120 / window.devicePixelRatio
+        middle = new Circle null, 120 / window.devicePixelRatio
         middle.move @w/2, @h/2
         @stage.addChild middle.sprite
         middle.animate()

@@ -1,6 +1,6 @@
 [
   {
-    "category": null,
+    "category": "desktop",
     "id": null,
     "name": null,
     "icon": null,
@@ -10,7 +10,7 @@
     "image": null
   },
   {
-    "category": null,
+    "category": "mobile",
     "id": null,
     "name": null,
     "icon": null,
@@ -20,7 +20,7 @@
     "image": null
   },
   {
-    "category": null,
+    "category": "desktop",
     "id": null,
     "name": null,
     "icon": null,
@@ -30,7 +30,47 @@
     "image": null
   },
   {
-    "category": null,
+    "category": "mobile",
+    "id": null,
+    "name": null,
+    "icon": null,
+    "data_type": "Triangle",
+    "data_value": null,
+    "video": null,
+    "image": null
+  },
+  {
+    "category": "desktop",
+    "id": null,
+    "name": null,
+    "icon": null,
+    "data_type": "Circle",
+    "data_value": null,
+    "video": null,
+    "image": null
+  },
+  {
+    "category": "mobile",
+    "id": null,
+    "name": null,
+    "icon": null,
+    "data_type": "Circle",
+    "data_value": null,
+    "video": null,
+    "image": null
+  },
+  {
+    "category": "desktop",
+    "id": null,
+    "name": null,
+    "icon": null,
+    "data_type": "Square",
+    "data_value": null,
+    "video": null,
+    "image": null
+  },
+  {
+    "category": "desktop",
     "id": null,
     "name": null,
     "icon": null,

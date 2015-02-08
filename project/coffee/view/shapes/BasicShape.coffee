@@ -12,7 +12,9 @@ class BasicShape
     velRot  : null
     config  : null
 
-    constructor : (@w = _.random(10, 60) / window.devicePixelRatio, @config) ->
+    constructor : (@config, @w = _.random(10, 60) / window.devicePixelRatio) ->
+
+        console.log @config
 
         @h = @w
 
