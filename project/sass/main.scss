@@ -115,6 +115,15 @@
     &.overlay-content
     {
         $size-shape : 120px;
+        $icon-size : 30px;
+
+        span
+        {
+            position: relative;
+            font-size: $icon-size;
+            color: white;
+            top: ($size-shape / 2) - $icon-size / 2;
+        }
 
         .triangle
         {
@@ -123,6 +132,11 @@
             border-left: ($size-shape/2) solid transparent;
             border-right: ($size-shape/2) solid transparent;
             border-bottom: $size-shape * (sqrt(3)/2) solid $blue-alpha;
+            span
+            {
+                top: 45px;
+                left: -15px;
+            }
         }
 
         .square
@@ -130,6 +144,10 @@
             width: $size-shape * .9;
             height: $size-shape * .9;
             background-color: $yellow-alpha;
+            span
+            {
+                top: ($size-shape / 1.8) - ($icon-size);
+            }
         }
 
         .circle
@@ -197,16 +215,6 @@
         .video-player
         {
             @include rem-fallback(margin-top, $margin);
-        }
-
-        span
-        {
-            font-size: 30px;
-            position: relative;
-            top: 45px;
-            left: -15px;
-            color: white;
-            // @include transform(translateX(-50%) translateY(-50%));
         }
     }
 

@@ -5,6 +5,7 @@ class OverlayContent extends AbstractModal
     name     : 'overlayContent'
     template : 'overlay-content'
     cb       : null
+    lang     : 'en'
 
     events:
         'click ul>li' : "toggleLang"
@@ -12,9 +13,14 @@ class OverlayContent extends AbstractModal
 
     constructor : (@cb) ->
 
+        node = (@B().objects.where object_id : @B().selectedObjectId)[0]
+
         @templateVars =
-            content : 'asdasd'
-            video : null
+            content_en  : node.get('copy_en')
+            content_cat : node.get('copy_cat')
+            video       : node.get('video')
+            shape       : node.get('data_type').toLowerCase()
+            icon        : node.get('icon')
 
         super()
 
@@ -24,11 +30,20 @@ class OverlayContent extends AbstractModal
         @$el.find('li').each (a, b) =>
             $(b).removeAttr('data-selected')
 
-        $(e.currentTarget).attr 'data-selected', true
+        if e
+            $(e.currentTarget).attr 'data-selected', true
+            @B().langSelected = $(e.currentTarget).attr('data-lang')
+        else
+            $(@$el.find('li[data-lang="' + @B().langSelected + '"]')).attr 'data-selected', true
+
+        @$el.find('.content p').each (a, b) =>
+            $(b).css
+                display : if $(b).attr('data-lang') is @B().langSelected then 'block' else 'none'
+
         null
 
     init : =>
-
+        @toggleLang()
         null
 
 module.exports = OverlayContent

@@ -1,7 +1,6 @@
 Analytics         = require './utils/Analytics'
 Share             = require './utils/Share'
 Templates         = require './data/Templates'
-Locale            = require './data/Locale'
 Router            = require './router/Router'
 Nav               = require './router/Nav'
 AppView           = require './AppView'
@@ -36,7 +35,7 @@ class App
     objectComplete : =>
 
         @objReady++
-        @initApp() if @objReady >= 4
+        @initApp() if @objReady >= 3
 
         null
 
@@ -49,7 +48,6 @@ class App
     initObjects : =>
 
         @templates = new Templates "/data/templates#{(if @LIVE then '.min' else '')}.xml", @objectComplete
-        @locale    = new Locale "/data/locales/strings.json", @objectComplete
         @analytics = new Analytics "/data/tracking.json", @objectComplete
         @objects = new ObjectsCollection
         @objects.fetch success : @objectComplete
@@ -61,6 +59,9 @@ class App
     initApp : =>
 
         @setFlags()
+
+        @selectedObjectId = "object3"
+        @langSelected = 'en'
 
         ### Starts application ###
         @appView = new AppView
