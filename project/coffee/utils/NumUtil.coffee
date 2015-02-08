@@ -64,12 +64,11 @@ class NumUtil
         if canBeEqual then return num >= min && num <= max
         else return num >= min && num <= max
 
-    # convert metres in to m / KM
-    @getNiceDistance: (metres) =>
-        if metres < 1000
-            return "#{Math.round(metres)}M"
-        else
-            km = (metres/1000).toFixed(2)
-            return "#{km}KM"
+    @distanceBetweenPoints: ( p, p2 ) -> 
+
+        point = { x: p.x, y: p.y };
+        point2 = { x: p2.x, y: p2.y };
+
+        return dist = Math.sqrt( Math.pow((p.x-p2.x), 2) + Math.pow((p.y-p2.y), 2) );
 
 module.exports = NumUtil

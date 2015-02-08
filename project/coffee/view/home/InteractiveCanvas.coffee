@@ -2,11 +2,15 @@ AbstractView = require '../AbstractView'
 Circle       = require '../shapes/Circle'
 Triangle     = require '../shapes/Triangle'
 Square       = require '../shapes/Square'
-
+NumUtil      = require('../../utils/NumUtil.coffee');
+ 
 class InteractiveCanvas extends AbstractView
 
     template : 'interactive-element'
     shapes   : null
+
+    linesObj: null
+    linesAlphaScale: 0
 
     init : =>
 
@@ -15,6 +19,7 @@ class InteractiveCanvas extends AbstractView
         @h = window.innerHeight / window.devicePixelRatio
 
         @shapes = []
+        
 
         @stage = new PIXI.Stage()
         # @renderer = new PIXI.CanvasRenderer @w, @h,
@@ -24,6 +29,8 @@ class InteractiveCanvas extends AbstractView
             resolution : window.devicePixelRatio
 
         @$el.append @renderer.view
+
+        @addLines()
 
         @bindEvents()
         @addShapes()
@@ -48,9 +55,12 @@ class InteractiveCanvas extends AbstractView
         @stage.addChild middle.sprite
         middle.animate()
 
+
         null
 
     update : =>
+        @updateLines()
+
         for shape in @shapes
             shape.update()
 
@@ -73,7 +83,33 @@ class InteractiveCanvas extends AbstractView
         requestAnimFrame @update
         null
 
+    addLines: =>
+        @linesObj = new PIXI.Graphics()
+        
+
+        @stage.addChild @linesObj
+
+        null
+
+    updateLines: ->
+        @linesObj.clear()
+
+
+        
+
+        for shape in @shapes
+            dist = NumUtil.distanceBetweenPoints shape.sprite.position, { x: @w/2, y: @h/2 }
+
+            # @linesObj.lineStyle( 1, "#rgba(0, 0, 0, {NumUtil.map dist, 0, 300, 1, .1 )})" )
+            @linesObj.lineStyle( .5, 0x000000, .1 )
+            @linesObj.moveTo(@w/2, @h/2);
+            @linesObj.lineTo( shape.sprite.x , shape.sprite.y);
+         
+        null
+
     render : =>
+
+
         @renderer.render @stage
         null
 
