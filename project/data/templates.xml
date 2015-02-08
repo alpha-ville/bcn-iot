@@ -44,17 +44,24 @@
             <div id="overlay-content" class="overlays overlay-content">
                 <div class="container">
                     <div class="container-shape">
-                        <div class='triangle'>
-                            <span class="ion-android-laptop" data-pack="default"></span>
+                        <div class='<%=shape%>'>
+                            <span class="<%=icon%>" data-pack="default"></span>
                         </div>
                     </div>
-                    <h1>SOUND DEVICES</h1>
-                    <p><%= content %></p>
+
+                    <h1><%=title%></h1>
+
+                    <div class="content">
+                        <p data-lang='en'><%= content_en %></p>
+                        <p data-lang='cat'><%= content_cat %></p>
+                    </div>
+
                     <ul class="lang-buttons">
                         <div class='shape'></div>
-                        <li data-selected>ENGLISH</li>
-                        <li>CATALAN</li>
+                        <li data-selected data-lang='en'>ENGLISH</li>
+                        <li data-lang='cat'>CATALAN</li>
                     </ul>
+
                     <% if (video) { %>
                     <div class="video-player">
                         <video id="video"
