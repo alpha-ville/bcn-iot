@@ -94,9 +94,6 @@ class InteractiveCanvas extends AbstractView
     updateLines: ->
         @linesObj.clear()
 
-
-        
-
         for shape in @shapes
             dist = NumUtil.distanceBetweenPoints shape.sprite.position, { x: @w/2, y: @h/2 }
 
