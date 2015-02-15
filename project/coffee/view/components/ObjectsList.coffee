@@ -12,6 +12,10 @@ class ObjectsList extends AbstractView
         super()
         null
 
+    animate : (delay) =>
+        margin = 30
+        TweenMax.to @$el, .5, 'margin-top' : margin, opacity: 1, delay: 1.2
+
     init : =>
         setTimeout =>
             @$el.slick

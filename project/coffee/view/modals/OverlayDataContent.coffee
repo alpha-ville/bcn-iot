@@ -13,8 +13,6 @@ class OverlayDataContent extends AbstractModal
 
     constructor : (@cb) ->
 
-        console.log (@B()[@B().selectedDataType])
-
         node = (@B()[@B().selectedDataType]).findWhere id : Number(@B().selectedDataId)
 
         @templateVars =
@@ -52,6 +50,30 @@ class OverlayDataContent extends AbstractModal
 
     init : =>
         @toggleLang()
+        @animate()
         null
+
+    animate : =>
+        margin = 30
+
+        c = $(@$el.find('.container-shape')[0])
+        TweenMax.to c, 0, scaleX: 0, scaleY: 0, delay: 0
+        TweenMax.to c, 1, scaleX: 1, scaleY: 1, ease: Back.easeOut.config(12), opacity: 1, delay: .5
+
+        t = $(@$el.find('.title-container')[0])
+        TweenMax.to t, .5, 'margin-top' : margin, opacity: 1, delay: 1
+
+        cont = $(@$el.find('.content')[0])
+        TweenMax.to cont, .5, 'margin-top' : margin, opacity: 1, delay: 1.2
+
+        bts = $(@$el.find('.lang-buttons')[0])
+        TweenMax.to bts, .5, 'margin-top' : margin, opacity: 1, delay: 1.5
+
+        bts = $(@$el.find('.lang-buttons')[0])
+        TweenMax.to bts, .5, 'margin-top' : margin, opacity: 1, delay: 1.8
+
+        null
+
+
 
 module.exports = OverlayDataContent
