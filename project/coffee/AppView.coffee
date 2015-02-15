@@ -83,7 +83,7 @@ class AppView extends AbstractView
         @onResize = _.debounce @onResize, 300
         @$window.on 'resize orientationchange', @onResize
 
-        @$window.on 'click', @showModalTest
+        @$body.on 'click', @showModalTest
 
         return
 
@@ -94,10 +94,6 @@ class AppView extends AbstractView
                 @clicks = 0
 
             when 0
-                @modalManager.showModal 'overlayDiagram'
-                @clicks = 1
-
-            when 1
                 @modalManager.showModal 'overlayContent'
                 @clicks = -1
 

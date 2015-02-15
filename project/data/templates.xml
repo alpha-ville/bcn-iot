@@ -39,6 +39,15 @@
         ]]>
     </template>
 
+  <!--   <template id="shape-breadcrumb">
+        <div class="center-piece">
+            <div class='<%=shape%>'>
+                <span class="<%=icon%>" data-pack="default"></span>
+            </div>
+            <div><%=blurb%></div>
+        </div>
+    </template> -->
+
     <template id="overlay-content">
         <![CDATA[
             <div id="overlay-content" class="overlays overlay-content">
@@ -49,7 +58,14 @@
                         </div>
                     </div>
 
-                    <h1><%=title%></h1>
+                    <div class="breadcrumbs">
+
+                    </div>
+
+                    <div class="title-container">
+                        <h1 data-lang='en'><%=title_en%></h1>
+                        <h1 data-lang='cat'><%=title_cat%></h1>
+                    </div>
 
                     <div class="content">
                         <p data-lang='en'><%= content_en %></p>
@@ -77,6 +93,8 @@
             </div>
         ]]>
     </template>
+
+
 
     <template id="overlay-diagram">
         <![CDATA[

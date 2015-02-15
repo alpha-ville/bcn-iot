@@ -1,11 +1,14 @@
-Analytics         = require './utils/Analytics'
-Share             = require './utils/Share'
-Templates         = require './data/Templates'
-Router            = require './router/Router'
-Nav               = require './router/Nav'
-AppView           = require './AppView'
-MediaQueries      = require './utils/MediaQueries'
-ObjectsCollection = require './collections/ObjectsCollection'
+Analytics            = require './utils/Analytics'
+Share                = require './utils/Share'
+Templates            = require './data/Templates'
+Router               = require './router/Router'
+Nav                  = require './router/Nav'
+AppView              = require './AppView'
+MediaQueries         = require './utils/MediaQueries'
+ObjectsCollection    = require './collections/ObjectsCollection'
+CategoriesCollection = require './collections/CategoriesCollection'
+DataSourceCollection = require './collections/DataSourceCollection'
+PurposeCollection    = require './collections/PurposeCollection'
 
 class App
 
@@ -35,7 +38,7 @@ class App
     objectComplete : =>
 
         @objReady++
-        @initApp() if @objReady >= 3
+        @initApp() if @objReady >= 5
 
         null
 
@@ -49,6 +52,16 @@ class App
 
         @templates = new Templates "/data/templates#{(if @LIVE then '.min' else '')}.xml", @objectComplete
         @analytics = new Analytics "/data/tracking.json", @objectComplete
+
+        @categories = new CategoriesCollection
+        @categories.fetch success : @objectComplete
+
+        @purposes = new PurposeCollection
+        @purposes.fetch success : @objectComplete
+
+        @dataSources = new DataSourceCollection
+        @dataSources.fetch success : @objectComplete
+
         @objects = new ObjectsCollection
         @objects.fetch success : @objectComplete
 
@@ -58,9 +71,12 @@ class App
 
     initApp : =>
 
+        console.log 'asdasd'
+
         @setFlags()
 
-        @selectedObjectId = "object3"
+        @selectedObjectId = "door_locks"
+        @breadcrumbs = []
         @langSelected = 'en'
 
         ### Starts application ###

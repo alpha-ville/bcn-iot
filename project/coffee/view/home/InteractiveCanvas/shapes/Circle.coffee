@@ -23,7 +23,7 @@ class Circle extends BasicShape
 
         @g.drawCircle 0, 0, @radius()
         null
-        
+
 
     animate : =>
         for i in [0...@lines.length]

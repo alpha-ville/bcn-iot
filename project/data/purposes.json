@@ -1,0 +1,47 @@
+[
+    {
+      "id": 1,
+      "type": "personal",
+      "name_en": "personal",
+      "name_cat": "",
+      "icon_id": "",
+      "copy_en": "",
+      "copy_cat": ""
+    },
+    {
+      "id": 2,
+      "type": "functional",
+      "name_en": "functional",
+      "name_cat": "",
+      "icon_id": "",
+      "copy_en": "",
+      "copy_cat": ""
+    },
+    {
+      "id": 3,
+      "type": "sustainability",
+      "name_en": "sustainability",
+      "name_cat": "",
+      "icon_id": "",
+      "copy_en": "",
+      "copy_cat": ""
+    },
+    {
+      "id": 4,
+      "type": "social",
+      "name_en": "social",
+      "name_cat": "",
+      "icon_id": "",
+      "copy_en": "",
+      "copy_cat": ""
+    },
+    {
+      "id": 5,
+      "type": "quality_excellence",
+      "name_en": "quality & excellence",
+      "name_cat": "",
+      "icon_id": "",
+      "copy_en": "",
+      "copy_cat": ""
+    }
+  ]

@@ -3,15 +3,16 @@ AbstractModel = require './AbstractModel'
 class ObjectModel extends AbstractModel
 
     defaults :
-        category    : null
-        object_id   : null
-        object_name : null
-        icon        : null
-        data_type   : null
-        value_type  : null
-        video       : null
-        image       : null
-        copy_en     : null
-        copy_cat    : null
+        id               : null
+        category         : null
+        name_en          : null
+        name_cat         : null
+        icon_id          : null
+        video            : null
+        video_titles_en  : null
+        video_titles_cat : null
+        image            : null
+        image_titles_en  : null
+        image_titles_cat : null
 
 module.exports = ObjectModel
