@@ -31,7 +31,7 @@ class App
 
         ua = window.navigator.userAgent.toLowerCase()
 
-        MediaQueries.setup();
+        MediaQueries.setup()
 
         @IS_ANDROID    = ua.indexOf('android') > -1
         @IS_FIREFOX    = ua.indexOf('firefox') > -1
@@ -96,7 +96,16 @@ class App
 
         null
 
-    selectObject     : (@selectedObjectId) => null
+    openOverlayContent : (@selectedObjectId) =>
+        @appView.modalManager.hideOpenModal()
+        @appView.modalManager.showModal 'overlayContent'
+        null
+
+    openOverlayData : () =>
+        @appView.modalManager.hideOpenModal()
+        @appView.modalManager.showModal 'overlayDataContent'
+        null
+
     selectSourceIDs  : (id) => @selectedSourceIds.push id
     selectPurposeIDs : (id) => @selectedPurposeIds.push id
     resetIDs         : =>

@@ -41,6 +41,7 @@ class OverlayContent extends AbstractModal
         return null
 
     closeButton : =>
+        @B().resetIDs()
         @B().appView.modalManager.hideOpenModal()
         null
 

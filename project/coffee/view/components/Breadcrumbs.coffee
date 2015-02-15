@@ -28,8 +28,7 @@ class Breadcrumbs extends AbstractView
         @B().selectedDataType = t.attr('data-type').toString()
         @B().selectedDataId = t.attr('data-id')
 
-        @B().appView.modalManager.hideOpenModal()
-        @B().appView.modalManager.showModal 'overlayDataContent'
+        @B().openOverlayData()
         null
 
 module.exports = Breadcrumbs
