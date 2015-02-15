@@ -1,12 +1,10 @@
 AbstractModal = require './AbstractModal'
-BreadCrumbs   = require '../components/BreadCrumbs'
 
-class OverlayContent extends AbstractModal
+class OverlayDataContent extends AbstractModal
 
-    name     : 'overlayContent'
-    template : 'overlay-content'
+    name     : 'overlayDataContent'
+    template : 'overlay-content-data'
     cb       : null
-    lang     : 'en'
 
     events:
         'click ul>li' : "toggleLang"
@@ -14,22 +12,16 @@ class OverlayContent extends AbstractModal
 
     constructor : (@cb) ->
 
-        node = @B().categories.findWhere category_name : @B().selectedObjectId
-
-        breadcrumbsList = []
-        breadcrumbsList.push @B().dataSources.findWhere id : i for i in @B().selectedSourceIds
-        breadcrumbsList.push @B().purposes.findWhere id : a for a in @B().selectedPurposeIds
-
-        @breadCrumbs = new BreadCrumbs breadcrumbsList
+        node = @B()[@B().selectedDataType].findWhere id : parseInt(@B().selectedDataId)
+        console.log node
 
         @templateVars =
             content_en  : node.get('copy_en')
             content_cat : node.get('copy_cat')
             title_en    : node.get('name_en').toUpperCase()
             title_cat   : node.get('name_cat').toUpperCase()
-            shape       : 'circle'
+            shape       : node.get('shape')
             icon        : node.get('icon_id')
-            video       : null
 
         super()
 
@@ -51,13 +43,8 @@ class OverlayContent extends AbstractModal
 
         null
 
-    changeContent : =>
-
-
     init : =>
         @toggleLang()
-        @$el.find('.breadcrumbs').append @breadCrumbs.$el
-
         null
 
-module.exports = OverlayContent
+module.exports = OverlayDataContent

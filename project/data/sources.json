@@ -4,49 +4,49 @@
     "shape": "triangle",
     "type": "personal_data",
     "name_en": "personal data",
-    "name_cat": "",
+    "name_cat": "personal data catalan",
     "icon_id": "ion-ios-cloud-upload-outline",
-    "copy_en": "",
-    "copy_cat": ""
+    "copy_en": "data source 1 english",
+    "copy_cat": "data source 1 catalan"
   },
   {
     "id": 2,
     "shape": "triangle",
     "type": "enterprise_data",
     "name_en": "enterprise data",
-    "name_cat": "",
+    "name_cat": "enterprise data catalan",
     "icon_id": "ion-ios-cloud-upload-outline",
-    "copy_en": "",
-    "copy_cat": ""
+    "copy_en": "data source 2 english",
+    "copy_cat": "data source 2 catalan"
   },
   {
     "id": 3,
     "shape": "triangle",
     "type": "environmental_data",
     "name_en": "environmental data",
-    "name_cat": "",
+    "name_cat": "environmental data catalan",
     "icon_id": "ion-ios-cloud-upload-outline",
-    "copy_en": "",
-    "copy_cat": ""
+    "copy_en": "data source 3 english",
+    "copy_cat": "data source 3 catalan"
   },
   {
     "id": 4,
     "shape": "triangle",
     "type": "social_data",
     "name_en": "social data",
-    "name_cat": "",
+    "name_cat": "social data catalan",
     "icon_id": "ion-ios-cloud-upload-outline",
-    "copy_en": "",
-    "copy_cat": ""
+    "copy_en": "data source 4 english",
+    "copy_cat": "data source 4 catalan"
   },
   {
     "id": 5,
     "shape": "triangle",
     "type": "public_data",
     "name_en": "public data",
-    "name_cat": "",
+    "name_cat": "public data catalan",
     "icon_id": "ion-ios-cloud-upload-outline",
-    "copy_en": "",
-    "copy_cat": ""
+    "copy_en": "data source 5 english",
+    "copy_cat": "data source 5 catalan"
   }
 ]
