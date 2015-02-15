@@ -9,8 +9,8 @@ gulp.task('images', function() {
 
   return gulp.src(pkg.folders.src+'/img/**')
     .pipe(changed(dest))
-    // .pipe(imagemin({
-    //     use: [pngcrush()]
-    // }))
+    .pipe(imagemin({
+        use: [pngcrush()]
+    }))
     .pipe(gulp.dest(dest));
 });
