@@ -7,6 +7,8 @@ class Circle extends BasicShape
 
     init : =>
 
+        super()
+
         @lines = []
 
         for i in [0...2]
@@ -21,6 +23,7 @@ class Circle extends BasicShape
 
         @g.drawCircle 0, 0, @radius()
         null
+        
 
     animate : =>
         for i in [0...@lines.length]

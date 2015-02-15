@@ -1,8 +1,9 @@
-AbstractView = require '../AbstractView'
-Circle       = require '../shapes/Circle'
-Triangle     = require '../shapes/Triangle'
-Square       = require '../shapes/Square'
-NumUtil      = require('../../utils/NumUtil.coffee');
+AbstractView    = require '../../AbstractView'
+Scene           = require('./Scene.coffee');
+Circle          = require './shapes/Circle'
+Triangle        = require './shapes/Triangle'
+Square          = require('./shapes/Square.coffee');
+NumUtil         = require('../../../utils/NumUtil.coffee');
  
 class InteractiveCanvas extends AbstractView
 
@@ -12,25 +13,23 @@ class InteractiveCanvas extends AbstractView
     linesObj: null
     linesAlphaScale: 0
 
+    scene: null
+
+    deltaTime: 0
+    lastTime: Date.now()
+
+
     init : =>
 
         PIXI.dontSayHello = true
         @w = window.innerWidth / window.devicePixelRatio
         @h = window.innerHeight / window.devicePixelRatio
 
+        @scene = new Scene({
+            container: @$el[0]
+        })
+
         @shapes = []
-        
-
-        @stage = new PIXI.Stage()
-        # @renderer = new PIXI.CanvasRenderer @w, @h,
-        @renderer = PIXI.autoDetectRecommendedRenderer @w, @h,
-            antialias : true
-            transparent : true
-            resolution : window.devicePixelRatio
-
-        @$el.append @renderer.view
-
-        @addLines()
 
         @bindEvents()
         @addShapes()
@@ -45,41 +44,48 @@ class InteractiveCanvas extends AbstractView
             "square"   : Square
 
         @B().objects.each (data) =>
-            o = new objs[data.get('data_type').toLowerCase()](data)
-            o.move _.random(@w), _.random(@h)
-            @shapes.push( o )
-            @stage.addChild o.sprite
+            size = _.random(10, 60)
+            object = new objs[data.get('data_type').toLowerCase()](data, size, @scene)
+            object.move _.random(@w), _.random(@h)
+            @shapes.push( object )
+            @scene.addChild object.sprite
 
-        middle = new Circle null, 120 / window.devicePixelRatio
+
+        middle = new Circle null, 120, @scene
         middle.move @w/2, @h/2
-        @stage.addChild middle.sprite
+        @scene.addChild middle.sprite
         middle.animate()
 
 
         null
 
     update : =>
-        @updateLines()
+        @deltaTime = Date.now() - @lastTime
+        @lastTime = Date.now()
+
+        # @updateLines()
 
         for shape in @shapes
             shape.update()
 
             # behavior on bounds
-            if ( shape.sprite.x > @w + shape.w )
-                shape.sprite.x = 0 - shape.w
-                shape.sprite.y = Math.random() * @h
-            else if ( shape.sprite.x < 0 - shape.w )
-                shape.sprite.x = @w + shape.w
-                shape.sprite.y = Math.random() * @h
+            # if ( shape.sprite.x > @w + shape.w )
+            #     shape.sprite.x = 0 - shape.w
+            #     shape.sprite.y = Math.random() * @h
+            # else if ( shape.sprite.x < 0 - shape.w )
+            #     shape.sprite.x = @w + shape.w
+            #     shape.sprite.y = Math.random() * @h
 
-            if ( shape.sprite.y > @h + shape.h )
-                shape.sprite.y = 0 - shape.h
-                shape.sprite.x = Math.random() * @w
-            else if ( shape.sprite.y < 0 - shape.h )
-                shape.sprite.y = @h + shape.h
-                shape.sprite.x = Math.random() * @w
+            # if ( shape.sprite.y > @h + shape.h )
+            #     shape.sprite.y = 0 - shape.h
+            #     shape.sprite.x = Math.random() * @w
+            # else if ( shape.sprite.y < 0 - shape.h )
+            #     shape.sprite.y = @h + shape.h
+            #     shape.sprite.x = Math.random() * @w
 
+        
         @render()
+
         requestAnimFrame @update
         null
 
@@ -87,7 +93,7 @@ class InteractiveCanvas extends AbstractView
         @linesObj = new PIXI.Graphics()
         
 
-        @stage.addChild @linesObj
+        @scene.addChild @linesObj
 
         null
 
@@ -105,12 +111,14 @@ class InteractiveCanvas extends AbstractView
         null
 
     render : =>
+        @scene.render()
 
-
-        @renderer.render @stage
         null
 
     bindEvents : =>
+        #temporary
+        window.addEventListener('keyup', @onKeyup)
+
         @B().appView.on @B().appView.EVENT_UPDATE_DIMENSIONS, @setDims
 
         # @$window.on 'resize orientationchange', @onResize
@@ -132,6 +140,12 @@ class InteractiveCanvas extends AbstractView
 
     onResize: () =>
         console.log @
+        null
+
+
+    onKeyup: ( evt ) =>
+        if evt.keyCode != 32 then return
+
         null
 
 module.exports = InteractiveCanvas

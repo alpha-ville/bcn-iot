@@ -1,5 +1,5 @@
 AbstractViewPage = require '../AbstractViewPage'
-InteractiveCanvas = require './InteractiveCanvas'
+InteractiveCanvas = require('./InteractiveCanvas/InteractiveCanvas.coffee');
 
 class HomeView extends AbstractViewPage
 
