@@ -1,4 +1,5 @@
 AbstractModal = require './AbstractModal'
+BreadCrumbs   = require '../components/BreadCrumbs'
 
 class OverlayContent extends AbstractModal
 
@@ -13,15 +14,22 @@ class OverlayContent extends AbstractModal
 
     constructor : (@cb) ->
 
-        node = (@B().objects.where object_id : @B().selectedObjectId)[0]
+        node = @B().categories.findWhere category_name : @B().selectedObjectId
+
+        breadcrumbsList = []
+        breadcrumbsList.push @B().dataSources.findWhere id : i for i in @B().selectedSourceIds
+        breadcrumbsList.push @B().purposes.findWhere id : a for a in @B().selectedPurposeIds
+
+        @breadCrumbs = new BreadCrumbs breadcrumbsList
 
         @templateVars =
             content_en  : node.get('copy_en')
             content_cat : node.get('copy_cat')
-            video       : node.get('video')
-            shape       : node.get('data_type').toLowerCase()
-            icon        : node.get('icon')
-            title       : node.get('value_type').toUpperCase()
+            title_en    : node.get('name_en').toUpperCase()
+            title_cat   : node.get('name_cat').toUpperCase()
+            shape       : 'circle'
+            icon        : node.get('icon_id')
+            video       : null
 
         super()
 
@@ -37,7 +45,7 @@ class OverlayContent extends AbstractModal
         else
             $(@$el.find('li[data-lang="' + @B().langSelected + '"]')).attr 'data-selected', true
 
-        @$el.find('.content p').each (a, b) =>
+        @$el.find('[data-lang]').not("li").each (a, b) =>
             $(b).css
                 display : if $(b).attr('data-lang') is @B().langSelected then 'block' else 'none'
 
@@ -45,6 +53,8 @@ class OverlayContent extends AbstractModal
 
     init : =>
         @toggleLang()
+        @$el.find('.breadcrumbs').append @breadCrumbs.$el
+
         null
 
 module.exports = OverlayContent

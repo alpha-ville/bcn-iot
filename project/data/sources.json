@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "shape": "triangle",
+    "type": "personal_data",
+    "name_en": "personal data",
+    "name_cat": "",
+    "icon_id": "ion-ios-cloud-upload-outline",
+    "copy_en": "",
+    "copy_cat": ""
+  },
+  {
+    "id": 2,
+    "shape": "triangle",
+    "type": "enterprise_data",
+    "name_en": "enterprise data",
+    "name_cat": "",
+    "icon_id": "ion-ios-cloud-upload-outline",
+    "copy_en": "",
+    "copy_cat": ""
+  },
+  {
+    "id": 3,
+    "shape": "triangle",
+    "type": "environmental_data",
+    "name_en": "environmental data",
+    "name_cat": "",
+    "icon_id": "ion-ios-cloud-upload-outline",
+    "copy_en": "",
+    "copy_cat": ""
+  },
+  {
+    "id": 4,
+    "shape": "triangle",
+    "type": "social_data",
+    "name_en": "social data",
+    "name_cat": "",
+    "icon_id": "ion-ios-cloud-upload-outline",
+    "copy_en": "",
+    "copy_cat": ""
+  },
+  {
+    "id": 5,
+    "shape": "triangle",
+    "type": "public_data",
+    "name_en": "public data",
+    "name_cat": "",
+    "icon_id": "ion-ios-cloud-upload-outline",
+    "copy_en": "",
+    "copy_cat": ""
+  }
+]

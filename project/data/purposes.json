@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "shape": "square",
+    "type": "personal",
+    "name_en": "personal",
+    "name_cat": "",
+    "icon_id": "ion-cash",
+    "copy_en": "",
+    "copy_cat": ""
+  },
+  {
+    "id": 2,
+    "shape": "square",
+    "type": "functional",
+    "name_en": "functional",
+    "name_cat": "",
+    "icon_id": "ion-cash",
+    "copy_en": "",
+    "copy_cat": ""
+  },
+  {
+    "id": 3,
+    "shape": "square",
+    "type": "sustainability",
+    "name_en": "sustainability",
+    "name_cat": "",
+    "icon_id": "ion-cash",
+    "copy_en": "",
+    "copy_cat": ""
+  },
+  {
+    "id": 4,
+    "shape": "square",
+    "type": "social",
+    "name_en": "social",
+    "name_cat": "",
+    "icon_id": "ion-cash",
+    "copy_en": "",
+    "copy_cat": ""
+  },
+  {
+    "id": 5,
+    "shape": "square",
+    "type": "quality_excellence",
+    "name_en": "quality & excellence",
+    "name_cat": "",
+    "icon_id": "ion-cash",
+    "copy_en": "",
+    "copy_cat": ""
+  }
+]
