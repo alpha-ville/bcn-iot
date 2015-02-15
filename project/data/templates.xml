@@ -62,10 +62,14 @@
         <div class="object-list-container">
             <% _.each(projects, function(object) { %>
                 <div class="carousel-item">
-                    <video id="video" controls preload="auto" width="624" height="350" poster="<%= path + object.get('video') %>.jpg">
-                         <source src="<%= path + object.get('video') %>.mp4" type='video/mp4' />
-                         <source src="<%= path + object.get('video') %>.ogg" type='video/ogg' />
-                    </video>
+                    <% if(object.get('video') != "") { %>
+                        <video id="video" controls preload="auto" width="624" height="350" poster="<%= path + object.get('video') %>.jpg">
+                             <source src="<%= path + object.get('video') %>.mp4" type='video/mp4' />
+                             <source src="<%= path + object.get('video') %>.ogg" type='video/ogg' />
+                        </video>
+                    <% } else { %>
+                        <img width="624" height="350" src="<%= path + object.get('image') %>.jpg">
+                    <% } %>
                 </div>
             <% }) %>
         </div>
