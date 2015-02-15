@@ -23,6 +23,8 @@ class BasicShape
     distanceToTargetMax : 0
     speedScale : 0
 
+    behavior : 'target'
+
 
     constructor : (@config, size, scene) ->
         @id = String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Date.now()
@@ -65,44 +67,42 @@ class BasicShape
 
         null
 
+
     init : =>
         console.log 'override this'
 
-    initPhysics : =>
-        console.log 'override this'
 
     animate : =>
         null
+
 
     update: ->
         # -----------------
         # Basic behavior, apply constant force
         # -----------------
-        # @applyForce @vel
-
-
+        if @behavior == 'basic'
+            @applyForce @vel
 
         # -----------------
         # vibrate behavior
         # -----------------
-
-        # randVelX = (( Math.random() * ( @vel.x * 2 ) ) - @vel.x )
-        # randVelY = (( Math.random() * ( @vel.y * 2 ) ) - @vel.y )
-        # @sprite.x += randVelX
-        # @sprite.y += randVelY
-
+        else if @behavior == 'vibrate'
+            randVelX = (( Math.random() * ( @vel.x * 2 ) ) - @vel.x )
+            randVelY = (( Math.random() * ( @vel.y * 2 ) ) - @vel.y )
+            @sprite.x += randVelX
+            @sprite.y += randVelY
 
         # -----------------
         # go to location behavior
         # -----------------
-        distanceToTarget = NumUtil.distanceBetweenPoints( {x: @toX, y: @toY}, {x: @sprite.x, y: @sprite.y} )
+        else if @behavior == 'target'
+            distanceToTarget = NumUtil.distanceBetweenPoints( {x: @toX, y: @toY}, {x: @sprite.x, y: @sprite.y} )
 
-        if distanceToTarget < @distanceToTargetMax
-            # console.log @toX, @toY
-            @setBehaviorProps()
+            if distanceToTarget < @distanceToTargetMax
+                @setBehaviorProps()
 
-        @sprite.position.x += @speedScale * ( @toX - @sprite.position.x) * .005 
-        @sprite.position.y += @speedScale * ( @toY - @sprite.position.y) * .005 
+            @sprite.position.x += @speedScale * ( @toX - @sprite.position.x) * .005 
+            @sprite.position.y += @speedScale * ( @toY - @sprite.position.y) * .005 
         
 
         @sprite.rotation += @velRot
@@ -111,7 +111,7 @@ class BasicShape
 
     setBehaviorProps: ->
         @distanceToTargetMax = 10 + Math.floor Math.random() * 50
-        @speedScale = Math.random()
+        @speedScale = Math.random() * 2
         if @speedScale < .3 then @speedScale += Math.random() * .7
         @toX = (Math.floor Math.random() * window.innerWidth) #/ window.devicePixelRatio;
         @toY = (Math.floor Math.random() * window.innerHeight) #/ window.devicePixelRatio;

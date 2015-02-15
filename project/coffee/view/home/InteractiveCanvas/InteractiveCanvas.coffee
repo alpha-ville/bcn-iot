@@ -4,11 +4,13 @@ Circle          = require './shapes/Circle'
 Triangle        = require './shapes/Triangle'
 Square          = require('./shapes/Square.coffee');
 NumUtil         = require('../../../utils/NumUtil.coffee');
+NodeShape       = require('./shapes/NodeShape.coffee');
  
 class InteractiveCanvas extends AbstractView
 
     template : 'interactive-element'
     shapes   : null
+    gardenNodes: null
 
     linesObj: null
     linesAlphaScale: 0
@@ -30,10 +32,25 @@ class InteractiveCanvas extends AbstractView
         })
 
         @shapes = []
+        @gardenNodes = []
 
         @bindEvents()
+
+        @addLines()
+        @addGardenNodes()
         @addShapes()
+
         @update()
+        null
+
+    addGardenNodes: ->
+        for i in [ 0 ... 100 ]
+            node = new NodeShape( null, 1.5, @scene )
+            node.move _.random(@w), _.random(@h)
+            node.behavior = 'basic'
+            @gardenNodes.push( node )
+            @scene.addChild( node.sprite )
+
         null
 
     addShapes : =>
@@ -63,25 +80,26 @@ class InteractiveCanvas extends AbstractView
         @deltaTime = Date.now() - @lastTime
         @lastTime = Date.now()
 
-        # @updateLines()
+        @updateLines()
+
+        for node in @gardenNodes
+            node.update()
+
+            #behavior on bounds
+            if ( node.sprite.x > ( @w * window.devicePixelRatio ) + node.w )
+                node.sprite.x = 0 - node.w
+            else if ( node.sprite.x < 0 - node.w )
+                node.sprite.x = ( @w * window.devicePixelRatio ) + node.w
+
+            if ( node.sprite.y > ( @h * window.devicePixelRatio ) + node.h )
+                node.sprite.y = 0 - node.h
+            else if ( node.sprite.y < 0 - node.h )
+                node.sprite.y = ( @h * window.devicePixelRatio ) + node.h
 
         for shape in @shapes
             shape.update()
 
-            # behavior on bounds
-            # if ( shape.sprite.x > @w + shape.w )
-            #     shape.sprite.x = 0 - shape.w
-            #     shape.sprite.y = Math.random() * @h
-            # else if ( shape.sprite.x < 0 - shape.w )
-            #     shape.sprite.x = @w + shape.w
-            #     shape.sprite.y = Math.random() * @h
-
-            # if ( shape.sprite.y > @h + shape.h )
-            #     shape.sprite.y = 0 - shape.h
-            #     shape.sprite.x = Math.random() * @w
-            # else if ( shape.sprite.y < 0 - shape.h )
-            #     shape.sprite.y = @h + shape.h
-            #     shape.sprite.x = Math.random() * @w
+            
 
         
         @render()
@@ -100,13 +118,17 @@ class InteractiveCanvas extends AbstractView
     updateLines: ->
         @linesObj.clear()
 
-        for shape in @shapes
-            dist = NumUtil.distanceBetweenPoints shape.sprite.position, { x: @w/2, y: @h/2 }
+        for node in @gardenNodes
+            
+            for node2 in @gardenNodes
 
-            # @linesObj.lineStyle( 1, "#rgba(0, 0, 0, {NumUtil.map dist, 0, 300, 1, .1 )})" )
-            @linesObj.lineStyle( .5, 0x000000, NumUtil.map(dist, 0, 300, 1, .1) )
-            @linesObj.moveTo(@w/2, @h/2);
-            @linesObj.lineTo( shape.sprite.x , shape.sprite.y);
+                dist = NumUtil.distanceBetweenPoints node.sprite.position, node2.sprite.position
+
+                if dist < 100
+                    @linesObj.lineStyle( 1, node2.color, NumUtil.map(dist, 0, 100, .3, 0) )
+                    @linesObj.moveTo( node2.sprite.position.x, node2.sprite.position.y );
+                    @linesObj.lineTo( node.sprite.x , node.sprite.y);
+                
          
         null
 

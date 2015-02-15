@@ -8,7 +8,7 @@ class Scene
   stage: null
   renderer: null
 
-  backgroundColor: 0xffffff
+  backgroundColor: 0x000000
 
   camera: null
 
