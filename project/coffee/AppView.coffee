@@ -86,15 +86,7 @@ class AppView extends AbstractView
         return
 
     showModalTest :=>
-        switch @clicks
-            when -1
-                @modalManager.hideOpenModal()
-                @clicks = 0
-
-            when 0
-                @modalManager.showModal 'overlayContent'
-                @clicks = -1
-
+        @modalManager.showModal 'overlayContent'
         null
 
     onAllRendered : =>
