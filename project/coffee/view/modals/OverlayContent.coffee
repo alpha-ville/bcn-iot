@@ -1,5 +1,5 @@
 AbstractModal = require './AbstractModal'
-BreadCrumbs   = require '../components/BreadCrumbs'
+BreadCrumbs   = require '../components/Breadcrumbs'
 ObjectsList   = require '../components/ObjectsList'
 
 class OverlayContent extends AbstractModal
