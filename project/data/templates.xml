@@ -39,27 +39,37 @@
         ]]>
     </template>
 
-  <!--   <template id="shape-breadcrumb">
-        <div class="center-piece">
-            <div class='<%=shape%>'>
-                <span class="<%=icon%>" data-pack="default"></span>
+  <template id="breadcrumbs">
+    <![CDATA[
+        <% _.each(list, function(data){ %>
+            <div>
+                <div class='<%=data.get('shape')%>'>
+                    <span class="<%=data.get('icon_id')%>" data-pack="default"></span>
+                </div>
+
+                <div class="name-container">
+                    <p data-lang='en'><%= data.get('name_en') %></p>
+                    <p data-lang='cat'><%= data.get('name_cat') %></p>
+                </div>
+
             </div>
-            <div><%=blurb%></div>
-        </div>
-    </template> -->
+        <% }) %>
+    ]]>
+  </template>
 
     <template id="overlay-content">
         <![CDATA[
             <div id="overlay-content" class="overlays overlay-content">
                 <div class="container">
+
+                    <div class="breadcrumbs">
+
+                    </div>
+
                     <div class="container-shape">
                         <div class='<%=shape%>'>
                             <span class="<%=icon%>" data-pack="default"></span>
                         </div>
-                    </div>
-
-                    <div class="breadcrumbs">
-
                     </div>
 
                     <div class="title-container">

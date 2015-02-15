@@ -111,7 +111,7 @@
     visibility: hidden;
     opacity: 0;
     display: table;
-    
+
 
     &.overlay-content
     {
@@ -167,12 +167,73 @@
             text-align: center;
             display: table-cell;
             vertical-align: middle;
-        }
 
-        .container-shape
-        {
-            width: $size-shape;
-            margin: 0 auto;
+            .container-shape
+            {
+                width: 120px;
+                margin: 0 auto;
+                @include rem-fallback(margin-top, 3);
+            }
+
+            .breadcrumbs
+            {
+                $size-shape : 40px;
+                $icon-size : 20px;
+
+                display: inline;
+
+                &>div
+                {
+                    display: inline-block;
+                    padding: 5px;
+                }
+
+                .name-container
+                {
+                    display: none;
+                }
+
+                span
+                {
+                    position: relative;
+                    font-size: $icon-size;
+                    color: white;
+                    top: ($size-shape / 2) - $icon-size / 2;
+                }
+
+                .triangle
+                {
+                    width: 0;
+                    height: 0;
+                    border-left: ($size-shape/2) solid transparent;
+                    border-right: ($size-shape/2) solid transparent;
+                    border-bottom: $size-shape * (sqrt(3)/2) solid $blue-alpha;
+                    span
+                    {
+                        top: $size-shape / 4;
+                        left: -$size-shape / 4.4;
+                    }
+                }
+
+                .square
+                {
+                    width: $size-shape * .9;
+                    height: $size-shape * .9;
+                    background-color: $yellow-alpha;
+                    span
+                    {
+                        top: ($size-shape / 1.65) - ($icon-size);
+                    }
+                }
+
+                .circle
+                {
+                    width: $size-shape;
+                    height: $size-shape;
+                    border-radius: 100%;
+                    background-color: $red-alpha;
+                }
+            }
         }
 
         $margin : 3;

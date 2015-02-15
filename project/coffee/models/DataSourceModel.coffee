@@ -4,6 +4,7 @@ class DataSourceModel extends AbstractModel
 
     defaults :
         id       : null
+        shape    : null
         type     : null
         name_en  : null
         name_cat : null

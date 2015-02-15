@@ -1,4 +1,5 @@
 AbstractModal = require './AbstractModal'
+BreadCrumbs   = require '../components/BreadCrumbs'
 
 class OverlayContent extends AbstractModal
 
@@ -13,8 +14,13 @@ class OverlayContent extends AbstractModal
 
     constructor : (@cb) ->
 
-        node = (@B().categories.where category_name : @B().selectedObjectId)[0]
-        breadcrumbs = @B().breadcrumbs
+        node = @B().categories.findWhere category_name : @B().selectedObjectId
+
+        breadcrumbsList = []
+        breadcrumbsList.push @B().dataSources.findWhere id : i for i in @B().selectedSourceIds
+        breadcrumbsList.push @B().purposes.findWhere id : a for a in @B().selectedPurposeIds
+
+        @breadCrumbs = new BreadCrumbs breadcrumbsList
 
         @templateVars =
             content_en  : node.get('copy_en')
@@ -47,6 +53,8 @@ class OverlayContent extends AbstractModal
 
     init : =>
         @toggleLang()
+        @$el.find('.breadcrumbs').append @breadCrumbs.$el
+
         null
 
 module.exports = OverlayContent

@@ -71,12 +71,11 @@ class App
 
     initApp : =>
 
-        console.log 'asdasd'
-
         @setFlags()
 
         @selectedObjectId = "door_locks"
-        @breadcrumbs = []
+        @selectedSourceIds = [1, 5, 4]
+        @selectedPurposeIds = [2, 3]
         @langSelected = 'en'
 
         ### Starts application ###
@@ -88,6 +87,16 @@ class App
         @go()
 
         null
+
+    selectObject     : (@selectedObjectId) => null
+    selectSourceIDs  : (id) => @selectedSourceIds.push id
+    selectPurposeIDs : (id) => @selectedPurposeIds.push id
+    resetIDs         : =>
+        @selectedObjectId = ""
+        @selectedSourceIds = []
+        @selectedPurposeIds = []
+        @langSelected = 'en'
+
 
     go : =>
 
