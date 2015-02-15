@@ -12,10 +12,14 @@ PurposeCollection    = require './collections/PurposeCollection'
 
 class App
 
-    LIVE       : null
-    BASE_PATH  : window.config.hostname
-    localeCode : window.config.localeCode
-    objReady   : 0
+    LIVE        : null
+    BASE_PATH   : window.config.hostname
+    localeCode  : window.config.localeCode
+    objReady    : 0
+    purposes    : null
+    dataSources : null
+    objects     : null
+    categories  : null
 
     _toClean   : ['objReady', 'setFlags', 'objectComplete', 'init', 'initObjects', 'initSDKs', 'initApp', 'go', 'cleanup', '_toClean']
 

@@ -13,7 +13,9 @@ class OverlayDataContent extends AbstractModal
 
     constructor : (@cb) ->
 
-        node = @B()[@B().selectedDataType].findWhere id : parseInt(@B().selectedDataId)
+        console.log (@B()[@B().selectedDataType])
+
+        node = (@B()[@B().selectedDataType]).findWhere id : Number(@B().selectedDataId)
 
         @templateVars =
             content_en  : node.get('copy_en')

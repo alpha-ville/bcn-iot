@@ -18,7 +18,7 @@ class Breadcrumbs extends AbstractView
 
     clickBreadcrumb: (e) =>
         t = $(e.currentTarget)
-        @B().selectedDataType = t.attr('data-type')
+        @B().selectedDataType = t.attr('data-type').toString()
         @B().selectedDataId = t.attr('data-id')
 
         @B().appView.modalManager.hideOpenModal()

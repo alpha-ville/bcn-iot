@@ -42,7 +42,7 @@
   <template id="breadcrumbs">
     <![CDATA[
         <% _.each(list, function(data){ %>
-            <div class="breadcrumbItem" data-id="<%=data.get('id')%>" data-type="<%= (data.get('shape') == 'triangle' ? 'purposes' : 'dataSources') %>">
+            <div class="breadcrumbItem" data-id="<%=data.get('id')%>" data-type="<%= (data.get('shape') == 'square' ? 'purposes' : 'dataSources') %>">
                 <div class='<%=data.get('shape')%>'>
                     <span class="<%=data.get('icon_id')%>" data-pack="default"></span>
                 </div>
