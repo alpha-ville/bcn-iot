@@ -38,6 +38,9 @@
 
 @import 'core/core';
 
+@import 'slick/slick';
+@import 'slick/slick-theme';
+
 /*
  * VIEWS
  */
@@ -111,8 +114,13 @@
     visibility: hidden;
     opacity: 0;
     display: table;
-    display: none;
 
+    .object-list-container
+    {
+        max-width: 1020px;
+        margin: 0 auto;
+        @include rem-fallback(margin-top, 3);
+    }
 
     &.overlay-content
     {

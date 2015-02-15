@@ -57,6 +57,21 @@
     ]]>
   </template>
 
+  <template id="objects-list">
+    <![CDATA[
+        <div class="object-list-container">
+            <% _.each(projects, function(object) { %>
+                <div class="carousel-item">
+                    <video id="video" controls preload="auto" width="624" height="350" poster="<%= path + object.get('video') %>.jpg">
+                         <source src="<%= path + object.get('video') %>.mp4" type='video/mp4' />
+                         <source src="<%= path + object.get('video') %>.ogg" type='video/ogg' />
+                    </video>
+                </div>
+            <% }) %>
+        </div>
+    ]]>
+    </template>
+
     <template id="overlay-content">
         <![CDATA[
             <div id="overlay-content" class="overlays overlay-content">
@@ -88,17 +103,6 @@
                         <li data-lang='cat'>CATALAN</li>
                     </ul>
 
-                    <% if (video) { %>
-                    <div class="video-player">
-                        <video id="video"
-                          controls preload="auto" width="624" height="350"
-                          poster="<%=video%>.jpg">
-                         <source src="<%=video%>.mp4" type='video/mp4' />
-                         <source src="<%=video%>.ogg" type='video/ogg' />
-                         Your browser does not support the video tag.
-                        </video>
-                    </div>
-                    <% } %>
                 </div>
             </div>
         ]]>

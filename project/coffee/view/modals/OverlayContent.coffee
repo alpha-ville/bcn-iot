@@ -1,5 +1,6 @@
 AbstractModal = require './AbstractModal'
 BreadCrumbs   = require '../components/BreadCrumbs'
+ObjectsList   = require '../components/ObjectsList'
 
 class OverlayContent extends AbstractModal
 
@@ -23,6 +24,7 @@ class OverlayContent extends AbstractModal
         @breadCrumbs = new BreadCrumbs breadcrumbsList
 
         objects = @B().objects.where "category" : node.get('category_name')
+        @objectCarosel = new ObjectsList objects
 
         @templateVars =
             content_en  : node.get('copy_en')
@@ -31,7 +33,6 @@ class OverlayContent extends AbstractModal
             title_cat   : node.get('name_cat').toUpperCase()
             shape       : 'circle'
             icon        : node.get('icon_id')
-            video       : null
 
         super()
 
@@ -59,6 +60,7 @@ class OverlayContent extends AbstractModal
     init : =>
         @toggleLang()
         @$el.find('.breadcrumbs').append @breadCrumbs.$el
+        @$el.find('.container').append @objectCarosel.$el
 
         null
 

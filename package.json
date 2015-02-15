@@ -74,6 +74,7 @@
     "easepack": "EasePack.js",
     "pixi": "pixi.js",
     "matter": "matter-0.8.0.min.js",
+    "slick" : "slick.min.js",
     "script": "script.js"
   },
   "dependencies": {

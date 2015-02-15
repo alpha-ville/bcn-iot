@@ -35,7 +35,7 @@ class BasicShape
 
         @w = size
         @h = size
-        @mass = size 
+        @mass = size
         @acc = Math.random()
         # config =
             # category : null
@@ -70,7 +70,7 @@ class BasicShape
 
 
     init : =>
-        console.log 'override this'
+        # console.log 'override this'
 
 
     animate : =>
@@ -102,9 +102,9 @@ class BasicShape
             if distanceToTarget < @distanceToTargetMax
                 @setBehaviorProps()
 
-            @sprite.position.x += @speedScale * ( @toX - @sprite.position.x) * .005 
-            @sprite.position.y += @speedScale * ( @toY - @sprite.position.y) * .005 
-        
+            @sprite.position.x += @speedScale * ( @toX - @sprite.position.x) * .005
+            @sprite.position.y += @speedScale * ( @toY - @sprite.position.y) * .005
+
 
         @sprite.rotation += @velRot
 
@@ -130,15 +130,15 @@ class BasicShape
 
     # getAttractionForce: ->
 
-    #     force = 
+    #     force =
     #         x: @toX - @sprite.position.x
     #         x: @toY - @sprite.position.y
-        
+
     #     distance = force.mag();
     #     force.normalize();
     #       float strength = (G * mass * m.mass) / (distance * distance);
     #       force.mult(strength);
-         
+
     #     Return the force so that it can be applied!
     #       return force;
 
