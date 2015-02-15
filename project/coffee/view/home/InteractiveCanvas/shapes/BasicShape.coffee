@@ -50,6 +50,7 @@ class BasicShape
             # copy_cat: null
 
         @sprite = new PIXI.Sprite()
+        @sprite.alpha = .7
 
         @g = new PIXI.Graphics()
         @g.beginFill @color

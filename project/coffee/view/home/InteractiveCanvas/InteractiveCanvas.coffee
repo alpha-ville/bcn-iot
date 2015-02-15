@@ -1,5 +1,6 @@
 AbstractView    = require '../../AbstractView'
 Scene           = require('./Scene.coffee');
+CentralButton   = require('./shapes/CentralButton.coffee');
 Circle          = require './shapes/Circle'
 Triangle        = require './shapes/Triangle'
 Square          = require('./shapes/Square.coffee');
@@ -60,18 +61,38 @@ class InteractiveCanvas extends AbstractView
             "triangle" : Triangle
             "square"   : Square
 
-        @B().objects.each (data) =>
+        # circles
+        @B().categories.each (data) =>
+            # console.log data
             size = _.random(10, 60)
-            object = new objs[data.get('data_type').toLowerCase()](data, size, @scene)
+            object = new Circle(data, size, @scene)
+            object.move _.random(@w), _.random(@h)
+            @shapes.push( object )
+            @scene.addChild object.sprite
+
+         # triangles
+        @B().purposes.each (data) =>
+            # console.log data
+            size = _.random(10, 60)
+            object = new Triangle(data, size, @scene)
+            object.move _.random(@w), _.random(@h)
+            @shapes.push( object )
+            @scene.addChild object.sprite
+
+         # triangles
+        @B().dataSources.each (data) =>
+            # console.log data
+            size = _.random(10, 60)
+            object = new Square(data, size, @scene)
             object.move _.random(@w), _.random(@h)
             @shapes.push( object )
             @scene.addChild object.sprite
 
 
-        middle = new Circle null, 120, @scene
-        middle.move @w/2, @h/2
-        @scene.addChild middle.sprite
-        middle.animate()
+        @centralButton = new CentralButton null, 120, @scene
+        @centralButton.move @w/2, @h/2
+        @scene.addChild @centralButton.sprite
+        @centralButton.animate()
 
 
         null
