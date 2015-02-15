@@ -78,6 +78,10 @@ class App
         @selectedPurposeIds = [2, 3]
         @langSelected = 'en'
 
+        # source id to show on detailed screen
+        @selectedDataType = null
+        @selectedDataId = null
+
         ### Starts application ###
         @appView = new AppView
         @router  = new Router
@@ -96,7 +100,6 @@ class App
         @selectedSourceIds = []
         @selectedPurposeIds = []
         @langSelected = 'en'
-
 
     go : =>
 

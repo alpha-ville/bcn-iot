@@ -56,9 +56,6 @@ class AppView extends AbstractView
         return
 
     render : =>
-
-        @bindEvents()
-
         @preloader    = new Preloader
         @modalManager = new ModalManager
 
@@ -71,6 +68,7 @@ class AppView extends AbstractView
             .addChild @wrapper
             .addChild @modalManager
 
+        @bindEvents()
         @onAllRendered()
         return
 
@@ -83,20 +81,12 @@ class AppView extends AbstractView
         @onResize = _.debounce @onResize, 300
         @$window.on 'resize orientationchange', @onResize
 
-        @$body.on 'click', @showModalTest
+        # @wrapper.$el.on 'click', @showModalTest
 
         return
 
     showModalTest :=>
-        switch @clicks
-            when -1
-                @modalManager.hideOpenModal()
-                @clicks = 0
-
-            when 0
-                @modalManager.showModal 'overlayContent'
-                @clicks = -1
-
+        @modalManager.showModal 'overlayContent'
         null
 
     onAllRendered : =>
@@ -112,6 +102,8 @@ class AppView extends AbstractView
         @B().router.start()
 
         @preloader.hide()
+
+        @showModalTest()
 
         @updateMediaQueriesLog()
         return

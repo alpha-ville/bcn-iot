@@ -4,49 +4,49 @@
     "shape": "square",
     "type": "personal",
     "name_en": "personal",
-    "name_cat": "",
+    "name_cat": "personal catalan",
     "icon_id": "ion-cash",
-    "copy_en": "",
-    "copy_cat": ""
+    "copy_en": "purpose data 1 english",
+    "copy_cat": "purpose data 1 catalan"
   },
   {
     "id": 2,
     "shape": "square",
     "type": "functional",
     "name_en": "functional",
-    "name_cat": "",
+    "name_cat": "functional catalan",
     "icon_id": "ion-cash",
-    "copy_en": "",
-    "copy_cat": ""
+    "copy_en": "purpose data 2 english",
+    "copy_cat": "purpose data 2 catalan"
   },
   {
     "id": 3,
     "shape": "square",
     "type": "sustainability",
     "name_en": "sustainability",
-    "name_cat": "",
+    "name_cat": "sustainability catalan",
     "icon_id": "ion-cash",
-    "copy_en": "",
-    "copy_cat": ""
+    "copy_en": "purpose data 3 english",
+    "copy_cat": "purpose data 3 catalan"
   },
   {
     "id": 4,
     "shape": "square",
     "type": "social",
     "name_en": "social",
-    "name_cat": "",
+    "name_cat": "social catalan",
     "icon_id": "ion-cash",
-    "copy_en": "",
-    "copy_cat": ""
+    "copy_en": "purpose data 4 english",
+    "copy_cat": "purpose data 4 catalan"
   },
   {
     "id": 5,
     "shape": "square",
     "type": "quality_excellence",
     "name_en": "quality & excellence",
-    "name_cat": "",
+    "name_cat": "quality & excellence catalan",
     "icon_id": "ion-cash",
-    "copy_en": "",
-    "copy_cat": ""
+    "copy_en": "purpose data 5 english",
+    "copy_cat": "purpose data 5 catalan"
   }
 ]
