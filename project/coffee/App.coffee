@@ -38,7 +38,7 @@ class App
     objectComplete : =>
 
         @objReady++
-        @initApp() if @objReady >= 5
+        @initApp() if @objReady >= 6
 
         null
 

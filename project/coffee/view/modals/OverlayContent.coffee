@@ -22,6 +22,8 @@ class OverlayContent extends AbstractModal
 
         @breadCrumbs = new BreadCrumbs breadcrumbsList
 
+        objects = @B().objects.where "category" : node.get('category_name')
+
         @templateVars =
             content_en  : node.get('copy_en')
             content_cat : node.get('copy_cat')
