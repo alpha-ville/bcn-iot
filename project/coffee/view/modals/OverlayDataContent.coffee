@@ -8,6 +8,7 @@ class OverlayDataContent extends AbstractModal
 
     events:
         'click ul>li' : "toggleLang"
+        'click .close-button' : "closeButton"
         # 'tap ul>li' : "toggleLang"
 
     constructor : (@cb) ->
@@ -25,6 +26,11 @@ class OverlayDataContent extends AbstractModal
         super()
 
         return null
+
+    closeButton : =>
+        @B().appView.modalManager.hideOpenModal()
+        @B().appView.modalManager.showModal 'overlayContent'
+        null
 
     toggleLang : (e) =>
         @$el.find('li').each (a, b) =>

@@ -11,6 +11,7 @@ class OverlayContent extends AbstractModal
 
     events:
         'click ul>li' : "toggleLang"
+        'click .close-button' : "closeButton"
         # 'tap ul>li' : "toggleLang"
 
     constructor : (@cb) ->
@@ -24,6 +25,7 @@ class OverlayContent extends AbstractModal
         @breadCrumbs = new BreadCrumbs breadcrumbsList
 
         objects = @B().objects.where "category" : node.get('category_name')
+        objects = _.shuffle objects
         @objectCarosel = new ObjectsList objects
 
         @templateVars =
@@ -37,6 +39,10 @@ class OverlayContent extends AbstractModal
         super()
 
         return null
+
+    closeButton : =>
+        @B().appView.modalManager.hideOpenModal()
+        null
 
     toggleLang : (e) =>
         @$el.find('li').each (a, b) =>
@@ -53,9 +59,6 @@ class OverlayContent extends AbstractModal
                 display : if $(b).attr('data-lang') is @B().langSelected then 'block' else 'none'
 
         null
-
-    changeContent : =>
-
 
     init : =>
         @toggleLang()

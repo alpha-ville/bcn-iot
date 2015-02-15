@@ -41,17 +41,14 @@ class AppView extends AbstractView
         super()
 
     disableTouch: =>
-
         @$window.on 'touchmove', @onTouchMove
         return
 
     enableTouch: =>
-
         @$window.off 'touchmove', @onTouchMove
         return
 
     onTouchMove: ( e ) ->
-
         e.preventDefault()
         return
 
