@@ -14,8 +14,8 @@ class CentralButton extends BasicShape
         for i in [0...2]
             lS = new PIXI.Sprite()
             l = new PIXI.Graphics()
-            # l.beginFill @color, .8
-            l.lineStyle 2, @color
+            l.beginFill @color, .8
+            # l.lineStyle 2, @color
             l.drawCircle 0, 0, @radius()
             lS.addChild l
             @sprite.addChild lS
