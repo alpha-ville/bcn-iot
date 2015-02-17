@@ -12,10 +12,14 @@ PurposeCollection    = require './collections/PurposeCollection'
 
 class App
 
-    LIVE       : null
-    BASE_PATH  : window.config.hostname
-    localeCode : window.config.localeCode
-    objReady   : 0
+    LIVE        : null
+    BASE_PATH   : window.config.hostname
+    localeCode  : window.config.localeCode
+    objReady    : 0
+    purposes    : null
+    dataSources : null
+    objects     : null
+    categories  : null
 
     _toClean   : ['objReady', 'setFlags', 'objectComplete', 'init', 'initObjects', 'initSDKs', 'initApp', 'go', 'cleanup', '_toClean']
 
@@ -27,7 +31,7 @@ class App
 
         ua = window.navigator.userAgent.toLowerCase()
 
-        MediaQueries.setup();
+        MediaQueries.setup()
 
         @IS_ANDROID    = ua.indexOf('android') > -1
         @IS_FIREFOX    = ua.indexOf('firefox') > -1
@@ -38,7 +42,7 @@ class App
     objectComplete : =>
 
         @objReady++
-        @initApp() if @objReady >= 5
+        @initApp() if @objReady >= 6
 
         null
 
@@ -92,7 +96,16 @@ class App
 
         null
 
-    selectObject     : (@selectedObjectId) => null
+    openOverlayContent : (@selectedObjectId) =>
+        @appView.modalManager.hideOpenModal()
+        @appView.modalManager.showModal 'overlayContent'
+        null
+
+    openOverlayData : () =>
+        @appView.modalManager.hideOpenModal()
+        @appView.modalManager.showModal 'overlayDataContent'
+        null
+
     selectSourceIDs  : (id) => @selectedSourceIds.push id
     selectPurposeIDs : (id) => @selectedPurposeIds.push id
     resetIDs         : =>

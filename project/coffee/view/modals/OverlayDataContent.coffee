@@ -8,12 +8,12 @@ class OverlayDataContent extends AbstractModal
 
     events:
         'click ul>li' : "toggleLang"
+        'click .close-button' : "closeButton"
         # 'tap ul>li' : "toggleLang"
 
     constructor : (@cb) ->
 
-        node = @B()[@B().selectedDataType].findWhere id : parseInt(@B().selectedDataId)
-        console.log node
+        node = (@B()[@B().selectedDataType]).findWhere id : Number(@B().selectedDataId)
 
         @templateVars =
             content_en  : node.get('copy_en')
@@ -26,6 +26,11 @@ class OverlayDataContent extends AbstractModal
         super()
 
         return null
+
+    closeButton : =>
+        @B().appView.modalManager.hideOpenModal()
+        @B().appView.modalManager.showModal 'overlayContent'
+        null
 
     toggleLang : (e) =>
         @$el.find('li').each (a, b) =>
@@ -45,6 +50,30 @@ class OverlayDataContent extends AbstractModal
 
     init : =>
         @toggleLang()
+        @animate()
         null
+
+    animate : =>
+        margin = 30
+
+        c = $(@$el.find('.container-shape')[0])
+        TweenMax.to c, 0, scaleX: 0, scaleY: 0, delay: 0
+        TweenMax.to c, 1, scaleX: 1, scaleY: 1, ease: Back.easeOut.config(12), opacity: 1, delay: .5
+
+        t = $(@$el.find('.title-container')[0])
+        TweenMax.to t, .5, 'margin-top' : margin, opacity: 1, delay: 1
+
+        cont = $(@$el.find('.content')[0])
+        TweenMax.to cont, .5, 'margin-top' : margin, opacity: 1, delay: 1.2
+
+        bts = $(@$el.find('.lang-buttons')[0])
+        TweenMax.to bts, .5, 'margin-top' : margin, opacity: 1, delay: 1.5
+
+        bts = $(@$el.find('.lang-buttons')[0])
+        TweenMax.to bts, .5, 'margin-top' : margin, opacity: 1, delay: 1.8
+
+        null
+
+
 
 module.exports = OverlayDataContent

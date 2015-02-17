@@ -41,17 +41,14 @@ class AppView extends AbstractView
         super()
 
     disableTouch: =>
-
         @$window.on 'touchmove', @onTouchMove
         return
 
     enableTouch: =>
-
         @$window.off 'touchmove', @onTouchMove
         return
 
     onTouchMove: ( e ) ->
-
         e.preventDefault()
         return
 
@@ -85,12 +82,7 @@ class AppView extends AbstractView
 
         return
 
-    showModalTest :=>
-        @modalManager.showModal 'overlayContent'
-        null
-
     onAllRendered : =>
-
         # console.log "onAllRendered : =>"
         @$body.prepend @$el
         @begin()
@@ -98,12 +90,10 @@ class AppView extends AbstractView
 
     begin : =>
         @trigger 'start'
-
         @B().router.start()
-
         @preloader.hide()
 
-        @showModalTest()
+        @B().openOverlayContent 'door_locks'
 
         @updateMediaQueriesLog()
         return

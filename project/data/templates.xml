@@ -41,8 +41,8 @@
 
   <template id="breadcrumbs">
     <![CDATA[
-        <% _.each(list, function(data){ %>
-            <div class="breadcrumbItem" data-id="<%=data.get('id')%>" data-type="<%= (data.get('shape') == 'triangle' ? 'purposes' : 'dataSources') %>">
+        <% _.each(list, function(data, i){ %>
+            <div class="breadcrumbItem" data-index=<%=i%> data-id="<%=data.get('id')%>" data-type="<%= (data.get('shape') == 'square' ? 'purposes' : 'dataSources') %>">
                 <div class='<%=data.get('shape')%>'>
                     <span class="<%=data.get('icon_id')%>" data-pack="default"></span>
                 </div>
@@ -56,6 +56,25 @@
         <% }) %>
     ]]>
   </template>
+
+  <template id="objects-list">
+    <![CDATA[
+        <div class="object-list-container">
+            <% _.each(projects, function(object) { %>
+                <div class="carousel-item">
+                    <% if(object.get('video') != "") { %>
+                        <video id="video" controls preload="auto" width="624" height="350" poster="<%= path + object.get('video') %>.jpg">
+                             <source src="<%= path + object.get('video') %>.mp4" type='video/mp4' />
+                             <source src="<%= path + object.get('video') %>.ogg" type='video/ogg' />
+                        </video>
+                    <% } else { %>
+                        <img width="624" height="350" src="<%= path + object.get('image') %>.jpg">
+                    <% } %>
+                </div>
+            <% }) %>
+        </div>
+    ]]>
+    </template>
 
     <template id="overlay-content">
         <![CDATA[
@@ -88,17 +107,10 @@
                         <li data-lang='cat'>CATALAN</li>
                     </ul>
 
-                    <% if (video) { %>
-                    <div class="video-player">
-                        <video id="video"
-                          controls preload="auto" width="624" height="350"
-                          poster="<%=video%>.jpg">
-                         <source src="<%=video%>.mp4" type='video/mp4' />
-                         <source src="<%=video%>.ogg" type='video/ogg' />
-                         Your browser does not support the video tag.
-                        </video>
-                    </div>
-                    <% } %>
+                </div>
+
+                <div class="close-button">
+                    <span class="ion-ios-close-outline"></span>
                 </div>
             </div>
         ]]>
@@ -131,6 +143,10 @@
                         <li data-lang='cat'>CATALAN</li>
                     </ul>
 
+                </div>
+
+                <div class="close-button">
+                    <span class="ion-ios-close-outline"></span>
                 </div>
             </div>
         ]]>
