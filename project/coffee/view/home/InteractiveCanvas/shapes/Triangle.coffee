@@ -12,6 +12,16 @@ class Triangle extends BasicShape
 
         @sprite.pivot = new PIXI.Point 0, h/2
 
+        @sprite.alpha = .3
+
         null
+
+    onMouseUp: =>
+      super()
+
+      if !@canOrbit then return
+      Backbone.Events.trigger( 'shapeSelected', @ )
+
+      null
 
 module.exports = Triangle

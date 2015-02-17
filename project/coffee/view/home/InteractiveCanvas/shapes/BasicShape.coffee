@@ -1,4 +1,9 @@
 NumUtil = require('../../../../utils/NumUtil');
+add = require('vectors/add')(2)
+sub = require('vectors/sub')(2)
+normalize = require('vectors/normalize')(2)
+mult = require('vectors/mult')(2)
+mag = require('vectors/mag')(2)
 
 class BasicShape
 
@@ -10,12 +15,13 @@ class BasicShape
     stage       : null
     ctx         : null
     size        : null
-    mass        : 0
+    mass        : 1
     palette     : null
     color       : null
     config      : null
 
     #behavior
+    pos         : null
     vel         : null
     velRot      : null
     toX         : 0
@@ -24,6 +30,16 @@ class BasicShape
     speedScale : 0
 
     behavior : 'target'
+    target      : null
+    targetMass  : 10000
+
+    spring      : .007
+    friction    : .8
+    targetAngle : 0
+    targetAngleStep : 0
+    attractionRadius: 0
+
+    canOrbit    : false
 
 
     constructor : (@config, size, scene) ->
@@ -32,6 +48,13 @@ class BasicShape
         # console.log size, scene
 
         @_scene = scene
+
+        @spring = NumUtil.map( size, 20, 60, .007, .007 )
+        @targetAngle = Math.random() * Math.PI * 2
+        @targetAngleStep = NumUtil.map( size, 20, 60, .08, .04 ) * Math.random()
+        @attractionRadius = NumUtil.map( size, 30, 60, 170, 155 )
+        # @attractionRadius = 200
+
 
         @w = size
         @h = size
@@ -50,7 +73,7 @@ class BasicShape
             # copy_cat: null
 
         @sprite = new PIXI.Sprite()
-        @sprite.alpha = .7
+        # @sprite.alpha = .7
 
         @g = new PIXI.Graphics()
         @g.beginFill @color
@@ -60,11 +83,17 @@ class BasicShape
         @sprite.addChild @g
         # @sprite.rotation = NumUtil.toRadians _.random(360)
 
-        @vel =
-            x: .5 * (( Math.random() * 2 ) - 1)
-            y: .5 * (( Math.random() * 2 ) - 1)
+        # @vel =
+        #     x: .5 * (( Math.random() * 2 ) - 1)
+        #     y: .5 * (( Math.random() * 2 ) - 1)
 
         @setBehaviorProps()
+
+        @bindEvents()
+
+        @pos = [ 0, 0 ]
+        @vel = [ .5 * (( Math.random() * 2 ) - 1), .5 * (( Math.random() * 2 ) - 1) ]
+        @target = [ window.innerWidth / 2, window.innerHeight / 2 ]
 
         null
 
@@ -73,16 +102,26 @@ class BasicShape
         console.log 'override this'
 
 
-    animate : =>
+    bindEvents : ->
+        @sprite.interactive = true
+
+        @sprite.mousedown = @onMouseDown
+        @sprite.mouseup = @onMouseUp
+
         null
 
 
-    update: ->
+    update: ( dt, time ) ->
         # -----------------
         # Basic behavior, apply constant force
         # -----------------
         if @behavior == 'basic'
             @applyForce @vel
+            # @applyAttractionForce()
+            # console.log @applyAttractionForce()
+
+            @sprite.position.x = @pos[0]
+            @sprite.position.y = @pos[1]
 
         # -----------------
         # vibrate behavior
@@ -104,6 +143,17 @@ class BasicShape
 
             @sprite.position.x += @speedScale * ( @toX - @sprite.position.x) * .005 
             @sprite.position.y += @speedScale * ( @toY - @sprite.position.y) * .005 
+
+            @pos[0] = @sprite.position.x
+            @pos[1] = @sprite.position.y
+
+        # -----------------
+        # go to location behavior
+        # -----------------
+        else if @behavior == 'attraction'
+            @applyAttractionForce()
+            @sprite.position.x = @pos[0]
+            @sprite.position.y = @pos[1]
         
 
         @sprite.rotation += @velRot
@@ -122,33 +172,103 @@ class BasicShape
         null
 
     applyForce: ( vec ) ->
-        @sprite.position.x += vec.x
-        @sprite.position.y += vec.y
+        add( @pos, vec )
+
+        
 
         null
 
 
-    # getAttractionForce: ->
-
-    #     force = 
-    #         x: @toX - @sprite.position.x
-    #         x: @toY - @sprite.position.y
+    applyAttractionForce: ->
+        # force = sub( @target , @pos );
+        # distance = mag( force )
+        # Remember, we need to constrain the distance so that our circle doesn’t spin out of control.
+        # distance[0] = Math.max(5, Math.min(distance[0], 25));
+        # distance[1] = Math.max(5, Math.min(distance[1], 25));
+        # console.log distance
         
-    #     distance = force.mag();
-    #     force.normalize();
-    #       float strength = (G * mass * m.mass) / (distance * distance);
-    #       force.mult(strength);
-         
-    #     Return the force so that it can be applied!
-    #       return force;
+        # console.log @target
 
-    move : (x, y = 0) =>
-        @sprite.position.x = x * window.devicePixelRatio
-        @sprite.position.y = y * window.devicePixelRatio
+        # normalize( force )
+        # strength = (G * mass * m.mass) / (distance * distance);
+        # strength = ( 10000 * @mass ) / ( distance * distance );
+        # mult( force, strength )
+
+        # console.log force
+
+        @targetAngle += @targetAngleStep
+        if @targetAngle >= Math.PI * 2 then @targetAngle = 0
+
+        distanceToTarget = NumUtil.distanceBetweenPoints( {x: @targetX, y: @targetY}, {x: @sprite.x, y: @sprite.y} )
+        # if distanceToTarget < 20 then @targetAngle += Math.random() * Math.PI * 2
+
+        @targetX = ( window.innerWidth / 2 ) + @attractionRadius * Math.cos( @targetAngle )
+        @targetY = ( window.innerHeight / 2 ) + @attractionRadius * Math.sin( @targetAngle )
+
+        dx = @targetX - @pos[0]
+        dy = @targetY - @pos[1]
+        ax = dx * @spring
+        ay = dy * @spring
+
+        @vel[0] += ax
+        @vel[1] += ay
+        @vel[0] *= @friction;
+        @vel[1] *= @friction;
+        
+        @pos[0] += @vel[0]
+        @pos[1] += @vel[1]
+
+    move : ( x, y ) =>
+        @pos[0] = x
+        @pos[1] = y 
+
+        @sprite.position.x = @pos[0]
+        @sprite.position.y = @pos[1]
+        null
+
+    moveX: ( x ) ->
+        @pos[0] = x
+
+        # @sprite.position.x = @pos.x
+
+        null
+
+
+    moveY: ( y ) ->
+        @pos[1] = y
+        
+        # @sprite.position.y = @pos.y
+
         null
 
     width  : => return @w
     height : => return @h
     radius : => return @w / 2
+
+    onMouseDown: => 
+        console.warn 'BasicShape::onMouseDown should be overrided'
+
+        null
+
+    onMouseUp: => 
+        if @canOrbit
+            @behavior = 'attraction'
+        else 
+            @bounceScale()
+
+        null
+
+
+    fadeTo: ( alpha, delay = 0 ) ->
+        TweenMax.to( @sprite, .3, { alpha: alpha, delay: delay } )
+
+        null
+
+
+    bounceScale: ->
+        @sprite.scale.x = @sprite.scale.y = @sprite.scale.x * 1.5
+        TweenMax.to( @sprite.scale, .8, { x: 1, y: 1, delay: .1, ease: Elastic.easeOut } )
+
+      null
 
 module.exports = BasicShape

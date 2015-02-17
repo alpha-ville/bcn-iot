@@ -8,7 +8,7 @@ class Scene
   stage: null
   renderer: null
 
-  backgroundColor: 0x000000
+  backgroundColor: 0xffffff
 
   camera: null
 
@@ -25,7 +25,7 @@ class Scene
     @stage = new PIXI.Stage( @backgroundColor, {
         antialias : true
         transparent : false
-        resolution: window.devicePixelRatio
+        resolution: 1
       } )
 
     @renderer = PIXI.autoDetectRecommendedRenderer( @width, @height )
