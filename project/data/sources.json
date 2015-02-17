@@ -2,7 +2,7 @@
   {
     "id": 1,
     "shape": "triangle",
-    "type": "personal_data",
+    "type": "personal",
     "name_en": "personal data",
     "name_cat": "personal data catalan",
     "icon_id": "ion-ios-cloud-upload-outline",
@@ -12,7 +12,7 @@
   {
     "id": 2,
     "shape": "triangle",
-    "type": "enterprise_data",
+    "type": "enterprise",
     "name_en": "enterprise data",
     "name_cat": "enterprise data catalan",
     "icon_id": "ion-ios-cloud-upload-outline",
@@ -22,7 +22,7 @@
   {
     "id": 3,
     "shape": "triangle",
-    "type": "environmental_data",
+    "type": "environmental",
     "name_en": "environmental data",
     "name_cat": "environmental data catalan",
     "icon_id": "ion-ios-cloud-upload-outline",
@@ -32,7 +32,7 @@
   {
     "id": 4,
     "shape": "triangle",
-    "type": "social_data",
+    "type": "social",
     "name_en": "social data",
     "name_cat": "social data catalan",
     "icon_id": "ion-ios-cloud-upload-outline",
@@ -42,7 +42,7 @@
   {
     "id": 5,
     "shape": "triangle",
-    "type": "public_data",
+    "type": "public",
     "name_en": "public data",
     "name_cat": "public data catalan",
     "icon_id": "ion-ios-cloud-upload-outline",
