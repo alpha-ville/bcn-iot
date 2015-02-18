@@ -13,6 +13,23 @@ class Triangle extends BasicShape
         @g.lineTo @w/2, h
 
         @sprite.pivot = new PIXI.Point 0, h/2
+        @g.moveTo 0, 0
+        @g.lineTo -@w/2, h
+        @g.lineTo @w/2, h
+
+        @ripple1 = new PIXI.Graphics()
+        @ripple1.beginFill @color
+        @ripple1.moveTo 0, 0
+        @ripple1.lineTo -@w/2, h
+        @ripple1.lineTo @w/2, h
+        @ripple1.pivot = new PIXI.Point 0, 0
+
+        @ripple2 = new PIXI.Graphics()
+        @ripple2.beginFill @color
+        @ripple2.moveTo 0, 0
+        @ripple2.lineTo -@w/2, h
+        @ripple2.lineTo @w/2, h
+        @ripple2.pivot = new PIXI.Point 0, 0
 
         
 
@@ -23,6 +40,7 @@ class Triangle extends BasicShape
           "img/icons/placeholder4.png"
         ]
 
+        # if not in the background
         if @w == 60
           texture = new PIXI.Texture.fromImage( textures[ Math.floor( Math.random() * 4 ) ] )
           @icon = new PIXI.Sprite( texture )
@@ -34,6 +52,12 @@ class Triangle extends BasicShape
 
           @sprite.addChild( @icon )
 
+          scale = 1.7
+          @ripplesAnimation = new TimelineMax({ repeat: -1 })
+          @ripplesAnimation.add( TweenMax.to(@ripple1, 1, alpha: 0, delay: 0, width: @w * scale, height: @w * scale ) )
+          @ripplesAnimation.add( TweenMax.to(@ripple1.position, 1, x: 0, y: -35, delay: -1 ) )
+          @ripplesAnimation.stop()
+
         @sprite.alpha = .3
 
         null
@@ -43,6 +67,26 @@ class Triangle extends BasicShape
 
       if !@canOrbit then return
       Backbone.Events.trigger( 'shapeSelected', @ )
+
+      null
+
+
+    animate: ->
+      return
+      @sprite.addChild @ripple1
+      @sprite.addChild @ripple2
+
+      @ripplesAnimation.play()
+
+      null
+
+
+    stopAnimate: ->
+      return
+      @sprite.removeChild @ripple1
+      @sprite.removeChild @ripple2
+
+      @ripplesAnimation.stop()
 
       null
 

@@ -288,10 +288,12 @@ class InteractiveCanvas extends AbstractView
 
         for triangle in @triangles
             triangle.canOrbit = true
+            triangle.animate()
             triangle.fadeTo( .9, 1.3 + Math.random() )
 
         for square in @squares
             square.canOrbit = true
+            square.animate()
             square.fadeTo( .9, 1.3 + Math.random() )
 
         null

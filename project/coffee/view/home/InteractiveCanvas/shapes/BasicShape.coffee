@@ -101,7 +101,7 @@ class BasicShape
 
 
     init : =>
-        console.log 'override this'
+        # console.log 'override this'
 
 
     bindEvents : ->
