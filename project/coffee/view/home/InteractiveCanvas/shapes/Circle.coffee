@@ -4,12 +4,22 @@ class Circle extends BasicShape
 
     lines : null
     color : 0xe79d33
-
+    icon: null
     isSelected: false
+
+    nbConnections: 0
 
     init : =>
         super()
         @g.drawCircle 0, 0, @radius()
+
+        texture = new PIXI.Texture.fromImage("img/icons/placeholder_white.png")
+        @icon = new PIXI.Sprite( texture )
+        @icon.anchor.x = @icon.anchor.y = .5
+        @icon.scale.x = @icon.scale.y = .5
+
+        @sprite.addChild( @icon )
+ 
 
         null
 

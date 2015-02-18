@@ -28,7 +28,7 @@ class Scene
         resolution: 1
       } )
 
-    @renderer = PIXI.autoDetectRecommendedRenderer( @width, @height )
+    @renderer = new PIXI.CanvasRenderer( @width, @height )
 
     @attachToContainer()
 
