@@ -16,11 +16,15 @@ class OverlayContent extends AbstractModal
 
     constructor : (@cb) ->
 
-        node = @B().categories.findWhere category_name : @B().selectedObjectId
-
         breadcrumbsList = []
-        breadcrumbsList.push @B().dataSources.findWhere id : i for i in @B().selectedSourceIds
-        breadcrumbsList.push @B().purposes.findWhere id : a for a in @B().selectedPurposeIds
+
+        node = @B().categories.findWhere category_name : @B().selectedCategoryId
+
+        selectableSources =  node.get('data_type').split(" ").join("").split(",")
+        breadcrumbsList.push @B().dataSources.findWhere type : i for i in selectableSources
+
+        selectablePurposes = node.get('purpose_type').split(" ").join("").split(",")
+        breadcrumbsList.push @B().purposes.findWhere type : i for i in selectablePurposes
 
         @breadCrumbs = new BreadCrumbs breadcrumbsList
 

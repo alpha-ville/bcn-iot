@@ -77,9 +77,9 @@ class App
 
         @setFlags()
 
-        @selectedObjectId = "door_locks"
-        @selectedSourceIds = [1, 5, 4]
-        @selectedPurposeIds = [2, 3]
+        @selectedCategoryId = "door_locks"
+        @selectedObjectId = 1
+
         @langSelected = 'en'
 
         # source id to show on detailed screen
@@ -96,7 +96,7 @@ class App
 
         null
 
-    openOverlayContent : (@selectedObjectId) =>
+    openOverlayContent : (@selectedCategoryId) =>
         @appView.modalManager.hideOpenModal()
         @appView.modalManager.showModal 'overlayContent'
         null
@@ -106,13 +106,11 @@ class App
         @appView.modalManager.showModal 'overlayDataContent'
         null
 
-    selectSourceIDs  : (id) => @selectedSourceIds.push id
-    selectPurposeIDs : (id) => @selectedPurposeIds.push id
-    resetIDs         : =>
-        @selectedObjectId = ""
-        @selectedSourceIds = []
-        @selectedPurposeIds = []
-        @langSelected = 'en'
+    resetIDs : =>
+        @selectedCategoryId = ""
+        selectedObjectId    = ""
+        @langSelected       = 'en'
+        null
 
     go : =>
 

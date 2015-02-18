@@ -14,5 +14,7 @@ class ObjectModel extends AbstractModel
         image            : null
         image_titles_en  : null
         image_titles_cat : null
+        data_type        : null
+        purpose_type     : null
 
 module.exports = ObjectModel
