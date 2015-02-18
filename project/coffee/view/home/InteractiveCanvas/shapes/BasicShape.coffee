@@ -42,7 +42,7 @@ class BasicShape
     canOrbit    : false
 
 
-    constructor : (@config, size, scene) ->
+    constructor : (@config, size, scene, alpha) ->
         @id = String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Date.now()
 
         # console.log size, scene
@@ -73,14 +73,16 @@ class BasicShape
             # copy_cat: null
 
         @sprite = new PIXI.Sprite()
-        # @sprite.alpha = .7
+        @sprite.alpha = alpha || 1
 
         @g = new PIXI.Graphics()
         @g.beginFill @color
+        
+        @sprite.addChild @g
 
         @init()
 
-        @sprite.addChild @g
+        
         # @sprite.rotation = NumUtil.toRadians _.random(360)
 
         # @vel =
@@ -99,7 +101,7 @@ class BasicShape
 
 
     init : =>
-        console.log 'override this'
+        # console.log 'override this'
 
 
     bindEvents : ->
@@ -117,8 +119,17 @@ class BasicShape
         # -----------------
         if @behavior == 'basic'
             @applyForce @vel
-            # @applyAttractionForce()
-            # console.log @applyAttractionForce()
+            
+            # behavior on bounds
+            if ( @pos[0] > @_scene.width )
+                @vel[0] *= -1
+            else if ( @pos[0] < 0 )
+                @vel[0] *= -1
+
+            if ( @pos[1] > @_scene.height )
+                @vel[1] *= -1
+            else if ( @pos[1] < 0 )
+                @vel[1] *= -1
 
             @sprite.position.x = @pos[0]
             @sprite.position.y = @pos[1]

@@ -48,9 +48,6 @@ class CentralButton extends BasicShape
 
         scale = 1.7
         @ripplesAnimation = new TimelineMax({ repeat: -1 })
-
-        console.log @ripplesAnimation
-
         @ripplesAnimation.add( TweenMax.to(@lines[0], 1.7, alpha: 0, delay: 0, width: scale, height: scale ) )
         @ripplesAnimation.add( TweenMax.to(@lines[1], 1.7, alpha: 0, delay: -1.4, width: scale, height: scale ) )
 

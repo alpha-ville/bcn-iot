@@ -19,6 +19,11 @@ class InteractiveCanvas extends AbstractView
     squares : null
     gardenNodes: null
 
+    smallCircles: null
+    smallTriangle: null
+    smallSquares: null
+    smallShapes: null
+
 
     linesObj: null
     linesAlphaScale: 0
@@ -48,12 +53,58 @@ class InteractiveCanvas extends AbstractView
 
         @bindEvents()
 
-        @addLines()
         
+
+        @addLines()
+        @addDecorations()
+
         @addShapes()
-        @addGardenNodes()
+
+        # @addGardenNodes()
 
         @update()
+        null
+
+
+    addDecorations: ->
+
+        @smallShapes = []
+
+        @smallCircles = []
+        for i in [ 0 ... 50 ]
+            size = _.random( 8, 12 )
+            circle = new Circle( null, size, @scene, .2 )
+            circle.move _.random(@w), _.random(@h)
+            circle.behavior = 'basic'
+            circle.vel[0] *= .3
+            circle.vel[1] *= .3
+            @smallCircles.push( circle )
+            @scene.addChild( circle.sprite )
+
+        @smallTriangles = []
+        for i in [ 0 ... 100 ]
+            size = _.random( 8, 13 )
+            triangle = new Triangle( null, size, @scene, .01 )
+            triangle.move _.random(@w), _.random(@h)
+            triangle.behavior = 'basic'
+            triangle.vel[0] *= .3
+            triangle.vel[1] *= .3
+            @smallTriangles.push( triangle )
+            @smallShapes.push( triangle )  
+            @scene.addChild( triangle.sprite )
+
+        @smallSquares = []
+        for i in [ 0 ... 100 ]
+            size = _.random( 8, 13 )
+            square = new Square( null, size, @scene, .01 )
+            square.move _.random(@w), _.random(@h)
+            square.behavior = 'basic'
+            square.vel[0] *= .3
+            square.vel[1] *= .3
+            @smallSquares.push( square )
+            @smallShapes.push( square )
+            @scene.addChild( square.sprite )
+
         null
 
     addGardenNodes: ->
@@ -80,7 +131,7 @@ class InteractiveCanvas extends AbstractView
         # circles
         @B().categories.each (data) =>
             # console.log data
-            size = _.random(20, 60)
+            size = 60
             object = new Circle(data, size, @scene)
             object.move _.random(@w), _.random(@h)
             @shapes.push( object )
@@ -90,7 +141,7 @@ class InteractiveCanvas extends AbstractView
          # triangles
         @B().purposes.each (data) =>
             # console.log data
-            size = _.random(20, 60)
+            size = 60
             object = new Triangle(data, size, @scene)
             object.move _.random(@w), _.random(@h)
             @shapes.push( object )
@@ -100,7 +151,7 @@ class InteractiveCanvas extends AbstractView
          # triangles
         @B().dataSources.each (data) =>
             # console.log data
-            size = _.random(20, 60)
+            size = 60
             object = new Square(data, size, @scene)
             object.move _.random(@w), _.random(@h)
             @shapes.push( object )
@@ -117,22 +168,21 @@ class InteractiveCanvas extends AbstractView
 
         @updateLines()
 
-        for node in @gardenNodes
-            node.update()
+        # for node in @gardenNodes
+        #     node.update()
 
-            # behavior on bounds
-            if ( node.pos[0] > @w + node.w )
-                node.vel[0] *= -1
-            else if ( node.pos[0] < 0 )
-                node.vel[0] *= -1
+        for c in @smallCircles
+            c.update()
 
-            if ( node.pos[1] > @h + node.h )
-                node.vel[1] *= -1
-            else if ( node.pos[1] < 0 )
-                node.vel[1] *= -1
+        for t in @smallTriangles
+            t.update()
+
+        for s in @smallSquares
+            s.update()
 
         for shape in @shapes
             shape.update()
+
 
             
         @centralButton.update()
@@ -153,17 +203,37 @@ class InteractiveCanvas extends AbstractView
     updateLines: ->
         @linesObj.clear()
 
-        for node in @gardenNodes
+        # for node in @gardenNodes
             
-            for node2 in @gardenNodes
+        #     for node2 in @gardenNodes
 
-                dist = NumUtil.distanceBetweenPoints node.sprite.position, node2.sprite.position
+        #         dist = NumUtil.distanceBetweenPoints node.sprite.position, node2.sprite.position
 
-                if dist < 100
-                    @linesObj.lineStyle( 1, node2.color, NumUtil.map(dist, 0, 100, .2, 0) )
-                    @linesObj.moveTo( node2.sprite.position.x, node2.sprite.position.y );
-                    @linesObj.lineTo( node.sprite.x , node.sprite.y);
-                
+        #         if dist < 100
+        #             @linesObj.lineStyle( 1, node2.color, NumUtil.map(dist, 0, 100, .2, 0) )
+        #             @linesObj.moveTo( node2.sprite.position.x, node2.sprite.position.y );
+        #             @linesObj.lineTo( node.sprite.x , node.sprite.y);
+        
+        for circle in @smallCircles
+            
+            for shape in @smallShapes
+
+                dist = NumUtil.distanceBetweenPoints circle.sprite.position, shape.sprite.position
+
+                if dist < 70
+                    @linesObj.lineStyle( 1, shape.color, NumUtil.map(dist, 0, 70, .2, 0) )
+                    @linesObj.moveTo( shape.sprite.position.x, shape.sprite.position.y );
+                    @linesObj.lineTo( circle.sprite.x , circle.sprite.y);
+
+        for shape in @selectedShapes
+
+            dist = NumUtil.distanceBetweenPoints @centralButton.sprite.position, shape.sprite.position
+
+            if dist < 300
+                @linesObj.lineStyle( 1, shape.color, NumUtil.map(dist, 0, 300, .5, 0) )
+                @linesObj.moveTo( @centralButton.sprite.position.x, @centralButton.sprite.position.y );
+                @linesObj.lineTo( shape.sprite.x , shape.sprite.y);
+
          
         null
 
@@ -218,10 +288,12 @@ class InteractiveCanvas extends AbstractView
 
         for triangle in @triangles
             triangle.canOrbit = true
+            triangle.animate()
             triangle.fadeTo( .9, 1.3 + Math.random() )
 
         for square in @squares
             square.canOrbit = true
+            square.animate()
             square.fadeTo( .9, 1.3 + Math.random() )
 
         null
@@ -229,7 +301,7 @@ class InteractiveCanvas extends AbstractView
 
     onCircleUnselected: ( circle ) =>
         @centralButton.stop()
-        
+
         for c in @circles
             if c.id != circle.id then c.undisable()
 
@@ -244,6 +316,8 @@ class InteractiveCanvas extends AbstractView
             square.canOrbit = false
             square.behavior = 'target'
             square.fadeTo( .3, Math.random() )
+
+        @selectedShapes = []
 
         null
 
