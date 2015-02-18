@@ -11,5 +11,7 @@ class CategoryModel extends AbstractModel
         icon_id       : null
         copy_en       : null
         copy_cat      : null
+        data_type     : null
+        purpose_type  : null
 
 module.exports = CategoryModel
