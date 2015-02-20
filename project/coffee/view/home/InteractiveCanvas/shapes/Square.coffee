@@ -29,6 +29,7 @@ class Square extends BasicShape
         ]
 
         if @w == 60
+          
           texture = new PIXI.Texture.fromImage( textures[ Math.floor( Math.random() * 3 ) ] )
           @icon = new PIXI.Sprite( texture )
           @icon.anchor.x = @icon.anchor.y = -.5
@@ -44,6 +45,7 @@ class Square extends BasicShape
           @ripplesAnimation.add( TweenMax.to(@ripple1, 1.7, alpha: 0, delay: 0, width: 80, height: 80 ) )
           # @ripplesAnimation.add( TweenMax.to(@ripple1.position, 1.7, delay: -1.7, x: -40, y: -40 ) )
           @ripplesAnimation.stop()
+          @sprite.alpha = 1
 
         null
 

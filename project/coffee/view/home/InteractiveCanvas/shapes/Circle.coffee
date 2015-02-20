@@ -56,7 +56,7 @@ class Circle extends BasicShape
 
     disable: ->
         @sprite.interactive = false
-        @alphaTween = new TweenMax( @sprite, .3, { alpha: 0.08, ease: Power4.easeIn, delay: Math.random() } )
+        @alphaTween = new TweenMax( @sprite, .3, { alpha: 0.08, ease: Power4.easeIn } )
 
         null
 

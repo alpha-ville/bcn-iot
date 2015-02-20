@@ -40,6 +40,8 @@ class Triangle extends BasicShape
           "img/icons/placeholder4.png"
         ]
 
+        @sprite.alpha = .3
+
         # if not in the background
         if @w == 60
           texture = new PIXI.Texture.fromImage( textures[ Math.floor( Math.random() * 4 ) ] )
@@ -57,8 +59,9 @@ class Triangle extends BasicShape
           @ripplesAnimation.add( TweenMax.to(@ripple1, 1, alpha: 0, delay: 0, width: @w * scale, height: @w * scale ) )
           @ripplesAnimation.add( TweenMax.to(@ripple1.position, 1, x: 0, y: -35, delay: -1 ) )
           @ripplesAnimation.stop()
+          @sprite.alpha = 1
 
-        @sprite.alpha = .3
+        
 
         null
 
