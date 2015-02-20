@@ -41,6 +41,10 @@ class BasicShape
 
     canOrbit    : false
 
+    shouldRotate : true
+
+    isAbsorbed: false
+
 
     constructor : (@config, size, scene, alpha) ->
         @id = String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Date.now()
@@ -49,10 +53,10 @@ class BasicShape
 
         @_scene = scene
 
-        @spring = NumUtil.map( size, 20, 60, .007, .007 )
+        @spring = NumUtil.map( size, 20, 60, .07, .07 )
         @targetAngle = Math.random() * Math.PI * 2
         @targetAngleStep = NumUtil.map( size, 20, 60, .08, .04 ) * Math.random()
-        @attractionRadius = NumUtil.map( size, 30, 60, 170, 155 )
+        @attractionRadius = NumUtil.map( size, 30, 60, 165, 155 )
         # @attractionRadius = 200
 
 
@@ -228,6 +232,22 @@ class BasicShape
         
         @pos[0] += @vel[0]
         @pos[1] += @vel[1]
+
+        null
+
+
+    getAbsorbed: ->
+        @spring = .7
+
+        delay = Math.random()
+
+        TweenMax.to( @, 1, { attractionRadius: 20, delay: delay * 2, ease: Elastic.easeInOut, onComplete: =>
+            Backbone.Events.trigger( 'shapeGotAbsorbed', @ )
+         } )
+
+        TweenMax.to( @sprite, .3, { alpha: 0, delay: .5 + delay * 2 } )
+
+        null
 
     move : ( x, y ) =>
         @pos[0] = x

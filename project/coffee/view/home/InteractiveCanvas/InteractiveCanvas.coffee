@@ -33,6 +33,8 @@ class InteractiveCanvas extends AbstractView
     deltaTime: 0
     lastTime: Date.now()
 
+    absorbedShapes: null
+
 
     init : =>
 
@@ -51,6 +53,8 @@ class InteractiveCanvas extends AbstractView
         @squares = []
         @gardenNodes = []
 
+        @absorbedShapes = []
+
         @bindEvents()
 
         
@@ -63,6 +67,8 @@ class InteractiveCanvas extends AbstractView
         # @addGardenNodes()
 
         @update()
+
+        console.log @B()
         null
 
 
@@ -129,9 +135,10 @@ class InteractiveCanvas extends AbstractView
             "square"   : Square
 
         # circles
-        @B().categories.each (data) =>
+        for i in [ 0 ... 4 ]
+            data = @B().categories.models[i]
             # console.log data
-            size = 60
+            size = 90
             object = new Circle(data, size, @scene)
             object.move _.random(@w), _.random(@h)
             @shapes.push( object )
@@ -141,9 +148,10 @@ class InteractiveCanvas extends AbstractView
          # triangles
         @B().purposes.each (data) =>
             # console.log data
-            size = 60
+            size = 90
             object = new Triangle(data, size, @scene)
             object.move _.random(@w), _.random(@h)
+            object.sprite.alpha = 1
             @shapes.push( object )
             @triangles.push( object )
             @scene.addChild object.sprite
@@ -151,9 +159,10 @@ class InteractiveCanvas extends AbstractView
          # triangles
         @B().dataSources.each (data) =>
             # console.log data
-            size = 60
+            size = 90
             object = new Square(data, size, @scene)
             object.move _.random(@w), _.random(@h)
+            object.sprite.alpha = 1
             @shapes.push( object )
             @squares.push( object )
             @scene.addChild object.sprite
@@ -245,6 +254,7 @@ class InteractiveCanvas extends AbstractView
     bindEvents : =>
         #temporary
         window.addEventListener('keyup', @onKeyup)
+        window.addEventListener('resize', @onResize)
 
         @B().appView.on @B().appView.EVENT_UPDATE_DIMENSIONS, @setDims
 
@@ -252,6 +262,7 @@ class InteractiveCanvas extends AbstractView
         Backbone.Events.on( 'circleUnselected', @onCircleUnselected )
         Backbone.Events.on( 'shapeSelected', @onShapeSelected )
         Backbone.Events.on( 'shapeUnselected', @onShapeUnselected )
+        Backbone.Events.on( 'shapeGotAbsorbed', @onShapeGotAbsorbed )
 
         # @$window.on 'resize orientationchange', @onResize
 
@@ -271,6 +282,8 @@ class InteractiveCanvas extends AbstractView
 
 
     onResize: () =>
+        @scene.resize()
+
         null
 
 
@@ -281,6 +294,8 @@ class InteractiveCanvas extends AbstractView
 
 
     onCircleSelected: ( circle ) =>
+        @currentSelectedCircle = circle 
+
         for c in @circles
             if c.id != circle.id then c.disable()
 
@@ -289,12 +304,12 @@ class InteractiveCanvas extends AbstractView
         for triangle in @triangles
             triangle.canOrbit = true
             triangle.animate()
-            triangle.fadeTo( .9, 1.3 + Math.random() )
+            # triangle.fadeTo( .9, 1.3 + Math.random() )
 
         for square in @squares
             square.canOrbit = true
             square.animate()
-            square.fadeTo( .9, 1.3 + Math.random() )
+            # square.fadeTo( .9, 1.3 + Math.random() )
 
         null
 
@@ -310,12 +325,12 @@ class InteractiveCanvas extends AbstractView
         for triangle in @triangles
             triangle.canOrbit = false
             triangle.behavior = 'target'
-            triangle.fadeTo( .3, Math.random() )
+            triangle.fadeTo( 1, Math.random() )
 
         for square in @squares
             square.canOrbit = false
             square.behavior = 'target'
-            square.fadeTo( .3, Math.random() )
+            square.fadeTo( 1, Math.random() )
 
         @selectedShapes = []
 
@@ -327,10 +342,34 @@ class InteractiveCanvas extends AbstractView
 
         @centralButton.animate()
 
+        if @selectedShapes.length == 10
+            # @onCircleUnselected @currentSelectedCircle
+            setTimeout =>
+                for shape in @selectedShapes
+                    shape.getAbsorbed()
+            , 1000
+            
+
+
         null
 
 
     onShapeUnselected: ( shape ) =>
+
+        null
+
+
+    onShapeGotAbsorbed: ( shape ) =>
+        TweenMax.to( @currentSelectedCircle.sprite.scale, .1, { x: @currentSelectedCircle.sprite.scale.x + .2, y: @currentSelectedCircle.sprite.scale.y + .2 } )
+
+        @absorbedShapes.push( shape )
+
+        if @absorbedShapes.length == 10
+            @B().openOverlayContent 'door_locks'
+            setTimeout =>
+                @onCircleUnselected @currentSelectedCircle
+            , 500
+            
 
         null
 
