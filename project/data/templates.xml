@@ -81,10 +81,6 @@
             <div id="overlay-content" class="overlays overlay-content">
                 <div class="container">
 
-                    <div class="breadcrumbs">
-
-                    </div>
-
                     <div class="container-shape">
                         <div class='<%=shape%>'>
                             <span class="<%=icon%>" data-pack="default"></span>
@@ -101,17 +97,29 @@
                         <p data-lang='cat'><%= content_cat %></p>
                     </div>
 
+                    <hr/>
+
+                    <div class="project-name-container">
+                        <div class="project-name">Project Name</div> by <div class="project-name">Designer Name</div>
+                    </div>
+
+                    <div class="list-container"></div>
+
+                    <div class="breadcrumbs"></div>
+
+                    <hr/>
+
                     <ul class="lang-buttons">
-                        <div class='shape'></div>
                         <li data-selected data-lang='en'>ENGLISH</li>
                         <li data-lang='cat'>CATALAN</li>
                     </ul>
 
+                    <div class="close-button">
+                        <span class="ion-ios-close-outline"></span>
+                    </div>
+
                 </div>
 
-                <div class="close-button">
-                    <span class="ion-ios-close-outline"></span>
-                </div>
             </div>
         ]]>
     </template>
