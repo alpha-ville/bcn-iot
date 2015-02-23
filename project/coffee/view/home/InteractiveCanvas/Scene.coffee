@@ -8,7 +8,7 @@ class Scene
   stage: null
   renderer: null
 
-  backgroundColor: 0xffffff
+  backgroundColor: 0xf6f6f6
 
   camera: null
 
@@ -69,8 +69,8 @@ class Scene
     @width = window.innerWidth
     @height = window.innerHeight
 
-    @renderer.view.style.width = @width + 'px';
-    @renderer.view.style.height = @height + 'px';
+    @renderer.resize( @width, @height );
+    # @renderer.view.style.height = @height + 'px';
 
     null
 

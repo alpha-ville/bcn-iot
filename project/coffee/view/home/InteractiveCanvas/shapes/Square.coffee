@@ -2,6 +2,8 @@ BasicShape = require './BasicShape'
 
 class Square extends BasicShape
 
+    type: 'square'
+
     color : 0xd02a40
 
     init : =>
@@ -52,7 +54,10 @@ class Square extends BasicShape
     onMouseUp: =>
       super()
 
-      if !@canOrbit then return
+      if !@canOrbit or @isOrbiting then return
+
+      @isOrbiting = true
+
       Backbone.Events.trigger( 'shapeSelected', @ )
 
       null
