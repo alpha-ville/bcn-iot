@@ -92,7 +92,7 @@ class OverlayContent extends AbstractModal
         TweenMax.to pnc, .5, 'margin-top' : margin, opacity: 1, delay: 1.4
 
         bts = $(@$el.find('.lang-buttons')[0])
-        TweenMax.to bts, .5, 'margin-top' : margin, opacity: 1, delay: 1.4, cacheAsBitmap : false
+        TweenMax.to bts, .5, 'margin-top' : margin, opacity: 1, delay: 1.4
 
         cb = $(@$el.find('.close-button')[0])
         TweenMax.to cb, .5, 'margin-top' : margin, opacity: 1, delay: 1.4
