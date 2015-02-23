@@ -2,6 +2,8 @@ BasicShape = require './BasicShape'
 
 class Triangle extends BasicShape
 
+    type: 'triangle'
+
     color: 0x2773be
 
     init : =>
@@ -59,7 +61,6 @@ class Triangle extends BasicShape
           @ripplesAnimation.add( TweenMax.to(@ripple1, 1, alpha: 0, delay: 0, width: @w * scale, height: @w * scale ) )
           @ripplesAnimation.add( TweenMax.to(@ripple1.position, 1, x: 0, y: -35, delay: -1 ) )
           @ripplesAnimation.stop()
-          @sprite.alpha = 1
 
         
 
@@ -68,7 +69,10 @@ class Triangle extends BasicShape
     onMouseUp: =>
       super()
 
-      if !@canOrbit then return
+      if !@canOrbit or @isOrbiting then return
+
+      @isOrbiting = true
+
       Backbone.Events.trigger( 'shapeSelected', @ )
 
       null

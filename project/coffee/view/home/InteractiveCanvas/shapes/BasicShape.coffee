@@ -44,6 +44,9 @@ class BasicShape
     shouldRotate : true
 
     isAbsorbed: false
+    isOrbiting: false
+
+    isConnectedToACircle: false
 
 
     constructor : (@config, size, scene, alpha) ->
@@ -56,7 +59,7 @@ class BasicShape
         @spring = NumUtil.map( size, 20, 60, .07, .07 )
         @targetAngle = Math.random() * Math.PI * 2
         @targetAngleStep = NumUtil.map( size, 20, 60, .08, .04 ) * Math.random()
-        @attractionRadius = NumUtil.map( size, 30, 60, 165, 155 )
+        @attractionRadius = _.random( 250, 270 )
         # @attractionRadius = 200
 
 
@@ -78,6 +81,7 @@ class BasicShape
 
         @sprite = new PIXI.Sprite()
         @sprite.alpha = alpha || 1
+        @sprite.blendMode = 1
 
         @g = new PIXI.Graphics()
         @g.beginFill @color
@@ -244,8 +248,9 @@ class BasicShape
         TweenMax.to( @, 1, { attractionRadius: 20, delay: delay * 2, ease: Elastic.easeInOut, onComplete: =>
             Backbone.Events.trigger( 'shapeGotAbsorbed', @ )
          } )
+        TweenMax.to( @sprite.scale, 1, { x: .2, y: .2, delay: delay * 2, ease: Elastic.easeInOut } )
 
-        TweenMax.to( @sprite, .3, { alpha: 0, delay: .5 + delay * 2 } )
+        TweenMax.to( @sprite, .5, { alpha: 0, delay: .5 + delay * 2 } )
 
         null
 

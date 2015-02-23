@@ -66,7 +66,9 @@
  $red-alpha    : rgba(208, 42, 64, $alpha);
  $blue-alpha   : rgba(39, 115, 190, $alpha);
  $yellow-alpha : rgba(231, 157, 51, $alpha);
-
+* {
+    // cursor: none
+}
  h1
  {
     @include font-size(5);
@@ -142,6 +144,10 @@
             right: 20px;
             top: 20px;
             cursor: pointer;
+            width: 60px;
+            height: 60px;
+            border: 1px solid black;
+            border-radius: 50px
 
             span
             {

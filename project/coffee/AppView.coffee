@@ -40,6 +40,15 @@ class AppView extends AbstractView
 
         super()
 
+        @diableRightClick()
+
+    diableRightClick: =>
+        document.body.setAttribute("oncontextmenu", "return false")
+
+        window.addEventListener 'click', (evt) => if evt.button is 2 then return
+
+        null
+
     disableTouch: =>
         @$window.on 'touchmove', @onTouchMove
         return
