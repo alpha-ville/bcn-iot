@@ -50,8 +50,7 @@ class OverlayContent extends AbstractModal
         null
 
     toggleLang : (e) =>
-        @$el.find('li').each (a, b) =>
-            $(b).removeAttr('data-selected')
+        @$el.find('li').each (a, b) => $(b).attr('data-selected', false)
 
         if e
             $(e.currentTarget).attr 'data-selected', true
@@ -68,7 +67,7 @@ class OverlayContent extends AbstractModal
     init : =>
         @toggleLang()
         @$el.find('.breadcrumbs').append @breadCrumbs.$el
-        @$el.find('.container').append @objectCarosel.$el
+        @$el.find('.list-container').append @objectCarosel.$el
 
         @animate()
 
@@ -89,11 +88,14 @@ class OverlayContent extends AbstractModal
         cont = $(@$el.find('.content')[0])
         TweenMax.to cont, .5, 'margin-top' : margin, opacity: 1, delay: 1.4
 
-        bts = $(@$el.find('.lang-buttons')[0])
-        TweenMax.to bts, .5, 'margin-top' : margin, opacity: 1, delay: 1.4
+        pnc = $(@$el.find('.project-name-container')[0])
+        TweenMax.to pnc, .5, 'margin-top' : margin, opacity: 1, delay: 1.4
 
         bts = $(@$el.find('.lang-buttons')[0])
-        TweenMax.to bts, .5, 'margin-top' : margin, opacity: 1, delay: 1.4
+        TweenMax.to bts, .5, 'margin-top' : margin, opacity: 1, delay: 1.4, cacheAsBitmap : false
+
+        cb = $(@$el.find('.close-button')[0])
+        TweenMax.to cb, .5, 'margin-top' : margin, opacity: 1, delay: 1.4
 
         @objectCarosel.animate 1.4
         null

@@ -23,11 +23,11 @@ class ObjectsList extends AbstractView
               infinite      : true
               speed         : 300
               arrows        : true
-              slidesToShow  : 3
-              centerPadding : '30px'
-              useCSS : true
+              slidesToShow  : 1
+              useCSS        : true
               variableWidth : true
               centerMode    : true
+              # centerPadding : '30px'
         , 100
           # autoplay      : true
           # autoplaySpeed : 2000
