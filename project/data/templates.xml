@@ -44,7 +44,7 @@
         <% _.each(list, function(data, i){ %>
             <div class="breadcrumbItem" data-index="<%=i%>" data-id="<%=data.get('id')%>" data-type="<%= data.get('model') %>">
                 <div class='<%=data.get('shape')%>'>
-                    <img width="60" height="60" src="https://googledrive.com/host/<%= data.get('icon_id') %>">
+                    <img width="60" height="60" class="svg" src="https://googledrive.com/host/<%= data.get('icon_id') %>">
                     <!-- <span class="<%=data.get('icon_id')%>" data-pack="default"></span> -->
                 </div>
 
@@ -83,7 +83,7 @@
 
                     <div class="container-shape">
                         <div class='<%=shape%>'>
-                            <img width="100" height="100" src="https://googledrive.com/host/<%= icon %>">
+                            <img class="svg" width="100" height="100" src="https://googledrive.com/host/<%= icon %>">
                         </div>
                     </div>
 
@@ -131,7 +131,7 @@
 
                     <div class="container-shape">
                         <div class='<%=shape%>'>
-                            <img width="100" height="100" src="https://googledrive.com/host/<%= icon %>">
+                            <img class="svg" width="100" height="100" src="https://googledrive.com/host/<%= icon %>">
                         </div>
                     </div>
 

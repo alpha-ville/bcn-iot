@@ -101,7 +101,7 @@ class AppView extends AbstractView
         @B().router.start()
         @preloader.hide()
 
-        @B().openOverlayContent 'door_locks'
+        @B().openOverlayContent @B().selectedCategoryId
 
         @updateMediaQueriesLog()
         return

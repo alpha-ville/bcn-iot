@@ -62,7 +62,7 @@ $red    : #d02a40;
 $blue   : #2773be;
 $yellow : #e79d33;
 
-$alpha : .8;
+$alpha : .9;
 $max-width : 900px;
 
 $red-alpha    : rgba(208, 42, 64, $alpha);
@@ -84,7 +84,7 @@ $yellow-alpha : rgba(231, 157, 51, $alpha);
 
  body
  {
-    overflow: hidden;
+    // overflow: hidden;
  }
 
  .wrapper
@@ -138,14 +138,6 @@ $yellow-alpha : rgba(231, 157, 51, $alpha);
         $size-shape : 100px;
         $icon-size : 60px;
 
-        span
-        {
-            position: relative;
-            font-size: $icon-size;
-            color: white;
-            top: ($size-shape / 2) - $icon-size / 2;
-        }
-
         .close-button
         {
             cursor: pointer;
@@ -157,7 +149,7 @@ $yellow-alpha : rgba(231, 157, 51, $alpha);
 
             span
             {
-                // position: relative;
+                position: relative;
                 font-size: 60px;
                 color: black;
                 top: auto;
@@ -184,7 +176,7 @@ $yellow-alpha : rgba(231, 157, 51, $alpha);
         {
             width: $size-shape * .9;
             height: $size-shape * .9;
-            background-color: $yellow-alpha;
+            background-color: $red-alpha;
             img
             {
                 width: $size-shape * .9;
@@ -197,11 +189,10 @@ $yellow-alpha : rgba(231, 157, 51, $alpha);
             width: $size-shape;
             height: $size-shape;
             border-radius: 100%;
-            background-color: $red-alpha;
-            span
+            background-color: $yellow-alpha;
+            img
             {
-                top: ($size-shape/2) - $icon-size / 1.4;
-                left: auto;
+                @include filter(invert, -1);
             }
         }
 
@@ -302,7 +293,7 @@ $yellow-alpha : rgba(231, 157, 51, $alpha);
                 {
                     width: $size-shape * .9;
                     height: $size-shape * .9;
-                    background-color: $yellow-alpha;
+                    background-color: $red-alpha;
                     img
                     {
                         width: $size-shape * .9;
@@ -315,7 +306,7 @@ $yellow-alpha : rgba(231, 157, 51, $alpha);
                     width: $size-shape;
                     height: $size-shape;
                     border-radius: 100%;
-                    background-color: $red-alpha;
+                    background-color: $yellow-alpha;
                 }
             }
         }
