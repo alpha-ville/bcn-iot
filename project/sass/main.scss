@@ -324,7 +324,7 @@ $max-width : 900px;
         {
             margin: 0 auto;
             @include rem-fallback(line-height, 2.5);
-            max-width: $max-width - 200;
+            max-width: $max-width - 100;
         }
 
         ul.lang-buttons
