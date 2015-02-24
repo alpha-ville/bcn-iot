@@ -23,24 +23,13 @@ class Circle extends BasicShape
         @sprite.addChild( @icon )
 
         @lines = []
-
-        for i in [0...2]
-            lS = new PIXI.Sprite()
-            l = new PIXI.Graphics()
-            l.beginFill @color, .8
-            # l.lineStyle 2, @color
-            l.drawCircle 0, 0, @radius()
-            lS.addChild l
-            lS.alpha = .2;
-            @sprite.addChild lS
-            @lines.push lS
  
 
         null
 
 
     onMouseUp: ->
-        if @radius() != 60 then return
+        if @radius() != 50 then return
 
         if @isSelected
             Backbone.Events.trigger( 'circleUnselected', @ )
