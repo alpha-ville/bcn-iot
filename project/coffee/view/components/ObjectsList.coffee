@@ -31,7 +31,9 @@ class ObjectsList extends AbstractView
         null
 
     addVideoJS : =>
+        videojs.options.flash.swf = "data/video/video-js.swf"
         videojs document.getElementsByClassName('video-js')[0], {}, -> null
+        null
 
     init : =>
 
