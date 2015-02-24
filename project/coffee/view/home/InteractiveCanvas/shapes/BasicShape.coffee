@@ -59,25 +59,12 @@ class BasicShape
         @spring = NumUtil.map( size, 20, 60, .07, .07 )
         @targetAngle = Math.random() * Math.PI * 2
         @targetAngleStep = NumUtil.map( size, 20, 60, .08, .04 ) * Math.random()
-        @attractionRadius = _.random( 250, 270 )
-        # @attractionRadius = 200
-
+        @attractionRadius = _.random( 160, 180 )
 
         @w = size
         @h = size
         @mass = size 
         @acc = Math.random()
-        # config =
-            # category : null
-            # object_id : null
-            # object_name: null
-            # icon: null
-            # data_type: null
-            # value_type: null
-            # video: null
-            # image: null
-            # copy_en: null
-            # copy_cat: null
 
         @sprite = new PIXI.Sprite()
         @sprite.alpha = alpha || 1
@@ -89,13 +76,6 @@ class BasicShape
         @sprite.addChild @g
 
         @init()
-
-        
-        # @sprite.rotation = NumUtil.toRadians _.random(360)
-
-        # @vel =
-        #     x: .5 * (( Math.random() * 2 ) - 1)
-        #     y: .5 * (( Math.random() * 2 ) - 1)
 
         @setBehaviorProps()
 
@@ -199,22 +179,6 @@ class BasicShape
 
 
     applyAttractionForce: ->
-        # force = sub( @target , @pos );
-        # distance = mag( force )
-        # Remember, we need to constrain the distance so that our circle doesn’t spin out of control.
-        # distance[0] = Math.max(5, Math.min(distance[0], 25));
-        # distance[1] = Math.max(5, Math.min(distance[1], 25));
-        # console.log distance
-        
-        # console.log @target
-
-        # normalize( force )
-        # strength = (G * mass * m.mass) / (distance * distance);
-        # strength = ( 10000 * @mass ) / ( distance * distance );
-        # mult( force, strength )
-
-        # console.log force
-
         @targetAngle += @targetAngleStep
         if @targetAngle >= Math.PI * 2 then @targetAngle = 0
 
@@ -245,12 +209,12 @@ class BasicShape
 
         delay = Math.random()
 
-        TweenMax.to( @, 1, { attractionRadius: 20, delay: delay * 2, ease: Elastic.easeInOut, onComplete: =>
+        TweenMax.to( @, 1, { attractionRadius: 20, delay: delay, ease: Elastic.easeIn, onComplete: =>
             Backbone.Events.trigger( 'shapeGotAbsorbed', @ )
          } )
-        TweenMax.to( @sprite.scale, 1, { x: .2, y: .2, delay: delay * 2, ease: Elastic.easeInOut } )
+        TweenMax.to( @sprite.scale, 1, { x: .2, y: .2, delay: delay, ease: Elastic.easeIn } )
 
-        TweenMax.to( @sprite, .5, { alpha: 0, delay: .5 + delay * 2 } )
+        TweenMax.to( @sprite, .5, { alpha: 0, delay: .7 + delay } )
 
         null
 
@@ -282,7 +246,7 @@ class BasicShape
     radius : => return @w / 2
 
     onMouseDown: => 
-        console.warn 'BasicShape::onMouseDown should be overrided'
+        # console.warn 'BasicShape::onMouseDown should be overrided'
 
         null
 

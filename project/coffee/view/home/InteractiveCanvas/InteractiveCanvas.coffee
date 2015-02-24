@@ -135,7 +135,7 @@ class InteractiveCanvas extends AbstractView
             "triangle" : Triangle
             "square"   : Square
 
-        size = 120
+        size = 100
 
         # circles
         for i in [ 0 ... 4 ]
@@ -170,36 +170,15 @@ class InteractiveCanvas extends AbstractView
             @triangleAndSquares.push(object)
             @scene.addChild object.sprite
 
-        #  # triangles
-        # @B().purposes.each (data) =>
-        #     object = new Triangle(data, size, @scene)
-        #     object.move _.random(@w), _.random(@h)
-        #     object.sprite.alpha = .7
-        #     @shapes.push( object )
-        #     @triangles.push( object )
-        #     @scene.addChild object.sprite
-
-         # square
-        # @B().dataSources.each (data) =>
-        #     object = new Square(data, size, @scene)
-        #     object.move _.random(@w), _.random(@h)
-        #     object.sprite.alpha = .8
-        #     @shapes.push( object )
-        #     @squares.push( object )
-        #     @scene.addChild object.sprite
-        
-
 
         null
+
 
     update : =>
         @deltaTime = Date.now() - @lastTime
         @lastTime = Date.now()
 
         @updateLines()
-
-        # for node in @gardenNodes
-        #     node.update()
 
         for c in @smallCircles
             c.update()
@@ -213,18 +192,16 @@ class InteractiveCanvas extends AbstractView
         for shape in @shapes
             shape.update()
 
-
-            
         @centralButton.update()
         
         @render()
 
         requestAnimFrame @update
+
         null
 
     addLines: =>
         @linesObj = new PIXI.Graphics()
-        
 
         @scene.addChild @linesObj
 
@@ -238,7 +215,7 @@ class InteractiveCanvas extends AbstractView
             nearestCircle = @getNearestCircle( shape, @circles, .8 )
             dist = NumUtil.distanceBetweenPoints nearestCircle.sprite.position, shape.sprite.position
             
-            if dist < 400 and nearestCircle
+            if dist < 400 and nearestCircle and shape.sprite.alpha > .1
                 @linesObj.lineStyle( 1, shape.color, NumUtil.map(dist, 0, 400, .8, 0) )
                 @linesObj.moveTo( nearestCircle.sprite.position.x, nearestCircle.sprite.position.y );
                 @linesObj.lineTo( shape.sprite.x , shape.sprite.y);
@@ -333,15 +310,54 @@ class InteractiveCanvas extends AbstractView
 
         circle.goToCenterAndScaleUp()
 
-        for triangle in @triangles
-            triangle.canOrbit = true
-            triangle.animate()
-            # triangle.fadeTo( .9, 1.3 + Math.random() )
+        for shape in @triangleAndSquares
+            shape.sprite.alpha = .1
 
-        for square in @squares
-            square.canOrbit = true
-            square.animate()
-            # square.fadeTo( .9, 1.3 + Math.random() )
+        @activeShapes = []
+        copySquares = @squares.slice()
+        copyTriangles = @triangles.slice()
+        
+
+        # # pick up 2 random objects from squares
+        # rand = Math.floor Math.random() * copySquares.length
+        # @activeShapes.push( copySquares[rand] )
+        # @triangleAndSquares.splice( rand, 1 )
+        # rand = Math.floor Math.random() * copySquares.length
+        # @activeShapes.push( copySquares[rand] )
+
+        # # pick up 2 random objects from triangles
+        # rand = Math.floor Math.random() * copyTriangles.length
+        # @activeShapes.push( copyTriangles[rand] )
+        # @triangleAndSquares.splice( rand, 1 )
+        # rand = Math.floor Math.random() * copyTriangles.length
+        # @activeShapes.push( copyTriangles[rand] )
+
+        rand1 = Math.floor Math.random() * copySquares.length
+        rand2 = rand1
+
+        while rand2 == rand1
+            console.log  'in the loop'
+            rand2 = Math.floor Math.random() * copySquares.length
+
+        @activeShapes.push( copySquares[rand1] )
+        @activeShapes.push( copySquares[rand2] )
+
+        rand1 = Math.floor Math.random() * copyTriangles.length
+        rand2 = rand1
+
+        while rand2 == rand1
+            console.log  'in the loop'
+            rand2 = Math.floor Math.random() * copyTriangles.length
+
+        @activeShapes.push( copyTriangles[rand1] )
+        @activeShapes.push( copyTriangles[rand2] )
+
+        
+        
+        for shape in @activeShapes
+            console.log shape.id
+            shape.fadeTo( .8 )
+            shape.canOrbit = true      
 
         null
 
@@ -352,19 +368,23 @@ class InteractiveCanvas extends AbstractView
         for c in @circles
             if c.id != circle.id then c.undisable()
 
+        # @activeShapes = []
+        
+
         circle.goBackAndScaleDown()
 
         for shape in @shapes
             shape.canOrbit = false
             shape.isOrbiting = false
             shape.behavior = 'target'
-            shape.fadeTo( .8, Math.random() )
+            shape.fadeTo( .8 )
             shape.spring = .07
             shape.sprite.scale.x = shape.sprite.scale.y = 1
-            shape.attractionRadius = _.random(250, 270)
+            shape.attractionRadius = _.random(190, 210)
 
 
         @selectedShapes = []
+        
 
         null
 
@@ -374,7 +394,7 @@ class InteractiveCanvas extends AbstractView
 
         @centralButton.animate()
 
-        if @selectedShapes.length == 10
+        if @selectedShapes.length == @activeShapes.length
             # @onCircleUnselected @currentSelectedCircle
             setTimeout =>
                 for shape in @selectedShapes
@@ -392,11 +412,11 @@ class InteractiveCanvas extends AbstractView
 
 
     onShapeGotAbsorbed: ( shape ) =>
-        TweenMax.to( @currentSelectedCircle.sprite.scale, .1, { x: @currentSelectedCircle.sprite.scale.x + .2, y: @currentSelectedCircle.sprite.scale.y + .2 } )
+        TweenMax.to( @currentSelectedCircle.sprite.scale, .1, { x: @currentSelectedCircle.sprite.scale.x + .5, y: @currentSelectedCircle.sprite.scale.y + .5 } )
 
         @absorbedShapes.push( shape )
 
-        if @absorbedShapes.length == 10
+        if @absorbedShapes.length == @activeShapes.length
             @B().openOverlayContent 'door_locks'
             setTimeout =>
                 @absorbedShapes = []
