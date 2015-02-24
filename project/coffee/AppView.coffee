@@ -44,7 +44,6 @@ class AppView extends AbstractView
 
     diableRightClick: =>
         document.body.setAttribute("oncontextmenu", "return false")
-
         window.addEventListener 'click', (evt) => if evt.button is 2 then return
 
         null
@@ -102,7 +101,7 @@ class AppView extends AbstractView
         @B().router.start()
         @preloader.hide()
 
-        # @B().openOverlayContent 'door_locks'
+        @B().openOverlayContent 'door_locks'
 
         @updateMediaQueriesLog()
         return
