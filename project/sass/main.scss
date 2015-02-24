@@ -229,6 +229,7 @@ $max-width : 900px;
             {
                 max-width: $max-width - 250;
                 margin-top: 30px;
+                opacity: 0;
             }
 
             .breadcrumbs
@@ -240,15 +241,25 @@ $max-width : 900px;
 
                 &>div
                 {
+                    margin: 0 auto;
+                    padding: 5px 15px;
                     opacity: 0;
                     display: inline-block;
-                    padding: 5px;
                     cursor: pointer;
                 }
 
                 .name-container
                 {
-                    display: none;
+                    // display: none;
+                    text-align: center;
+                    margin: 0 auto;
+                    p
+                    {
+                        @include font-size(.7);
+                        max-width: 60px;
+                        @include rem-fallback(line-height, 1.5);
+                        margin-top: 5px;
+                    }
                 }
 
                 span

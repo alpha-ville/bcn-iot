@@ -100,7 +100,7 @@
                     <hr/>
 
                     <div class="project-name-container">
-                        <div class="project-name">Project Name</div> by <div class="project-name">Designer Name</div>
+                        <div class="project-name">Project Name</div> by <div class="designer-name">Designer Name</div>
                     </div>
 
                     <div class="list-container"></div>
