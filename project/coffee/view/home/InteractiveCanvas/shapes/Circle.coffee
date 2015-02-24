@@ -8,6 +8,7 @@ class Circle extends BasicShape
     color : 0xe79d33
     icon: null
     isSelected: false
+    isDisable: false
 
     nbConnections: 0
 

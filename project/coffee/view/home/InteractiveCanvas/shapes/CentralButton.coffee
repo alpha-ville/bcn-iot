@@ -87,10 +87,16 @@ class CentralButton extends BasicShape
         @ripplesAnimation.time(1)
         @ripplesAnimation.stop()
 
-        for i in [0...@lines.length]
-            @lines[0].scale.x = @lines[0].scale.y = 1
-            @lines[1].scale.x = @lines[1].scale.y = 1
-            @lines[i].children[0].alpha = 4
+        
+
+        TweenMax.to( @lines[0].scale, 1, { x: 8, y: 8 } )
+        TweenMax.fromTo( @lines[0], 2, { alpha: 5 }, { alpha: 0, delay: -1.6, onComplete: =>
+            for i in [0...@lines.length]
+                @lines[0].scale.x = @lines[0].scale.y = 1
+                @lines[1].scale.x = @lines[1].scale.y = 1
+                @lines[i].children[0].alpha = 8
+         } )
+        
 
         null
 

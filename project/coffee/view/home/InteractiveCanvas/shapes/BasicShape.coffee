@@ -48,6 +48,9 @@ class BasicShape
 
     isConnectedToACircle: false
 
+    isPulsating: false
+    angleMotion: 0
+
 
     constructor : (@config, size, scene, alpha) ->
         @id = String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Date.now()
@@ -101,7 +104,7 @@ class BasicShape
         null
 
 
-    update: ( dt, time ) ->
+    update: ( dt, time ) =>
         # -----------------
         # Basic behavior, apply constant force
         # -----------------
@@ -153,7 +156,20 @@ class BasicShape
             @applyAttractionForce()
             @sprite.position.x = @pos[0]
             @sprite.position.y = @pos[1]
-        
+
+
+        # -----------------
+        # pulsate
+        # -----------------
+        if @isPulsating
+            @angleMotion += .1
+            if @angleMotion >= 360 then @angleMotion = 0
+
+            val = Math.abs(Math.sin(@angleMotion))
+            scale = NumUtil.map val, 0, 1, .9, 1
+            alpha = NumUtil.map val, 0, 1, .5, .8
+            @sprite.scale.x = @sprite.scale.y = scale
+            @sprite.alpha = alpha
 
         @sprite.rotation += @velRot
 
