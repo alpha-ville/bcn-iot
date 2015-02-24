@@ -30,8 +30,13 @@ class ObjectsList extends AbstractView
         @trigger 'beforeChange'
         null
 
+    addVideoJS : =>
+        videojs document.getElementsByClassName('video-js')[0], {}, -> null
+
     init : =>
+
         setTimeout =>
+
             @$el.slick
               dots          : false
               infinite      : true
@@ -39,6 +44,7 @@ class ObjectsList extends AbstractView
               arrows        : true
               slidesToShow  : 1
 
+            @addVideoJS()
             @$el.on 'afterChange', @afterChange
             @$el.on 'beforeChange', @beforeChange
         , 100

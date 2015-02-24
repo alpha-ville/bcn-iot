@@ -79,7 +79,6 @@
     "backbone.tabletopSync.js" : "backbone.tabletopSync.js",
     "slick": "slick.min.js",
     "tabletop.js" : "tabletop.js",
-    "video.js" : "video.js",
     "script": "script.js"
   },
   "dependencies": {
