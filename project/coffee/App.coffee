@@ -74,6 +74,14 @@ class App
 
         null
 
+    getQueryVariable : (variable) =>
+       query = window.location.search.substring(1)
+       vars = query.split("&")
+       for i in vars
+           pair = i.split("=")
+           return pair[1] if(pair[0] == variable)
+       return false
+
     initApp : =>
 
         @setFlags()
