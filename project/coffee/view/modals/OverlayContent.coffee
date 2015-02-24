@@ -24,6 +24,7 @@ class OverlayContent extends AbstractModal
         @objects = _.shuffle @objects
         @objectCarosel = new ObjectsList @objects
         @objectCarosel.on 'slideChange', @slideChange
+        @objectCarosel.on 'beforeChange', @beforeChange
 
         @templateVars =
             content_en  : node.get('copy_en')
@@ -37,6 +38,10 @@ class OverlayContent extends AbstractModal
         super()
 
         return null
+
+    beforeChange : () =>
+        @breadCrumbs.animateOut()
+        null
 
     setBreadcrumb : (object, delay = 0) =>
 

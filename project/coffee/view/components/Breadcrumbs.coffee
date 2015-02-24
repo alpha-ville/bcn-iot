@@ -25,8 +25,15 @@ class Breadcrumbs extends AbstractView
         @$el.children().each (i, e) =>
             s = $(e).parent()
             index = Number(s.attr('data-index'))
-            TweenMax.to s, .6, opacity: 1, 'margin-top' : 20, delay: delay + (.05 * index)
+            TweenMax.to s, 0, y: -20
+            TweenMax.to s, .5, opacity: 1, y : 0, delay: delay + (.1 * index)
         null
+
+    animateOut : =>
+        @$el.children().each (i, e) =>
+            s = $(e).parent()
+            index = Number(s.attr('data-index'))
+            TweenMax.to s, .3, opacity: 0, y: 20, delay: (.08 * index)
 
     clickBreadcrumb: (e) =>
         t = $(e.currentTarget)

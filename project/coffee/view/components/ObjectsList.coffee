@@ -22,16 +22,21 @@ class ObjectsList extends AbstractView
         @trigger 'slideChange', $(slick.$slides[currentSlide]).attr 'id'
         null
 
+    beforeChange : (event, slick, currentSlide, nextSlide) =>
+        @trigger 'beforeChange'
+        null
+
     init : =>
         setTimeout =>
             @$el.slick
               dots          : false
               infinite      : true
-              speed         : 300
+              speed         : 1000
               arrows        : true
               slidesToShow  : 1
 
             @$el.on 'afterChange', @afterChange
+            @$el.on 'beforeChange', @beforeChange
         , 100
               # centerMode    : true
               # centerPadding : '130px'
