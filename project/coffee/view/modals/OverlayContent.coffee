@@ -88,6 +88,8 @@ class OverlayContent extends AbstractModal
         cont = $(@$el.find('.content')[0])
         TweenMax.to cont, .5, 'margin-top' : margin, opacity: 1, delay: 1.4
 
+        TweenMax.to @$el.find('hr'), .5, opacity: 1, delay: 1.4
+
         pnc = $(@$el.find('.project-name-container')[0])
         TweenMax.to pnc, .5, 'margin-top' : margin, opacity: 1, delay: 1.4
 
