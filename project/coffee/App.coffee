@@ -57,8 +57,6 @@ class App
             key: "1HIWOpkgxY5oJ9PjKQ3QxAWV_GMFWEIiszFpi37TMLaI"
             callback : (data) =>
 
-                console.log 'loaded', data
-
                 @categories = new CategoriesCollection
                 @categories.fetch success : @objectComplete
 
