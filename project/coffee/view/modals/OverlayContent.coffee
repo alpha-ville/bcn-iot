@@ -20,17 +20,9 @@ class OverlayContent extends AbstractModal
 
         node = @B().categories.findWhere category_name : @B().selectedCategoryId
 
-        selectableSources =  node.get('data_type').split(" ").join("").split(";")
-        breadcrumbsList.push @B().dataSources.findWhere type : i for i in selectableSources
-
-        selectablePurposes = node.get('purpose_type').split(" ").join("").split(";")
-        breadcrumbsList.push @B().purposes.findWhere type : i for i in selectablePurposes
-
-        @breadCrumbs = new BreadCrumbs breadcrumbsList
-
-        objects = @B().objects.where "category" : node.get('category_name')
-        objects = _.shuffle objects
-        @objectCarosel = new ObjectsList objects
+        @objects = @B().objects.where "category" : node.get('category_name')
+        @objects = _.shuffle @objects
+        @objectCarosel = new ObjectsList @objects
         @objectCarosel.on 'slideChange', @slideChange
 
         @templateVars =
@@ -41,14 +33,34 @@ class OverlayContent extends AbstractModal
             shape       : 'circle'
             icon        : node.get('icon_id')
 
+
         super()
 
         return null
+
+    setBreadcrumb : (object, delay = 0) =>
+
+        @breadCrumbs = null
+        breadcrumbsList = []
+
+        selectableSources =  object.get('data_type').toLowerCase().split(" ").join("").split(";")
+        breadcrumbsList.push @B().dataSources.findWhere type : i for i in selectableSources
+
+        selectablePurposes = object.get('purpose_type').toLowerCase().split(" ").join("").split(";")
+        breadcrumbsList.push @B().purposes.findWhere type : i for i in selectablePurposes
+
+        @breadCrumbs = new BreadCrumbs breadcrumbsList
+        console.log @bcContainer
+        @bcContainer.empty()
+        @bcContainer.append @breadCrumbs.$el
+        @breadCrumbs.animate delay
+        null
 
     slideChange : (slideID) =>
         a = @B().objects.findWhere id : String(slideID)
         pn = $(@$el.find('.project-name-container>.project-name')[0])
         pn.text a.get('name_' + @B().langSelected)
+        @setBreadcrumb a
         null
 
     closeButton : =>
@@ -72,10 +84,12 @@ class OverlayContent extends AbstractModal
         null
 
     init : =>
-        @toggleLang()
-        @$el.find('.breadcrumbs').append @breadCrumbs.$el
         @$el.find('.list-container').append @objectCarosel.$el
+        @bcContainer = $(@$el.find('.breadcrumbs')[0])
 
+        @setBreadcrumb @objects[0], .9
+
+        @toggleLang()
         @animate()
 
         null
@@ -86,8 +100,6 @@ class OverlayContent extends AbstractModal
         c = $(@$el.find('.container-shape')[0])
         TweenMax.to c, 0, scaleX: 0, scaleY: 0
         TweenMax.to c, 1, scaleX: 1, scaleY: 1, ease: Back.easeOut.config(18), opacity: 1, delay: .5
-
-        @breadCrumbs.animate .9
 
         t = $(@$el.find('.title-container')[0])
         TweenMax.to t, .5, 'margin-top' : margin, opacity: 1, delay: 1

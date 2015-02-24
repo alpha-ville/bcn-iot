@@ -151,11 +151,12 @@
                         <li data-lang='cat'>CATALAN</li>
                     </ul>
 
-                </div>
-
-                <div class="close-button">
+                    <div class="close-button">
                     <span class="ion-ios-close-outline"></span>
                 </div>
+
+                </div>
+
             </div>
         ]]>
     </template>
