@@ -44,7 +44,8 @@
         <% _.each(list, function(data, i){ %>
             <div class="breadcrumbItem" data-index="<%=i%>" data-id="<%=data.get('id')%>" data-type="<%= data.get('model') %>">
                 <div class='<%=data.get('shape')%>'>
-                    <span class="<%=data.get('icon_id')%>" data-pack="default"></span>
+                    <img width="60" height="60" src="https://googledrive.com/host/<%= data.get('icon_id') %>">
+                    <!-- <span class="<%=data.get('icon_id')%>" data-pack="default"></span> -->
                 </div>
 
                 <div class="name-container">
@@ -67,7 +68,7 @@
                              <source src="https://googledrive.com/host/<%= object.get('video') %>" type='video/mp4' />
                         </video>
                     <% } else { %>
-                        <img width="624" height="350" src="https://googledrive.com/host/<%= path + object.get('image') %>">
+                        <img width="624" height="350" src="https://googledrive.com/host/<%= object.get('image') %>">
                     <% } %>
                 </div>
             <% }) %>
@@ -82,7 +83,7 @@
 
                     <div class="container-shape">
                         <div class='<%=shape%>'>
-                            <span class="<%=icon%>" data-pack="default"></span>
+                            <img width="100" height="100" src="https://googledrive.com/host/<%= icon %>">
                         </div>
                     </div>
 
@@ -130,7 +131,7 @@
 
                     <div class="container-shape">
                         <div class='<%=shape%>'>
-                            <span class="<%=icon%>" data-pack="default"></span>
+                            <img width="100" height="100" src="https://googledrive.com/host/<%= icon %>">
                         </div>
                     </div>
 
@@ -156,73 +157,6 @@
 
                 </div>
 
-            </div>
-        ]]>
-    </template>
-
-    <template id="overlay-diagram">
-        <![CDATA[
-            <div id="overlay-diagram" class="overlays overlay-diagram">
-                <div class="container">
-
-                    <svg id="line1" width="180px" height="5px" viewBox="0 0 180 5">
-                        <line x1="0" x2="180" y1="1" y2="1" stroke="#b9b9b8" stroke-width="1" stroke-linecap="round" stroke-dasharray="1, 5"/>
-                    </svg>
-                    <svg id="line2" width="180px" height="5px" viewBox="0 0 180 5">
-                        <line x1="0" x2="180" y1="1" y2="1" stroke="#b9b9b8" stroke-width="1" stroke-linecap="round" stroke-dasharray="1, 5"/>
-                    </svg>
-                    <svg id="line3" width="180px" height="5px" viewBox="0 0 180 5">
-                        <line x1="0" x2="180" y1="1" y2="1" stroke="#b9b9b8" stroke-width="1" stroke-linecap="round" stroke-dasharray="1, 5"/>
-                    </svg>
-                    <svg id="line4" width="180px" height="5px" viewBox="0 0 180 5">
-                        <line x1="0" x2="180" y1="1" y2="1" stroke="#b9b9b8" stroke-width="1" stroke-linecap="round" stroke-dasharray="1, 5"/>
-                    </svg>
-                    <svg id="line5" width="180px" height="5px" viewBox="0 0 180 5">
-                        <line x1="0" x2="200" y1="1" y2="1" stroke="#b9b9b8" stroke-width="1" stroke-linecap="round" stroke-dasharray="1, 5"/>
-                    </svg>
-
-                    <div class="center-piece">
-                        <div class='triangle'>
-                            <span class="ion-android-laptop" data-pack="default"></span>
-                        </div>
-                        <div>text text</div>
-                    </div>
-
-                    <div class="top-center-piece">
-                        <div class='triangle'>
-                            <span class="ion-android-desktop" data-pack="default"></span>
-                        </div>
-                        <div>text text</div>
-                    </div>
-
-                    <div class="top-right-piece">
-                        <div class='square'>
-                            <span class="ion-android-desktop" data-pack="default"></span>
-                        </div>
-                        <div>text text</div>
-                    </div>
-
-                    <div class="bottom-right-piece">
-                        <div class='circle'>
-                            <span class="ion-ios-game-controller-b-outline" data-pack="default"></span>
-                        </div>
-                        <div>text text</div>
-                    </div>
-
-                    <div class="bottom-left-piece">
-                        <div class='circle'>
-                            <span class="ion-ios-flask-outline" data-pack="default"></span>
-                        </div>
-                        <div>text text</div>
-                    </div>
-
-                    <div class="top-left-piece">
-                        <div class='circle'>
-                            <span class="ion-ios-flame-outline" data-pack="default"></span>
-                        </div>
-                        <div>text text</div>
-                    </div>
-                </div>
             </div>
         ]]>
     </template>
