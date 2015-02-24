@@ -1,52 +1,72 @@
 [
   {
-    "id": 1,
-    "shape": "triangle",
-    "type": "personal",
-    "name_en": "personal data",
-    "name_cat": "personal data catalan",
-    "icon_id": "ion-ios-cloud-upload-outline",
-    "copy_en": "data source 1 english",
-    "copy_cat": "data source 1 catalan"
+    "id":"1",
+    "shape":"square",
+    "type":"enterprise",
+    "name_en":"enterprise data",
+    "name_cat":"",
+    "icon_id":"",
+    "copy_en":"",
+    "copy_cat":""
   },
   {
-    "id": 2,
-    "shape": "triangle",
-    "type": "enterprise",
-    "name_en": "enterprise data",
-    "name_cat": "enterprise data catalan",
-    "icon_id": "ion-ios-cloud-upload-outline",
-    "copy_en": "data source 2 english",
-    "copy_cat": "data source 2 catalan"
+    "id":"2",
+    "shape":"square",
+    "type":"environmental",
+    "name_en":"environmental data",
+    "name_cat":"",
+    "icon_id":"",
+    "copy_en":"",
+    "copy_cat":""
   },
   {
-    "id": 3,
-    "shape": "triangle",
-    "type": "environmental",
-    "name_en": "environmental data",
-    "name_cat": "environmental data catalan",
-    "icon_id": "ion-ios-cloud-upload-outline",
-    "copy_en": "data source 3 english",
-    "copy_cat": "data source 3 catalan"
+    "id":"3",
+    "shape":"square",
+    "type":"personal",
+    "name_en":"personal data",
+    "name_cat":"",
+    "icon_id":"",
+    "copy_en":"",
+    "copy_cat":""
   },
   {
-    "id": 4,
-    "shape": "triangle",
-    "type": "social",
-    "name_en": "social data",
-    "name_cat": "social data catalan",
-    "icon_id": "ion-ios-cloud-upload-outline",
-    "copy_en": "data source 4 english",
-    "copy_cat": "data source 4 catalan"
+    "id":"4",
+    "shape":"square",
+    "type":"public",
+    "name_en":"public data",
+    "name_cat":"",
+    "icon_id":"",
+    "copy_en":"",
+    "copy_cat":""
   },
   {
-    "id": 5,
-    "shape": "triangle",
-    "type": "public",
-    "name_en": "public data",
-    "name_cat": "public data catalan",
-    "icon_id": "ion-ios-cloud-upload-outline",
-    "copy_en": "data source 5 english",
-    "copy_cat": "data source 5 catalan"
+    "id":"5",
+    "shape":"square",
+    "type":"social",
+    "name_en":"social data",
+    "name_cat":"",
+    "icon_id":"",
+    "copy_en":"",
+    "copy_cat":""
+  },
+  {
+    "id":"6",
+    "shape":"square",
+    "type":"fictional",
+    "name_en":"fictional",
+    "name_cat":"",
+    "icon_id":"",
+    "copy_en":"",
+    "copy_cat":""
+  },
+  {
+    "id":"7",
+    "shape":"square",
+    "type":"any",
+    "name_en":"any",
+    "name_cat":"",
+    "icon_id":"",
+    "copy_en":"",
+    "copy_cat":""
   }
 ]
