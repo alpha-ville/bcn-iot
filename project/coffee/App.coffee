@@ -10,8 +10,8 @@ PurposeCollection    = require './collections/PurposeCollection'
 class App
 
     LIVE        : null
-    BASE_PATH   : window.config.hostname
-    localeCode  : window.config.localeCode
+    # BASE_PATH   : window.config.hostname
+    # localeCode  : window.config.localeCode
     objReady    : 0
     purposes    : null
     dataSources : null
