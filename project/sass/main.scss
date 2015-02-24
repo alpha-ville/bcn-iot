@@ -57,16 +57,17 @@
  *
  */
 
- $red    : #d02a40;
- $blue   : #2773be;
- $yellow : #e79d33;
+$red    : #d02a40;
+$blue   : #2773be;
+$yellow : #e79d33;
 
- $alpha : .8;
+$alpha : .8;
 $max-width : 900px;
 
- $red-alpha    : rgba(208, 42, 64, $alpha);
- $blue-alpha   : rgba(39, 115, 190, $alpha);
- $yellow-alpha : rgba(231, 157, 51, $alpha);
+$red-alpha    : rgba(208, 42, 64, $alpha);
+$blue-alpha   : rgba(39, 115, 190, $alpha);
+$yellow-alpha : rgba(231, 157, 51, $alpha);
+
 * {
     // cursor: none
 }
@@ -83,6 +84,11 @@ $max-width : 900px;
  body
  {
     overflow: hidden;
+ }
+
+ .wrapper
+ {
+    display: block;
  }
 
 .page {
