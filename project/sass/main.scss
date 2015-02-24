@@ -17,6 +17,7 @@
 @import 'utils/reset';
 @import 'utils/filters';
 
+
 /*
  * ICONS
  */
@@ -41,8 +42,6 @@
 
 @import 'slick/slick';
 @import 'slick/slick-theme';
-
-@import 'videojs/video';
 
 /*
  * VIEWS
@@ -70,6 +69,11 @@ $max-width : 900px;
 $red-alpha    : rgba(208, 42, 64, $alpha);
 $blue-alpha   : rgba(39, 115, 190, $alpha);
 $yellow-alpha : rgba(231, 157, 51, $alpha);
+
+.video-js
+{
+    margin: 0 auto;
+}
 
 * {
     // cursor: none

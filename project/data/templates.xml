@@ -65,9 +65,9 @@
                 <div class="carousel-item" id="<%= object.get('id') %>">
                     <% if(object.get('video') != "") { %>
 
-                        <video class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="624" height="350">
-                            <source src="https://googledrive.com/host/<%= object.get('video') %>" type='video/mp4'>
-                        </video>
+                    <video class="video-js vjs-sublime-skin" controls preload="auto" width="624" height="350">
+                        <source src="https://googledrive.com/host/<%= object.get('video') %>" type='video/mp4'>
+                    </video>
 
                     <% } else { %>
                         <img width="624" height="350" src="https://googledrive.com/host/<%= object.get('image') %>">
