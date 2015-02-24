@@ -6,6 +6,7 @@ cookieParser = require('cookie-parser'),
 bodyParser   = require('body-parser'),
 routes       = require('./routes/index'),
 users        = require('./routes/users'),
+cors = require('cors'),
 app          = express();
 pkg = require('../package.json')
 
@@ -19,6 +20,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(cors());
 app.use(express.static(path.join(__dirname, '../' + pkg.folders.dest + "/static")));
 
 app.use('/', routes);

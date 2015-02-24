@@ -32,6 +32,7 @@
     "browserify": "~6.0.3",
     "coffee-script": "1.8.0",
     "coffeeify": "~0.7.0",
+    "cors": "^2.5.3",
     "gulp": "^3.8.8",
     "gulp-autoprefixer": "~1.0.1",
     "gulp-changed": "^1.0.0",
@@ -75,7 +76,9 @@
     "easepack": "EasePack.js",
     "pixi": "pixi.js",
     "matter": "matter-0.8.0.min.js",
-    "slick" : "slick.min.js",
+    "backbone.tabletopSync.js" : "backbone.tabletopSync.js",
+    "slick": "slick.min.js",
+    "tabletop.js" : "tabletop.js",
     "script": "script.js"
   },
   "dependencies": {

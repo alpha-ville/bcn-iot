@@ -4,9 +4,12 @@ AbstractCollection = require './AbstractCollection'
 class ObjectsCollection extends AbstractCollection
 
     model : ObjectModel
-    url : "/data/objects.json"
+    sync: Backbone.tabletopSync
 
-    B : =>
-        return window.B
+    constructor : ->
+        super()
+        @tabletop =
+            instance: @B().storage
+            sheet: 'new-objects'
 
 module.exports = ObjectsCollection

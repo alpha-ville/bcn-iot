@@ -4,9 +4,12 @@ AbstractCollection = require './AbstractCollection'
 class DataSourceCollection extends AbstractCollection
 
     model : DataSourceModel
-    url : "/data/sources.json"
+    sync: Backbone.tabletopSync
 
-    B : =>
-        return window.B
+    constructor : ->
+        super()
+        @tabletop =
+            instance: @B().storage
+            sheet: 'new-data'
 
 module.exports = DataSourceCollection
