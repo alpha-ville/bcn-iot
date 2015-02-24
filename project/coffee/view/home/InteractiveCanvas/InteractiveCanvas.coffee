@@ -78,7 +78,7 @@ class InteractiveCanvas extends AbstractView
 
         @smallCircles = []
         for i in [ 0 ... 50 ]
-            size = _.random( 8, 25 )
+            size = _.random( 8, 40 )
             circle = new Circle( null, size, @scene, .2 )
             circle.move _.random(@w), _.random(@h)
             circle.behavior = 'basic'
@@ -89,7 +89,7 @@ class InteractiveCanvas extends AbstractView
 
         @smallTriangles = []
         for i in [ 0 ... 100 ]
-            size = _.random( 8, 25 )
+            size = _.random( 8, 40 )
             triangle = new Triangle( null, size, @scene, .01 )
             triangle.move _.random(@w), _.random(@h)
             triangle.behavior = 'basic'
@@ -101,7 +101,7 @@ class InteractiveCanvas extends AbstractView
 
         @smallSquares = []
         for i in [ 0 ... 100 ]
-            size = _.random( 8, 25 )
+            size = _.random( 8, 40 )
             square = new Square( null, size, @scene, .01 )
             square.move _.random(@w), _.random(@h)
             square.behavior = 'basic'
@@ -142,8 +142,8 @@ class InteractiveCanvas extends AbstractView
             data = @B().categories.models[i]
             object = new Circle(data, size, @scene)
             object.sprite.alpha = .8
-            # object.animate()
             object.move _.random(@w), _.random(@h)
+            object.isPulsating = true
             @shapes.push( object )
             @circles.push( object )
             @scene.addChild object.sprite
@@ -151,7 +151,7 @@ class InteractiveCanvas extends AbstractView
         for j in [ 0 ... @B().purposes.models.length ]
             data = @B().purposes.models[j]
             object = new Triangle(data, size, @scene)
-            object.sprite.alpha = .8
+            object.sprite.alpha = .6
             # object.animate()
             object.move _.random(@w), _.random(@h)
             @shapes.push( object )
@@ -213,12 +213,15 @@ class InteractiveCanvas extends AbstractView
         for shape in @triangleAndSquares
 
             nearestCircle = @getNearestCircle( shape, @circles, .8 )
-            dist = NumUtil.distanceBetweenPoints nearestCircle.sprite.position, shape.sprite.position
-            
-            if dist < 400 and nearestCircle and shape.sprite.alpha > .1
-                @linesObj.lineStyle( 1, shape.color, NumUtil.map(dist, 0, 400, .8, 0) )
-                @linesObj.moveTo( nearestCircle.sprite.position.x, nearestCircle.sprite.position.y );
-                @linesObj.lineTo( shape.sprite.x , shape.sprite.y);
+
+            if nearestCircle
+
+                dist = NumUtil.distanceBetweenPoints nearestCircle.sprite.position, shape.sprite.position
+                
+                if dist < 400 and nearestCircle and shape.sprite.alpha > .1
+                    @linesObj.lineStyle( 1, shape.color, NumUtil.map(dist, 0, 400, .8, 0) )
+                    @linesObj.moveTo( nearestCircle.sprite.position.x, nearestCircle.sprite.position.y );
+                    @linesObj.lineTo( shape.sprite.x , shape.sprite.y);
         
         for shape in @smallShapes
 
@@ -240,9 +243,10 @@ class InteractiveCanvas extends AbstractView
 
         for circle in circles
             tempDist = NumUtil.distanceBetweenPoints circle.sprite.position, shape.sprite.position
-            if tempDist < distance and shape.type != 'circle' and circle.sprite.alpha >= constrainAlpha
+            if tempDist < distance and shape.type != 'circle' and !circle.isDisable
                 distance = tempDist
                 nearestCircle = circle 
+
 
         return nearestCircle
 
@@ -306,9 +310,12 @@ class InteractiveCanvas extends AbstractView
         @currentSelectedCircle = circle 
 
         for c in @circles
+            c.isDisable = true
+            c.isPulsating = false
             if c.id != circle.id then c.disable()
 
-        circle.goToCenterAndScaleUp()
+        @currentSelectedCircle.isDisable = false
+        @currentSelectedCircle.goToCenterAndScaleUp()
 
         for shape in @triangleAndSquares
             shape.sprite.alpha = .1
@@ -317,46 +324,23 @@ class InteractiveCanvas extends AbstractView
         copySquares = @squares.slice()
         copyTriangles = @triangles.slice()
         
-
-        # # pick up 2 random objects from squares
-        # rand = Math.floor Math.random() * copySquares.length
-        # @activeShapes.push( copySquares[rand] )
-        # @triangleAndSquares.splice( rand, 1 )
-        # rand = Math.floor Math.random() * copySquares.length
-        # @activeShapes.push( copySquares[rand] )
-
-        # # pick up 2 random objects from triangles
-        # rand = Math.floor Math.random() * copyTriangles.length
-        # @activeShapes.push( copyTriangles[rand] )
-        # @triangleAndSquares.splice( rand, 1 )
-        # rand = Math.floor Math.random() * copyTriangles.length
-        # @activeShapes.push( copyTriangles[rand] )
-
         rand1 = Math.floor Math.random() * copySquares.length
         rand2 = rand1
-
-        while rand2 == rand1
-            console.log  'in the loop'
-            rand2 = Math.floor Math.random() * copySquares.length
-
+        rand2 = Math.floor Math.random() * copySquares.length while rand2 == rand1
         @activeShapes.push( copySquares[rand1] )
         @activeShapes.push( copySquares[rand2] )
 
         rand1 = Math.floor Math.random() * copyTriangles.length
         rand2 = rand1
-
-        while rand2 == rand1
-            console.log  'in the loop'
-            rand2 = Math.floor Math.random() * copyTriangles.length
-
+        rand2 = Math.floor Math.random() * copyTriangles.length while rand2 == rand1
         @activeShapes.push( copyTriangles[rand1] )
         @activeShapes.push( copyTriangles[rand2] )
 
         
         
         for shape in @activeShapes
-            console.log shape.id
-            shape.fadeTo( .8 )
+            if shape.type == 'triangle' then shape.fadeTo( .6 ) else shape.fadeTo( .8 )
+            shape.isPulsating = true
             shape.canOrbit = true      
 
         null
@@ -366,18 +350,19 @@ class InteractiveCanvas extends AbstractView
         @centralButton.stop()
 
         for c in @circles
+            c.isDisable = false
+            c.isPulsating = true
             if c.id != circle.id then c.undisable()
 
         # @activeShapes = []
         
-
         circle.goBackAndScaleDown()
 
         for shape in @shapes
+            if shape.type == 'triangle' then shape.fadeTo( .6 ) else shape.fadeTo( .8 )
             shape.canOrbit = false
             shape.isOrbiting = false
             shape.behavior = 'target'
-            shape.fadeTo( .8 )
             shape.spring = .07
             shape.sprite.scale.x = shape.sprite.scale.y = 1
             shape.attractionRadius = _.random(190, 210)
@@ -392,6 +377,10 @@ class InteractiveCanvas extends AbstractView
     onShapeSelected: ( shape ) =>
         @selectedShapes.push( shape )
 
+        shape.isPulsating = false
+        shape.sprite.alpha = .8
+        shape.sprite.scale.x = shape.sprite.scale.y = 1
+
         @centralButton.animate()
 
         if @selectedShapes.length == @activeShapes.length
@@ -399,7 +388,7 @@ class InteractiveCanvas extends AbstractView
             setTimeout =>
                 for shape in @selectedShapes
                     shape.getAbsorbed()
-            , 700
+            , 100
             
 
 
