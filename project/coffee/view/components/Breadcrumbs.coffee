@@ -18,6 +18,7 @@ class Breadcrumbs extends AbstractView
         @$el.find('[data-lang]').not("li").each (a, b) =>
             $(b).css
                 display : if $(b).attr('data-lang') is @B().langSelected then 'block' else 'none'
+
         null
 
     animate : (delay) =>
