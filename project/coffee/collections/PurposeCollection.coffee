@@ -1,4 +1,4 @@
-PurposeModel    = require '../models/DataSourceModel'
+PurposeModel    = require '../models/PurposeModel'
 AbstractCollection = require './AbstractCollection'
 
 class PurposeCollection extends AbstractCollection

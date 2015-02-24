@@ -3,6 +3,7 @@ AbstractModel = require './AbstractModel'
 class PurposeModel extends AbstractModel
 
     defaults :
+        model : 'purposes'
       id       : null
       shape    : null
       type     : null

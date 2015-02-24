@@ -261,6 +261,7 @@ $yellow-alpha : rgba(231, 157, 51, $alpha);
                     margin: 0 auto;
                     p
                     {
+                        display: inline-flex !important;
                         @include font-size(.7);
                         max-width: 60px;
                         @include rem-fallback(line-height, 1.5);

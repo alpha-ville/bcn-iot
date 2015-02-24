@@ -50,17 +50,16 @@ class OverlayContent extends AbstractModal
         breadcrumbsList.push @B().purposes.findWhere type : i for i in selectablePurposes
 
         @breadCrumbs = new BreadCrumbs breadcrumbsList
-        console.log @bcContainer
         @bcContainer.empty()
         @bcContainer.append @breadCrumbs.$el
         @breadCrumbs.animate delay
         null
 
-    slideChange : (slideID) =>
+    slideChange : (slideID, delay = 0) =>
         a = @B().objects.findWhere id : String(slideID)
         pn = $(@$el.find('.project-name-container>.project-name')[0])
         pn.text a.get('name_' + @B().langSelected)
-        @setBreadcrumb a
+        @setBreadcrumb a, delay
         null
 
     closeButton : =>
@@ -87,7 +86,7 @@ class OverlayContent extends AbstractModal
         @$el.find('.list-container').append @objectCarosel.$el
         @bcContainer = $(@$el.find('.breadcrumbs')[0])
 
-        @setBreadcrumb @objects[0], .9
+        @slideChange @objects[0].get('id'), .9
 
         @toggleLang()
         @animate()
