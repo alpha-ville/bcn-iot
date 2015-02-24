@@ -4,9 +4,12 @@ AbstractCollection = require './AbstractCollection'
 class PurposeCollection extends AbstractCollection
 
     model : PurposeModel
-    url : "/data/purposes.json"
+    sync: Backbone.tabletopSync
 
-    B : =>
-        return window.B
+    constructor : ->
+        super()
+        @tabletop =
+            instance: @B().storage
+            sheet: 'new-purpose'
 
 module.exports = PurposeCollection

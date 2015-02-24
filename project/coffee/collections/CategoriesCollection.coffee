@@ -4,9 +4,13 @@ AbstractCollection = require './AbstractCollection'
 class CategoriesCollection extends AbstractCollection
 
     model : CategoryModel
-    url : "/data/categories.json"
+    sync: Backbone.tabletopSync
 
-    B : =>
-        return window.B
+    constructor : ->
+        super()
+
+        @tabletop =
+            instance: @B().storage
+            sheet: 'new-categories'
 
 module.exports = CategoriesCollection

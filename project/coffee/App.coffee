@@ -1,10 +1,7 @@
-Analytics            = require './utils/Analytics'
-Share                = require './utils/Share'
 Templates            = require './data/Templates'
 Router               = require './router/Router'
 Nav                  = require './router/Nav'
 AppView              = require './AppView'
-MediaQueries         = require './utils/MediaQueries'
 ObjectsCollection    = require './collections/ObjectsCollection'
 CategoriesCollection = require './collections/CategoriesCollection'
 DataSourceCollection = require './collections/DataSourceCollection'
@@ -21,6 +18,8 @@ class App
     objects     : null
     categories  : null
 
+    storage : null
+
     _toClean   : ['objReady', 'setFlags', 'objectComplete', 'init', 'initObjects', 'initSDKs', 'initApp', 'go', 'cleanup', '_toClean']
 
     constructor : (@LIVE) ->
@@ -31,8 +30,6 @@ class App
 
         ua = window.navigator.userAgent.toLowerCase()
 
-        MediaQueries.setup()
-
         @IS_ANDROID    = ua.indexOf('android') > -1
         @IS_FIREFOX    = ua.indexOf('firefox') > -1
         @IS_CHROME_IOS = if ua.match('crios') then true else false # http://stackoverflow.com/a/13808053
@@ -42,7 +39,7 @@ class App
     objectComplete : =>
 
         @objReady++
-        @initApp() if @objReady >= 6
+        @initApp() if @objReady >= 5
 
         null
 
@@ -55,19 +52,25 @@ class App
     initObjects : =>
 
         @templates = new Templates "/data/templates#{(if @LIVE then '.min' else '')}.xml", @objectComplete
-        @analytics = new Analytics "/data/tracking.json", @objectComplete
 
-        @categories = new CategoriesCollection
-        @categories.fetch success : @objectComplete
+        @storage = Tabletop.init
+            key: "1HIWOpkgxY5oJ9PjKQ3QxAWV_GMFWEIiszFpi37TMLaI"
+            callback : (data) =>
 
-        @purposes = new PurposeCollection
-        @purposes.fetch success : @objectComplete
+                console.log 'loaded', data
 
-        @dataSources = new DataSourceCollection
-        @dataSources.fetch success : @objectComplete
+                @categories = new CategoriesCollection
+                @categories.fetch success : @objectComplete
 
-        @objects = new ObjectsCollection
-        @objects.fetch success : @objectComplete
+                @purposes = new PurposeCollection
+                @purposes.fetch success : @objectComplete
+
+                @dataSources = new DataSourceCollection
+                @dataSources.fetch success : @objectComplete
+
+                @objects = new ObjectsCollection
+                @objects.fetch success : @objectComplete
+
 
         # if new objects are added don't forget to change the `@objectComplete` function
 
@@ -90,7 +93,6 @@ class App
         @appView = new AppView
         @router  = new Router
         @nav     = new Nav
-        @share   = new Share
 
         @go()
 
