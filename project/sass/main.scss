@@ -242,11 +242,14 @@ $yellow-alpha : rgba(231, 157, 51, $alpha);
                 $size-shape : 60px;
                 $icon-size : 30px;
 
+                height: 90px;
+                overflow: hidden;
+
                 display: inline;
 
                 &>div
                 {
-                    margin: 0 auto;
+                    margin: 20px auto 0;
                     padding: 5px 15px;
                     opacity: 0;
                     display: inline-block;

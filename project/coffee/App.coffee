@@ -38,8 +38,6 @@ class App
 
     objectComplete : =>
 
-        console.log @objReady
-
         @objReady++
         @initApp() if @objReady >= 5
 
