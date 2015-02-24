@@ -6,6 +6,7 @@ Triangle        = require './shapes/Triangle'
 Square          = require('./shapes/Square.coffee');
 NumUtil         = require('../../../utils/NumUtil.coffee');
 NodeShape       = require('./shapes/NodeShape.coffee');
+HelpButton = require('./shapes/HelpButton.coffee');
  
 class InteractiveCanvas extends AbstractView
 
@@ -65,9 +66,20 @@ class InteractiveCanvas extends AbstractView
 
         @addShapes()
 
+        @addHelpButton()
+
         # @addGardenNodes()
 
         @update()
+
+        null
+
+
+    addHelpButton: ->
+        @helpButton = new HelpButton( null, 50, @scene )
+        @helpButton.behavior = 'basic'
+        @helpButton.move _.random(@w), _.random(@h)
+        @scene.addChild( @helpButton.sprite )
 
         null
 
@@ -193,6 +205,7 @@ class InteractiveCanvas extends AbstractView
             shape.update()
 
         @centralButton.update()
+        @helpButton.update()
         
         @render()
 
