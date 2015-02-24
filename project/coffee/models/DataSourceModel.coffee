@@ -3,6 +3,7 @@ AbstractModel = require './AbstractModel'
 class DataSourceModel extends AbstractModel
 
     defaults :
+        model    : 'dataSources'
         id       : null
         shape    : null
         type     : null

@@ -32,6 +32,8 @@ class Breadcrumbs extends AbstractView
         @B().selectedDataType = t.attr('data-type').toString()
         @B().selectedDataId = t.attr('data-id')
 
+        console.log t.find('.name-container > p[data-lang="en"]').text(), @B().selectedDataId, @B().selectedDataType
+
         @B().openOverlayData()
         null
 
