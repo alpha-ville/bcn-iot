@@ -23,6 +23,10 @@ class ObjectsList extends AbstractView
         null
 
     beforeChange : (event, slick, currentSlide, nextSlide) =>
+        @$el.find('video').each ->
+            @.pause()
+            @.currentTime = 0
+
         @trigger 'beforeChange'
         null
 
