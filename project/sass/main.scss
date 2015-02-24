@@ -15,6 +15,7 @@
 @import 'utils/retina';
 @import 'utils/responsive';
 @import 'utils/reset';
+@import 'utils/filters';
 
 /*
  * ICONS
@@ -170,10 +171,12 @@ $yellow-alpha : rgba(231, 157, 51, $alpha);
             border-left: ($size-shape/2) solid transparent;
             border-right: ($size-shape/2) solid transparent;
             border-bottom: $size-shape * (sqrt(3)/2) solid $blue-alpha;
-            span
+            img
             {
-                top: 25px;
-                left: -27px;
+                width: $size-shape * .7;
+                height: $size-shape * .7;
+                @include transform(translate(-50%));
+                margin-top: 15px;
             }
         }
 
@@ -182,9 +185,10 @@ $yellow-alpha : rgba(231, 157, 51, $alpha);
             width: $size-shape * .9;
             height: $size-shape * .9;
             background-color: $yellow-alpha;
-            span
+            img
             {
-                top: ($size-shape / 2) - ($icon-size / 1.3);
+                width: $size-shape * .9;
+                height: $size-shape * .9;
             }
         }
 
@@ -215,6 +219,10 @@ $yellow-alpha : rgba(231, 157, 51, $alpha);
                 opacity: 0;
                 width: $size-shape;
                 margin: 30px auto;
+                img
+                {
+                    @include filter(invert, 1);
+                }
             }
 
             .project-name-container
@@ -269,12 +277,9 @@ $yellow-alpha : rgba(231, 157, 51, $alpha);
                     }
                 }
 
-                span
+                img
                 {
-                    position: relative;
-                    font-size: $icon-size;
-                    color: white;
-                    top: ($size-shape / 2) - $icon-size / 2;
+                    @include filter(invert, 1);
                 }
 
                 .triangle
@@ -284,10 +289,12 @@ $yellow-alpha : rgba(231, 157, 51, $alpha);
                     border-left: ($size-shape/2) solid transparent;
                     border-right: ($size-shape/2) solid transparent;
                     border-bottom: $size-shape * (sqrt(3)/2) solid $blue-alpha;
-                    span
+                    img
                     {
-                        top: $size-shape / 4;
-                        left: -$size-shape / 4.4;
+                        width: $size-shape * .7;
+                        height: $size-shape * .7;
+                        margin-top: 10px;
+                        @include transform(translate(-50%));
                     }
                 }
 
@@ -296,9 +303,10 @@ $yellow-alpha : rgba(231, 157, 51, $alpha);
                     width: $size-shape * .9;
                     height: $size-shape * .9;
                     background-color: $yellow-alpha;
-                    span
+                    img
                     {
-                        top: ($size-shape / 1.65) - ($icon-size);
+                        width: $size-shape * .9;
+                        height: $size-shape * .9;
                     }
                 }
 
@@ -369,141 +377,5 @@ $yellow-alpha : rgba(231, 157, 51, $alpha);
         }
     }
 
-    &.overlay-diagram{
-
-        $size-shape : 70px;
-
-        .triangle
-        {
-            width: 0;
-            height: 0;
-            border-left: ($size-shape/2) solid transparent;
-            border-right: ($size-shape/2) solid transparent;
-            border-bottom: $size-shape * (sqrt(3)/2) solid $blue-alpha;
-        }
-
-        .square
-        {
-            width: $size-shape * .9;
-            height: $size-shape * .9;
-            background-color: $yellow-alpha;
-        }
-
-        .circle
-        {
-            width: $size-shape;
-            height: $size-shape;
-            border-radius: 100%;
-            background-color: $red-alpha;
-        }
-
-        .container
-        {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-        }
-
-        svg
-        {
-            top: 50%;
-            left: 50%;
-            position: absolute;
-            transform-origin: 0 0;
-
-
-            &#line1
-            {
-                margin-left: -1px;
-                @include transform(rotate(-90deg));
-            }
-
-            &#line2
-            {
-                @include transform(rotate(-24deg));
-            }
-
-            &#line3
-            {
-                @include transform(rotate(49deg));
-            }
-
-            &#line4
-            {
-                @include transform(rotate(127deg));
-            }
-
-            &#line5
-            {
-                @include transform(rotate(204deg));
-            }
-        }
-
-        .piece
-        {
-            position: fixed;
-            @include transform(translateX(-50%) translateY(-50%));
-
-            span
-            {
-                font-size: 20px;
-                position: absolute;
-                top: $size-shape/2;
-                left: 50%;
-                color: white;
-                @include transform(translateX(-50%) translateY(-50%));
-            }
-            div:nth-child(1)
-            {
-                top: 50%;
-                left: 50%;
-            }
-            div:nth-child(2)
-            {
-                margin-top: 10px;
-                text-align: center;
-                font-weight: bold;
-                font-size: 11px;
-                text-transform: uppercase;
-            }
-        }
-
-        .center-piece
-        {
-            @extend .piece;
-        }
-
-        $distance : 140px;
-
-        .top-center-piece
-        {
-            @extend .piece;
-            @include transform(translateX(-50%) translateY(-$distance - $size-shape));
-        }
-
-        .top-right-piece
-        {
-            @extend .piece;
-            @include transform(translateX($distance) translateY(-75px - $size-shape/2));
-        }
-
-        .top-left-piece
-        {
-            @extend .piece;
-            @include transform(translateX(-$distance - $size-shape) translateY(-75px - $size-shape/2));
-        }
-
-        .bottom-right-piece
-        {
-            @extend .piece;
-            @include transform(translateX(95px) translateY(116px));
-        }
-
-        .bottom-left-piece
-        {
-            @extend .piece;
-            @include transform(translateX(-95px - $size-shape) translateY(116px));
-        }
-    }
 }
 
