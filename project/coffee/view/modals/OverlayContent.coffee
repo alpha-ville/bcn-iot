@@ -20,10 +20,10 @@ class OverlayContent extends AbstractModal
 
         node = @B().categories.findWhere category_name : @B().selectedCategoryId
 
-        selectableSources =  node.get('data_type').split(" ").join("").split(",")
+        selectableSources =  node.get('data_type').split(" ").join("").split(";")
         breadcrumbsList.push @B().dataSources.findWhere type : i for i in selectableSources
 
-        selectablePurposes = node.get('purpose_type').split(" ").join("").split(",")
+        selectablePurposes = node.get('purpose_type').split(" ").join("").split(";")
         breadcrumbsList.push @B().purposes.findWhere type : i for i in selectablePurposes
 
         @breadCrumbs = new BreadCrumbs breadcrumbsList
@@ -31,6 +31,7 @@ class OverlayContent extends AbstractModal
         objects = @B().objects.where "category" : node.get('category_name')
         objects = _.shuffle objects
         @objectCarosel = new ObjectsList objects
+        @objectCarosel.on 'slideChange', @slideChange
 
         @templateVars =
             content_en  : node.get('copy_en')
@@ -43,6 +44,12 @@ class OverlayContent extends AbstractModal
         super()
 
         return null
+
+    slideChange : (slideID) =>
+        a = @B().objects.findWhere id : String(slideID)
+        pn = $(@$el.find('.project-name-container>.project-name')[0])
+        pn.text a.get('name_' + @B().langSelected)
+        null
 
     closeButton : =>
         @B().resetIDs()
