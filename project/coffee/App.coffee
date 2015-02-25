@@ -102,6 +102,8 @@ class App
 
         @go()
 
+        @appView.modalManager.showModal 'overlayHelp'
+
         null
 
     openOverlayContent : (@selectedCategoryId) =>
