@@ -14,9 +14,9 @@ Array.prototype.remove = function(from, to) {
 };
 
 // mouse events
-window.touchStartInteraction = Modernizr.touch ? "touchstart" : "mousedown"
-window.touchEndInteraction   = Modernizr.touch ? "touchend" : "mouseup"
-window.touchMoveInteraction  = Modernizr.touch ? 'touchmove' : 'mousemove'
+// window.touchStartInteraction = Modernizr.touch ? "touchstart" : "mousedown"
+// window.touchEndInteraction   = Modernizr.touch ? "touchend" : "mouseup"
+// window.touchMoveInteraction  = Modernizr.touch ? 'touchmove' : 'mousemove'
 
 // getComputedStyle for IE8
 if (!window.getComputedStyle) {
@@ -62,7 +62,7 @@ if (!Array.prototype.indexOf)
 
 // query string
 var QueryString = function () {
-  // This function is anonymous, is executed immediately and 
+  // This function is anonymous, is executed immediately and
   // the return value is assigned to QueryString!
   var query_string = {};
   var query = window.location.search.substring(1);
@@ -80,6 +80,6 @@ var QueryString = function () {
     } else {
       query_string[pair[0]].push(pair[1]);
     }
-  } 
+  }
     return query_string;
 } ();
