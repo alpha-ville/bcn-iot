@@ -5,6 +5,7 @@ Wrapper      = require './view/base/Wrapper'
 # Footer       = require './view/base/Footer'
 ModalManager = require './view/modals/_ModalManager'
 MediaQueries = require './utils/MediaQueries'
+SoundController = require('./utils/SoundController.coffee');
 
 class AppView extends AbstractView
 
@@ -41,6 +42,8 @@ class AppView extends AbstractView
         super()
 
         @diableRightClick()
+
+        @soundControlller = new SoundController()
 
     diableRightClick: =>
         document.body.setAttribute("oncontextmenu", "return false")
