@@ -47,7 +47,6 @@ class AbstractModal extends AbstractView
 		null
 
 	animateIn : =>
-		console.log @$el
 		@el.style.visibility = 'visible'
 
 		TweenLite.to @$el, 0.3, { 'opacity': 1, ease : Quad.easeOut }

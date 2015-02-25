@@ -85,11 +85,14 @@ body {
  h1
  {
     @include font-size(4);
+    font-weight: bold;
  }
 
  p
  {
     @include font-size(1.5);
+    letter-spacing: 1.1px;
+    @include rem-fallback(line-height, 2.8);
  }
 
  body
@@ -156,10 +159,28 @@ body {
         }
     }
 
-    &.overlay-content
+    &.overlay-content, &.overlay-help
     {
         $size-shape : 100px;
         $icon-size : 60px;
+
+        background-color: rgba(246, 246, 246, .95);
+
+        h1
+        {
+            opacity: 0;
+        }
+
+        p
+        {
+            opacity: 0
+        }
+
+        .desc
+        {
+            max-width: 500px;
+            margin: 20px auto;
+        }
 
         .close-button
         {
@@ -239,6 +260,28 @@ body {
                 }
             }
 
+            .container-shape-help
+            {
+                display: inline;
+                width: $size-shape;
+                margin: 30px auto;
+                &>div
+                {
+                    display: inline-block;
+                    margin: 30px;
+                    opacity: 0;
+                    &>div:not(.label)
+                    {
+                        @include transform(scale(.7));
+                    }
+                    .label
+                    {
+                        @include font-size(1.5);
+                        font-weight: bold;
+                    }
+                }
+            }
+
             .project-name-container
             {
                 letter-spacing: 1.5px;
@@ -258,6 +301,17 @@ body {
                 max-width: $max-width - 250;
                 margin-top: 30px;
                 opacity: 0;
+                background: black;
+            }
+
+            .credits-container
+            {
+                margin-top: 30px;
+
+                .credit-bold
+                {
+                    font-weight: bold;
+                }
             }
 
             .breadcrumbs

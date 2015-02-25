@@ -22,8 +22,6 @@ class OverlayHelp extends AbstractModal
 
         super()
 
-        @$el = @$el[0]
-
         return null
 
     closeButton : =>
@@ -32,7 +30,6 @@ class OverlayHelp extends AbstractModal
         null
 
     toggleLang : (e) =>
-        return
         @$el.find('li').each (a, b) =>
             $(b).removeAttr('data-selected')
 
@@ -50,30 +47,32 @@ class OverlayHelp extends AbstractModal
 
     init : =>
         @toggleLang()
-        # @animate()
+        @animate()
         null
 
     animate : =>
         margin = 30
 
-        c = $(@$el.find('.container-shape')[0])
-        TweenMax.to c, 0, scaleX: 0, scaleY: 0, delay: 0
-        TweenMax.to c, 1, scaleX: 1, scaleY: 1, ease: Back.easeOut.config(12), opacity: 1, delay: .5
+        delay = .2
 
-        t = $(@$el.find('.title-container')[0])
-        TweenMax.to t, .5, 'margin-top' : margin, opacity: 1, delay: 1
+        t = $(@$el.find('h1')[0])
+        TweenMax.to t, .5, opacity: 1, delay: delay
 
-        cont = $(@$el.find('.content')[0])
-        TweenMax.to cont, .5, 'margin-top' : margin, opacity: 1, delay: 1.4
+        cont = @$el.find('p')
+        TweenMax.to cont, .5, opacity: 1, delay: delay + .2
 
-        bts = $(@$el.find('.lang-buttons')[0])
-        TweenMax.to bts, .5, 'margin-top' : margin, opacity: 1, delay: 1.4
+        cont = @$el.find('hr')
+        TweenMax.to cont, .5, opacity: 1, delay: delay + .3
 
         bts = $(@$el.find('.lang-buttons')[0])
-        TweenMax.to bts, .5, 'margin-top' : margin, opacity: 1, delay: 1.4
+        TweenMax.to bts, .5, 'margin-top' : margin, opacity: 1, delay: delay + .7
 
         cb = $(@$el.find('.close-button')[0])
-        TweenMax.to cb, .5, 'margin-top' : margin, opacity: 1, delay: 1.4
+        TweenMax.to cb, .5, 'margin-top' : margin, opacity: 1, delay: delay + .7
+
+        @$el.find('.container-shape-help .object-container').each (a, b) ->
+            TweenMax.to b, 0, y : -20
+            TweenMax.to b, .5, y : 0, opacity: 1, delay: (delay + (a * .1))
 
         null
 
