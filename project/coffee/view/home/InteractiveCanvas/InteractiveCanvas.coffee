@@ -438,7 +438,7 @@ class InteractiveCanvas extends AbstractView
             setTimeout =>
                 for shape in @selectedShapes
                     shape.getAbsorbed()
-            , 300
+            , 500
 
 
 
