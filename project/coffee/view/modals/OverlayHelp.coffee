@@ -27,6 +27,8 @@ class OverlayHelp extends AbstractModal
             third_paragraph_cat  : @B().credits.at(0).get 'third_paragraph_cat'
             people_en            : @B().credits.at(0).get 'people_en'
             people_cat           : @B().credits.at(0).get 'people_cat'
+            fourth_paragraph_en  : @B().credits.at(0).get 'fourth_paragraph_en'
+            fourth_paragraph_cat : @B().credits.at(0).get 'fourth_paragraph_cat'
 
         super()
 

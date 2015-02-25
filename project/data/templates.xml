@@ -208,6 +208,9 @@
                         </div>
                         <p data-lang='en'><%=third_paragraph_en%></p>
                         <p data-lang='cat'><%=third_paragraph_cat%></p>
+                        <br>
+                        <p data-lang='en' class="license"><%=fourth_paragraph_en%></p>
+                        <p data-lang='cat' class="license"><%=fourth_paragraph_cat%></p>
                     </div>
                     <hr/>
                     <div class="credits-container">
