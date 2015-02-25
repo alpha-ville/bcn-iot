@@ -6,19 +6,19 @@ ObjectsCollection    = require './collections/ObjectsCollection'
 CategoriesCollection = require './collections/CategoriesCollection'
 DataSourceCollection = require './collections/DataSourceCollection'
 PurposeCollection    = require './collections/PurposeCollection'
+CreditsCollection    = require './collections/CreditsCollection'
 
 class App
 
-    LIVE        : null
-    # BASE_PATH   : window.config.hostname
-    # localeCode  : window.config.localeCode
-    objReady    : 0
-    purposes    : null
-    dataSources : null
-    objects     : null
-    categories  : null
+    LIVE         : null
+    objReady     : 0
+    purposes     : null
+    dataSources  : null
+    objects      : null
+    categories   : null
+    credits      : null
 
-    storage : null
+    storage      : null
 
     _toClean   : ['objReady', 'setFlags', 'objectComplete', 'init', 'initObjects', 'initSDKs', 'initApp', 'go', 'cleanup', '_toClean']
 
@@ -39,7 +39,7 @@ class App
     objectComplete : =>
 
         @objReady++
-        @initApp() if @objReady >= 5
+        @initApp() if @objReady >= 6
 
         null
 
@@ -68,6 +68,9 @@ class App
 
                 @objects = new ObjectsCollection
                 @objects.fetch success : @objectComplete
+
+                @credits = new CreditsCollection
+                @credits.fetch success : @objectComplete
 
 
         # if new objects are added don't forget to change the `@objectComplete` function

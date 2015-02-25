@@ -281,6 +281,7 @@ body {
                     {
                         @include font-size(1.5);
                         font-weight: bold;
+                        max-width: 95px;
                     }
                 }
             }

@@ -12,13 +12,19 @@ class OverlayHelp extends AbstractModal
         # 'tap ul>li' : "toggleLang"
 
     constructor : (@cb) ->
-        # @templateVars =
-        #     content_en  : node.get('copy_en')
-        #     content_cat : node.get('copy_cat')
-        #     title_en    : node.get('name_en').toUpperCase()
-        #     title_cat   : node.get('name_cat').toUpperCase()
-        #     shape       : node.get('shape')
-        #     icon        : node.get('icon_id')
+        @templateVars =
+            first_paragraph_en   : @B().credits.at(0).get 'first_paragraph_en'
+            first_paragraph_cat  : @B().credits.at(0).get 'first_paragraph_cat'
+            second_paragraph_en  : @B().credits.at(0).get 'second_paragraph_en'
+            second_paragraph_cat : @B().credits.at(0).get 'second_paragraph_cat'
+            circle_name_en       : @B().credits.at(0).get 'circle_name_en'
+            circle_name_cat      : @B().credits.at(0).get 'circle_name_cat'
+            square_name_en       : @B().credits.at(0).get 'square_name_en'
+            square_name_cat      : @B().credits.at(0).get 'square_name_cat'
+            triangle_name_en     : @B().credits.at(0).get 'triangle_name_en'
+            triangle_name_cat    : @B().credits.at(0).get 'triangle_name_cat'
+            third_paragraph_en   : @B().credits.at(0).get 'third_paragraph_en'
+            third_paragraph_cat  : @B().credits.at(0).get 'third_paragraph_cat'
 
         super()
 
