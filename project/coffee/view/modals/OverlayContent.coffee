@@ -69,10 +69,10 @@ class OverlayContent extends AbstractModal
 
     closeButton : =>
         Backbone.Events.trigger( 'showHomeTooltip')
-        
+
         @B().resetIDs()
         @B().appView.modalManager.hideOpenModal()
-        
+
         null
 
     toggleLang : (e) =>
@@ -87,6 +87,8 @@ class OverlayContent extends AbstractModal
         @$el.find('[data-lang]').not("li").each (a, b) =>
             $(b).css
                 display : if $(b).attr('data-lang') is @B().langSelected then 'block' else 'none'
+
+        @breadCrumbs.toggleLang()
 
         null
 

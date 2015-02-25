@@ -79,12 +79,13 @@
                 <div class="carousel-item" id="<%= object.get('id') %>">
                     <% if(object.get('video') != "") { %>
 
-                    <video class="video-js vjs-sublime-skin" controls preload="auto" width="624" height="350">
+                    <video class="video-js vjs-sublime-skin" controls preload="auto" width="600" height="400">
                         <source src="https://googledrive.com/host/<%= object.get('video') %>" type='video/mp4'>
                     </video>
 
                     <% } else { %>
-                        <img width="624" height="350" src="https://googledrive.com/host/<%= object.get('image') %>">
+                        <div class="list-background-image" style="background-image:url('https://googledrive.com/host/<%= object.get('image') %>')"></div>
+                        <!-- <img src=""> -->
                     <% } %>
                 </div>
             <% }) %>
