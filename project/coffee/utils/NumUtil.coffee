@@ -69,6 +69,10 @@ class NumUtil
         point = { x: p.x, y: p.y };
         point2 = { x: p2.x, y: p2.y };
 
-        return dist = Math.sqrt( Math.pow((p.x-p2.x), 2) + Math.pow((p.y-p2.y), 2) );
+        return dist = Math.sqrt( Math.pow((p.x-p2.x), 2) + Math.pow((p.y-p2.y), 2) )
+
+    @intersects: (rectA, rectB) ->
+         return !(rectA.x + rectA.width < rectB.x or rectB.x + rectB.width < rectA.x or rectA.y + rectA.height < rectB.y or rectB.y + rectB.height < rectA.y)
+
 
 module.exports = NumUtil
