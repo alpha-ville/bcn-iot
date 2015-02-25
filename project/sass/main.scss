@@ -308,6 +308,12 @@ body {
                 background: black;
             }
 
+            .license
+            {
+                @include font-size(1.1);
+                color: rgba(0,0,0,.8);
+            }
+
             .credits-container
             {
                 margin-top: 30px;
