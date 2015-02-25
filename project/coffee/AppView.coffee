@@ -100,7 +100,7 @@ class AppView extends AbstractView
         @B().router.start()
         @preloader.hide()
 
-        @B().openOverlayContent @B().selectedCategoryId
+        # @B().openOverlayContent @B().selectedCategoryId
 
         @updateMediaQueriesLog()
         return
