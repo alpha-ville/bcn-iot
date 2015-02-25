@@ -53,6 +53,8 @@ class CentralButton extends BasicShape
 
         @ripplesAnimation.stop()
 
+        @sprite.isInteractive = false
+
         null
 
 

@@ -35,6 +35,7 @@ class InteractiveCanvas extends AbstractView
     lastTime: Date.now()
 
     absorbedShapes: null
+    openOverlayTimer: null
 
 
     init : =>
@@ -91,11 +92,13 @@ class InteractiveCanvas extends AbstractView
         @smallCircles = []
         for i in [ 0 ... 50 ]
             size = _.random( 8, 40 )
+            # size = 500
             circle = new Circle( null, size, @scene, .2 )
             circle.move _.random(@w), _.random(@h)
             circle.behavior = 'basic'
-            circle.vel[0] *= .3
-            circle.vel[1] *= .3
+            circle.vel[0] /= .3
+            circle.vel[1] /= .3
+
             @smallCircles.push( circle )
             @scene.addChild( circle.sprite )
 
@@ -195,6 +198,27 @@ class InteractiveCanvas extends AbstractView
         for c in @smallCircles
             c.update()
 
+            for c2 in @smallCircles
+                if c.id != c2.id
+                    rectA = 
+                        x: c.sprite.position.x
+                        y: c.sprite.position.y
+                        width: c.w
+                        height: c.h
+
+                    rectB = 
+                        x: c2.sprite.position.x
+                        y: c2.sprite.position.y
+                        width: c2.w
+                        height: c2.h
+
+                    if NumUtil.intersects( rectA, rectB )
+                        c.vel[0] *= -1
+                        c.vel[1] *= -1
+                        c2.vel[0] *= -1
+                        c2.vel[1] *= -1
+
+
         for t in @smallTriangles
             t.update()
 
@@ -203,6 +227,29 @@ class InteractiveCanvas extends AbstractView
 
         for shape in @shapes
             shape.update()
+
+        # for sm in @smallShapes
+
+        #     for sm2 in @smallCircles
+        #         if sm.id != sm2.id
+        #             rectA = 
+        #                 x: sm.sprite.position.x
+        #                 y: sm.sprite.position.y
+        #                 width: sm.w
+        #                 height: sm.h
+
+        #             rectB = 
+        #                 x: sm2.sprite.position.x
+        #                 y: sm2.sprite.position.y
+        #                 width: sm2.w
+        #                 height: sm2.h
+
+        #             if NumUtil.intersects( rectA, rectB )
+        #                 sm.vel[0] *= -1
+        #                 sm.vel[1] *= -1
+        #                 sm2.vel[0] *= -1
+        #                 sm2.vel[1] *= -1
+
 
         @centralButton.update()
         @helpButton.update()
@@ -420,7 +467,10 @@ class InteractiveCanvas extends AbstractView
 
         if @absorbedShapes.length == @activeShapes.length
             @B().openOverlayContent 'door_locks'
-            setTimeout =>
+
+            if @openOverlayTimer then clearInterval( @openOverlayTimer )
+
+            @openOverlayTimer = setTimeout =>
                 @absorbedShapes = []
                 @onCircleUnselected @currentSelectedCircle
             , 150
