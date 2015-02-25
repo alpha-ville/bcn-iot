@@ -1,14 +1,12 @@
 var express  = require('express'),
 path         = require('path'),
-favicon      = require('serve-favicon'),
 logger       = require('morgan'),
 cookieParser = require('cookie-parser'),
 bodyParser   = require('body-parser'),
 routes       = require('./routes/index'),
-users        = require('./routes/users'),
-cors = require('cors'),
+cors         = require('cors'),
+pkg          = require('../package.json'),
 app          = express();
-pkg = require('../package.json')
 
 // view engine setup
 app.set('views', path.join(__dirname, '../' + pkg.folders.dest + "/views"));
@@ -24,7 +22,6 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, '../' + pkg.folders.dest + "/static")));
 
 app.use('/', routes);
-app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
