@@ -212,12 +212,8 @@
                     <hr/>
                     <div class="credits-container">
                         <div class="credits">
-                            <p>Creative Direction and production by <span class='credit-bold'>Alpha Ville (Estela Oliva & Carmen Sales Pino)</span><br>
-                            Technology & Development by <span class='credit-bold'>FLUUUID (Silvio Paganini & William Mapan)</span><br>
-                            Creative & Design by <span class='credit-bold'>Jonas Eltes</span><br>
-                            Sound design by <span class='credit-bold'>Giganta</span><br>
-                            Tech support by <span class='credit-bold'>Miguel Gozalbo</span><br>
-                            A project by Alpha-vill (alpha-ville.co.uk)</p>
+                            <p data-lang='en'><%=people_en%></p>
+                            <p data-lang='cat'><%=people_cat%></p>
                         </div>
                     </div>
                     <hr/>
