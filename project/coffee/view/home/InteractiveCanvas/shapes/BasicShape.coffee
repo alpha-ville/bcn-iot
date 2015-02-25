@@ -4,8 +4,9 @@ sub = require('vectors/sub')(2)
 normalize = require('vectors/normalize')(2)
 mult = require('vectors/mult')(2)
 mag = require('vectors/mag')(2)
+AbstractView = require('../../../AbstractView.coffee');
 
-class BasicShape
+class BasicShape extends AbstractView
 
     id          : null
 

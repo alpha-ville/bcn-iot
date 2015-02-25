@@ -114,6 +114,11 @@ class App
         @appView.modalManager.showModal 'overlayDataContent'
         null
 
+    openHelp: =>
+        @appView.modalManager.showModal 'overlayHelp'
+
+        null
+
     resetIDs : =>
         @selectedCategoryId = ""
         selectedObjectId    = ""
