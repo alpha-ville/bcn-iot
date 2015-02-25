@@ -22,16 +22,33 @@ class ObjectsList extends AbstractView
         @trigger 'slideChange', $(slick.$slides[currentSlide]).attr 'id'
         null
 
+    beforeChange : (event, slick, currentSlide, nextSlide) =>
+        @$el.find('video').each ->
+            @.pause()
+            @.currentTime = 0
+
+        @trigger 'beforeChange'
+        null
+
+    addVideoJS : =>
+        videojs.options.flash.swf = "data/video/video-js.swf"
+        videojs document.getElementsByClassName('video-js')[0], {}, -> null
+        null
+
     init : =>
+
         setTimeout =>
+
             @$el.slick
               dots          : false
               infinite      : true
-              speed         : 300
+              speed         : 1000
               arrows        : true
               slidesToShow  : 1
 
+            @addVideoJS()
             @$el.on 'afterChange', @afterChange
+            @$el.on 'beforeChange', @beforeChange
         , 100
               # centerMode    : true
               # centerPadding : '130px'

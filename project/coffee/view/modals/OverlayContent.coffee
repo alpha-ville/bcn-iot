@@ -24,6 +24,7 @@ class OverlayContent extends AbstractModal
         @objects = _.shuffle @objects
         @objectCarosel = new ObjectsList @objects
         @objectCarosel.on 'slideChange', @slideChange
+        @objectCarosel.on 'beforeChange', @beforeChange
 
         @templateVars =
             content_en  : node.get('copy_en')
@@ -38,6 +39,10 @@ class OverlayContent extends AbstractModal
 
         return null
 
+    beforeChange : () =>
+        @breadCrumbs.animateOut()
+        null
+
     setBreadcrumb : (object, delay = 0) =>
 
         @breadCrumbs = null
@@ -50,22 +55,24 @@ class OverlayContent extends AbstractModal
         breadcrumbsList.push @B().purposes.findWhere type : i for i in selectablePurposes
 
         @breadCrumbs = new BreadCrumbs breadcrumbsList
-        console.log @bcContainer
         @bcContainer.empty()
         @bcContainer.append @breadCrumbs.$el
         @breadCrumbs.animate delay
         null
 
-    slideChange : (slideID) =>
+    slideChange : (slideID, delay = 0) =>
         a = @B().objects.findWhere id : String(slideID)
         pn = $(@$el.find('.project-name-container>.project-name')[0])
         pn.text a.get('name_' + @B().langSelected)
-        @setBreadcrumb a
+        @setBreadcrumb a, delay
         null
 
     closeButton : =>
+        Backbone.Events.trigger( 'showHomeTooltip')
+        
         @B().resetIDs()
         @B().appView.modalManager.hideOpenModal()
+        
         null
 
     toggleLang : (e) =>
@@ -87,7 +94,7 @@ class OverlayContent extends AbstractModal
         @$el.find('.list-container').append @objectCarosel.$el
         @bcContainer = $(@$el.find('.breadcrumbs')[0])
 
-        @setBreadcrumb @objects[0], .9
+        @slideChange @objects[0].get('id'), .9
 
         @toggleLang()
         @animate()

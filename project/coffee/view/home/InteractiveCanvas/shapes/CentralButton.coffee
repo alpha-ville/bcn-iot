@@ -35,7 +35,6 @@ class CentralButton extends BasicShape
         step = 360 / nbPoints
 
 
-
         for i in [ 0 ... nbPoints ]
             x = ( 0  ) + 120 * Math.cos( currentAngle )
             y = ( 0  ) + 120 * Math.sin( currentAngle )
@@ -44,6 +43,11 @@ class CentralButton extends BasicShape
             @g.drawCircle x, y, 1.5
 
             currentAngle += step
+
+        texture = new PIXI.Texture.fromImage( "img/icons/HOME.png" )
+        @icon = new PIXI.Sprite( texture )
+        @icon.anchor.x = @icon.anchor.y = .5
+        @sprite.addChild( @icon )
 
 
         scale = 1.7
@@ -92,11 +96,12 @@ class CentralButton extends BasicShape
         
 
         TweenMax.to( @lines[0].scale, 1, { x: 8, y: 8 } )
-        TweenMax.fromTo( @lines[0], 2, { alpha: 5 }, { alpha: 0, delay: -1.6, onComplete: =>
+        TweenMax.fromTo( @lines[0], 2, { alpha: 5 }, { alpha: 0, delay: -1.3, onComplete: =>
             for i in [0...@lines.length]
                 @lines[0].scale.x = @lines[0].scale.y = 1
                 @lines[1].scale.x = @lines[1].scale.y = 1
                 @lines[i].children[0].alpha = 8
+                @sprite.isInteractive = false
          } )
         
 

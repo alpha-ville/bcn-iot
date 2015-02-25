@@ -1,1 +1,21 @@
-// fonts go here
+$fonts-path: '../img/fonts';
+
+@font-face {
+    font-family: 'Avenir-Black';
+    src: url( $fonts-path + '/Avenir-Black-webfont.eot'),
+         url( $fonts-path + '/Avenir-Black-webfont.woff') format('woff'),
+         url( $fonts-path + '/Avenir-Black-webfont.ttf') format('truetype'),
+         url( $fonts-path + '/Avenir-Black-webfont.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Avenir-Roman';
+    src: url( $fonts-path + '/Avenir-Roman-webfont.eot'),
+         url( $fonts-path + '/Avenir-Roman-webfont.woff') format('woff'),
+         url( $fonts-path + '/Avenir-Roman-webfont.ttf') format('truetype'),
+         url( $fonts-path + '/Avenir-Roman-webfont.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
