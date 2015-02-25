@@ -115,6 +115,7 @@ class App
         null
 
     openHelp: =>
+        @appView.modalManager.hideOpenModal()
         @appView.modalManager.showModal 'overlayHelp'
 
         null

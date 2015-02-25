@@ -184,12 +184,10 @@
                 <div class="container">
 
                     <h1>IOTORAMA</h1>
-                    
+
                     <div class="desc">
-                        
-                        <p>
-                            An interactive installation
-                        </p>
+
+                        <p>An interactive installation</p>
 
                         <div class="container-shape">
                             <div class="circle">
@@ -206,12 +204,9 @@
                             </div>
                         </div>
 
-                        <p>
-                            An interactive installation
-                        </p>
+                        <p>An interactive installation</p>
 
                     </div>
-
                     <hr/>
 
                     <div class="credits">
@@ -228,9 +223,7 @@
                         <li data-lang='cat'>CATALAN</li>
                     </ul>
 
-                    <div class="close-button">
-                        <span class="ion-ios-close-outline"></span>
-                    </div>
+                    <div class="close-button"><span class="ion-ios-close-outline"></span></div>
 
                 </div>
 
