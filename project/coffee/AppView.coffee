@@ -43,7 +43,7 @@ class AppView extends AbstractView
 
         @diableRightClick()
 
-        SoundController.init( @$body )
+        @soundControlller = new SoundController()
 
     diableRightClick: =>
         document.body.setAttribute("oncontextmenu", "return false")
