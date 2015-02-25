@@ -139,9 +139,21 @@ body {
 
     .object-list-container
     {
-        max-width: $max-width;
+        max-width: 850px;
         margin: 0 auto;
         opacity: 0;
+
+        .list-background-image
+        {
+            overflow: hidden;
+            max-width: 600px;
+            max-height: 400px;
+            height: 400px;
+            background-position: 50%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0 auto;
+        }
     }
 
     &.overlay-content
@@ -274,7 +286,7 @@ body {
                     margin: 0 auto;
                     p
                     {
-                        display: inline-flex !important;
+                        display: none;
                         @include font-size(.7);
                         max-width: 60px;
                         @include rem-fallback(line-height, 1.5);
@@ -412,6 +424,10 @@ body {
         opacity: 0;
         transition: all .2s ease-out;
     }
+}
+video
+{
+    background: #f6f6f6;
 }
 canvas {
     position: fixed;

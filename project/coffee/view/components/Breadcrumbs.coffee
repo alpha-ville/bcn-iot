@@ -15,18 +15,23 @@ class Breadcrumbs extends AbstractView
 
         super()
 
-        @$el.find('[data-lang]').not("li").each (a, b) =>
-            $(b).css
-                display : if $(b).attr('data-lang') is @B().langSelected then 'block' else 'none'
+        @toggleLang()
 
         null
 
     animate : (delay) =>
+
         @$el.children().each (i, e) =>
             s = $(e).parent()
             index = Number(s.attr('data-index'))
             TweenMax.to s, 0, y: -20
             TweenMax.to s, .5, opacity: 1, y : 0, delay: delay + (.1 * index)
+        null
+
+    toggleLang : () =>
+        @$el.find('p[data-lang]').each (a, b) =>
+            $(b).css
+                display : if $(b).attr('data-lang') is @B().langSelected then 'inline-flex' else 'none !important'
         null
 
     animateOut : =>
@@ -40,7 +45,7 @@ class Breadcrumbs extends AbstractView
         @B().selectedDataType = t.attr('data-type').toString()
         @B().selectedDataId = t.attr('data-id')
 
-        console.log t.find('.name-container > p[data-lang="en"]').text(), @B().selectedDataId, @B().selectedDataType
+        # console.log t.find('.name-container > p[data-lang="en"]').text(), @B().selectedDataId, @B().selectedDataType
 
         @B().openOverlayData()
         null
