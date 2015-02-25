@@ -2,14 +2,13 @@ AbstractModel = require './AbstractModel'
 
 class DataSourceModel extends AbstractModel
 
+    # tabletop:
+    #   instance: @B().storage
+    #   sheet: 'new-data'
+
+    sync: Backbone.tabletopSync
+
     defaults :
-        id       : null
-        shape    : null
-        type     : null
-        name_en  : null
-        name_cat : null
-        icon_id  : null
-        copy_en  : null
-        copy_cat : null
+        model    : 'dataSources'
 
 module.exports = DataSourceModel

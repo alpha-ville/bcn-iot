@@ -29,7 +29,7 @@ class BasicShape
     distanceToTargetMax : 0
     speedScale : 0
 
-    behavior : 'target'
+    behavior : 'basic'
     target      : null
     targetMass  : 10000
 
@@ -62,7 +62,7 @@ class BasicShape
         @spring = NumUtil.map( size, 20, 60, .07, .07 )
         @targetAngle = Math.random() * Math.PI * 2
         @targetAngleStep = NumUtil.map( size, 20, 60, .08, .04 ) * Math.random()
-        @attractionRadius = _.random( 160, 180 )
+        @attractionRadius = _.random( 180, 200 )
 
         @w = size
         @h = size
@@ -121,6 +121,7 @@ class BasicShape
                 @vel[1] *= -1
             else if ( @pos[1] < 0 )
                 @vel[1] *= -1
+
 
             @sprite.position.x = @pos[0]
             @sprite.position.y = @pos[1]

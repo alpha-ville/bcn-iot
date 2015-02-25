@@ -351,7 +351,7 @@
 }
 
 @mixin background-image-retina($file, $type, $width: null, $height: null) {
-    
+
     background-image: url($file + '.' + $type);
 	@if $width != null {
 		width: $width;
@@ -373,7 +373,7 @@
 }
 
 @mixin background-image-retina-size($file, $type, $width: null, $height: null, $bgpx: center, $bgpy: center) {
-    
+
     background-image: url($file + '.' + $type);
 	@if $width != null {
 		width: $width;
@@ -388,7 +388,7 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    
+
 
     @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
     only screen and (-o-min-device-pixel-ratio: 3/2),
@@ -462,7 +462,7 @@
     ::-webkit-scrollbar-track {
         background: $secondary;
     }
-  
+
   // For Internet Explorer
   body {
     scrollbar-face-color: $primary;

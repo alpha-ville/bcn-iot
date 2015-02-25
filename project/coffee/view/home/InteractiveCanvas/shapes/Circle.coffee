@@ -46,6 +46,7 @@ class Circle extends BasicShape
 
         scale = 1 / ( @w / 250 )
 
+        TweenMax.to( @sprite, 1.5, { alpha: 1 } )
         TweenMax.to( @sprite.position, 1.5, { x: window.innerWidth/2, y: window.innerHeight/2, ease: Elastic.easeOut } )
         TweenMax.to( @sprite.scale, .8, { x: scale, y: scale, delay: 1.7, ease: Elastic.easeOut } )
 
