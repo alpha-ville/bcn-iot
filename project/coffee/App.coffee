@@ -102,7 +102,7 @@ class App
 
         @go()
 
-        @appView.modalManager.showModal 'overlayHelp'
+        # @appView.modalManager.showModal 'overlayHelp'
 
         null
 
