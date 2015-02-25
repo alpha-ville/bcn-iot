@@ -178,4 +178,64 @@
         ]]>
     </template>
 
+    <template id="overlay-help">
+        <![CDATA[
+            <div id="overlay-help" class="overlays overlay-help">
+                <div class="container">
+
+                    <h1>IOTORAMA</h1>
+                    
+                    <div class="desc">
+                        
+                        <p>
+                            An interactive installation
+                        </p>
+
+                        <div class="container-shape">
+                            <div class="circle">
+                                <div class="shape"></div>
+                                <span class="label">Object things</div>
+                            </div>
+                            <div class="square">
+                                <div class="shape"></div>
+                                <span class="label">Data source</div>
+                            </div>
+                            <div class="triangle">
+                                <div class="shape"></div>
+                                <span class="label">Purposes</div>
+                            </div>
+                        </div>
+
+                        <p>
+                            An interactive installation
+                        </p>
+
+                    </div>
+
+                    <hr/>
+
+                    <div class="credits">
+                        <span> Creative Direction and production by Proper ploppers</span>
+                        <span> Creative & Design by Proper ploppers</span>
+                        <span> Technology & Development by Proper ploppers</span>
+                        <span> Sound design by Proper ploppers</span>
+                        <span> Tech support by Proper ploppers</span>
+                    </div>
+
+                    <ul class="lang-buttons">
+                        <div class='shape'></div>
+                        <li data-selected data-lang='en'>ENGLISH</li>
+                        <li data-lang='cat'>CATALAN</li>
+                    </ul>
+
+                    <div class="close-button">
+                        <span class="ion-ios-close-outline"></span>
+                    </div>
+
+                </div>
+
+            </div>
+        ]]>
+    </template>
+
 </templates>
