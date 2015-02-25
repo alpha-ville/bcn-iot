@@ -2,6 +2,7 @@ AbstractView         = require '../AbstractView'
 OverlayContent       = require './OverlayContent'
 OverlayDiagram       = require './OverlayDiagram'
 OverlayDataContent   = require './OverlayDataContent'
+OverlayHelp          = require './OverlayHelp'
 
 class ModalManager extends AbstractView
 
@@ -10,6 +11,7 @@ class ModalManager extends AbstractView
         overlayDiagram : classRef : OverlayDiagram, view : null
         overlayContent : classRef : OverlayContent, view : null
         overlayDataContent : classRef : OverlayDataContent, view : null
+        overlayHelp : classRef : OverlayHelp, view : null
 
     isOpen : =>
 

@@ -47,6 +47,7 @@ class AbstractModal extends AbstractView
 		null
 
 	animateIn : =>
+		console.log @$el
 
 		TweenLite.to @$el, 0.3, { 'visibility': 'visible', 'opacity': 1, ease : Quad.easeOut }
 		TweenLite.to @$el.find('.inner'), 0.3, { delay : 0.15, 'transform': 'scale(1)', 'visibility': 'visible', 'opacity': 1, ease : Back.easeOut }

@@ -4,6 +4,7 @@ class HelpButton extends BasicShape
 
     color : '0x61ab63'
 
+
     init : =>
         super()
 
@@ -18,6 +19,14 @@ class HelpButton extends BasicShape
         @text.position.y = -10
 
         @sprite.addChild( @text )
+
+        null
+
+
+    onMouseUp: ->
+        super()
+
+        @B().openHelp()
 
         null
         
