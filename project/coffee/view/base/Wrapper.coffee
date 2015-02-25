@@ -1,6 +1,5 @@
 AbstractView    = require '../AbstractView'
 HomeView        = require '../home/HomeView'
-# ExamplePageView = require '../examplePage/ExamplePageView'
 Nav             = require '../../router/Nav'
 
 class Wrapper extends AbstractView
@@ -19,7 +18,6 @@ class Wrapper extends AbstractView
 
 		@views =
 			home    : classRef : HomeView,        route : @B().nav.sections.HOME,    view : null, type : @VIEW_TYPE_PAGE
-			# example : classRef : ExamplePageView, route : @B().nav.sections.EXAMPLE, view : null, type : @VIEW_TYPE_PAGE
 
 		@createClasses()
 
