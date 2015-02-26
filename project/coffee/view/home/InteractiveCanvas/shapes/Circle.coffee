@@ -34,8 +34,10 @@ class Circle extends BasicShape
 
         if @isSelected
             Backbone.Events.trigger( 'circleUnselected', @ )
+            Backbone.trigger( 'SoundController:play', 'nontouchable' )
         else
             Backbone.Events.trigger( 'circleSelected', @ )
+            Backbone.trigger( 'SoundController:play', 'objectconnected' )
 
 
 
@@ -56,8 +58,8 @@ class Circle extends BasicShape
         null
 
 
-    goBackAndScaleDown: ->
-        Backbone.trigger( 'SoundController:play', 'nontouchable' )
+    goBackAndScaleDown: ( playSound = true ) ->
+        if playSound then Backbone.trigger( 'SoundController:play', 'nontouchable' )
         @behavior = 'target'
         @isSelected = false
 

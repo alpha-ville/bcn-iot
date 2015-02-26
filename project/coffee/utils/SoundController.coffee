@@ -10,6 +10,8 @@ class SoundController
       'loop': document.querySelector('.audio-loop')
       'touchable': document.querySelector('.audio-touchable')
       'nontouchable': document.querySelector('.audio-nontouchable')
+      'objectconnected': document.querySelector('.audio-objectconnected')
+      'transition': document.querySelector('.audio-transition')
 
     @sounds['loop'].setAttribute 'loop', true
 

@@ -274,7 +274,6 @@ class BasicShape extends AbstractView
 
     onMouseUp: => 
         if @canOrbit
-            Backbone.trigger( 'SoundController:play', 'touchable' )
             @behavior = 'attraction'
         else 
             @bounceScale()

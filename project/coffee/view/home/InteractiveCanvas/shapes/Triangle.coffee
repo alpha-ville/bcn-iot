@@ -74,6 +74,7 @@ class Triangle extends BasicShape
       @isOrbiting = true
 
       Backbone.Events.trigger( 'shapeSelected', @ )
+      Backbone.trigger( 'SoundController:play', 'touchable' )
 
       null
 
