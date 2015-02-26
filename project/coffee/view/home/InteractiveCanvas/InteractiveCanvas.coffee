@@ -460,7 +460,7 @@ class InteractiveCanvas extends AbstractView
         if @absorbedShapes.length == @activeShapes.length
             @tooltip.hide()
             category = @currentSelectedCircle.config.get('category_name')
-            @B().openOverlayContent 'door_locks'
+            @B().openOverlayContent category
 
             if @openOverlayTimer then clearInterval( @openOverlayTimer )
 
