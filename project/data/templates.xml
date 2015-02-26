@@ -184,48 +184,39 @@
                 <div class="container">
                     <h1>IOTORAMA</h1>
                     <div class="desc">
-                        <p data-lang='en'>An interactive installation where you can learn about the world "Internet of Things" (IoT) in a playful way, using your own fingers.</p>
-                        <p data-lang='cat'>11An interactive installation where you can learn about the world "Internet of Things" (IoT) in a playful way, using your own fingers.</p>
+                        <p data-lang='en'><%=first_paragraph_en%></p>
+                        <p data-lang='cat'><%=first_paragraph_cat%></p>
                         <br>
-                        <p data-lang='en'>Every screen features a view of the world, where you can explore a network of geometric shape which represent:</p>
-                        <p data-lang='cat'>11Every screen features a view of the world, where you can explore a network of geometric shape which represent:</p>
+                        <p data-lang='en'><%=second_paragraph_en%></p>
+                        <p data-lang='cat'><%=second_paragraph_cat%></p>
                         <div class="container-shape-help">
                             <div class='object-container'>
                                 <div class="circle"></div>
-                                <div class="label" data-lang='en'>Objects</div>
-                                <div class="label" data-lang='cat'>1Objects</div>
+                                <div class="label" data-lang='en'><%=circle_name_en%></div>
+                                <div class="label" data-lang='cat'><%=circle_name_cat%></div>
                             </div>
                             <div class='object-container'>
                                 <div class="square"></div>
-                                <div class="label" data-lang='en'>Data sources</div>
-                                <div class="label" data-lang='cat'>1Data sources</div>
+                                <div class="label" data-lang='en'><%=square_name_en%></div>
+                                <div class="label" data-lang='cat'><%=square_name_cat%></div>
                             </div>
                             <div class='object-container'>
                                 <div class="triangle"></div>
-                                <div class="label" data-lang='en'>Purposes</div>
-                                <div class="label" data-lang='cat'>1Purposes</div>
+                                <div class="label" data-lang='en'><%=triangle_name_en%></div>
+                                <div class="label" data-lang='cat'><%=triangle_name_cat%></div>
                             </div>
                         </div>
-                        <p data-lang='en'>Touch and select objects and link them with data and purposes. Every object unfolds a selection of related projects to inspire you about how connectivity can enhance people's lives.</p>
-                        <p data-lang='cat'>111Touch and select objects and link them with data and purposes. Every object unfolds a selection of related projects to inspire you about how connectivity can enhance people's lives.</p>
+                        <p data-lang='en'><%=third_paragraph_en%></p>
+                        <p data-lang='cat'><%=third_paragraph_cat%></p>
+                        <br>
+                        <p data-lang='en' class="license"><%=fourth_paragraph_en%></p>
+                        <p data-lang='cat' class="license"><%=fourth_paragraph_cat%></p>
                     </div>
                     <hr/>
                     <div class="credits-container">
-                        <div class="credits" data-lang='en'>
-                            <p>Creative Direction and production by <span class='credit-bold'>Alpha Ville (Estela Oliva & Carmen Sales Pino)</span><br>
-                            Technology & Development by <span class='credit-bold'>FLUUUID (Silvio Paganini & William Mapan)</span><br>
-                            Creative & Design by <span class='credit-bold'>Jonas Eltes</span><br>
-                            Sound design by <span class='credit-bold'>Giganta</span><br>
-                            Tech support by <span class='credit-bold'>Miguel Gozalbo</span><br>
-                            A project by Alpha-vill (alpha-ville.co.uk)</p>
-                        </div>
-                        <div class="credits" data-lang='cat'>
-                            <p>11Creative Direction and production by <span class='credit-bold'>Alpha Ville (Estela Oliva & Carmen Sales Pino)</span><br>
-                            Technology & Development by <span class='credit-bold'>FLUUUID (Silvio Paganini & William Mapan)</span><br>
-                            Creative & Design by <span class='credit-bold'>Jonas Eltes</span><br>
-                            Sound design by <span class='credit-bold'>Giganta</span><br>
-                            Tech support by <span class='credit-bold'>Miguel Gozalbo</span><br>
-                            A project by Alpha-vill (alpha-ville.co.uk)</p>
+                        <div class="credits">
+                            <p data-lang='en'><%=people_en%></p>
+                            <p data-lang='cat'><%=people_cat%></p>
                         </div>
                     </div>
                     <hr/>
