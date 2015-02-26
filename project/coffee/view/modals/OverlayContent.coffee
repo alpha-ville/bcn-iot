@@ -20,6 +20,8 @@ class OverlayContent extends AbstractModal
 
         node = @B().categories.findWhere category_name : @B().selectedCategoryId
 
+        console.log node
+
         @objects = @B().objects.where "category" : node.get('category_name')
         @objects = _.shuffle @objects
         @objectCarosel = new ObjectsList @objects

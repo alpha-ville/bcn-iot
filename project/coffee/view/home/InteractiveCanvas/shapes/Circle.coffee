@@ -14,14 +14,23 @@ class Circle extends BasicShape
 
     init : =>
         super()
+
+        if @radius() == 50
+            console.log @config
+            url = "https://googledrive.com/host/" + @config.get("icon_id")
+            texture = new PIXI.Texture.fromImage(url)
+            
+            @icon = new PIXI.Sprite( texture )
+            @icon.anchor.x = @icon.anchor.y = .5
+            @icon.scale.x = @icon.scale.y = .5
+            @sprite.addChild( @icon )
+
         @g.drawCircle 0, 0, @radius()
 
-        texture = new PIXI.Texture.fromImage("img/icons/placeholder_white.png")
-        @icon = new PIXI.Sprite( texture )
-        @icon.anchor.x = @icon.anchor.y = .5
-        @icon.scale.x = @icon.scale.y = .5
+        
+        
 
-        @sprite.addChild( @icon )
+        
 
         @lines = []
  
