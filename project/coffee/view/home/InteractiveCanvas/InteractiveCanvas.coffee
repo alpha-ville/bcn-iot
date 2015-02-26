@@ -389,7 +389,7 @@ class InteractiveCanvas extends AbstractView
         null
 
 
-    onCircleUnselected: ( circle ) =>
+    onCircleUnselected: ( circle, playSound = true ) =>
         @centralButton.stop()
 
         for c in @circles
@@ -402,7 +402,7 @@ class InteractiveCanvas extends AbstractView
 
         @activeShapes = []
 
-        circle.goBackAndScaleDown()
+        circle.goBackAndScaleDown playSound
 
         for shape in @shapes
             if shape.type == 'triangle' then shape.fadeTo( .1 ) else shape.fadeTo( .1 )
@@ -465,8 +465,10 @@ class InteractiveCanvas extends AbstractView
             if @openOverlayTimer then clearInterval( @openOverlayTimer )
 
             @openOverlayTimer = setTimeout =>
+                Backbone.trigger( 'SoundController:play', 'transition' )
                 @absorbedShapes = []
-                @onCircleUnselected @currentSelectedCircle
+                @onCircleUnselected @currentSelectedCircle, false
+
             , 300
 
 
