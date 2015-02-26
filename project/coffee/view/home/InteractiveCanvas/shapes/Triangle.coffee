@@ -42,7 +42,7 @@ class Triangle extends BasicShape
           "img/icons/placeholder4.png"
         ]
 
-        @sprite.alpha = .3
+        @sprite.alpha = .1
 
         # if not in the background
         if @w == 60

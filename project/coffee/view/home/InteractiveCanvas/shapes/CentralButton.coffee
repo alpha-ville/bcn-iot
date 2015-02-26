@@ -36,8 +36,8 @@ class CentralButton extends BasicShape
 
 
         for i in [ 0 ... nbPoints ]
-            x = ( 0  ) + 120 * Math.cos( currentAngle )
-            y = ( 0  ) + 120 * Math.sin( currentAngle )
+            x = ( 0  ) + 100 * Math.cos( currentAngle )
+            y = ( 0  ) + 100 * Math.sin( currentAngle )
 
             @g.beginFill( @color )
             @g.drawCircle x, y, 1.5
