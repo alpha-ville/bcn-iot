@@ -42,7 +42,6 @@ class InteractiveCanvas extends AbstractView
 
 
     init : =>
-
         PIXI.dontSayHello = true
         @w = window.innerWidth
         @h = window.innerHeight
@@ -118,7 +117,7 @@ class InteractiveCanvas extends AbstractView
         @smallTriangles = []
         for i in [ 0 ... 100 ]
             size = _.random( 8, 40 )
-            triangle = new Triangle( null, size, @scene, .01 )
+            triangle = new Triangle( null, size, @scene, .001 )
             triangle.move _.random(@w), _.random(@h)
             triangle.behavior = 'basic'
             triangle.vel[0] *= .3
@@ -130,7 +129,7 @@ class InteractiveCanvas extends AbstractView
         @smallSquares = []
         for i in [ 0 ... 100 ]
             size = _.random( 8, 40 )
-            square = new Square( null, size, @scene, .01 )
+            square = new Square( null, size, @scene, .001 )
             square.move _.random(@w), _.random(@h)
             square.behavior = 'basic'
             square.vel[0] *= .3
@@ -193,7 +192,7 @@ class InteractiveCanvas extends AbstractView
         for j in [ 0 ... @B().purposes.models.length ]
             data = @B().purposes.models[j]
             object = new Triangle(data, size, @scene)
-            object.sprite.alpha = .6
+            object.sprite.alpha = .1
             object.move _.random(@w), _.random(@h)
             @shapes.push( object )
             @triangles.push( object )
@@ -203,7 +202,7 @@ class InteractiveCanvas extends AbstractView
         for k in [ 0 ... @B().dataSources.models.length ]
             data = @B().dataSources.models[k]
             object = new Square(data, size - 8, @scene)
-            object.sprite.alpha = .8
+            object.sprite.alpha = .1
             object.move _.random(@w), _.random(@h)
             @shapes.push( object )
             @squares.push( object )
@@ -310,6 +309,7 @@ class InteractiveCanvas extends AbstractView
         Backbone.Events.on( 'shapeSelected', @onShapeSelected )
         Backbone.Events.on( 'shapeUnselected', @onShapeUnselected )
         Backbone.Events.on( 'shapeGotAbsorbed', @onShapeGotAbsorbed )
+        Backbone.Events.on( 'hideHomeTooltip', @tooltip.hide )
         Backbone.Events.on( 'showHomeTooltip', @tooltip.show )
 
         # @$window.on 'resize orientationchange', @onResize
@@ -405,7 +405,7 @@ class InteractiveCanvas extends AbstractView
         circle.goBackAndScaleDown()
 
         for shape in @shapes
-            if shape.type == 'triangle' then shape.fadeTo( .6 ) else shape.fadeTo( .8 )
+            if shape.type == 'triangle' then shape.fadeTo( .1 ) else shape.fadeTo( .1 )
             shape.canOrbit = false
             shape.isOrbiting = false
             shape.behavior = 'basic'
@@ -434,11 +434,13 @@ class InteractiveCanvas extends AbstractView
         @centralButton.animate()
 
         if @selectedShapes.length == @activeShapes.length
-            # @onCircleUnselected @currentSelectedCircle
-            setTimeout =>
+            
+            if @absorptionTimer then clearInterval( @absorptionTimer )
+
+            @absorptionTimer = setTimeout =>
                 for shape in @selectedShapes
                     shape.getAbsorbed()
-            , 500
+            , 300
 
 
 
@@ -465,7 +467,7 @@ class InteractiveCanvas extends AbstractView
             @openOverlayTimer = setTimeout =>
                 @absorbedShapes = []
                 @onCircleUnselected @currentSelectedCircle
-            , 150
+            , 300
 
 
         null

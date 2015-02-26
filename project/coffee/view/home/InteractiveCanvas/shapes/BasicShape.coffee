@@ -50,6 +50,7 @@ class BasicShape extends AbstractView
     isConnectedToACircle: false
 
     isPulsating: false
+    pulsatingOffset: 0
     angleMotion: 0
 
 
@@ -72,7 +73,6 @@ class BasicShape extends AbstractView
 
         @sprite = new PIXI.Sprite()
         @sprite.alpha = alpha || 1
-        @sprite.blendMode = 1
 
         @g = new PIXI.Graphics()
         @g.beginFill @color
@@ -82,6 +82,8 @@ class BasicShape extends AbstractView
         @init()
 
         @setBehaviorProps()
+
+        @pulsatingOffset = Math.random() * 5
 
         @bindEvents()
 
@@ -167,9 +169,9 @@ class BasicShape extends AbstractView
             @angleMotion += .1
             if @angleMotion >= 360 then @angleMotion = 0
 
-            val = Math.abs(Math.sin(@angleMotion))
-            scale = NumUtil.map val, 0, 1, .9, 1
-            alpha = NumUtil.map val, 0, 1, .5, .8
+            val = Math.abs(Math.sin( @angleMotion + @pulsatingOffset ) )
+            scale = NumUtil.map val, 0, 1, 1, 1.3
+            alpha = NumUtil.map val, 0, 1, .5, 1
             @sprite.scale.x = @sprite.scale.y = scale
             @sprite.alpha = alpha
 
@@ -223,9 +225,11 @@ class BasicShape extends AbstractView
 
 
     getAbsorbed: ->
-        @spring = .7
+        # @spring = .7
 
         delay = Math.random()
+
+        TweenMax.to( @, 1.5, {spring: .7, delay: .3} )
 
         TweenMax.to( @, 1, { attractionRadius: 20, delay: delay, ease: Elastic.easeIn, onComplete: =>
             Backbone.Events.trigger( 'shapeGotAbsorbed', @ )
@@ -270,6 +274,7 @@ class BasicShape extends AbstractView
 
     onMouseUp: => 
         if @canOrbit
+            Backbone.trigger( 'SoundController:play', 'touchable' )
             @behavior = 'attraction'
         else 
             @bounceScale()
@@ -284,6 +289,7 @@ class BasicShape extends AbstractView
 
 
     bounceScale: ->
+        Backbone.trigger( 'SoundController:play', 'nontouchable' )
         @sprite.scale.x = @sprite.scale.y = @sprite.scale.x * 1.5
         TweenMax.to( @sprite.scale, .8, { x: 1, y: 1, delay: .1, ease: Elastic.easeOut } )
 

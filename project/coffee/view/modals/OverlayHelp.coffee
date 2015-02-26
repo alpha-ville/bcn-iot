@@ -25,6 +25,7 @@ class OverlayHelp extends AbstractModal
         return null
 
     closeButton : =>
+        Backbone.trigger( 'showHomeTooltip' )
         @B().appView.modalManager.hideOpenModal()
         # @B().appView.modalManager.showModal 'overlayContent'
         null

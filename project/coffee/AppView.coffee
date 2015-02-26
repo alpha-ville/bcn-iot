@@ -43,6 +43,7 @@ class AppView extends AbstractView
 
         @diableRightClick()
 
+        console.log 'init appview'
         @soundControlller = new SoundController()
 
     diableRightClick: =>

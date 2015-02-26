@@ -1,17 +1,21 @@
 class SoundController
 
-  audioNode: null
+  sounds: null
 
   isMuted: false
-  currentVolume: .1
+  loopVolume: .2
 
   constructor: ->
-    @audioLoopNode = document.querySelector('.audioLoop')
+    @sounds =
+      'loop': document.querySelector('.audio-loop')
+      'touchable': document.querySelector('.audio-touchable')
+      'nontouchable': document.querySelector('.audio-nontouchable')
 
-    @audioLoopNode.setAttribute 'loop', true
+    @sounds['loop'].setAttribute 'loop', true
 
-    @audioLoopNode.volume = @currentVolume
-    @audioLoopNode.play()
+    @sounds['loop'].volume = @loopVolume
+    
+    @play('loop')
 
     @initEvents()
 
@@ -21,33 +25,40 @@ class SoundController
   initEvents: ->
     window.addEventListener 'keyup', @onKeyUp
 
+    Backbone.on('SoundController:play', @play)
+
     null
 
   onKeyUp: ( evt ) =>
     if evt.keyCode == 32 then @toggle()
-    else if evt.keyCode == 40 then @setVolume( @currentVolume - .1 )
-    else if evt.keyCode == 38 then @setVolume( @currentVolume + .1 )
+    else if evt.keyCode == 40 then @setVolume( @loopVolume - .1 )
+    else if evt.keyCode == 38 then @setVolume( @loopVolume + .1 )
 
     null
 
   toggle: ->
     if @isMuted
-      @audioLoopNode.volume = @currentVolume
+      @sounds['loop'].volume = @loopVolume
     else 
-      @audioLoopNode.volume = 0
+      @sounds['loop'].volume = 0
 
     @isMuted = !@isMuted
 
     null
 
+  play: ( soundName ) =>
+    @sounds[soundName].play()
+
+    null
+
 
   setVolume: ( value ) =>
-    @currentVolume = value
+    @loopVolume = value
 
-    if @currentVolume < 0 then @currentVolume = 0
-    else if @currentVolume > 1 then @currentVolume = 1
+    if @loopVolume < 0 then @loopVolume = 0
+    else if @loopVolume > 1 then @loopVolume = 1
 
-    @audioLoopNode.volume = @currentVolume
+    @sounds['loop'].volume = @loopVolume
 
     null
 
