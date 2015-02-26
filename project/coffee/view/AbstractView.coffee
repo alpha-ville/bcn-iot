@@ -12,6 +12,7 @@ class AbstractView extends Backbone.View
 
 		if @template
 			tmpHTML = _.template @B().templates.get @template
+			console.log tmpHTML
 			@setElement tmpHTML @templateVars
 
 		@$el.attr 'id', @id if @id
