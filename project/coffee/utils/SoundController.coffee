@@ -65,4 +65,19 @@ class SoundController
     null
 
 
+  resumeLoop: ->
+    @sounds['loop'].volume = @loopVolume
+
+    null
+
+
+  stopLoop: =>
+    @sounds['loop'].volume = 0
+
+    null
+
+
+
+
+
 module.exports = SoundController

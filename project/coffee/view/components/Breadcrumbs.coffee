@@ -10,6 +10,8 @@ class Breadcrumbs extends AbstractView
     constructor : (@list) ->
         @list = _.shuffle(@list)
 
+        # console.log @list
+
         @templateVars =
             list : @list
 

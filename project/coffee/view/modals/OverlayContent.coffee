@@ -15,12 +15,11 @@ class OverlayContent extends AbstractModal
         # 'tap ul>li' : "toggleLang"
 
     constructor : (@cb) ->
-
         breadcrumbsList = []
 
         node = @B().categories.findWhere category_name : @B().selectedCategoryId
 
-        console.log node
+        # console.log node
 
         @objects = @B().objects.where "category" : node.get('category_name')
         @objects = _.shuffle @objects
@@ -50,11 +49,22 @@ class OverlayContent extends AbstractModal
         @breadCrumbs = null
         breadcrumbsList = []
 
+
+
         selectableSources =  object.get('data_type').toLowerCase().split(" ").join("").split(";")
         breadcrumbsList.push @B().dataSources.findWhere type : i for i in selectableSources
 
         selectablePurposes = object.get('purpose_type').toLowerCase().split(" ").join("").split(";")
-        breadcrumbsList.push @B().purposes.findWhere type : i for i in selectablePurposes
+        for i in selectablePurposes
+            # console.log i
+            breadcrumbsList.push @B().purposes.findWhere type : i 
+
+        # console.log @B().purposes
+
+        # console.log object.get('data_type')
+        # console.log selectableSources
+        # console.log selectablePurposes
+        # console.log breadcrumbsList
 
         @breadCrumbs = new BreadCrumbs breadcrumbsList
         @bcContainer.empty()

@@ -91,11 +91,19 @@ class BasicShape extends AbstractView
         @vel = [ .5 * (( Math.random() * 2 ) - 1), .5 * (( Math.random() * 2 ) - 1) ]
         @target = [ window.innerWidth / 2, window.innerHeight / 2 ]
 
+        if @radius() > 35 
+            delay = Math.random() * .2
+            @bounceTimeline = new TimelineMax({ repeat: -1, repeatDelay: 1 })
+            @bounceTimeline.to( @sprite.scale, .4, { x: 2, y: 2, ease: Elastic.easeIn , delay: delay } )
+            @bounceTimeline.to( @sprite.scale, .8, { x: 1, y: 1, ease: Elastic.easeOut } )
+            @bounceTimeline.pause(0)
+
         null
 
 
     init : =>
         # console.log 'override this'
+        null
 
 
     bindEvents : ->
@@ -113,16 +121,21 @@ class BasicShape extends AbstractView
         # -----------------
         if @behavior == 'basic'
             @applyForce @vel
+
+            if @radius() > 35
+                offset = 120
+            else 
+                offset = 0
             
             # behavior on bounds
-            if ( @pos[0] > @_scene.width )
+            if ( @pos[0] > @_scene.width - offset )
                 @vel[0] *= -1
-            else if ( @pos[0] < 0 )
+            else if ( @pos[0] < 0 + offset )
                 @vel[0] *= -1
 
-            if ( @pos[1] > @_scene.height )
+            if ( @pos[1] > @_scene.height - offset )
                 @vel[1] *= -1
-            else if ( @pos[1] < 0 )
+            else if ( @pos[1] < 0 + offset )
                 @vel[1] *= -1
 
 
@@ -170,8 +183,8 @@ class BasicShape extends AbstractView
             if @angleMotion >= 360 then @angleMotion = 0
 
             val = Math.abs(Math.sin( @angleMotion + @pulsatingOffset ) )
-            scale = NumUtil.map val, 0, 1, 1, 1.3
-            alpha = NumUtil.map val, 0, 1, .5, 1
+            scale = NumUtil.map val, 0, 1, 1, 1.15
+            alpha = NumUtil.map val, 0, 1, .7, 1
             @sprite.scale.x = @sprite.scale.y = scale
             @sprite.alpha = alpha
 
@@ -199,7 +212,7 @@ class BasicShape extends AbstractView
 
 
     applyAttractionForce: ->
-        @targetAngle += @targetAngleStep
+        @targetAngle += @targetAngleStep * 2
         if @targetAngle >= Math.PI * 2 then @targetAngle = 0
 
         distanceToTarget = NumUtil.distanceBetweenPoints( {x: @targetX, y: @targetY}, {x: @sprite.x, y: @sprite.y} )
@@ -224,19 +237,20 @@ class BasicShape extends AbstractView
         null
 
 
-    getAbsorbed: ->
+    getAbsorbed: ( isTheLast )->
         # @spring = .7
 
-        delay = Math.random()
+        delay = .1
 
-        TweenMax.to( @, 1.5, {spring: .7, delay: .3} )
+        # TweenMax.to( @, 1.5, {spring: .7, delay: .3} )
 
-        TweenMax.to( @, 1, { attractionRadius: 20, delay: delay, ease: Elastic.easeIn, onComplete: =>
+        TweenMax.to( @, 1, { attractionRadius: 1, delay: delay, ease: Elastic.easeInOut, onComplete: =>
             Backbone.Events.trigger( 'shapeGotAbsorbed', @ )
+            if !isTheLast then Backbone.trigger( 'SoundController:play', 'objectconnected' )
          } )
         TweenMax.to( @sprite.scale, 1, { x: .2, y: .2, delay: delay, ease: Elastic.easeIn } )
 
-        TweenMax.to( @sprite, .5, { alpha: 0, delay: .7 + delay } )
+        TweenMax.to( @sprite, .5, { alpha: 0, delay: .8 + delay } )
 
         null
 
@@ -292,6 +306,34 @@ class BasicShape extends AbstractView
         @sprite.scale.x = @sprite.scale.y = @sprite.scale.x * 1.5
         TweenMax.to( @sprite.scale, .8, { x: 1, y: 1, delay: .1, ease: Elastic.easeOut } )
 
-      null
+        null
+
+
+    bounce: =>
+        if !@isBouncing then return
+
+        TweenMax.to( @sprite.scale, .4, { x: 1.7, y: 1.7, ease: Power4.easeIn , delay: Math.random() * .2, onComplete: =>
+            TweenMax.to( @sprite.scale, .8, { x: 1, y: 1, ease: Elastic.easeOut } )
+         } )
+        
+        null
+
+
+    startBouncing: =>
+        @isBouncing = true
+        @bounce()
+        @bouncingInterval = setInterval( @bounce, 1800 )
+
+        null
+
+
+    stopBouncing: =>
+        @isBouncing = false
+        @sprite.scale.x = @sprite.scale.y = 1
+        clearInterval( @bouncingInterval )
+
+        null
+
+    
 
 module.exports = BasicShape

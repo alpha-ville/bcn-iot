@@ -22,7 +22,7 @@ class Square extends BasicShape
 
         @sprite.pivot = new PIXI.Point @w/2, @h/2
 
-        @sprite.alpha = .1
+        @sprite.alpha = .2
 
         textures = [
           "img/icons/placeholder2.png"

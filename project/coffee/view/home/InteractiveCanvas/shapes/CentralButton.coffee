@@ -15,6 +15,11 @@ class CentralButton extends BasicShape
 
         @sprite.alpha = 1
 
+        l = new PIXI.Graphics()
+        l.beginFill @color, .3
+        l.drawCircle 0, 0, @radius()
+        @sprite.addChild l
+
         @lines = []
 
         for i in [0...2]
@@ -25,7 +30,7 @@ class CentralButton extends BasicShape
             l.drawCircle 0, 0, @radius()
             lS.addChild l
             lS.alpha = .2;
-            @sprite.addChild lS
+            # @sprite.addChild lS
             @lines.push lS
 
         # @g.drawCircle 0, 0, @radius()
@@ -44,9 +49,11 @@ class CentralButton extends BasicShape
 
             currentAngle += step
 
-        texture = new PIXI.Texture.fromImage( "img/icons/HOME.png" )
+        texture = new PIXI.Texture.fromImage( "https://googledrive.com/host/0B7kWGoq62sNjU1BNdHR4MmM1eXM" )
         @icon = new PIXI.Sprite( texture )
-        @icon.anchor.x = @icon.anchor.y = .5
+        @icon.scale.x = @icon.scale.y = .4
+        @icon.anchor.x = .5
+        @icon.anchor.y = .6
         @sprite.addChild( @icon )
 
 
@@ -58,6 +65,12 @@ class CentralButton extends BasicShape
         @ripplesAnimation.stop()
 
         @sprite.isInteractive = false
+
+        null
+
+
+    onMouseUp: ->
+        Backbone.Events.trigger( 'centralButtonTouched' )
 
         null
 
@@ -76,6 +89,9 @@ class CentralButton extends BasicShape
         if @isAnimating then return
 
         @isAnimating = true
+
+        for i in [0...@lines.length]
+            @sprite.addChild( @lines[i] )
         
 
         for i in [0...@lines.length]
@@ -93,6 +109,7 @@ class CentralButton extends BasicShape
         @ripplesAnimation.time(1)
         @ripplesAnimation.stop()
 
+
         
 
         TweenMax.to( @lines[0].scale, 1, { x: 8, y: 8 } )
@@ -102,6 +119,8 @@ class CentralButton extends BasicShape
                 @lines[1].scale.x = @lines[1].scale.y = 1
                 @lines[i].children[0].alpha = 8
                 @sprite.isInteractive = false
+                for i in [0...@lines.length]
+                    @sprite.removeChild( @lines[i] )
          } )
         
 
