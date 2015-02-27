@@ -16,7 +16,6 @@ class Circle extends BasicShape
         super()
 
         if @radius() == 50
-            console.log @config
             url = "https://googledrive.com/host/" + @config.get("icon_id")
             texture = new PIXI.Texture.fromImage(url)
             
@@ -26,12 +25,8 @@ class Circle extends BasicShape
             @sprite.addChild( @icon )
 
         @g.drawCircle 0, 0, @radius()
-
         
         
-
-        
-
         @lines = []
  
 
@@ -46,7 +41,7 @@ class Circle extends BasicShape
             Backbone.trigger( 'SoundController:play', 'nontouchable' )
         else
             Backbone.Events.trigger( 'circleSelected', @ )
-            Backbone.trigger( 'SoundController:play', 'objectconnected' )
+            Backbone.trigger( 'SoundController:play', 'touchable' )
 
 
 
@@ -54,15 +49,21 @@ class Circle extends BasicShape
 
 
     goToCenterAndScaleUp: ->
-        Backbone.trigger( 'SoundController:play', 'touchable' )
+        # Backbone.trigger( 'SoundController:play', 'touchable' )
         @behavior = 'none'
         @isSelected = true
 
-        scale = 1 / ( @w / 250 )
+        scale = 1 / ( @w / 210 )
 
         TweenMax.to( @sprite, 1.5, { alpha: 1 } )
         TweenMax.to( @sprite.position, 1.5, { x: window.innerWidth/2, y: window.innerHeight/2, ease: Elastic.easeOut } )
-        TweenMax.to( @sprite.scale, .8, { x: scale, y: scale, delay: 1.7, ease: Elastic.easeOut } )
+        TweenMax.to( @sprite.scale, .8, { x: scale, y: scale, delay: 1, ease: Elastic.easeOut, onComplete: =>
+            
+         } )
+
+        setTimeout( =>
+            Backbone.trigger( 'SoundController:play', 'objectconnected' )
+        , 1000 )
 
         null
 

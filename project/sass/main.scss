@@ -239,7 +239,7 @@ body {
             background-color: $yellow-alpha;
             img
             {
-                @include filter(invert, -1);
+                // @include filter(invert, -1);
             }
         }
 
@@ -259,7 +259,7 @@ body {
                 margin: 30px auto;
                 img
                 {
-                    @include filter(invert, 1);
+                    // @include filter(invert, 1);
                 }
             }
 
@@ -360,7 +360,7 @@ body {
 
                 img
                 {
-                    @include filter(invert, 1);
+                    // @include filter(invert, 1);
                 }
 
                 .triangle

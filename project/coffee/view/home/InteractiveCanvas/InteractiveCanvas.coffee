@@ -6,12 +6,15 @@ Triangle        = require './shapes/Triangle'
 Square          = require('./shapes/Square.coffee');
 NumUtil         = require('../../../utils/NumUtil.coffee');
 NodeShape       = require('./shapes/NodeShape.coffee');
-HelpButton = require('./shapes/HelpButton.coffee');
-HomeTootip = require('../../components/HomeTootip.coffee');
+HelpButton      = require('./shapes/HelpButton.coffee');
+HomeTootip      = require('../../components/HomeTootip.coffee');
+Pointer         = require('./Pointer.coffee');
 
 class InteractiveCanvas extends AbstractView
 
     template : 'interactive-element'
+
+    pointer  : null
 
     shapes   : null
     selectedShapes: null
@@ -40,6 +43,8 @@ class InteractiveCanvas extends AbstractView
 
     tooltip: null
 
+    step: 0
+
 
     init : =>
         PIXI.dontSayHello = true
@@ -59,6 +64,7 @@ class InteractiveCanvas extends AbstractView
         @squares = []
         @gardenNodes = []
         @triangleAndSquares = []
+        @activeShapes = []
 
         @absorbedShapes = []
 
@@ -73,7 +79,8 @@ class InteractiveCanvas extends AbstractView
 
         @addHelpButton()
 
-        # @addGardenNodes()
+        @addPointer()
+
 
         @update()
 
@@ -93,6 +100,14 @@ class InteractiveCanvas extends AbstractView
         @helpButton.behavior = 'basic'
         @helpButton.move _.random(@w), _.random(@h)
         @scene.addChild( @helpButton.sprite )
+
+        null
+
+
+    addPointer: ->
+        @pointer = new Pointer()
+
+        @scene.addChild( @pointer.sprite )
 
         null
 
@@ -174,15 +189,13 @@ class InteractiveCanvas extends AbstractView
         param = (@B().getQueryVariable 'group') or 'home'
         filteredCategories = @B().categories.where group : param
 
-        console.log @B()
-
         # circles
         for i in [ 0 ... filteredCategories.length ]
             data = filteredCategories[i]
             object = new Circle(data, size, @scene)
             object.sprite.alpha = .8
-            object.move _.random(@w), _.random(@h)
-            object.isPulsating = true
+            object.move _.random(120, @w - 120), _.random(120, @h - 120)
+            # object.isPulsating = true
             object.vel[0] *= 1 +  Math.random()
             object.vel[1] *= 1 +  Math.random()
             @shapes.push( object )
@@ -191,9 +204,9 @@ class InteractiveCanvas extends AbstractView
 
         for j in [ 0 ... @B().purposes.models.length ]
             data = @B().purposes.models[j]
-            object = new Triangle(data, size, @scene)
-            object.sprite.alpha = .1
-            object.move _.random(@w), _.random(@h)
+            object = new Triangle(data, size - 10, @scene)
+            object.sprite.alpha = .7
+            object.move _.random(120, @w - 120), _.random(120, @h - 120)
             @shapes.push( object )
             @triangles.push( object )
             @triangleAndSquares.push(object)
@@ -201,9 +214,9 @@ class InteractiveCanvas extends AbstractView
 
         for k in [ 0 ... @B().dataSources.models.length ]
             data = @B().dataSources.models[k]
-            object = new Square(data, size - 8, @scene)
-            object.sprite.alpha = .1
-            object.move _.random(@w), _.random(@h)
+            object = new Square(data, size - 20, @scene)
+            object.sprite.alpha = .7
+            object.move _.random(120, @w - 120), _.random(120, @h - 120)
             @shapes.push( object )
             @squares.push( object )
             @triangleAndSquares.push(object)
@@ -301,9 +314,11 @@ class InteractiveCanvas extends AbstractView
         #temporary
         window.addEventListener('keyup', @onKeyup)
         window.addEventListener('resize', @onResize)
+        window.addEventListener('click', @onClick)
 
         @B().appView.on @B().appView.EVENT_UPDATE_DIMENSIONS, @setDims
 
+        Backbone.Events.on( 'centralButtonTouched', @onCentralButtonTouched )
         Backbone.Events.on( 'circleSelected', @onCircleSelected )
         Backbone.Events.on( 'circleUnselected', @onCircleUnselected )
         Backbone.Events.on( 'shapeSelected', @onShapeSelected )
@@ -349,42 +364,30 @@ class InteractiveCanvas extends AbstractView
         null
 
 
+    onClick: ( evt ) =>
+        @pointer.sprite.position.x = evt.pageX
+        @pointer.sprite.position.y = evt.pageY
+        @pointer.animate()
+
+        null
+
+
     onCircleSelected: ( circle ) =>
+        if @currentSelectedCircle then return
+
         @currentSelectedCircle = circle
 
-        for c in @circles
-            c.isDisable = true
-            c.isPulsating = false
-            if c.id != circle.id then c.disable()
+        @gotoStep(2)
+
+        # for c in @circles
+        #     c.isDisable = true
+        #     c.isPulsating = false
+        #     if c.id != circle.id then c.disable()
 
         @currentSelectedCircle.isDisable = false
         @currentSelectedCircle.goToCenterAndScaleUp()
 
-        for shape in @triangleAndSquares
-            shape.sprite.alpha = .1
-
-        @activeShapes = []
-        copySquares = @squares.slice()
-        copyTriangles = @triangles.slice()
-
-        rand1 = Math.floor Math.random() * copySquares.length
-        rand2 = rand1
-        rand2 = Math.floor Math.random() * copySquares.length while rand2 == rand1
-        @activeShapes.push( copySquares[rand1] )
-        @activeShapes.push( copySquares[rand2] )
-
-        rand1 = Math.floor Math.random() * copyTriangles.length
-        rand2 = rand1
-        rand2 = Math.floor Math.random() * copyTriangles.length while rand2 == rand1
-        @activeShapes.push( copyTriangles[rand1] )
-        @activeShapes.push( copyTriangles[rand2] )
-
-
-
-        for shape in @activeShapes
-            if shape.type == 'triangle' then shape.fadeTo( .6 ) else shape.fadeTo( .8 )
-            shape.isPulsating = true
-            shape.canOrbit = true
+        @activateShapes()
 
         null
 
@@ -392,20 +395,13 @@ class InteractiveCanvas extends AbstractView
     onCircleUnselected: ( circle, playSound = true ) =>
         @centralButton.stop()
 
-        for c in @circles
-            c.isDisable = false
-            c.isPulsating = true
-            if c.id != circle.id then c.undisable()
-
-        for shape in @activeShapes
-            shape.isPulsating = false
-
-        @activeShapes = []
-
         circle.goBackAndScaleDown playSound
 
+        for shape in @activeShapes
+            shape.stopBouncing()
+
         for shape in @shapes
-            if shape.type == 'triangle' then shape.fadeTo( .1 ) else shape.fadeTo( .1 )
+            if shape.type != 'circle' then shape.fadeTo( .2 )
             shape.canOrbit = false
             shape.isOrbiting = false
             shape.behavior = 'basic'
@@ -417,9 +413,38 @@ class InteractiveCanvas extends AbstractView
                 shape.vel[0] *= 1 +  Math.random()
                 shape.vel[1] *= 1 +  Math.random()
 
-
+        @activeShapes = []
         @selectedShapes = []
+        @absorbedShapes = []
+        @currentSelectedCircle = null
 
+        @gotoStep(1)
+
+
+        null
+
+
+    activateShapes: ->
+        @activeShapes = []
+        copySquares = @squares.slice()
+        copyTriangles = @triangles.slice()
+
+        rand1 = Math.floor Math.random() * copySquares.length
+        rand2 = rand1
+        rand2 = Math.floor Math.random() * copySquares.length while rand2 == rand1
+        if Math.random() < .5 then @activeShapes.push( copySquares[rand1] )
+        if Math.random() < .5 then @activeShapes.push( copySquares[rand2] )
+
+        rand1 = Math.floor Math.random() * copyTriangles.length
+        rand2 = rand1
+        rand2 = Math.floor Math.random() * copyTriangles.length while rand2 == rand1
+        @activeShapes.push( copyTriangles[rand1] )
+        if Math.random() < .5 then @activeShapes.push( copyTriangles[rand2] )
+
+        for shape in @activeShapes
+            if shape.type == 'triangle' then shape.fadeTo( .6 ) else shape.fadeTo( .8 )
+            shape.startBouncing()
+            shape.canOrbit = true
 
         null
 
@@ -427,33 +452,22 @@ class InteractiveCanvas extends AbstractView
     onShapeSelected: ( shape ) =>
         @selectedShapes.push( shape )
 
+        if @selectedShapes.length == @activeShapes.length then isTheLast = true else isTheLast = false        
+
+        shape.getAbsorbed( isTheLast )
+
         shape.isPulsating = false
         shape.sprite.alpha = 1
         shape.sprite.scale.x = shape.sprite.scale.y = 1
 
         @centralButton.animate()
 
-        if @selectedShapes.length == @activeShapes.length
-            
-            if @absorptionTimer then clearInterval( @absorptionTimer )
-
-            @absorptionTimer = setTimeout =>
-                for shape in @selectedShapes
-                    shape.getAbsorbed()
-            , 300
-
-
-
         null
 
-
-    onShapeUnselected: ( shape ) =>
-
-        null
 
 
     onShapeGotAbsorbed: ( shape ) =>
-        TweenMax.to( @currentSelectedCircle.sprite.scale, .1, { x: @currentSelectedCircle.sprite.scale.x + .5, y: @currentSelectedCircle.sprite.scale.y + .5 } )
+        TweenMax.to( @currentSelectedCircle.sprite.scale, 1, { x: @currentSelectedCircle.sprite.scale.x + .5, y: @currentSelectedCircle.sprite.scale.y + .5, ease: Elastic.easeOut } )
 
         @absorbedShapes.push( shape )
 
@@ -473,5 +487,63 @@ class InteractiveCanvas extends AbstractView
 
 
         null
+
+
+    onCentralButtonTouched: =>
+
+        if @step == 0
+            @gotoStep(1)
+        if !@currentSelectedCircle
+            for circle in @circles
+                circle.bounce()
+
+        null
+
+
+    gotoStep: ( step ) =>
+        ### -------------------------
+        - STEP0
+        Everything is visible,
+        Waiting an action on central button
+        -------------------------- ### 
+        if step == 0 then console.log 'step0'
+        ### -------------------------
+        - STEP1
+        Central button has been touched,
+        Circles start pulsating like hell
+        Other shapes fadeOut
+        -------------------------- ### 
+        if step == 1
+            console.log @shapes
+            for shape in @shapes 
+                shape.stopBouncing()
+                if shape.type != 'circle' then shape.sprite.alpha = .2
+
+            for shape in @activeShapes 
+                shape.stopBouncing()
+
+
+            for circle in @circles
+                circle.sprite.alpha = .8
+                circle.startBouncing()
+
+            
+
+
+        ### -------------------------
+        - STEP2
+        One circle has been touched, it goes to center
+        Other shapes start pulsating like hell
+        -------------------------- ### 
+        if step == 2
+            for circle in @circles
+                circle.stopBouncing()
+                circle.sprite.alpha = .1
+
+            for shape in @triangleAndSquares
+                shape.sprite.alpha = .1
+        
+        null
+
 
 module.exports = InteractiveCanvas
