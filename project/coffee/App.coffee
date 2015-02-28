@@ -18,6 +18,9 @@ class App
     categories   : null
     credits      : null
 
+    objectsContentHack      : null
+    objectsContentHackOrder : null
+
     storage      : null
 
     _toClean   : ['objReady', 'setFlags', 'objectComplete', 'init', 'initObjects', 'initSDKs', 'initApp', 'go', 'cleanup', '_toClean']
@@ -39,7 +42,7 @@ class App
     objectComplete : =>
 
         @objReady++
-        @initApp() if @objReady >= 6
+        @initApp() if @objReady >= 2
 
         null
 
@@ -56,21 +59,13 @@ class App
         @storage = Tabletop.init
             key: "1HIWOpkgxY5oJ9PjKQ3QxAWV_GMFWEIiszFpi37TMLaI"
             callback : (data) =>
+                @categories  = new CategoriesCollection data['new-categories'].elements
+                @purposes    = new PurposeCollection data['new-purpose'].elements
+                @dataSources = new DataSourceCollection data['new-data'].elements
+                @objects     = new ObjectsCollection data['new-objects'].elements
+                @credits     = new CreditsCollection data['credits-copy'].elements
 
-                @categories = new CategoriesCollection
-                @categories.fetch success : @objectComplete
-
-                @purposes = new PurposeCollection
-                @purposes.fetch success : @objectComplete
-
-                @dataSources = new DataSourceCollection
-                @dataSources.fetch success : @objectComplete
-
-                @objects = new ObjectsCollection
-                @objects.fetch success : @objectComplete
-
-                @credits = new CreditsCollection
-                @credits.fetch success : @objectComplete
+                @objectComplete()
 
 
         # if new objects are added don't forget to change the `@objectComplete` function
@@ -103,6 +98,8 @@ class App
         @router  = new Router
         @nav     = new Nav
 
+        videojs.options.flash.swf = "data/video/video-js.swf"
+
         @go()
 
         # @appView.modalManager.showModal 'overlayHelp'
@@ -115,6 +112,7 @@ class App
         null
 
     openOverlayData : () =>
+
         @appView.modalManager.hideOpenModal()
         @appView.modalManager.showModal 'overlayDataContent'
         null

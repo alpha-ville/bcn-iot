@@ -79,7 +79,7 @@
                 <div class="carousel-item" id="<%= object.get('id') %>">
                     <% if(object.get('video') != "") { %>
 
-                    <video class="video-js vjs-sublime-skin" controls preload="auto" width="600" height="400">
+                    <video class="video-js vjs-sublime-skin" controls preload="auto" width="600" height="338">
                         <source src="https://googledrive.com/host/<%= object.get('video') %>" type='video/mp4'>
                     </video>
 

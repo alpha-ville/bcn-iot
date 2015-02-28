@@ -76,7 +76,7 @@ body {
 
 .video-js
 {
-    margin: 0 auto !important;
+    margin: 31px auto !important;
 }
 
 * {
@@ -463,6 +463,7 @@ body {
 
 }
 .tooltip {
+    pointer-events : none;
     position: fixed;
     color: #000;
     top: 50%;

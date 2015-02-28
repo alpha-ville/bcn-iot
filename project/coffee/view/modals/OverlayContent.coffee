@@ -8,6 +8,7 @@ class OverlayContent extends AbstractModal
     template : 'overlay-content'
     cb       : null
     lang     : 'en'
+    objects  : null
 
     events:
         'click ul>li' : "toggleLang"
@@ -22,7 +23,7 @@ class OverlayContent extends AbstractModal
         # console.log node
 
         @objects = @B().objects.where "category" : node.get('category_name')
-        @objects = _.shuffle @objects
+        @objects = @B().objectsContentHack or _.shuffle @objects
         @objectCarosel = new ObjectsList @objects
         @objectCarosel.on 'slideChange', @slideChange
         @objectCarosel.on 'beforeChange', @beforeChange
@@ -35,13 +36,14 @@ class OverlayContent extends AbstractModal
             shape       : 'circle'
             icon        : node.get('icon_id')
 
-
         super()
 
         return null
 
     beforeChange : () =>
         @breadCrumbs.animateOut()
+        TweenMax.to $(@$el.find('.project-name-container>.project-name')[0]), .2, opacity: 0
+
         null
 
     setBreadcrumb : (object, delay = 0) =>
@@ -49,15 +51,13 @@ class OverlayContent extends AbstractModal
         @breadCrumbs = null
         breadcrumbsList = []
 
-
-
         selectableSources =  object.get('data_type').toLowerCase().split(" ").join("").split(";")
         breadcrumbsList.push @B().dataSources.findWhere type : i for i in selectableSources
 
         selectablePurposes = object.get('purpose_type').toLowerCase().split(" ").join("").split(";")
         for i in selectablePurposes
             # console.log i
-            breadcrumbsList.push @B().purposes.findWhere type : i 
+            breadcrumbsList.push @B().purposes.findWhere type : i
 
         # console.log @B().purposes
 
@@ -76,10 +76,14 @@ class OverlayContent extends AbstractModal
         a = @B().objects.findWhere id : String(slideID)
         pn = $(@$el.find('.project-name-container>.project-name')[0])
         pn.text a.get('name_' + @B().langSelected)
+        TweenMax.to $(@$el.find('.project-name-container>.project-name')[0]), .2, opacity: 1
+
         @setBreadcrumb a, delay
         null
 
     closeButton : =>
+        @B().objectsContentHack = null
+        @B().objectsContentHackOrder = null
         Backbone.Events.trigger( 'showHomeTooltip')
 
         @B().resetIDs()

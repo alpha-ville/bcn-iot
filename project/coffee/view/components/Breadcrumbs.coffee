@@ -49,6 +49,7 @@ class Breadcrumbs extends AbstractView
 
         # console.log t.find('.name-container > p[data-lang="en"]').text(), @B().selectedDataId, @B().selectedDataType
 
+        @B().objectsContentHack = @B().appView.modalManager.modals.overlayContent.view.objects
         @B().openOverlayData()
         null
 
