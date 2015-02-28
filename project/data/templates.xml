@@ -44,8 +44,8 @@
                         <div class="textBoxContainer table">
                             <div class="tableCell">
                                 <div class="text">
-                                    Environment<br>
-                                    Eldlansd
+                                    <span class="en">HOME</span><br>
+                                    <span class="cat">HOLA</span>
                                 </div>
                             </div>
                         </div>

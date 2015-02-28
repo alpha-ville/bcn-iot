@@ -9,8 +9,8 @@ class HomeTooltip extends AbstractView
         "click" : "clickBreadcrumb"
 
     labels: null
-    labelFr: null
     labelEn: null
+    labelCat: null
 
     angleForMotion: 0
     motionAmplitude: 10
@@ -24,8 +24,9 @@ class HomeTooltip extends AbstractView
 
         @labels = []
 
-        @labelFr = @el.querySelector('.fr')
-        @labels.push( @labelFr )
+        @labelEn = @el.querySelector('.en')
+        @labelCat = @el.querySelector('.cat')
+        @labels.push( @labelEn )
 
         # for easy testing
         window.addEventListener( 'keyup', @onKeyUp )
@@ -61,8 +62,11 @@ class HomeTooltip extends AbstractView
         null
 
 
-    transitionIn: ( copyFr ) ->
+    transitionIn: ( config ) ->
         @el.classList.add('active')
+
+        @labelEn.innerHTML = config.get('name_en')
+        @labelCat.innerHTML = config.get('name_cat')
 
         null
 
