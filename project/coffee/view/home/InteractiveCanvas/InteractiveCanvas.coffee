@@ -44,6 +44,8 @@ class InteractiveCanvas extends AbstractView
     tooltip: null
 
     step: 0
+    stepTimer: null
+    step2Timer: null
 
     @step1Timer = null
 
@@ -375,6 +377,13 @@ class InteractiveCanvas extends AbstractView
 
 
     onClick: ( evt ) =>
+        console.log @step
+
+        clearInterval( @stepTimer )
+        @stepTimer = setTimeout => 
+            @gotoStep( @step - 1 ) 
+        , 4000
+
         @pointer.sprite.position.x = evt.pageX
         @pointer.sprite.position.y = evt.pageY
         @pointer.animate()
@@ -383,6 +392,8 @@ class InteractiveCanvas extends AbstractView
 
 
     onCircleSelected: ( circle ) =>
+        console.log 'hell'
+
         if @currentSelectedCircle then return
 
         @currentSelectedCircle = circle
@@ -390,6 +401,12 @@ class InteractiveCanvas extends AbstractView
         @tooltip.transitionIn @currentSelectedCircle.config.get('name_en'), @currentSelectedCircle.config.get('name_cat')
 
         @gotoStep(2)
+
+        # @step2Timer = setTimeout =>
+        #     @gotoStep(1)
+        # , 4000
+
+
 
         # for c in @circles
         #     c.isDisable = true
@@ -405,6 +422,12 @@ class InteractiveCanvas extends AbstractView
 
 
     onCircleUnselected: ( circle, playSound = true ) =>
+        if @step == 1
+            @clearTimer( 1 )
+        else if @step == 2
+            @clearTimer( 2 )
+
+
         @centralButton.stop()
 
         @tooltip.transitionOut()
@@ -467,6 +490,11 @@ class InteractiveCanvas extends AbstractView
 
 
     onShapeSelected: ( shape ) =>
+        if @step == 1
+            @clearTimer( 1 )
+        else if @step == 2
+            @clearTimer( 2 )
+
         @selectedShapes.push( shape )
 
         if @selectedShapes.length == @activeShapes.length then isTheLast = true else isTheLast = false        
@@ -527,7 +555,14 @@ class InteractiveCanvas extends AbstractView
         Everything is visible,
         Waiting an action on central button
         -------------------------- ### 
-        if step == 0 then console.log 'step0'
+        if step == 0
+            @step = 0
+            for circle in @circles
+                circle.stopBouncing()
+
+            for shape in @shapes
+                shape.fadeTo( .8 )
+
         ### -------------------------
         - STEP1
         Central button has been touched,
@@ -535,6 +570,15 @@ class InteractiveCanvas extends AbstractView
         Other shapes fadeOut
         -------------------------- ### 
         if step == 1
+            console.log 'step1'
+
+            clearInterval( @stepTimer )
+            @stepTimer = setTimeout =>
+                @gotoStep( 0 )
+            , 4000
+
+            @step = 1
+            if @currentSelectedCircle then @onCircleUnselected( @currentSelectedCircle )
             for shape in @shapes 
                 shape.stopBouncing()
                 if shape.type != 'circle' then shape.sprite.alpha = .2
@@ -549,19 +593,40 @@ class InteractiveCanvas extends AbstractView
                 @scene.removeChild(  circle.sprite )
                 @scene.addChild(  circle.sprite )
 
+            
+
+            
+
         ### -------------------------
         - STEP2
         One circle has been touched, it goes to center
         Other shapes start pulsating like hell
         -------------------------- ### 
         if step == 2
+            @step = 2
             for circle in @circles
                 circle.stopBouncing()
                 circle.sprite.alpha = .1
 
             for shape in @triangleAndSquares
                 shape.sprite.alpha = .1
+
+            clearInterval( @stepTimer )
+            @stepTimer = setTimeout =>
+                @gotoStep( 1 )
+            , 4000
         
+        null
+
+    clearTimer: ( timerId ) =>
+        return
+        if timerId == 1 then currentTimer = @step1Timer
+        else if timerId == 2 then currentTimer = @step2Timer
+
+        window.setTimeout =>
+            @gotoStep( timerId - 1 )
+        , 4000
+
         null
 
 
