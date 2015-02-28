@@ -378,6 +378,8 @@ class InteractiveCanvas extends AbstractView
 
         @currentSelectedCircle = circle
 
+        @tooltip.transitionIn @currentSelectedCircle.config
+
         @gotoStep(2)
 
         # for c in @circles
@@ -395,6 +397,8 @@ class InteractiveCanvas extends AbstractView
 
     onCircleUnselected: ( circle, playSound = true ) =>
         @centralButton.stop()
+
+        @tooltip.transitionOut()
 
         circle.goBackAndScaleDown playSound
 
