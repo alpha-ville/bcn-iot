@@ -28,6 +28,8 @@ class SoundController
     window.addEventListener 'keyup', @onKeyUp
 
     Backbone.on('SoundController:play', @play)
+    Backbone.on('SoundController:resumeLoop', @resumeLoop)
+    Backbone.on('SoundController:stopLoop', @stopLoop)
 
     null
 
