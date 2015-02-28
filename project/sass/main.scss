@@ -212,10 +212,10 @@ body {
             border-bottom: $size-shape * (sqrt(3)/2) solid $blue-alpha;
             img
             {
-                width: $size-shape * .7;
-                height: $size-shape * .7;
+                width: $size-shape * .4;
+                height: $size-shape * .4;
                 @include transform(translate(-50%));
-                margin-top: 15px;
+                margin-top: 32px;
             }
         }
 
@@ -226,8 +226,9 @@ body {
             background-color: $red-alpha;
             img
             {
-                width: $size-shape * .9;
-                height: $size-shape * .9;
+                width: $size-shape * .5;
+                height: $size-shape * .5;
+                margin-top: 20px;
             }
         }
 
@@ -240,6 +241,7 @@ body {
             img
             {
                 // @include filter(invert, -1);
+                @include transform(scale(.7));
             }
         }
 
@@ -372,9 +374,9 @@ body {
                     border-bottom: $size-shape * (sqrt(3)/2) solid $blue-alpha;
                     img
                     {
-                        width: $size-shape * .7;
-                        height: $size-shape * .7;
-                        margin-top: 10px;
+                        width: $size-shape * .4;
+                        height: $size-shape * .4;
+                        margin-top: 18px;
                         @include transform(translate(-50%));
                     }
                 }
@@ -386,8 +388,9 @@ body {
                     background-color: $red-alpha;
                     img
                     {
-                        width: $size-shape * .9;
-                        height: $size-shape * .9;
+                        width: $size-shape * .6;
+                        height: $size-shape * .6;
+                        margin-top: 10px;
                     }
                 }
 
