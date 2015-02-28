@@ -53,6 +53,12 @@ class Scene
     null
 
 
+  swapChildren: ( child1, child2 ) ->
+    @stage.swapChildren( child1, child2 )
+
+    null
+
+
   update: ->
 
     null
