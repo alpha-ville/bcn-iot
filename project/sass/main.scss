@@ -71,6 +71,9 @@ $blue-alpha   : rgba(39, 115, 190, $alpha);
 $yellow-alpha : rgba(231, 157, 51, $alpha);
 
 body {
+    width: 100%;
+    height: 100%;
+    background: #000;
     font-family: 'Avenir-Roman';
 }
 
@@ -201,6 +204,10 @@ body {
             margin: 0 auto;
             opacity: 0;
             // border: 1px solid black;
+            
+            svg {
+                width: 70%;
+            }
 
             span
             {
@@ -269,7 +276,10 @@ body {
                 width: $size-shape;
                 margin: 30px auto;
                 img
-                {
+                {   
+                    margin-top: 7px;
+                    width: 85%;
+                    height: auto;
                     // @include filter(invert, 1);
                 }
             }

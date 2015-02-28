@@ -45,6 +45,8 @@ class InteractiveCanvas extends AbstractView
 
     step: 0
 
+    @step1Timer = null
+
 
     init : =>
         PIXI.dontSayHello = true
@@ -167,6 +169,18 @@ class InteractiveCanvas extends AbstractView
         null
 
     addShapes : =>
+        ###
+
+        the filtered data for you
+        @TODO william look at this
+
+        ###
+
+        @groupName = (@B().getQueryVariable 'group') or 'home'
+        filteredCategories = @B().categories.where group : @groupName
+
+        @B().groupName = @groupName
+
         @centralButton = new CentralButton null, 240, @scene
         @centralButton.move @w/2, @h/2
         @scene.addChild @centralButton.sprite
@@ -179,15 +193,7 @@ class InteractiveCanvas extends AbstractView
 
         size = 100
 
-        ###
 
-        the filtered data for you
-        @TODO william look at this
-
-        ###
-
-        @groupName = (@B().getQueryVariable 'group') or 'home'
-        filteredCategories = @B().categories.where group : @groupName
 
 
 
