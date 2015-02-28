@@ -8,7 +8,7 @@ class Breadcrumbs extends AbstractView
         "click" : "clickBreadcrumb"
 
     constructor : (@list) ->
-        @list = _.shuffle(@list)
+        # @list = _.shuffle(@list)
 
         # console.log @list
 
