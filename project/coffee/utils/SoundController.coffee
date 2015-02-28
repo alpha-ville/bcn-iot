@@ -17,7 +17,7 @@ class SoundController
 
     @sounds['loop'].volume = @loopVolume
 
-    @play('loop')
+    # @play('loop')
 
     @initEvents()
 
