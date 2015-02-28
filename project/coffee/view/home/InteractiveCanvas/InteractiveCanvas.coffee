@@ -445,6 +445,8 @@ class InteractiveCanvas extends AbstractView
             if shape.type == 'triangle' then shape.fadeTo( .6 ) else shape.fadeTo( .8 )
             shape.startBouncing()
             shape.canOrbit = true
+            @scene.removeChild(  shape.sprite )
+            @scene.addChild(  shape.sprite )
 
         null
 
@@ -467,7 +469,11 @@ class InteractiveCanvas extends AbstractView
 
 
     onShapeGotAbsorbed: ( shape ) =>
-        TweenMax.to( @currentSelectedCircle.sprite.scale, 1, { x: @currentSelectedCircle.sprite.scale.x + .5, y: @currentSelectedCircle.sprite.scale.y + .5, ease: Elastic.easeOut } )
+        scale = @currentSelectedCircle.sprite.scale.x + .5
+        TweenMax.to( @currentSelectedCircle.sprite.scale, 1, { x: scale, y: scale, ease: Elastic.easeOut, onComplete: =>
+            # @scene.removeChild( @currentSelectedCircle.sprite )
+            # @scene.addChild( @currentSelectedCircle.sprite )
+         } )
 
         @absorbedShapes.push( shape )
 
@@ -514,7 +520,6 @@ class InteractiveCanvas extends AbstractView
         Other shapes fadeOut
         -------------------------- ### 
         if step == 1
-            console.log @shapes
             for shape in @shapes 
                 shape.stopBouncing()
                 if shape.type != 'circle' then shape.sprite.alpha = .2
@@ -526,9 +531,8 @@ class InteractiveCanvas extends AbstractView
             for circle in @circles
                 circle.sprite.alpha = .8
                 circle.startBouncing()
-
-            
-
+                @scene.removeChild(  circle.sprite )
+                @scene.addChild(  circle.sprite )
 
         ### -------------------------
         - STEP2

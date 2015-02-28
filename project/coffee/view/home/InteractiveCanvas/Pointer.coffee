@@ -24,18 +24,11 @@ class Pointer
 
 
   animate: ->
-    TweenMax.fromTo( @g, .4, {alpha: .2}, {alpha: 0} )
-    TweenMax.fromTo( @g.scale, .4, {x: 1, y: 1}, {x: 2, y: 2} )
+    TweenMax.fromTo( @g, .8, {alpha: .2}, {alpha: 0} )
+    TweenMax.fromTo( @g.scale, .8, {x: 0, y: 0}, {x: 2, y: 2} )
     
-    TweenMax.fromTo( @g2, .4, {alpha: .2, delay: .2}, {alpha: 0, delay: .15} )
-    TweenMax.fromTo( @g2.scale, .4, {x: 1, y: 1, delay: .2}, {x: 2, y: 2, delay: .15} )
-
-    null
-
-
-  onAnimate: =>
-    @g.lineStyle( @lineWidth, '0x000000' )
-    console.log @g
+    TweenMax.fromTo( @g2, .8, {alpha: .2, delay: .55}, {alpha: 0, delay: .15} )
+    TweenMax.fromTo( @g2.scale, .8, {x: 0, y: 0, delay: .55}, {x: 2, y: 2, delay: .15} )
 
     null
 

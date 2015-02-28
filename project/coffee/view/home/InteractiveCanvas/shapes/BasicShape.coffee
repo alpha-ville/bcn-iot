@@ -34,7 +34,7 @@ class BasicShape extends AbstractView
     target      : null
     targetMass  : 10000
 
-    spring      : .007
+    spring      : 0
     friction    : .8
     targetAngle : 0
     targetAngleStep : 0
@@ -58,6 +58,8 @@ class BasicShape extends AbstractView
         @id = String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Date.now()
 
         # console.log size, scene
+
+        @spring = .007
 
         @_scene = scene
 
@@ -242,15 +244,15 @@ class BasicShape extends AbstractView
 
         delay = .1
 
-        # TweenMax.to( @, 1.5, {spring: .7, delay: .3} )
+        TweenMax.to( @, 1.5, {spring: .7, delay: .7} )
 
         TweenMax.to( @, 1, { attractionRadius: 1, delay: delay, ease: Elastic.easeInOut, onComplete: =>
             Backbone.Events.trigger( 'shapeGotAbsorbed', @ )
             if !isTheLast then Backbone.trigger( 'SoundController:play', 'objectconnected' )
          } )
-        TweenMax.to( @sprite.scale, 1, { x: .2, y: .2, delay: delay, ease: Elastic.easeIn } )
+        TweenMax.to( @sprite.scale, .7, { x: .2, y: .2, delay: 0, ease: Elastic.easeIn } )
 
-        TweenMax.to( @sprite, .5, { alpha: 0, delay: .8 + delay } )
+        TweenMax.to( @sprite, .5, { alpha: 0, delay: .6 + delay } )
 
         null
 
@@ -312,7 +314,7 @@ class BasicShape extends AbstractView
     bounce: =>
         if !@isBouncing then return
 
-        TweenMax.to( @sprite.scale, .4, { x: 1.7, y: 1.7, ease: Power4.easeIn , delay: Math.random() * .2, onComplete: =>
+        TweenMax.to( @sprite.scale, .4, { x:2, y:2, ease: Power4.easeIn , delay: Math.random() * .2, onComplete: =>
             TweenMax.to( @sprite.scale, .8, { x: 1, y: 1, ease: Elastic.easeOut } )
          } )
         

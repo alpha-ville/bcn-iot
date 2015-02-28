@@ -71,6 +71,7 @@ class CentralButton extends BasicShape
 
     onMouseUp: ->
         Backbone.Events.trigger( 'centralButtonTouched' )
+        Backbone.trigger( 'SoundController:play', 'nontouchable' )
 
         null
 
