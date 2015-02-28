@@ -36,7 +36,6 @@
             <div class="tooltip">
                 <span class="shape"></span>
                 <span class="label">HOME</span>
-                <span class="label">HOLA</span>
             </div>
         ]]>
     </template>

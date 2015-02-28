@@ -432,7 +432,8 @@ class InteractiveCanvas extends AbstractView
         rand1 = Math.floor Math.random() * copySquares.length
         rand2 = rand1
         rand2 = Math.floor Math.random() * copySquares.length while rand2 == rand1
-        if Math.random() < .5 then @activeShapes.push( copySquares[rand1] )
+        # if Math.random() < .5 then @activeShapes.push( copySquares[rand1] )
+        @activeShapes.push( copySquares[rand1] )
         if Math.random() < .5 then @activeShapes.push( copySquares[rand2] )
 
         rand1 = Math.floor Math.random() * copyTriangles.length
@@ -462,13 +463,13 @@ class InteractiveCanvas extends AbstractView
         shape.sprite.alpha = 1
         shape.sprite.scale.x = shape.sprite.scale.y = 1
 
-        @centralButton.animate()
-
         null
 
 
 
     onShapeGotAbsorbed: ( shape ) =>
+        @centralButton.animate()
+
         scale = @currentSelectedCircle.sprite.scale.x + .5
         TweenMax.to( @currentSelectedCircle.sprite.scale, 1, { x: scale, y: scale, ease: Elastic.easeOut, onComplete: =>
             # @scene.removeChild( @currentSelectedCircle.sprite )

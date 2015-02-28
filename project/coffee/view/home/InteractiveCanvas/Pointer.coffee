@@ -10,10 +10,12 @@ class Pointer
     @g = new PIXI.Graphics()
     @g.beginFill 'rgba(0,0,0,.3)'
     @g.drawCircle( 0, 0, 15 )
+    @g.alpha = 0
 
     @g2 = new PIXI.Graphics()
     @g2.beginFill 'rgba(0,0,0,.3)'
     @g2.drawCircle( 0, 0, 15 )
+    @g2.alpha = 0
 
     @position = []
 
