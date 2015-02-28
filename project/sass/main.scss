@@ -278,12 +278,14 @@ body {
             {
                 display: inline;
                 width: $size-shape;
-                margin: 30px auto;
+                margin: 20px auto;
+
                 &>div
                 {
                     display: inline-block;
-                    margin: 30px;
+                    margin: 25px;
                     opacity: 0;
+                    // vertical-align: top;
                     &>div:not(.label)
                     {
                         @include transform(scale(.7));
@@ -292,7 +294,7 @@ body {
                     {
                         @include font-size(1.5);
                         font-weight: bold;
-                        max-width: 95px;
+                        max-width: 120px;
                     }
                 }
             }
@@ -358,7 +360,7 @@ body {
 
                 &>div
                 {
-                    margin: 30px auto 0;
+                    margin: 40px auto 0;
                     padding: 5px 15px;
                     opacity: 0;
                     display: inline-block;
@@ -414,8 +416,8 @@ body {
 
                 .square
                 {
-                    width: $size-shape * .9;
-                    height: $size-shape * .9;
+                    width: $size-shape * .8;
+                    height: $size-shape * .8;
                     background-color: $red-alpha;
                     margin: 0 auto;
                     img
