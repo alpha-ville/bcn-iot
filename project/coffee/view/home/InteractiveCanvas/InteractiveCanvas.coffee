@@ -45,6 +45,8 @@ class InteractiveCanvas extends AbstractView
 
     step: 0
 
+    @step1Timer = null
+
 
     init : =>
         PIXI.dontSayHello = true
@@ -178,7 +180,7 @@ class InteractiveCanvas extends AbstractView
         filteredCategories = @B().categories.where group : @groupName
 
         @B().groupName = @groupName
-        
+
         @centralButton = new CentralButton null, 240, @scene
         @centralButton.move @w/2, @h/2
         @scene.addChild @centralButton.sprite
