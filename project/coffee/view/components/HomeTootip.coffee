@@ -12,6 +12,10 @@ class HomeTooltip extends AbstractView
     labelFr: null
     labelEn: null
 
+    angleForMotion: 0
+    motionAmplitude: 10
+    motionSpeed: .05
+
     constructor : (@list) ->
         # @templateVars =
         #     list : @list
@@ -29,6 +33,7 @@ class HomeTooltip extends AbstractView
         null
 
     onKeyUp: ( evt ) =>
+        # 't' key on the keyboard
         if evt.keyCode != 84 then return
 
         @transitionOut( 'PLOP' )
@@ -56,8 +61,26 @@ class HomeTooltip extends AbstractView
         null
 
 
+    transitionIn: ( copyFr ) ->
+        @el.classList.add('active')
+
+        null
+
+
     transitionOut: ( copyFr ) ->
-        
+        @el.classList.remove('active')
+
+        null
+
+    update: ->
+        @angleForMotion += @motionSpeed
+
+        offset = Math.sin(@angleForMotion) * @motionAmplitude
+
+        y = ( window.innerHeight / 2 ) - offset - 320 # minus central button radius
+        transform = "translate(-50%, #{y}px)"
+
+        @el.style.transform = transform
 
         null
 
