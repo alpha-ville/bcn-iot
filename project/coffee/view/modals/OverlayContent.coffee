@@ -77,8 +77,8 @@ class OverlayContent extends AbstractModal
         
         pn = $(@$el.find('.project-name-container>.project-name')[0])
         pn2 = $(@$el.find('.project-name-container>.project-name')[1])
-        pn.text a.get('name_' + @B().langSelected)
-        pn2.text a.get('name_' + @B().langSelected)
+        pn.text a.get('name_en')
+        pn2.text a.get('name_cat')
         
         TweenMax.to $(@$el.find('.project-name-container>.project-name')[0]), .2, opacity: 1
 
@@ -106,7 +106,7 @@ class OverlayContent extends AbstractModal
 
         @$el.find('[data-lang]').not("li").each (a, b) =>
             $(b).css
-                display : if $(b).attr('data-lang') is @B().langSelected then 'block' else 'none'
+                display : if $(b).attr('data-lang') is @B().langSelected then 'inline-block' else 'none'
 
         @breadCrumbs.toggleLang()
 

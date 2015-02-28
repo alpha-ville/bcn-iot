@@ -43,8 +43,8 @@ class SoundController
 
   onKeyUp: ( evt ) =>
     if evt.keyCode == 32 then @toggle()
-    else if evt.keyCode == 40 then @setVolume( @loopVolume - .1 )
-    else if evt.keyCode == 38 then @setVolume( @loopVolume + .1 )
+    else if evt.keyCode == 40 then @setVolume( @sfxVolume - .1 )
+    else if evt.keyCode == 38 then @setVolume( @sfxVolume + .1 )
 
     null
 
