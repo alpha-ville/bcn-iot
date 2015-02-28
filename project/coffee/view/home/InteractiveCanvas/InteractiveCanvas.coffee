@@ -244,6 +244,7 @@ class InteractiveCanvas extends AbstractView
         for shape in @shapes
             shape.update()
 
+        @tooltip.update()
         @centralButton.update()
         @helpButton.update()
 
