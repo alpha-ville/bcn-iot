@@ -283,22 +283,26 @@ body {
                 display: inline;
                 width: $size-shape;
                 margin: 20px auto;
+                text-align: center;
 
                 &>div
                 {
                     display: inline-block;
-                    margin: 25px;
+                    margin: 20px 20px 30px;
                     opacity: 0;
+                    text-align: center;
                     // vertical-align: top;
                     &>div:not(.label)
                     {
                         @include transform(scale(.7));
+                        margin: 0px auto 5px;
                     }
                     .label
                     {
                         @include font-size(1.5);
-                        font-weight: bold;
-                        max-width: 120px;
+                        font-family: 'Avenir-Black';
+                        letter-spacing: 1px;
+                        max-width: 134px;
                     }
                 }
             }
@@ -791,6 +795,7 @@ $color : $blue;
     z-index: 0;
 
 
+
     *,
     *:before,
     *:after {
@@ -868,7 +873,7 @@ $color : $blue;
 
 .leftBoarder {
     height: 100%;
-    width: 30%;
+    width: 32%;
     float: left;
     display: inline-block;
     border-left: 4px solid #000;
@@ -878,7 +883,7 @@ $color : $blue;
 
 .rightBoarder {
     height: 100%;
-    width: 30%;
+    width: 32%;
     float: right;
     display: inline-block;
     border-right: 4px solid #000;
