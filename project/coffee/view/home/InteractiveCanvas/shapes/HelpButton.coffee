@@ -12,7 +12,7 @@ class HelpButton extends BasicShape
 
         @g.beginFill @color
 
-        @g.drawCircle 0, 0, @radius()
+        @g.drawCircle 0, 0, 35
 
         @text = new PIXI.Text("?", { font: "20px Arial", fill: "white", align: "left" });
         @text.position.x = -5

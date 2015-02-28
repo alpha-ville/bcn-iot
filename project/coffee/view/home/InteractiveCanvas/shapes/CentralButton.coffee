@@ -15,25 +15,24 @@ class CentralButton extends BasicShape
 
         @sprite.alpha = 1
 
-        l = new PIXI.Graphics()
-        l.beginFill @color, .3
-        l.drawCircle 0, 0, @radius()
-        @sprite.addChild l
+        @background = new PIXI.Graphics()
+        @background.beginFill @color
+        @background.drawCircle( 0, 0, @radius() )
+        @background.alpha = .3
 
-        @lines = []
+        @ripple1 = new PIXI.Graphics()
+        @ripple1.beginFill @color
+        @ripple1.drawCircle( 0, 0, @radius() )
+        @ripple1.alpha = 0
 
-        for i in [0...2]
-            lS = new PIXI.Sprite()
-            l = new PIXI.Graphics()
-            l.beginFill @color, .8
-            # l.lineStyle 2, @color
-            l.drawCircle 0, 0, @radius()
-            lS.addChild l
-            lS.alpha = .2;
-            # @sprite.addChild lS
-            @lines.push lS
+        @ripple2 = new PIXI.Graphics()
+        @ripple2.beginFill @color
+        @ripple2.drawCircle( 0, 0, @radius() )
+        @ripple2.alpha = 0
 
-        # @g.drawCircle 0, 0, @radius()
+        @sprite.addChild( @background )
+        @sprite.addChild( @ripple1 )
+        @sprite.addChild( @ripple2 )
 
         currentAngle = 0
         nbPoints = 50
@@ -57,12 +56,7 @@ class CentralButton extends BasicShape
         @sprite.addChild( @icon )
 
 
-        scale = 1.7
-        @ripplesAnimation = new TimelineMax({ repeat: -1 })
-        @ripplesAnimation.add( TweenMax.to(@lines[0], 1.7, alpha: 0, delay: 0, width: scale, height: scale ) )
-        @ripplesAnimation.add( TweenMax.to(@lines[1], 1.7, alpha: 0, delay: -1.4, width: scale, height: scale ) )
-
-        @ripplesAnimation.stop()
+        
 
         @sprite.isInteractive = false
 
@@ -86,24 +80,19 @@ class CentralButton extends BasicShape
         null
         
 
-    animate : =>
-        if @isAnimating then return
+    animate : ( initialScale = 1 ) =>
+        scale = 1.8
+        TweenMax.fromTo(@ripple1.scale, 1, {x: initialScale, y: initialScale}, {x: scale, y: scale, ease: Circ.easeOut} )
+        # TweenMax.fromTo(@ripple2.scale, 1, {x: initialScale, y: initialScale, delay: .15}, {x: scale, y: scale, delay: .3} )
 
-        @isAnimating = true
-
-        for i in [0...@lines.length]
-            @sprite.addChild( @lines[i] )
-        
-
-        for i in [0...@lines.length]
-            @lines[i].children[0].alpha = 5
-
-        @ripplesAnimation.play()
+        TweenMax.fromTo(@ripple1, 1.3, {alpha: 1}, {alpha: 0} )
+        # TweenMax.fromTo(@ripple2, 1.3, {alpha: 1, delay: .15}, {alpha: 0, delay: .3} )
 
         null
 
 
     stop: =>
+        return
         if !@isAnimating then return
 
         @isAnimating = false
