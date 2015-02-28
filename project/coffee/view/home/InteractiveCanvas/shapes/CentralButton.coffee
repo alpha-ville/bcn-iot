@@ -13,6 +13,14 @@ class CentralButton extends BasicShape
 
         super()
 
+        textureMap =
+            'environment': '0B7kWGoq62sNjbUtrNWVYVUJNQlE'
+            'home': '0B7kWGoq62sNjU1BNdHR4MmM1eXM'
+            'body_mind': '0B7kWGoq62sNjS1FnRGF6ZTJxQkk'
+            'culture': '0B7kWGoq62sNjZzRHcUswdGNUQVU'
+            'diy': '0B7kWGoq62sNjcUIzb1pxakk0a0k'
+            'social': '0B7kWGoq62sNjVlR1TTJDYzhUSjg'
+
         @sprite.alpha = 1
 
         @background = new PIXI.Graphics()
@@ -48,7 +56,8 @@ class CentralButton extends BasicShape
 
             currentAngle += step
 
-        texture = new PIXI.Texture.fromImage( "https://googledrive.com/host/0B7kWGoq62sNjU1BNdHR4MmM1eXM" )
+        textureName = "https://googledrive.com/host/" + textureMap[@B().groupName]
+        texture = new PIXI.Texture.fromImage( textureName )
         @icon = new PIXI.Sprite( texture )
         @icon.scale.x = @icon.scale.y = .4
         @icon.anchor.x = .5
