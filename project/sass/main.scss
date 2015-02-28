@@ -71,7 +71,7 @@ $blue-alpha   : rgba(39, 115, 190, $alpha);
 $yellow-alpha : rgba(231, 157, 51, $alpha);
 
 body {
-    font-family: 'Avenir-Black';
+    font-family: 'Avenir-Roman';
 }
 
 .video-js
@@ -89,8 +89,11 @@ body {
 }
  h1
  {
-    @include font-size(4);
-    font-weight: bold;
+    // @include font-size(4);
+    // font-weight: bold;
+    font-size: 36px;
+    font-family: 'Avenir-Black';
+    letter-spacing: 2px;
  }
 
  p
@@ -182,7 +185,7 @@ body {
         $size-shape : 100px;
         $icon-size : 60px;
 
-        background-color: rgba(246, 246, 246, .95);
+        background-color: rgba(246, 246, 246, .90);
 
         .desc
         {
@@ -302,17 +305,20 @@ body {
                 &>div
                 {
                     display: inline-block;
-                    font-weight: bold;
+                    // font-weight: bold;
                     @include font-size(2);
+                    // font-size: 30px;
+                    font-family: 'Avenir-Black';
+                    max-width: $max-width - 420;
                 }
             }
 
             hr
             {
-                max-width: $max-width - 250;
+                max-width: $max-width - 300;
                 margin-top: 30px;
                 opacity: 0;
-                background: black;
+                // background: black;
             }
 
             .license
@@ -362,6 +368,13 @@ body {
                         max-width: 60px;
                         @include rem-fallback(line-height, 1.5);
                         margin-top: 5px;
+                        font-family: 'Avenir-Black';
+                        text-transform: capitalize;
+                    }
+
+                    p:first-letter
+                    {
+                        text-transform: capitalize;
                     }
                 }
 
@@ -383,6 +396,7 @@ body {
                         height: $size-shape * .4;
                         margin-top: 18px;
                         @include transform(translate(-50%));
+                        display: none;
                     }
                 }
 
@@ -396,6 +410,7 @@ body {
                         width: $size-shape * .6;
                         height: $size-shape * .6;
                         margin-top: 10px;
+                        display: none;
                     }
                 }
 
@@ -415,7 +430,7 @@ body {
 
         .title-container
         {
-            margin: 0;
+            margin: 60px 0 0 !important;
             opacity: 0;
         }
 
@@ -428,7 +443,8 @@ body {
         {
             margin: 0 auto;
             @include rem-fallback(line-height, 2.5);
-            max-width: $max-width - 100;
+            letter-spacing: 2px;
+            max-width: $max-width - 420;
         }
 
         ul.lang-buttons
