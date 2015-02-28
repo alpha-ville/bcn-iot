@@ -8,6 +8,8 @@ class HelpButton extends BasicShape
     init : =>
         super()
 
+        @offset = 200
+
         @sprite.alpha = 1
 
         @g.beginFill @color
