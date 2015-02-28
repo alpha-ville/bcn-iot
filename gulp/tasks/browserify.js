@@ -18,6 +18,9 @@ var bundleLogger = require('../util/bundleLogger');
 var handleErrors = require('../util/handleErrors');
 var pkg          = require('../../package.json');
 
+var browserSync = require("browser-sync");
+var reload      = browserSync.reload;
+
 gulp.task('browserify', function() {
 
   var bundler = browserify({
@@ -53,6 +56,8 @@ gulp.task('browserify', function() {
 
       // Specify the output destination
       .pipe(gulp.dest('./'+pkg.folders.dest+'/static/js/'))
+
+      .pipe(reload({stream: true}))
 
       // Log when bundling completes!
       .on('end', bundleLogger.end);

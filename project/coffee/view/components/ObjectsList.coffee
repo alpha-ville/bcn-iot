@@ -2,8 +2,8 @@ AbstractView = require '../AbstractView'
 
 class ObjectsList extends AbstractView
 
-    template : 'objects-list'
-    carousel : null
+    template   : 'objects-list'
+    videoPlayer : null
 
     constructor : (list) ->
         @templateVars =
@@ -20,9 +20,11 @@ class ObjectsList extends AbstractView
 
     afterChange : (event, slick, currentSlide, nextSlide) =>
         @trigger 'slideChange', $(slick.$slides[currentSlide]).attr 'id'
+        @addVideoJS()
         null
 
     beforeChange : (event, slick, currentSlide, nextSlide) =>
+        @B().objectsContentHackOrder = nextSlide
         @$el.find('video').each ->
             @.pause()
             @.currentTime = 0
@@ -31,8 +33,24 @@ class ObjectsList extends AbstractView
         null
 
     addVideoJS : =>
-        videojs.options.flash.swf = "data/video/video-js.swf"
-        videojs document.getElementsByClassName('video-js')[0], {}, -> null
+        return unless @$el.find('.video-js').length > 0
+        @videoPlayer = videojs @$el.find('.video-js')[0]
+        @videoPlayer.on 'play', @onPlay
+        @videoPlayer.on 'ended', @onStop
+        @videoPlayer.on 'pause', @onStop
+
+        null
+
+    dispose : =>
+        @videoPlayer.dispose()
+        null
+
+    onStop : =>
+        @B().appView.soundControlller.resumeLoop()
+        null
+
+    onPlay : =>
+        @B().appView.soundControlller.stopLoop()
         null
 
     init : =>
@@ -45,6 +63,9 @@ class ObjectsList extends AbstractView
               speed         : 1000
               arrows        : true
               slidesToShow  : 1
+
+            if @B().objectsContentHackOrder
+                @$el.slick('slickGoTo', @B().objectsContentHackOrder)
 
             @addVideoJS()
             @$el.on 'afterChange', @afterChange

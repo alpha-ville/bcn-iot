@@ -16,8 +16,8 @@ class SoundController
     @sounds['loop'].setAttribute 'loop', true
 
     @sounds['loop'].volume = @loopVolume
-    
-    # @play('loop')
+
+    @play('loop')
 
     @initEvents()
 
@@ -41,7 +41,7 @@ class SoundController
   toggle: ->
     if @isMuted
       @sounds['loop'].volume = @loopVolume
-    else 
+    else
       @sounds['loop'].volume = 0
 
     @isMuted = !@isMuted
