@@ -55,8 +55,6 @@ class InteractiveCanvas extends AbstractView
             container: @$el[0]
         })
 
-        @initTooltip()
-
         @shapes = []
         @selectedShapes = []
         @circles = []
@@ -68,8 +66,6 @@ class InteractiveCanvas extends AbstractView
 
         @absorbedShapes = []
 
-        @bindEvents()
-
 
 
         @addLines()
@@ -80,7 +76,9 @@ class InteractiveCanvas extends AbstractView
         @addHelpButton()
 
         @addPointer()
+        @initTooltip()
 
+        @bindEvents()
 
         @update()
 
@@ -92,13 +90,15 @@ class InteractiveCanvas extends AbstractView
 
         @$el[0].appendChild @tooltip.el
 
+        @tooltip.setDefaultText( @groupName, @groupName )
+
         null
 
 
     addHelpButton: ->
         @helpButton = new HelpButton( null, 50, @scene )
         @helpButton.behavior = 'basic'
-        @helpButton.move _.random(@w), _.random(@h)
+        @helpButton.move 300, 300
         @scene.addChild( @helpButton.sprite )
 
         null
@@ -186,8 +186,11 @@ class InteractiveCanvas extends AbstractView
 
         ###
 
-        param = (@B().getQueryVariable 'group') or 'home'
-        filteredCategories = @B().categories.where group : param
+        @groupName = (@B().getQueryVariable 'group') or 'home'
+        filteredCategories = @B().categories.where group : @groupName
+
+
+
 
         # circles
         for i in [ 0 ... filteredCategories.length ]
@@ -273,8 +276,8 @@ class InteractiveCanvas extends AbstractView
                 dist = NumUtil.distanceBetweenPoints nearestCircle.sprite.position, shape.sprite.position
 
                 if dist < 400 and nearestCircle and shape.sprite.alpha > .1
-                    if shape.isOrbiting then lineWidth = 2 else lineWidth = .4
-                    @linesObj.lineStyle( lineWidth, 0x000000, NumUtil.map(dist, 0, 400, .8, 0) )
+                    if shape.isOrbiting then lineWidth = 2 else lineWidth = .8
+                    @linesObj.lineStyle( lineWidth, 0x000000, NumUtil.map(dist, 0, 400, .6, 0) )
                     @linesObj.moveTo( nearestCircle.sprite.position.x, nearestCircle.sprite.position.y );
                     @linesObj.lineTo( shape.sprite.x , shape.sprite.y);
 
@@ -378,7 +381,7 @@ class InteractiveCanvas extends AbstractView
 
         @currentSelectedCircle = circle
 
-        @tooltip.transitionIn @currentSelectedCircle.config
+        @tooltip.transitionIn @currentSelectedCircle.config.get('name_en'), @currentSelectedCircle.config.get('name_cat')
 
         @gotoStep(2)
 
@@ -444,7 +447,7 @@ class InteractiveCanvas extends AbstractView
         rand1 = Math.floor Math.random() * copyTriangles.length
         rand2 = rand1
         rand2 = Math.floor Math.random() * copyTriangles.length while rand2 == rand1
-        @activeShapes.push( copyTriangles[rand1] )
+        # @activeShapes.push( copyTriangles[rand1] )
         if Math.random() < .5 then @activeShapes.push( copyTriangles[rand2] )
 
         for shape in @activeShapes

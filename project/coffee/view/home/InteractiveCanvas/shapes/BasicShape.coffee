@@ -53,6 +53,8 @@ class BasicShape extends AbstractView
     pulsatingOffset: 0
     angleMotion: 0
 
+    offset: 0
+
 
     constructor : (@config, size, scene, alpha) ->
         @id = String.fromCharCode(65 + Math.floor(Math.random() * 26)) + Date.now()
@@ -125,19 +127,17 @@ class BasicShape extends AbstractView
             @applyForce @vel
 
             if @radius() > 35
-                offset = 120
-            else 
-                offset = 0
+                @offset = 120
             
             # behavior on bounds
-            if ( @pos[0] > @_scene.width - offset )
+            if ( @pos[0] > @_scene.width - @offset )
                 @vel[0] *= -1
-            else if ( @pos[0] < 0 + offset )
+            else if ( @pos[0] < 0 + @offset )
                 @vel[0] *= -1
 
-            if ( @pos[1] > @_scene.height - offset )
+            if ( @pos[1] > @_scene.height - @offset )
                 @vel[1] *= -1
-            else if ( @pos[1] < 0 + offset )
+            else if ( @pos[1] < 0 + @offset )
                 @vel[1] *= -1
 
 
