@@ -74,8 +74,12 @@ class OverlayContent extends AbstractModal
 
     slideChange : (slideID, delay = 0) =>
         a = @B().objects.findWhere id : String(slideID)
+        
         pn = $(@$el.find('.project-name-container>.project-name')[0])
+        pn2 = $(@$el.find('.project-name-container>.project-name')[1])
         pn.text a.get('name_' + @B().langSelected)
+        pn2.text a.get('name_' + @B().langSelected)
+        
         TweenMax.to $(@$el.find('.project-name-container>.project-name')[0]), .2, opacity: 1
 
         @setBreadcrumb a, delay

@@ -527,6 +527,7 @@ video
 }
 canvas {
     position: fixed;
+    z-index: 1;
 }
 
 #preloader
@@ -745,7 +746,7 @@ $color : $blue;
     top: 0;
     left: 0;
     text-align: center;
-    pointer-events: none;
+    
 }
 
 
@@ -766,6 +767,8 @@ $color : $blue;
     top: 0;
     left: 50%;
     text-align: center;
+    z-index: 0;
+
 
     &.active {
         * {

@@ -8,7 +8,7 @@ class Scene
   stage: null
   renderer: null
 
-  backgroundColor: 0xf6f6f6
+  backgroundColor: 'rgba(0, 0, 0, 1)'
 
   camera: null
 
@@ -26,9 +26,10 @@ class Scene
         antialias : true
         transparent : false
         resolution: 1
+        transparent: true
       } )
 
-    @renderer = new PIXI.CanvasRenderer( @width, @height )
+    @renderer = new PIXI.CanvasRenderer( @width, @height, { transparent: true } )
 
     @attachToContainer()
 
