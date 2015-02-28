@@ -784,6 +784,12 @@ $color : $blue;
     left: 50%;
     text-align: center;
 
+    *,
+    *:before,
+    *:after {
+        box-sizing: content-box;
+    }
+
     &.active {
         * {
             border-color: #e79d33 !important;
@@ -820,18 +826,25 @@ $color : $blue;
 .arrow {
     margin: auto;
     position: relative;
-    top: 6px;
+    top: 2px;
     display: block;
     overflow: visible !important;
 }
 
 .text {
-    padding: 0px 30px;
+    padding: 5px 35px;
+    min-width: 170px;
     box-sizing: border-box;
     letter-spacing: 4px;
     text-transform: uppercase;
     font-weight: bold;
     color: #000 !important;
+    font-size: 18px;
+
+    span:first-of-type {
+        margin: 0px 0px -15px;
+        display: block;
+    }
 }
 
 .textBoxContainer {
