@@ -140,7 +140,8 @@
                     <hr/>
 
                     <div class="project-name-container">
-                        <div class="project-name">Project Name</div>
+                        <div data-lang='en' class="project-name">Project Name</div>
+                        <div data-lang='cat' class="project-name">Project Nae</div>
                     </div>
 
                     <div class="list-container"></div>
