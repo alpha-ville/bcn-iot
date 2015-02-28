@@ -4,6 +4,7 @@ class SoundController
 
   isMuted: false
   loopVolume: .2
+  sfxVolume: .2
 
   constructor: ->
     @sounds =
@@ -17,7 +18,14 @@ class SoundController
 
     @sounds['loop'].volume = @loopVolume
 
-    @play('loop')
+    @sounds['touchable'].volume = @sfxVolume
+    @sounds['nontouchable'].volume = @sfxVolume
+    @sounds['objectconnected'].volume = @sfxVolume
+    @sounds['transition'].volume = @sfxVolume
+
+    @sound
+
+    # @play('loop')
 
     @initEvents()
 
@@ -58,12 +66,22 @@ class SoundController
 
 
   setVolume: ( value ) =>
-    @loopVolume = value
+    # @loopVolume = value
 
-    if @loopVolume < 0 then @loopVolume = 0
-    else if @loopVolume > 1 then @loopVolume = 1
+    # if @loopVolume < 0 then @loopVolume = 0
+    # else if @loopVolume > 1 then @loopVolume = 1
 
-    @sounds['loop'].volume = @loopVolume
+    # @sounds['loop'].volume = @loopVolume
+
+    @sfxVolume = value
+
+    if @sfxVolume < 0 then @sfxVolume = 0
+    else if @sfxVolume > 1 then @sfxVolume = 1
+
+    @sounds['touchable'].volume = @sfxVolume
+    @sounds['nontouchable'].volume = @sfxVolume
+    @sounds['objectconnected'].volume = @sfxVolume
+    @sounds['transition'].volume = @sfxVolume
 
     null
 
