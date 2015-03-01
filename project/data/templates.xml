@@ -266,7 +266,17 @@
                         <li data-selected data-lang='en'>ENGLISH</li>
                         <li data-lang='cat'>CATALAN</li>
                     </ul>
-                    <div class="close-button"><span class="ion-ios-close-outline"></span></div>
+                    <div class="close-button">
+                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                             viewBox="10 -43 200 200" enable-background="new 10 -43 200 200" xml:space="preserve">
+                        <g>
+                            <path d="M110-28.2c47,0,85.2,38.2,85.2,85.2S157,142.2,110,142.2c-47,0-85.2-38.2-85.2-85.2C24.8,10,63-28.2,110-28.2 M110-38.2
+                                C57.4-38.2,14.8,4.4,14.8,57c0,52.6,42.6,95.2,95.2,95.2c52.6,0,95.2-42.6,95.2-95.2C205.2,4.4,162.6-38.2,110-38.2L110-38.2z"/>
+                        </g>
+                        <line fill="none" stroke="#000000" stroke-width="7" stroke-miterlimit="10" x1="79.7" y1="26.7" x2="140.3" y2="87.3"/>
+                        <line fill="none" stroke="#000000" stroke-width="7" stroke-miterlimit="10" x1="140.3" y1="26.7" x2="79.7" y2="87.3"/>
+                        </svg>
+                    </div>
                 </div>
             </div>
         ]]>
