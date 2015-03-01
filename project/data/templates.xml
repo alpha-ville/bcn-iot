@@ -102,12 +102,16 @@
                 <div class="carousel-item" id="<%= object.get('id') %>">
                     <% if(object.get('video') != "") { %>
 
-                    <video class="video-js vjs-sublime-skin" controls fullscreen="none" preload="auto" width="600" height="338">
+                    <!-- <video class="video-js vjs-sublime-skin" controls fullscreen="none" preload="auto" width="600" height="338">
                         <source src="https://googledrive.com/host/<%= object.get('video') %>" type='video/mp4'>
+                    </video> -->
+                    <video class="video-js vjs-sublime-skin" controls fullscreen="none" preload="auto" width="600" height="338">
+                        <source src="/img/icons/<%= object.get('video_titles_en') %>" type='video/mp4'>
                     </video>
 
                     <% } else { %>
-                        <div class="list-background-image" style="background-image:url('https://googledrive.com/host/<%= object.get('image') %>')"></div>
+                        <!-- <div class="list-background-image" style="background-image:url('https://googledrive.com/host/<%= object.get('image') %>')"></div> -->
+                        <div class="list-background-image" style="background-image:url('/img/icons/<%= object.get('image_titles_en') %>')"></div>
                         <!-- <img src=""> -->
                     <% } %>
                 </div>
