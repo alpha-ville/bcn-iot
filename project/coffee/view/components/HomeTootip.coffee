@@ -23,7 +23,7 @@ class HomeTooltip extends AbstractView
         @nameMap = 
             'environment':
                 'en': 'Environment'
-                'cat': 'cartorn urbà i natural'
+                'cat': 'Entorn urbà i natural'
             'home':
                 'en': 'home'
                 'cat': 'La Llar'
