@@ -23,7 +23,7 @@ class SoundController
     @sounds['objectconnected'].volume = @sfxVolume
     @sounds['transition'].volume = @sfxVolume
 
-    @sound
+    @sounds['loop'].play()
 
     # @play('loop')
 
@@ -43,8 +43,10 @@ class SoundController
 
   onKeyUp: ( evt ) =>
     if evt.keyCode == 32 then @toggle()
-    else if evt.keyCode == 40 then @setVolume( @sfxVolume - .1 )
-    else if evt.keyCode == 38 then @setVolume( @sfxVolume + .1 )
+    else if evt.keyCode == 40 then @setSfxVolume( @sfxVolume - .1 )
+    else if evt.keyCode == 38 then @setSfxVolume( @sfxVolume + .1 )
+    else if evt.keyCode == 87 then @setVolume( @loopVolume + .1 )
+    else if evt.keyCode == 83 then @setVolume( @loopVolume - .1 )
 
     null
 
@@ -66,13 +68,17 @@ class SoundController
 
 
   setVolume: ( value ) =>
-    # @loopVolume = value
+    if value < 0 then value = 0
+    else if value > 1 then value = 1
 
-    # if @loopVolume < 0 then @loopVolume = 0
-    # else if @loopVolume > 1 then @loopVolume = 1
+    @loopVolume = value
 
-    # @sounds['loop'].volume = @loopVolume
+    @sounds['loop'].volume = @loopVolume
 
+    null
+
+
+  setSfxVolume: ->
     @sfxVolume = value
 
     if @sfxVolume < 0 then @sfxVolume = 0
