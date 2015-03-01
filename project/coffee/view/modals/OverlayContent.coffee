@@ -9,6 +9,7 @@ class OverlayContent extends AbstractModal
     cb       : null
     lang     : 'en'
     objects  : null
+    closeTimer: null
 
     events:
         'click ul>li' : "toggleLang"
@@ -38,7 +39,35 @@ class OverlayContent extends AbstractModal
 
         super()
 
+        @initEvents()
+
+        @closeTimer = setTimeout =>
+            @closeButton()
+        , 460000
+
         return null
+
+    initEvents: ->
+        $(window).on 'click', @onWindowClick
+
+        Backbone.Events.on('OverlayData:open', @onOverlayDataOpen)
+
+        null
+
+
+    removeEvents: ->
+        $(window).off 'click'
+
+        null
+
+
+    onWindowClick: =>
+        clearInterval( @closeTimer )
+        @closeTimer = setTimeout =>
+            @closeButton()
+        , 460000
+
+        null
 
     beforeChange : () =>
         @breadCrumbs.animateOut()
@@ -72,6 +101,12 @@ class OverlayContent extends AbstractModal
         @breadCrumbs.animate delay
         null
 
+    onOverlayDataOpen: =>
+        console.log @closeTimer
+        clearInterval( @closeTimer )
+
+        null
+
     slideChange : (slideID, delay = 0) =>
         a = @B().objects.findWhere id : String(slideID)
         
@@ -86,6 +121,8 @@ class OverlayContent extends AbstractModal
         null
 
     closeButton : =>
+        clearInterval( @closeTimer )
+        @removeEvents()
         @B().objectsContentHack = null
         @B().objectsContentHackOrder = null
         Backbone.Events.trigger( 'showHomeTooltip')
