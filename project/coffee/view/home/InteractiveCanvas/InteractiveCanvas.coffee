@@ -382,7 +382,7 @@ class InteractiveCanvas extends AbstractView
         clearInterval( @stepTimer )
         @stepTimer = setTimeout => 
             @gotoStep( @step - 1 ) 
-        , 4000
+        , 30000
 
         @pointer.sprite.position.x = evt.pageX
         @pointer.sprite.position.y = evt.pageY
@@ -404,7 +404,7 @@ class InteractiveCanvas extends AbstractView
 
         # @step2Timer = setTimeout =>
         #     @gotoStep(1)
-        # , 4000
+        # , 30000
 
 
 
@@ -575,7 +575,7 @@ class InteractiveCanvas extends AbstractView
             clearInterval( @stepTimer )
             @stepTimer = setTimeout =>
                 @gotoStep( 0 )
-            , 4000
+            , 30000
 
             @step = 1
             if @currentSelectedCircle then @onCircleUnselected( @currentSelectedCircle )
@@ -614,7 +614,7 @@ class InteractiveCanvas extends AbstractView
             clearInterval( @stepTimer )
             @stepTimer = setTimeout =>
                 @gotoStep( 1 )
-            , 4000
+            , 30000
         
         null
 
@@ -625,7 +625,7 @@ class InteractiveCanvas extends AbstractView
 
         window.setTimeout =>
             @gotoStep( timerId - 1 )
-        , 4000
+        , 30000
 
         null
 
