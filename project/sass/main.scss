@@ -83,7 +83,7 @@ body {
 }
 
 * {
-    cursor: none;
+    // cursor: none;
     -moz-user-select: -moz-none;
    -khtml-user-select: none;
    -webkit-user-select: none;
@@ -134,7 +134,6 @@ body {
 
     &.page-home {
         background: #ebebeb;
-        // background: #000;
     }
 }
 
@@ -908,6 +907,10 @@ $color : $blue;
     position: relative;
     display: inline-block;
     top: -288px;
+}
+
+.vjs-fullscreen-control {
+    display: none !important;
 }
 
 
