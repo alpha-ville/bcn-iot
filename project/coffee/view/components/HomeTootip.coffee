@@ -19,6 +19,7 @@ class HomeTooltip extends AbstractView
     constructor : (@list) ->
         # @templateVars =
         #     list : @list
+        
 
         @nameMap = 
             'environment':
