@@ -225,30 +225,33 @@ body {
             border-left: ($size-shape/2) solid transparent;
             border-right: ($size-shape/2) solid transparent;
             border-bottom: $size-shape * (sqrt(3)/2) solid $blue-alpha;
+            margin: auto;
             img
             {
-                width: $size-shape * .4;
-                height: $size-shape * .4;
+                width: $size-shape * .3 !important;
+                height: $size-shape * .3 !important;
                 @include transform(translate(-50%));
-                margin-top: 32px;
+                margin-top: 41px !important;
             }
         }
 
         .square
         {
+            margin: auto;
             width: $size-shape * .9;
             height: $size-shape * .9;
             background-color: $red-alpha;
             img
             {
-                width: $size-shape * .5;
-                height: $size-shape * .5;
-                margin-top: 20px;
+                width: $size-shape * .5 !important;
+                height: $size-shape * .5 !important;
+                margin-top: 20px !important;
             }
         }
 
         .circle
         {
+            margin: auto;
             width: $size-shape;
             height: $size-shape;
             border-radius: 100%;
