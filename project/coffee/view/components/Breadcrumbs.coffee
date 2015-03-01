@@ -44,6 +44,7 @@ class Breadcrumbs extends AbstractView
 
     clickBreadcrumb: (e) =>
         Backbone.Events.trigger('OverlayData:open')
+        Backbone.trigger( 'SoundController:play', 'touchable' )
 
         t = $(e.currentTarget)
         @B().selectedDataType = t.attr('data-type').toString()

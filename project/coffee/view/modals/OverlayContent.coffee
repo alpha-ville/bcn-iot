@@ -102,7 +102,6 @@ class OverlayContent extends AbstractModal
         null
 
     onOverlayDataOpen: =>
-        console.log @closeTimer
         clearInterval( @closeTimer )
 
         null
@@ -121,6 +120,7 @@ class OverlayContent extends AbstractModal
         null
 
     closeButton : =>
+        Backbone.trigger( 'SoundController:play', 'nontouchable' )
         clearInterval( @closeTimer )
         @removeEvents()
         @B().objectsContentHack = null
