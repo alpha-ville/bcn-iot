@@ -47,7 +47,6 @@ class App
         null
 
     init : =>
-
         @initObjects()
 
         null

@@ -24,6 +24,7 @@ class ObjectsList extends AbstractView
         null
 
     beforeChange : (event, slick, currentSlide, nextSlide) =>
+        Backbone.trigger( 'SoundController:play', 'touchable' )
         @B().objectsContentHackOrder = nextSlide
         @$el.find('video').each ->
             @.pause()
