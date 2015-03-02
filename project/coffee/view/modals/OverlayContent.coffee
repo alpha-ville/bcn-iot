@@ -39,6 +39,8 @@ class OverlayContent extends AbstractModal
 
         super()
 
+        Backbone.trigger( 'SoundController:stop', 'loop' )
+
         @initEvents()
 
         @closeTimer = setTimeout =>
@@ -121,6 +123,7 @@ class OverlayContent extends AbstractModal
 
     closeButton : =>
         Backbone.trigger( 'SoundController:play', 'nontouchable' )
+        Backbone.trigger( 'SoundController:play', 'loop' )
         clearInterval( @closeTimer )
         @removeEvents()
         @B().objectsContentHack = null

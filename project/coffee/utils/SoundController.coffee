@@ -36,6 +36,7 @@ class SoundController
     window.addEventListener 'keyup', @onKeyUp
 
     Backbone.on('SoundController:play', @play)
+    Backbone.on('SoundController:stop', @stop)
     Backbone.on('SoundController:resumeLoop', @resumeLoop)
     Backbone.on('SoundController:stopLoop', @stopLoop)
 
@@ -63,6 +64,11 @@ class SoundController
   play: ( soundName ) =>
     @sounds[soundName].currentTime = 0
     @sounds[soundName].play()
+
+    null
+
+  stop: ( soundName ) =>
+    @sounds[soundName].pause()
 
     null
 
