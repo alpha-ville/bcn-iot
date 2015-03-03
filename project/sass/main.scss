@@ -271,9 +271,9 @@ body {
             max-width: $max-width;
             position: relative;
             text-align: center;
-            display: table-cell;
-            vertical-align: middle;
-            top: -80px;
+            // display: table-cell;
+            // vertical-align: middle;
+            top: 350px;
 
             .container-shape
             {
@@ -502,6 +502,7 @@ body {
                 padding: 7px 25px;
                 display: inline-block;
                 cursor: pointer;
+                letter-spacing: 1px;
 
                 &[data-selected="true"]
                 {
@@ -855,7 +856,7 @@ $color : $blue;
 .arrow {
     margin: auto;
     position: relative;
-    top: 2px;
+    top: 1px;
     display: block;
     overflow: visible !important;
 }
@@ -908,7 +909,7 @@ $color : $blue;
     border-bottom: 4px solid #000;
     position: relative;
     display: inline-block;
-    top: -288px;
+    top: -292px;
 }
 
 .vjs-fullscreen-control {
