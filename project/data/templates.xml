@@ -102,6 +102,7 @@
                 <div class="carousel-item" id="<%= object.get('id') %>">
                     <% if(object.get('video') != "") { %>
 
+<<<<<<< HEAD
                     <!-- <video class="video-js vjs-sublime-skin" controls fullscreen="none" preload="auto" width="600" height="338">
                         <source src="https://googledrive.com/host/<%= object.get('video') %>" type='video/mp4'>
                     </video> -->
@@ -112,6 +113,14 @@
                     <% } else { %>
                         <!-- <div class="list-background-image" style="background-image:url('https://googledrive.com/host/<%= object.get('image') %>')"></div> -->
                         <div class="list-background-image" style="background-image:url('/img/icons/<%= object.get('image_titles_en') %>')"></div>
+=======
+                    <video class="video-js vjs-sublime-skin" controls fullscreen="none" preload="auto" width="600" height="338">
+                        <source src="https://googledrive.com/host/<%= object.get('video') %>" type='video/mp4'>
+                    </video>
+
+                    <% } else { %>
+                        <div class="list-background-image" style="background-image:url('https://googledrive.com/host/<%= object.get('image') %>')"></div>
+>>>>>>> bad658b2078e4e7d1b8c02f211ec4c10a8e6ca5a
                         <!-- <img src=""> -->
                     <% } %>
                 </div>
@@ -281,6 +290,7 @@
                         <line fill="none" stroke="#000000" stroke-width="7" stroke-miterlimit="10" x1="140.3" y1="26.7" x2="79.7" y2="87.3"/>
                         </svg>
                     </div>
+<<<<<<< HEAD
                 </div>
             </div>
         ]]>
@@ -314,6 +324,8 @@
                         <b>Web version coming soon</b>
                     </p>
 
+=======
+>>>>>>> bad658b2078e4e7d1b8c02f211ec4c10a8e6ca5a
                 </div>
 
                 
