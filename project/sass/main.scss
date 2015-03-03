@@ -69,7 +69,6 @@ $max-width : 900px;
 $red-alpha    : rgba(208, 42, 64, $alpha);
 $blue-alpha   : rgba(39, 115, 190, $alpha);
 $yellow-alpha : rgba(231, 157, 51, $alpha);
-<<<<<<< HEAD
 
 body {
     width: 100%;
@@ -78,27 +77,13 @@ body {
     font-family: 'Avenir-Roman';
 }
 
-=======
-
-body {
-    width: 100%;
-    height: 100%;
-    // background: #000;
-    font-family: 'Avenir-Roman';
-}
-
->>>>>>> bad658b2078e4e7d1b8c02f211ec4c10a8e6ca5a
 .video-js
 {
     margin: 31px auto !important;
 }
 
 * {
-<<<<<<< HEAD
     // cursor: none;
-=======
-    cursor: none;
->>>>>>> bad658b2078e4e7d1b8c02f211ec4c10a8e6ca5a
     -moz-user-select: -moz-none;
    -khtml-user-select: none;
    -webkit-user-select: none;
@@ -149,11 +134,8 @@ body {
 
     &.page-home {
         background: #ebebeb;
-<<<<<<< HEAD
         // background: url("../img/icons/bg2.jpg") no-repeat;
         // background-size: cover;
-=======
->>>>>>> bad658b2078e4e7d1b8c02f211ec4c10a8e6ca5a
     }
 }
 
@@ -587,11 +569,7 @@ video
 }
 canvas {
     position: fixed;
-<<<<<<< HEAD
     z-index: 10;
-=======
-    z-index: 1;
->>>>>>> bad658b2078e4e7d1b8c02f211ec4c10a8e6ca5a
 }
 
 #preloader
@@ -814,7 +792,6 @@ $color : $blue;
 }
 
 
-<<<<<<< HEAD
 
 
 .tableCell {
@@ -1029,51 +1006,6 @@ $color : $blue;
         b {
             display: block;
             margin-top: 30px;
-=======
-
-
-.tableCell {
-    display: table-cell;
-    vertical-align: middle !important;
-    margin: auto;
-    width: 100%;
-    text-align:center;
-    position:relative;
-}
-
-.toolTip {
-    position: relative;
-    margin: auto;
-    top: 0;
-    left: 50%;
-    text-align: center;
-    z-index: 0;
-
-
-
-    *,
-    *:before,
-    *:after {
-        box-sizing: content-box;
-    }
-
-    &.active {
-        * {
-            border-color: #e79d33 !important;
-            transition: all .2s linear;
-            transition-property: border-color, color;
-        }
-        svg {
-            path {
-                stroke: #e79d33 !important;   
-                transition: stroke .2s linear; 
-            }
-            
-        }
-
-        .text {
-            color: #e79d33 !important;
->>>>>>> bad658b2078e4e7d1b8c02f211ec4c10a8e6ca5a
         }
 
     }
@@ -1081,84 +1013,5 @@ $color : $blue;
 }
 
 
-<<<<<<< HEAD
-=======
-.textBoxWrapper {
-    text-align: center;
-    width: auto;
-    display: inline-block;
-    position: relative;
-    padding: 0px;
-    height: 140px;
-    /*border: 2px solid #000;*/
-    margin: auto;
-    
-}
-
-.arrow {
-    margin: auto;
-    position: relative;
-    top: 2px;
-    display: block;
-    overflow: visible !important;
-}
-
-.text {
-    padding: 5px 35px;
-    min-width: 170px;
-    box-sizing: border-box;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: #000 !important;
-    font-size: 18px;
-    font-family: 'Avenir-Black';
-
-    span:first-of-type {
-        margin: 0px 0px -15px;
-        display: block;
-    }
-}
-
-.textBoxContainer {
-    text-align: center;
-    width: 100%;
-    height: 100%;
-    float: center;
-    z-index: -1;
-    border-top: 4px solid #000;
-    margin: auto;
-    position: relative;
-    top: -148px;
-}
-
-.leftBoarder {
-    height: 100%;
-    width: 34%;
-    float: left;
-    display: inline-block;
-    border-left: 4px solid #000;
-    border-top: 4px solid #000;
-    border-bottom: 4px solid #000;
-}
-
-.rightBoarder {
-    height: 100%;
-    width: 34%;
-    float: right;
-    display: inline-block;
-    border-right: 4px solid #000;
-    border-top: 4px solid #000;
-    border-bottom: 4px solid #000;
-    position: relative;
-    display: inline-block;
-    top: -288px;
-}
-
-.vjs-fullscreen-control {
-    display: none !important;
-}
-
-
->>>>>>> bad658b2078e4e7d1b8c02f211ec4c10a8e6ca5a
 
 
