@@ -946,16 +946,16 @@ $color : $blue;
             }
 
             &.slide1 {
-                background: url("../img/icons/bg1.jpg") no-repeat;
+                background: url("../img/icons/bg2.jpg") no-repeat center right;
             }
             &.slide2 {
-                background: url("../img/icons/bg2.jpg") no-repeat;
+                background: url("../img/icons/bg1.jpg") no-repeat center center;
             }
             &.slide3 {
-                background: url("../img/icons/bg35.png") no-repeat;
+                background: url("../img/icons/bg35.png") no-repeat center center;
             }
             &.slide4 {
-                background: url("../img/icons/bg45.jpg") no-repeat;
+                background: url("../img/icons/bg45.jpg") no-repeat center center;
             }
         }
 
@@ -992,6 +992,8 @@ $color : $blue;
         margin-bottom: 180px;
     }
 
+    
+
     p {
         font-size: 1.2em;
         margin-top: 180px;
@@ -1009,6 +1011,17 @@ $color : $blue;
         }
 
     }
+
+    @media screen and (max-height: 600px) {
+        img {
+            margin-bottom: 80px;
+        }
+        p {
+            margin-top: 70px;
+        }
+    }
+
+
 
 }
 
