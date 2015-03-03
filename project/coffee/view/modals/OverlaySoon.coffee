@@ -41,8 +41,6 @@ class OverlaySoon extends AbstractModal
 
         @currentSlide.classList.add('active')
 
-        console.log @currentSlide
-
         null
 
 

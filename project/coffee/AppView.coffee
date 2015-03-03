@@ -44,7 +44,7 @@ class AppView extends AbstractView
         @diableRightClick()
         @setGroupName()
 
-        @soundControlller = new SoundController()
+        @soundControlller = new SoundController( @B )
 
     setGroupName: ->
         @groupName = @B().getQueryVariable 'group'

@@ -6,7 +6,7 @@ class SoundController
   loopVolume: .2
   sfxVolume: .2
 
-  constructor: ->
+  constructor: ( @B ) ->
     @sounds =
       'loop': document.querySelector('.audio-loop')
       'touchable': document.querySelector('.audio-touchable')
@@ -23,7 +23,8 @@ class SoundController
     @sounds['objectconnected'].volume = @sfxVolume
     @sounds['transition'].volume = @sfxVolume
 
-    @sounds['loop'].play()
+    if @B().groupName
+      @sounds['loop'].play()
 
     # @play('loop')
 

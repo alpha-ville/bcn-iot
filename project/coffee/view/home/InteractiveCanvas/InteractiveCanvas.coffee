@@ -74,7 +74,6 @@ class InteractiveCanvas extends AbstractView
 
         @addLines()
         @addDecorations()
-        console.log @B().groupName
         if @B().groupName
         
             @addShapes()
@@ -378,7 +377,6 @@ class InteractiveCanvas extends AbstractView
 
 
     onClick: ( evt ) =>
-        console.log @step
 
         clearInterval( @stepTimer )
         @stepTimer = setTimeout => 
@@ -393,7 +391,6 @@ class InteractiveCanvas extends AbstractView
 
 
     onCircleSelected: ( circle ) =>
-        console.log 'hell'
 
         if @currentSelectedCircle then return
 
@@ -571,7 +568,6 @@ class InteractiveCanvas extends AbstractView
         Other shapes fadeOut
         -------------------------- ### 
         if step == 1
-            console.log 'step1'
 
             clearInterval( @stepTimer )
             @stepTimer = setTimeout =>
