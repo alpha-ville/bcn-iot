@@ -2,6 +2,8 @@
 /www
 .sass-cache/
 npm-debug.log
+/project/img/icons/
+/www/static/img/icons/
 
 # OSX
 *.DS_Store
