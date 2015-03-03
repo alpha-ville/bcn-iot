@@ -51,6 +51,7 @@ class InteractiveCanvas extends AbstractView
 
 
     init : =>
+        console.log @B()
         PIXI.dontSayHello = true
         @w = window.innerWidth
         @h = window.innerHeight
