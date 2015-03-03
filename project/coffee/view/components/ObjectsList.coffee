@@ -12,6 +12,8 @@ class ObjectsList extends AbstractView
             path : "/img/video/"
 
         super()
+
+        @loadVideos()
         null
 
     animate : (delay) =>
@@ -40,6 +42,17 @@ class ObjectsList extends AbstractView
         @videoPlayer.on 'play', @onPlay
         @videoPlayer.on 'ended', @onStop
         @videoPlayer.on 'pause', @onStop
+
+        null
+
+
+    loadVideos: =>
+        console.log 'plop'
+        $("video").each (index) -> 
+            $(@).get(0).load()
+            $(@).get(0).addEventListener "canplaythrough", ->
+                this.play()
+                this.pause()
 
         null
 

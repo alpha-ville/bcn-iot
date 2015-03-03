@@ -77,6 +77,7 @@ class BasicShape extends AbstractView
 
         @sprite = new PIXI.Sprite()
         @sprite.alpha = alpha || 1
+        @sprite.blendMode = PIXI.blendModes.ADD
 
         @g = new PIXI.Graphics()
         @g.beginFill @color

@@ -42,8 +42,14 @@ class AppView extends AbstractView
         super()
 
         @diableRightClick()
+        @setGroupName()
 
         @soundControlller = new SoundController()
+
+    setGroupName: ->
+        @groupName = @B().getQueryVariable 'group'
+
+        null
 
     diableRightClick: =>
         document.body.setAttribute("oncontextmenu", "return false")
@@ -98,6 +104,7 @@ class AppView extends AbstractView
         @preloader.hide()
 
         # @B().openOverlayContent @B().selectedCategoryId
+        if !@groupName then @B().openOverlaySoon()
 
         @updateMediaQueriesLog()
         return

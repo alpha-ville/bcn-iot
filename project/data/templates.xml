@@ -105,8 +105,8 @@
                     <!-- <video class="video-js vjs-sublime-skin" controls fullscreen="none" preload="auto" width="600" height="338">
                         <source src="https://googledrive.com/host/<%= object.get('video') %>" type='video/mp4'>
                     </video> -->
-                    <video class="video-js vjs-sublime-skin" controls fullscreen="none" preload="auto" width="600" height="338">
-                        <source src="/img/icons/<%= object.get('video_titles_en') %>" type='video/mp4'>
+                    <video class="video-js vjs-sublime-skin" controls fullscreen="none" preload="none" width="600" height="338">
+                        <source src="/img/icons/<%= object.get('video_titles_en_nocache') %>" type='video/mp4'>
                     </video>
 
                     <% } else { %>
@@ -282,6 +282,44 @@
                         </svg>
                     </div>
                 </div>
+            </div>
+        ]]>
+    </template>
+
+    <template id="overlay-soon">
+        <![CDATA[
+            <div id="overlay-soon" class="overlays overlay-soon">
+
+                <div class="backgrounds">
+                    <div class="slide1 slide active"></div>
+                    <div class="slide2 slide"></div>
+                    <div class="slide3 slide"></div>
+                    <div class="slide4 slide"></div>
+                </div>
+
+                <div class="blackoverlay"></div>
+                
+                <div class="innerSoon">
+                
+                    <img src="./img/icons/Alpha-ville_logo.png" alt=""/>
+
+                    <h1>IOTORAMA</h1>
+                    <h2>A playful view on the "Internet of things"</h2>
+
+                    <p>
+                        <span>New interactive installation by Alpha-ville</span>
+                        <span><i>Connected being Exhibition</i></span>
+                        <span>Mobile World Centre, Barcelona</span>
+                        <span>2 March - 31 July 2015</span>
+                        <b>Web version coming soon</b>
+                    </p>
+
+                </div>
+
+                
+
+                <div 
+
             </div>
         ]]>
     </template>

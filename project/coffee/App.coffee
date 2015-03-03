@@ -41,12 +41,14 @@ class App
 
     objectComplete : =>
 
-        @objReady++
-        @initApp() if @objReady >= 2
+        # @objReady++
+        # @initApp() if @objReady >= 2
+        @initApp()
 
         null
 
     init : =>
+        @groupName = @getQueryVariable 'group'
         @initObjects()
 
         null
@@ -119,6 +121,12 @@ class App
     openHelp: =>
         @appView.modalManager.hideOpenModal()
         @appView.modalManager.showModal 'overlayHelp'
+
+        null
+
+
+    openOverlaySoon: =>
+        @appView.modalManager.showModal 'overlaySoon'
 
         null
 

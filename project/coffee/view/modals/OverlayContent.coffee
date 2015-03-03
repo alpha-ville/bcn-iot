@@ -24,6 +24,11 @@ class OverlayContent extends AbstractModal
         # console.log node
 
         @objects = @B().objects.where "category" : node.get('category_name')
+
+        for object in @objects
+            timestamp = Date.now()
+            object.attributes["video_titles_en_nocache"] = object.attributes["video_titles_en"] +  "?plop=#{timestamp}"
+
         @objects = @B().objectsContentHack or _.shuffle @objects
         @objectCarosel = new ObjectsList @objects
         @objectCarosel.on 'slideChange', @slideChange

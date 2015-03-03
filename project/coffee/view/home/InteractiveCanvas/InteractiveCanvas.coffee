@@ -74,15 +74,14 @@ class InteractiveCanvas extends AbstractView
 
         @addLines()
         @addDecorations()
-
-        @addShapes()
-
-        @addHelpButton()
-
-        @addPointer()
-        @initTooltip()
-
-        @bindEvents()
+        console.log @B().groupName
+        if @B().groupName
+        
+            @addShapes()
+            @addHelpButton()
+            @addPointer()
+            @initTooltip()
+            @bindEvents()
 
         @update()
 
@@ -120,8 +119,10 @@ class InteractiveCanvas extends AbstractView
 
         @smallShapes = []
 
+        if @B().groupName then nbSpread = 50 else nbSpread = 15
+
         @smallCircles = []
-        for i in [ 0 ... 50 ]
+        for i in [ 0 ... nbSpread ]
             size = _.random( 8, 40 )
             # size = 500
             circle = new Circle( null, size, @scene, .2 )
@@ -134,7 +135,7 @@ class InteractiveCanvas extends AbstractView
             @scene.addChild( circle.sprite )
 
         @smallTriangles = []
-        for i in [ 0 ... 100 ]
+        for i in [ 0 ... nbSpread * 2 ]
             size = _.random( 8, 40 )
             triangle = new Triangle( null, size, @scene, .001 )
             triangle.move _.random(@w), _.random(@h)
@@ -146,7 +147,7 @@ class InteractiveCanvas extends AbstractView
             @scene.addChild( triangle.sprite )
 
         @smallSquares = []
-        for i in [ 0 ... 100 ]
+        for i in [ 0 ... nbSpread * 2 ]
             size = _.random( 8, 40 )
             square = new Square( null, size, @scene, .001 )
             square.move _.random(@w), _.random(@h)
@@ -255,9 +256,9 @@ class InteractiveCanvas extends AbstractView
         for shape in @shapes
             shape.update()
 
-        @tooltip.update()
-        @centralButton.update()
-        @helpButton.update()
+        @tooltip?.update()
+        @centralButton?.update()
+        @helpButton?.update()
 
         @render()
 
