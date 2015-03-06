@@ -1,4 +1,5 @@
 #!/bin/bash
+npm install
 forever stopall
 forever start ./server/run
 gulp
