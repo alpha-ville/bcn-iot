@@ -40,16 +40,20 @@ class App
         null
 
     objectComplete : =>
-
-        # @objReady++
-        # @initApp() if @objReady >= 2
-        @initApp()
+        console.log 'object complete'
+        @objReady++
+        @initApp() if @objReady == 2
+        # @initApp()
 
         null
 
     init : =>
         @groupName = @getQueryVariable 'group'
         @initObjects()
+        console.log 'init'
+        @initTimeout = setTimeout =>
+            location.reload();
+        , 10000
 
         null
 
@@ -82,7 +86,12 @@ class App
        return false
 
     initApp : =>
+        clearInterval @initTimeout
+        @initTimeout = setTimeout =>
+            location.reload();
+        , 1800000
 
+        console.log 'initapp'
         @setFlags()
 
         @selectedCategoryId = "door_locks"
