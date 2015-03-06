@@ -89,7 +89,7 @@ class App
         clearInterval @initTimeout
         @initTimeout = setTimeout =>
             location.reload();
-        , 5000
+        , 1800000
 
         console.log 'initapp'
         @setFlags()
