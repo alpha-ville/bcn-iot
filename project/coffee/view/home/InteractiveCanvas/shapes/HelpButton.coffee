@@ -2,7 +2,8 @@ BasicShape = require './BasicShape'
 
 class HelpButton extends BasicShape
 
-    color : '0x61ab63'
+    # color : '0x61ab63'
+    color : '0x000000'
 
 
     init : =>

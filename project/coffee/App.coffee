@@ -48,6 +48,7 @@ class App
         null
 
     init : =>
+        @soundParam = @getQueryVariable 'sound'
         @groupName = @getQueryVariable 'group'
         @initObjects()
         console.log 'init'
