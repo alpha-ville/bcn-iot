@@ -75,6 +75,12 @@ body {
     height: 100%;
     // background: #000;
     font-family: 'Avenir-Roman';
+
+    &.show-cursor {
+        * {
+            cursor: auto;
+        }
+    }
 }
 
 .video-js
@@ -920,6 +926,7 @@ $color : $blue;
     color: #fff;
     display: table;
     z-index: 0;
+    background: #000;
 
     .backgrounds {
         position: absolute;
@@ -927,6 +934,7 @@ $color : $blue;
         height: 100%;
         top: 0;
         left: 0;
+        opacity: .7;
 
         div {
             position: absolute;

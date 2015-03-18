@@ -301,14 +301,16 @@
                 
                 <div class="innerSoon">
                 
-                    <img src="./img/icons/Alpha-ville_logo.png" alt=""/>
+                    <a href="http://www.alpha-ville.co.uk" target="_blank">
+                        <img src="./img/icons/Alpha-ville_logo.png" alt=""/>
+                    </a>
 
                     <h1>IOTORAMA</h1>
-                    <h2>A playful view on the "Internet of things"</h2>
+                    <h2>A playful view of the "Internet of things"</h2>
 
                     <p>
                         <span>New interactive installation by Alpha-ville</span>
-                        <span><i>Connected being Exhibition</i></span>
+                        <span><i>Connected Beings Exhibitions</i></span>
                         <span>Mobile World Centre, Barcelona</span>
                         <span>2 March - 31 July 2015</span>
                         <b>Web version coming soon</b>

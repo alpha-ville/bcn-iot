@@ -137,6 +137,7 @@ class App
 
     openOverlaySoon: =>
         @appView.modalManager.showModal 'overlaySoon'
+        document.body.className = 'show-cursor'
 
         null
 
