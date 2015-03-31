@@ -47,8 +47,7 @@ class ObjectsList extends AbstractView
 
 
     loadVideos: =>
-        console.log 'plop'
-        $("video").each (index) -> 
+        $("video").each (index) ->
             $(@).get(0).load()
             $(@).get(0).addEventListener "canplaythrough", ->
                 this.play()

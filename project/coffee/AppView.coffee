@@ -1,11 +1,11 @@
-AbstractView = require './view/AbstractView'
-Preloader    = require './view/base/Preloader'
-# Header       = require './view/base/Header'
-Wrapper      = require './view/base/Wrapper'
-# Footer       = require './view/base/Footer'
-ModalManager = require './view/modals/_ModalManager'
-MediaQueries = require './utils/MediaQueries'
-SoundController = require('./utils/SoundController.coffee');
+AbstractView    = require './view/AbstractView'
+Preloader       = require './view/base/Preloader'
+# Header        = require './view/base/Header'
+Wrapper         = require './view/base/Wrapper'
+# Footer        = require './view/base/Footer'
+ModalManager    = require './view/modals/_ModalManager'
+MediaQueries    = require './utils/MediaQueries'
+SoundController = require './utils/SoundController'
 
 class AppView extends AbstractView
 
@@ -39,21 +39,14 @@ class AppView extends AbstractView
         @$window = $(window)
         @$body   = $('body').eq(0)
 
-        super()
-
-        @diableRightClick()
         @setGroupName()
 
         @soundControlller = new SoundController( @B )
-
-    setGroupName: ->
-        @groupName = @B().getQueryVariable 'group'
-
+        super()
         null
 
-    diableRightClick: =>
-        document.body.setAttribute("oncontextmenu", "return false")
-
+    setGroupName: ->
+        @groupName = (@B().getQueryVariable 'group') or 'home'
         null
 
     disableTouch: =>
@@ -104,7 +97,10 @@ class AppView extends AbstractView
         @preloader.hide()
 
         # @B().openOverlayContent @B().selectedCategoryId
-        if !@groupName then @B().openOverlaySoon()
+        # if !@groupName then @B().openOverlaySoon()
+        # @groupName = "home" or @groupName
+
+        @B().openOverlaySoon()
 
         @updateMediaQueriesLog()
         return

@@ -33,7 +33,7 @@
 
     <template id="home-tooltip">
         <![CDATA[
-            
+
             <div class="toolTip">
 
                 <div class="textBoxWrapper">
@@ -290,37 +290,38 @@
         <![CDATA[
             <div id="overlay-soon" class="overlays overlay-soon">
 
-                <div class="backgrounds">
+                <!-- <div class="backgrounds">
                     <div class="slide1 slide active"></div>
                     <div class="slide2 slide"></div>
                     <div class="slide3 slide"></div>
                     <div class="slide4 slide"></div>
                 </div>
 
-                <div class="blackoverlay"></div>
-                
+                <div class="blackoverlay"></div> -->
+
                 <div class="innerSoon">
-                
-                    <a href="http://www.alpha-ville.co.uk" target="_blank">
-                        <img src="./img/icons/Alpha-ville_logo.png" alt=""/>
-                    </a>
 
                     <h1>IOTORAMA</h1>
                     <h2>A playful view of the "Internet of things"</h2>
 
-                    <p>
+                    <!-- <p>
                         <span>New interactive installation by Alpha-ville</span>
                         <span><i>Connected Beings Exhibitions</i></span>
                         <span>Mobile World Centre, Barcelona</span>
                         <span>2 March - 31 July 2015</span>
                         <b>Web version coming soon</b>
-                    </p>
+                    </p> -->
+
+                    <button>EXPLORE</button>
 
                 </div>
 
-                
-
-                <div 
+                <div class='logo-container'>
+                    <span class="project-by">A project by</span><br><br>
+                    <a href="http://www.alpha-ville.co.uk" target="_blank">
+                        <img src="./img/icons/Alpha-ville_logo.png" alt=""/>
+                    </a>
+                </div>
 
             </div>
         ]]>

@@ -14,7 +14,7 @@ class Router extends Backbone.Router
 
     start : =>
 
-        Backbone.history.start 
+        Backbone.history.start
             pushState : true
             root      : '/'
 
@@ -22,7 +22,7 @@ class Router extends Backbone.Router
 
     hashChanged : (@area = null, @sub = null) =>
 
-        console.log ">> EVENT_HASH_CHANGED @area = #{@area}, @sub = #{@sub} <<"
+        # console.log ">> EVENT_HASH_CHANGED @area = #{@area}, @sub = #{@sub} <<"
 
         if @FIRST_ROUTE then @FIRST_ROUTE = false
 

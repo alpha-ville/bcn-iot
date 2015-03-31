@@ -40,22 +40,15 @@ class App
         null
 
     objectComplete : =>
-        console.log 'object complete'
         @objReady++
         @initApp() if @objReady == 2
-        # @initApp()
 
         null
 
     init : =>
         @soundParam = @getQueryVariable 'sound'
-        @groupName = @getQueryVariable 'group'
+        @groupName = (@getQueryVariable 'group') or 'home'
         @initObjects()
-        console.log 'init'
-        @initTimeout = setTimeout =>
-            location.reload();
-        , 10000
-
         null
 
     initObjects : =>
@@ -70,9 +63,7 @@ class App
                 @dataSources = new DataSourceCollection data['new-data'].elements
                 @objects     = new ObjectsCollection data['new-objects'].elements
                 @credits     = new CreditsCollection data['credits-copy'].elements
-
                 @objectComplete()
-
 
         # if new objects are added don't forget to change the `@objectComplete` function
 
@@ -87,12 +78,6 @@ class App
        return false
 
     initApp : =>
-        clearInterval @initTimeout
-        @initTimeout = setTimeout =>
-            location.reload();
-        , 1800000
-
-        console.log 'initapp'
         @setFlags()
 
         @selectedCategoryId = "door_locks"
@@ -102,7 +87,7 @@ class App
 
         # source id to show on detailed screen
         @selectedDataType = null
-        @selectedDataId = null
+        @selectedDataId   = null
 
         ### Starts application ###
         @appView = new AppView
@@ -137,7 +122,7 @@ class App
 
     openOverlaySoon: =>
         @appView.modalManager.showModal 'overlaySoon'
-        document.body.className = 'show-cursor'
+        # document.body.className = 'show-cursor'
 
         null
 

@@ -29,13 +29,11 @@ class Wrapper extends AbstractView
 		return null
 
 	createClasses : =>
-
 		(@views[name].view = new @views[name].classRef) for name, data of @views
 
 		null
 
 	addClasses : =>
-
 		 for name, data of @views
 		 	if data.type is @VIEW_TYPE_PAGE then @addChild data.view
 

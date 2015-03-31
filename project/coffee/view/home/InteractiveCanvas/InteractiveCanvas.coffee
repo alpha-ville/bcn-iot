@@ -1,82 +1,75 @@
 AbstractView    = require '../../AbstractView'
-Scene           = require('./Scene.coffee');
-CentralButton   = require('./shapes/CentralButton.coffee');
+Scene           = require './Scene'
+CentralButton   = require './shapes/CentralButton'
 Circle          = require './shapes/Circle'
 Triangle        = require './shapes/Triangle'
-Square          = require('./shapes/Square.coffee');
-NumUtil         = require('../../../utils/NumUtil.coffee');
-NodeShape       = require('./shapes/NodeShape.coffee');
-HelpButton      = require('./shapes/HelpButton.coffee');
-HomeTootip      = require('../../components/HomeTootip.coffee');
-Pointer         = require('./Pointer.coffee');
+Square          = require './shapes/Square'
+NumUtil         = require '../../../utils/NumUtil'
+NodeShape       = require './shapes/NodeShape'
+HelpButton      = require './shapes/HelpButton'
+HomeTootip      = require '../../components/HomeTootip'
+Pointer         = require './Pointer'
 
 class InteractiveCanvas extends AbstractView
 
-    template : 'interactive-element'
+    template         : 'interactive-element'
 
-    pointer  : null
+    pointer          : null
 
-    shapes   : null
-    selectedShapes: null
+    shapes           : null
+    selectedShapes   : null
 
-    circles : null
-    triangles: null
-    squares : null
-    gardenNodes: null
+    circles          : null
+    triangles        : null
+    squares          : null
+    gardenNodes      : null
 
-    smallCircles: null
-    smallTriangle: null
-    smallSquares: null
-    smallShapes: null
+    smallCircles     : null
+    smallTriangle    : null
+    smallSquares     : null
+    smallShapes      : null
 
 
-    linesObj: null
-    linesAlphaScale: 0
+    linesObj         : null
+    linesAlphaScale  : 0
 
-    scene: null
+    scene            : null
 
-    deltaTime: 0
-    lastTime: Date.now()
+    deltaTime        : 0
+    lastTime         : Date.now()
 
-    absorbedShapes: null
-    openOverlayTimer: null
+    absorbedShapes   : null
+    openOverlayTimer : null
 
-    tooltip: null
+    tooltip          : null
 
-    step: 0
-    stepTimer: null
-    step2Timer: null
-
-    @step1Timer = null
+    step             : 0
+    stepTimer        : null
+    step2Timer       : null
+    step1Timer       : null
 
 
     init : =>
-        console.log @B()
         PIXI.dontSayHello = true
         @w = window.innerWidth
         @h = window.innerHeight
 
-        @scene = new Scene({
-            container: @$el[0]
-        })
+        @scene = new Scene container: @$el[0]
 
-        @shapes = []
-        @selectedShapes = []
-        @circles = []
-        @triangles = []
-        @squares = []
-        @gardenNodes = []
+        @shapes             = []
+        @selectedShapes     = []
+        @circles            = []
+        @triangles          = []
+        @squares            = []
+        @gardenNodes        = []
         @triangleAndSquares = []
-        @activeShapes = []
-
-        @absorbedShapes = []
-
-
+        @activeShapes       = []
+        @absorbedShapes     = []
 
         @addLines()
         @addDecorations()
+        console.log @B().groupName
         if @B().groupName
-        
             @addShapes()
             @addHelpButton()
             @addPointer()
@@ -380,8 +373,8 @@ class InteractiveCanvas extends AbstractView
     onClick: ( evt ) =>
 
         clearInterval( @stepTimer )
-        @stepTimer = setTimeout => 
-            @gotoStep( @step - 1 ) 
+        @stepTimer = setTimeout =>
+            @gotoStep( @step - 1 )
         , 30000
 
         @pointer.sprite.position.x = evt.pageX
@@ -496,7 +489,7 @@ class InteractiveCanvas extends AbstractView
 
         @selectedShapes.push( shape )
 
-        if @selectedShapes.length == @activeShapes.length then isTheLast = true else isTheLast = false        
+        if @selectedShapes.length == @activeShapes.length then isTheLast = true else isTheLast = false
 
         shape.getAbsorbed( isTheLast )
 
@@ -553,7 +546,7 @@ class InteractiveCanvas extends AbstractView
         - STEP0
         Everything is visible,
         Waiting an action on central button
-        -------------------------- ### 
+        -------------------------- ###
         if step == 0
             @step = 0
             for circle in @circles
@@ -567,7 +560,7 @@ class InteractiveCanvas extends AbstractView
         Central button has been touched,
         Circles start pulsating like hell
         Other shapes fadeOut
-        -------------------------- ### 
+        -------------------------- ###
         if step == 1
 
             clearInterval( @stepTimer )
@@ -577,11 +570,11 @@ class InteractiveCanvas extends AbstractView
 
             @step = 1
             if @currentSelectedCircle then @onCircleUnselected( @currentSelectedCircle )
-            for shape in @shapes 
+            for shape in @shapes
                 shape.stopBouncing()
                 if shape.type != 'circle' then shape.sprite.alpha = .2
 
-            for shape in @activeShapes 
+            for shape in @activeShapes
                 shape.stopBouncing()
 
 
@@ -591,15 +584,15 @@ class InteractiveCanvas extends AbstractView
                 @scene.removeChild(  circle.sprite )
                 @scene.addChild(  circle.sprite )
 
-            
 
-            
+
+
 
         ### -------------------------
         - STEP2
         One circle has been touched, it goes to center
         Other shapes start pulsating like hell
-        -------------------------- ### 
+        -------------------------- ###
         if step == 2
             @step = 2
             for circle in @circles
@@ -613,7 +606,7 @@ class InteractiveCanvas extends AbstractView
             @stepTimer = setTimeout =>
                 @gotoStep( 1 )
             , 30000
-        
+
         null
 
     clearTimer: ( timerId ) =>
