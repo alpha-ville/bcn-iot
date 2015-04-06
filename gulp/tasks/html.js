@@ -19,13 +19,13 @@ gulp.task('html', function () {
 		}
 	}
 
-	return gulp.src(pkg.folders.src+'/html/*.hbs')
+	return gulp.src(pkg.folders.src+'/html/*.html')
 		.pipe(replace(/\{{ ([^{}]*) \}}/g, function(a, b) {
 			var r = manifest[b];
 			return r && (typeof r === 'string' || typeof r === 'number') ? r : b;
 		}))
 		.pipe(global.isWatching ? gutil.noop() : minifyInline())
 		.pipe(global.isWatching ? gutil.noop() : minifyHTML())
-		.pipe(gulp.dest(pkg.folders.dest + "/views/"));
+		.pipe(gulp.dest(pkg.folders.dest));
 
 });

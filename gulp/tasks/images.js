@@ -5,7 +5,7 @@ var pngcrush = require('imagemin-pngcrush');
 var pkg      = require('../../package.json')
 
 gulp.task('images', function() {
-  var dest = pkg.folders.dest+'/static/img';
+  var dest = pkg.folders.dest+'/img';
 
   return gulp.src(pkg.folders.src+'/img/**')
     .pipe(changed(dest))
