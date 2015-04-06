@@ -7,8 +7,8 @@ var pkg    = require('../../package.json');
 var exts    = ['css', 'js'];
 var re      = new RegExp('(-[a-z0-9]{8})(.('+exts.join('|')+'))$', 'i');
 
-var src     = pkg.folders.dest+'/static/**/*.{'+exts.join(',')+'}';
-var dest    = pkg.folders.dest + "/static";
+var src     = pkg.folders.dest+'/**/*.{'+exts.join(',')+'}';
+var dest    = pkg.folders.dest + "";
 
 function removeHash(path) {
 
