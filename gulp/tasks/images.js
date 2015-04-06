@@ -1,7 +1,7 @@
 var changed  = require('gulp-changed');
 var gulp     = require('gulp');
-var imagemin = require('gulp-imagemin');
-var pngcrush = require('imagemin-pngcrush');
+// var imagemin = require('gulp-imagemin');
+// var pngcrush = require('imagemin-pngcrush');
 var pkg      = require('../../package.json')
 
 gulp.task('images', function() {
