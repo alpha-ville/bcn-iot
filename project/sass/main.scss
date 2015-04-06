@@ -184,6 +184,7 @@ body {
         h1
         {
             opacity: 0;
+            margin-top: 30px;
         }
     }
 
@@ -248,7 +249,7 @@ body {
             height: 0;
             border-left: ($size-shape/2) solid transparent;
             border-right: ($size-shape/2) solid transparent;
-            border-bottom: $size-shape * (sqrt(3)/2) solid $blue-alpha;
+            border-bottom: ($size-shape * (sqrt(3)/2) - 3) solid $blue-alpha;
             margin: auto;
             img
             {
@@ -410,37 +411,30 @@ body {
 
                 display: inline;
 
-                a.tooltips {
-                  position: relative;
-                  display: inline;
-                  color: black;
-                  text-decoration: none;
-                }
-
-                a.tooltips div[tooltip] {
+                div[tooltip] {
                   position: absolute;
-                  width: 250px;
+                  min-width: 250px;
                   max-width: 250px;
                   color: #000000;
                   background: #FFFFFF;
                   border: 4px solid #000000;
                   height: auto;
                   text-align: center;
-                  bottom: 50px;
+                  bottom: 80px !important;
                   // visibility: hidden;
                   opacity: 0;
-                  @include transition(all, 180ms, $easeOutQuad);
+                  @include transition(all, 150ms, $easeOutQuad);
                   border-radius: 0px;
                   pointer-events: none;
 
-                  padding: 30px 30px 40px;
+                  padding: 10px 30px 40px;
 
                   &[triangle] {
-                    @include transform(translateX(-94px));
+                    @include transform(translateX(-50%));
                   }
 
                   &[square] {
-                    @include transform(translateX(-84px));
+                    @include transform(translateX(-101px));
                   }
 
                   h1
@@ -453,7 +447,18 @@ body {
                   {
                     @include font-size(1.1);
                     @include rem-fallback(line-height, 1.4);
+                    max-width: 150px;
+                    width: 150px;
                     letter-spacing: 1px;
+                  }
+
+                  img
+                  {
+                    display: inline !important;
+                    width: 60px !important;
+                    height: 60px !important;
+                    margin: 20px auto !important;
+                    @include transform(none !important);
                   }
 
                   .svg {
@@ -462,7 +467,7 @@ body {
                   }
                 }
 
-                a.tooltips div[tooltip]:before {
+                div[tooltip]:before {
                   content: '';
                   position: absolute;
                   top: 100%;
@@ -474,7 +479,7 @@ body {
                   border-left: 19px solid transparent;
                 }
 
-                a.tooltips div[tooltip]:after {
+                div[tooltip]:after {
                   content: '';
                   position: absolute;
                   top: 100%;
@@ -486,22 +491,29 @@ body {
                   border-left: 12px solid transparent;
                 }
 
-                a:hover.tooltips div[tooltip] {
-                  visibility: visible;
-                  opacity: 0.8;
-                  bottom: 70px;
-                  z-index: 999;
-                }
-
-
-                &>div
+                .breadcrumbItem
                 {
-                    margin: 40px auto 0;
+                    margin: 30px auto 0;
                     padding: 5px 15px;
                     opacity: 0;
                     display: inline-block;
                     cursor: pointer;
                     text-align: center;
+                }
+
+                .breadcrumbItem:hover div[tooltip] {
+                  visibility: visible;
+                  opacity: 0.8;
+
+                  &[triangle] {
+                    @include transform(translateX(-50%) translateY(-20px));
+                  }
+
+                  &[square] {
+                    @include transform(translateX(-101px) translateY(-20px));
+                  }
+
+                  z-index: 999;
                 }
 
                 .name-container
@@ -538,7 +550,7 @@ body {
                     height: 0;
                     border-left: ($size-shape/2) solid transparent;
                     border-right: ($size-shape/2) solid transparent;
-                    border-bottom: $size-shape * (sqrt(3)/2) solid $blue-alpha;
+                    border-bottom: ($size-shape * (sqrt(3)/2) - 3) solid $blue-alpha;
                     margin: 0 auto;
                     img
                     {
