@@ -80,15 +80,27 @@
     <![CDATA[
         <% _.each(list, function(data, i){ %>
             <div class="breadcrumbItem" data-index="<%=i%>" data-id="<%=data.get('id')%>" data-type="<%= data.get('model') %>">
-                <div class='<%=data.get('shape')%>'>
-                    <img width="60" height="60" class="svg" src="https://googledrive.com/host/<%= data.get('icon_id') %>">
-                    <!-- <span class="<%=data.get('icon_id')%>" data-pack="default"></span> -->
-                </div>
+                <a class="tooltips" href="#">
+                    <div class='<%=data.get('shape')%>'>
+                        <!-- <span class="<%=data.get('icon_id')%>" data-pack="default"></span> -->
+                    </div>
 
-                <div class="name-container">
-                    <p data-lang='en'><%= data.get('name_en') %></p>
-                    <p data-lang='cat'><%= data.get('name_cat') %></p>
-                </div>
+                    <div tooltip <%=data.get('shape')%>>
+                        <img width="60" height="60" class="svg" src="https://googledrive.com/host/<%= data.get('icon_id') %>">
+
+                        <h1 data-lang='en'><%= data.get('name_en') %></h1>
+                        <h1 data-lang='cat'><%= data.get('name_cat') %></h1>
+
+                        <p data-lang='en'><%= data.get('copy_en') %></p>
+                        <p data-lang='cat'><%= data.get('copy_cat') %></p>
+                    </div>
+
+                    <div class="name-container">
+                        <p data-lang='en' data-inline><%= data.get('name_en') %></p>
+                        <p data-lang='cat' data-inline><%= data.get('name_cat') %></p>
+                    </div>
+
+                </a>
 
             </div>
         <% }) %>
@@ -125,6 +137,35 @@
             <div id="overlay-content" class="overlays overlay-content">
                 <div class="container">
 
+                    <div class='container-top'>
+
+                        <div class='container-cell'>
+                            <ul class="lang-buttons">
+                                <li data-selected data-lang='en'>EN </li>
+                                <li data-lang='cat'>CAT</li>
+                            </ul>
+                        </div>
+
+                        <div class='container-cell'>
+
+                            <div class="close-button">
+                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                     viewBox="10 -43 200 200" enable-background="new 10 -43 200 200" xml:space="preserve">
+                                <!-- <g>
+                                    <path d="M110-28.2c47,0,85.2,38.2,85.2,85.2S157,142.2,110,142.2c-47,0-85.2-38.2-85.2-85.2C24.8,10,63-28.2,110-28.2 M110-38.2
+                                        C57.4-38.2,14.8,4.4,14.8,57c0,52.6,42.6,95.2,95.2,95.2c52.6,0,95.2-42.6,95.2-95.2C205.2,4.4,162.6-38.2,110-38.2L110-38.2z"/>
+                                </g> -->
+                                <line fill="none" stroke="#000000" stroke-width="10" stroke-miterlimit="10" x1="79.7" y1="26.7" x2="140.3" y2="87.3"/>
+                                <line fill="none" stroke="#000000" stroke-width="10" stroke-miterlimit="10" x1="140.3" y1="26.7" x2="79.7" y2="87.3"/>
+                                </svg>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <hr hr-first/>
+
                     <div class="container-shape">
                         <div class='<%=shape%>'>
                             <img class="svg" width="100" height="100" src="https://googledrive.com/host/<%= icon %>">
@@ -152,26 +193,6 @@
 
                     <div class="breadcrumbs"></div>
 
-                    <hr/>
-
-                    <ul class="lang-buttons">
-                        <li data-selected data-lang='en'>ENGLISH</li>
-                        <li data-lang='cat'>CATALAN</li>
-                    </ul>
-
-                    <div class="close-button">
-                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                             viewBox="10 -43 200 200" enable-background="new 10 -43 200 200" xml:space="preserve">
-                        <g>
-                            <path d="M110-28.2c47,0,85.2,38.2,85.2,85.2S157,142.2,110,142.2c-47,0-85.2-38.2-85.2-85.2C24.8,10,63-28.2,110-28.2 M110-38.2
-                                C57.4-38.2,14.8,4.4,14.8,57c0,52.6,42.6,95.2,95.2,95.2c52.6,0,95.2-42.6,95.2-95.2C205.2,4.4,162.6-38.2,110-38.2L110-38.2z"/>
-                        </g>
-                        <line fill="none" stroke="#000000" stroke-width="7" stroke-miterlimit="10" x1="79.7" y1="26.7" x2="140.3" y2="87.3"/>
-                        <line fill="none" stroke="#000000" stroke-width="7" stroke-miterlimit="10" x1="140.3" y1="26.7" x2="79.7" y2="87.3"/>
-                        </svg>
-
-
-                    </div>
 
                 </div>
 
@@ -290,14 +311,18 @@
         <![CDATA[
             <div id="overlay-soon" class="overlays overlay-soon">
 
-                <!-- <div class="backgrounds">
+                <!--
+
+                <div class="backgrounds">
                     <div class="slide1 slide active"></div>
                     <div class="slide2 slide"></div>
                     <div class="slide3 slide"></div>
                     <div class="slide4 slide"></div>
                 </div>
 
-                <div class="blackoverlay"></div> -->
+                <div class="blackoverlay"></div>
+
+                -->
 
                 <div class="innerSoon">
 

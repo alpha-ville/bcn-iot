@@ -10,7 +10,6 @@ class HomeView extends AbstractViewPage
 		# @templateVars =
 		# 	desc : @B().locale.get "home_desc"
 
-
 		@interactive = new InteractiveCanvas
 
 		super()

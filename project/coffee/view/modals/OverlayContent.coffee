@@ -115,12 +115,12 @@ class OverlayContent extends AbstractModal
 
     slideChange : (slideID, delay = 0) =>
         a = @B().objects.findWhere id : String(slideID)
-        
+
         pn = $(@$el.find('.project-name-container>.project-name')[0])
         pn2 = $(@$el.find('.project-name-container>.project-name')[1])
         pn.text a.get('name_en')
         pn2.text a.get('name_cat')
-        
+
         TweenMax.to $(@$el.find('.project-name-container>.project-name')[0]), .2, opacity: 1
 
         @setBreadcrumb a, delay
@@ -190,7 +190,7 @@ class OverlayContent extends AbstractModal
         TweenMax.to bts, .5, 'margin-top' : margin, opacity: 1, delay: 1.4
 
         cb = $(@$el.find('.close-button')[0])
-        TweenMax.to cb, .5, 'margin-top' : margin, opacity: 1, delay: 1.4
+        TweenMax.to cb, .5, 'margin-top' : 20, opacity: 1, delay: 1.4
 
         @objectCarosel.animate 1.4
         null

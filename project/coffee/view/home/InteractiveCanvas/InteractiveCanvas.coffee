@@ -189,11 +189,6 @@ class InteractiveCanvas extends AbstractView
 
         size = 100
 
-
-
-
-
-
         # circles
         for i in [ 0 ... filteredCategories.length ]
             data = filteredCategories[i]

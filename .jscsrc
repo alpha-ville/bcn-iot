@@ -1,0 +1,5 @@
+{
+    "preset": "crockford",
+    "requireCurlyBraces": null,
+    "fileExtensions": [".js"]
+}
