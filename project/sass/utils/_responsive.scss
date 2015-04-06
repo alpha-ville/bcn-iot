@@ -1,3 +1,5 @@
+@charset "utf-8";
+
 /*
  * ------------------
  *  Responsive Mixin
@@ -40,7 +42,7 @@
         @if nth($b, 1) == $key
         {
             @return true;
-        }        
+        }
     }
 
     @return false;
@@ -111,7 +113,7 @@
  * ---------------------
  *  Media Query Manager
  * ---------------------
- * 
+ *
  *  Intructions:
  *
  */
