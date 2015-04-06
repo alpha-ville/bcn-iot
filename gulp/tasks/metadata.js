@@ -5,7 +5,7 @@ var pkg      = require('../../package.json')
 gulp.task('metadata', function() {
   var dest = pkg.folders.dest+'';
 
-  return gulp.src(pkg.folders.src+'/metadata/**')
-    .pipe(changed(dest))
+  return gulp.src(pkg.folders.src+'/metadata/*')
+    // .pipe(changed(dest))
     .pipe(gulp.dest(dest));
 });
