@@ -13,9 +13,9 @@ gulp.task('sass', ['images'], function () {
 
 	return gulp.src(pkg.folders.src+'/sass/main.scss')
 		.pipe(compass({
-            css   : pkg.folders.dest+'/static/css/',
+            css   : pkg.folders.dest+'/css/',
             sass  : pkg.folders.src+'/sass/',
-            image : pkg.folders.dest+'/static/img/'
+            image : pkg.folders.dest+'/img/'
         }))
 		.on('error', handleErrors)
 		.pipe(prefix("ie >= 8", "ff >= 3", "safari >= 4", "opera >= 12", "chrome >= 4"))

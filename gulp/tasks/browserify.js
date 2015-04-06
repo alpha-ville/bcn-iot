@@ -55,7 +55,7 @@ gulp.task('browserify', function() {
 			.pipe(global.isWatching ? gutil.noop() : uglify())
 
       // Specify the output destination
-      .pipe(gulp.dest('./'+pkg.folders.dest+'/static/js/'))
+      .pipe(gulp.dest('./'+pkg.folders.dest+'/js/'))
 
       .pipe(reload({stream: true}))
 

@@ -14,6 +14,6 @@ gulp.task('vendor', function() {
 	return gulp.src(source)
 		.pipe(concat('v.js'))
 		.pipe(global.isWatching ? gutil.noop() : uglify())
-		.pipe(gulp.dest(pkg.folders.dest+'/static/js/vendor/'));
+		.pipe(gulp.dest(pkg.folders.dest+'/js/vendor/'));
 
 });
