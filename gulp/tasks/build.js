@@ -4,14 +4,14 @@ var runSequence = require('run-sequence');
 gulp.task('build', function() {
 
     var args = [
-        'unrevAssets',
+        // 'unrevAssets',
         ['browserify', 'sass', 'vendor', 'images', 'metadata', 'dataMin'],
         'html'
     ];
 
-    if (!global.isWatching) {
-        args.splice(2, 0, 'revAssets');
-    }
+    // if (!global.isWatching) {
+    //     args.splice(2, 0, 'revAssets');
+    // }
 
     runSequence.apply(this, args);
 
