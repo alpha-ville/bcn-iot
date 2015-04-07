@@ -22,6 +22,6 @@ gulp.task('sass', ['images'], function () {
 		.pipe(global.isWatching ? gutil.noop() : cmq())
 		.pipe(global.isWatching ? gutil.noop() : minifyCSS())
         .pipe(reload({stream: true}))
-		.pipe(gulp.dest(pkg.folders.dest+'static/css/'));
+		.pipe(gulp.dest(pkg.folders.dest+'/css/'));
 
 });
