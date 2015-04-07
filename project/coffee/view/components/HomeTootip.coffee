@@ -19,27 +19,6 @@ class HomeTooltip extends AbstractView
     constructor : (@list) ->
         # @templateVars =
         #     list : @list
-        
-
-        @nameMap = 
-            'environment':
-                'en': 'Environment'
-                'cat': 'Entorn urbà i natural'
-            'home':
-                'en': 'home'
-                'cat': 'La Llar'
-            'body_mind':
-                'en': 'Body & Mind'
-                'cat': 'Cos i Ment'
-            'culture':
-                'en': 'Culture'
-                'cat': 'Cultura'
-            'diy':
-                'en': 'DIY'
-                'cat': 'Creació pròpia'
-            'social':
-                'en': 'Social'
-                'cat': 'Vida Social'
 
         super()
 
@@ -86,7 +65,7 @@ class HomeTooltip extends AbstractView
     transitionIn: ( en, cat ) ->
         @el.classList.add('active')
 
-        @setText( en, cat )        
+        @setText( en, cat )
 
         null
 
@@ -95,7 +74,7 @@ class HomeTooltip extends AbstractView
         @el.classList.remove('active')
 
         @setText @defaultEn, @defaultCat
-        
+
 
         null
 
@@ -107,10 +86,11 @@ class HomeTooltip extends AbstractView
         null
 
     setDefaultText: ( groupName ) ->
-        en = @nameMap[groupName]['en']
-        cat = @nameMap[groupName]['cat']
 
-        @defaultEn = en 
+        en = (@B().groups.where group : @B().groupName())[0].get('group_name_en')
+        cat = (@B().groups.where group : @B().groupName())[0].get('group_name_cat')
+
+        @defaultEn = en
         @defaultCat = cat
 
         @setText @defaultEn, @defaultCat

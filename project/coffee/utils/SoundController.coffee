@@ -23,7 +23,7 @@ class SoundController
     @sounds['objectconnected'].volume = @sfxVolume
     @sounds['transition'].volume = @sfxVolume
 
-    if @B().groupName and @B().soundParam is 'true'
+    if @B().groupName() and @B().soundParam is 'true'
       @sounds['loop'].play()
 
     # @play('loop')

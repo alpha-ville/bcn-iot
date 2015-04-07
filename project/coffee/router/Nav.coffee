@@ -30,10 +30,6 @@ class Nav extends AbstractView
 
     changeView: (area, sub, params) =>
 
-        # console.log "area",area
-        # console.log "sub",sub
-        # console.log "params",params
-
         @previous = @current
         @current  = area : area, sub : sub
 

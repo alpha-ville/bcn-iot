@@ -68,12 +68,12 @@ class InteractiveCanvas extends AbstractView
 
         @addLines()
         @addDecorations()
-        if @B().groupName
-            # @addShapes()
-            @addHelpButton()
-            # @addPointer()
-            # @initTooltip()
-            @bindEvents()
+        @addHelpButton()
+        @bindEvents()
+
+        # @addShapes()
+        # @addPointer()
+        # @initTooltip()
 
         @update()
 
@@ -90,7 +90,7 @@ class InteractiveCanvas extends AbstractView
 
         @$el[0].appendChild @tooltip.el
 
-        @tooltip.setDefaultText( @groupName, @groupName )
+        @tooltip.setDefaultText( @B().groupName() )
 
         Backbone.Events.on( 'hideHomeTooltip', @tooltip.hide )
         Backbone.Events.on( 'showHomeTooltip', @tooltip.show )
@@ -119,7 +119,7 @@ class InteractiveCanvas extends AbstractView
 
         @smallShapes = []
 
-        if @B().groupName then nbSpread = 50 else nbSpread = 15
+        if @B().groupName() then nbSpread = 50 else nbSpread = 15
 
         @smallCircles = []
         for i in [ 0 ... nbSpread ]
@@ -182,10 +182,7 @@ class InteractiveCanvas extends AbstractView
 
         ###
 
-        @groupName = (@B().getQueryVariable 'group') or 'home'
-        filteredCategories = @B().categories.where group : @groupName
-
-        @B().groupName = @groupName
+        filteredCategories = @B().categories.where group : @B().groupName()
 
         @centralButton = new CentralButton null, 240, @scene
         @centralButton.move @w/2, @h/2

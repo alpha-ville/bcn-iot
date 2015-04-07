@@ -13,6 +13,8 @@ class CentralButton extends BasicShape
 
         super()
 
+
+
         textureMap =
             'environment': '0B7kWGoq62sNjbUtrNWVYVUJNQlE'
             'home': '0B7kWGoq62sNjU1BNdHR4MmM1eXM'
@@ -56,7 +58,7 @@ class CentralButton extends BasicShape
 
             currentAngle += step
 
-        textureName = "https://googledrive.com/host/" + textureMap[@B().groupName]
+        textureName = "https://googledrive.com/host/" + @getTexture()
         texture = new PIXI.Texture.fromImage( textureName )
         @icon = new PIXI.Sprite( texture )
         @icon.scale.x = @icon.scale.y = .4
@@ -64,13 +66,12 @@ class CentralButton extends BasicShape
         @icon.anchor.y = .6
         @sprite.addChild( @icon )
 
-
-        
-
         @sprite.isInteractive = false
 
         null
 
+    getTexture : () =>
+        (@B().groups.where group : @B().groupName())[0].get('icon_id')
 
     onMouseUp: ->
         Backbone.Events.trigger( 'centralButtonTouched' )
@@ -87,7 +88,7 @@ class CentralButton extends BasicShape
         @g.rotation = @rotation
 
         null
-        
+
 
     animate : ( initialScale = 1 ) =>
         scale = 1.8
@@ -109,7 +110,7 @@ class CentralButton extends BasicShape
         @ripplesAnimation.stop()
 
 
-        
+
 
         TweenMax.to( @lines[0].scale, 1, { x: 8, y: 8 } )
         TweenMax.fromTo( @lines[0], 2, { alpha: 5 }, { alpha: 0, delay: -1.3, onComplete: =>
@@ -121,7 +122,7 @@ class CentralButton extends BasicShape
                 for i in [0...@lines.length]
                     @sprite.removeChild( @lines[i] )
          } )
-        
+
 
         null
 

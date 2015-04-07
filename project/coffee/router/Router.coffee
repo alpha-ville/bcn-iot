@@ -24,11 +24,13 @@ class Router extends Backbone.Router
 
         # console.log ">> EVENT_HASH_CHANGED @area = #{@area}, @sub = #{@sub} <<"
 
-        if @FIRST_ROUTE then @FIRST_ROUTE = false
+        # if !@area then @area = @B().nav.sections.HOME
+        # @area = ""
+        console.log @area
 
-        if !@area then @area = @B().nav.sections.HOME
-
-        @trigger Router.EVENT_HASH_CHANGED, @area, @sub, @params
+        if(@FIRST_ROUTE)
+            @trigger Router.EVENT_HASH_CHANGED, "", @sub, @params
+            @FIRST_ROUTE = false
 
         null
 

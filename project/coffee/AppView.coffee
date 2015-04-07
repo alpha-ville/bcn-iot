@@ -25,7 +25,6 @@ class AppView extends AbstractView
 
     events :
         'click a' : 'linkManager'
-        'click #btn-explore' : 'startExperience'
 
     clicks : 0
 
@@ -40,19 +39,8 @@ class AppView extends AbstractView
         @$window = $(window)
         @$body   = $('body').eq(0)
 
-        @setGroupName()
-
         @soundControlller = new SoundController( @B )
         super()
-        null
-
-    startExperience : =>
-        @B().appView.modalManager.hideOpenModal()
-        Backbone.Events.trigger( 'startExperience' )
-        null
-
-    setGroupName: ->
-        @groupName = (@B().getQueryVariable 'group') or 'home'
         null
 
     disableTouch: =>
@@ -101,10 +89,6 @@ class AppView extends AbstractView
         @trigger 'start'
         @B().router.start()
         @preloader.hide()
-
-        # @B().openOverlayContent @B().selectedCategoryId
-        # if !@groupName then @B().openOverlaySoon()
-        # @groupName = "home" or @groupName
 
         @B().openOverlaySoon()
 

@@ -7,6 +7,7 @@ CategoriesCollection = require './collections/CategoriesCollection'
 DataSourceCollection = require './collections/DataSourceCollection'
 PurposeCollection    = require './collections/PurposeCollection'
 CreditsCollection    = require './collections/CreditsCollection'
+GroupsCollection    = require './collections/GroupsCollection'
 
 class App
 
@@ -48,8 +49,7 @@ class App
         null
 
     init : =>
-        @soundParam = @getQueryVariable 'sound' or true
-        @groupName = (@getQueryVariable 'group') or 'home'
+        @soundParam = if(location.href.indexOf("localhost") > -1) then true else @getQueryVariable 'sound'
         @initObjects()
         null
 
@@ -65,6 +65,8 @@ class App
                 @dataSources = new DataSourceCollection data['new-data'].elements
                 @objects     = new ObjectsCollection data['new-objects'].elements
                 @credits     = new CreditsCollection data['credits-copy'].elements
+                @groups      = new GroupsCollection data['groups'].elements
+                console.log @groups
                 @objectComplete()
 
         # if new objects are added don't forget to change the `@objectComplete` function
@@ -92,9 +94,10 @@ class App
         @selectedDataId   = null
 
         ### Starts application ###
-        @appView = new AppView
         @router  = new Router
         @nav     = new Nav
+
+        @appView = new AppView
 
         videojs.options.flash.swf = "data/video/video-js.swf"
 
@@ -103,6 +106,9 @@ class App
         # @appView.modalManager.showModal 'overlayHelp'
 
         null
+
+    groupName : =>
+        @router.area or "home"
 
     openOverlayContent : (@selectedCategoryId) =>
         @appView.modalManager.hideOpenModal()

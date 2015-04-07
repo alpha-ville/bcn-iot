@@ -11,6 +11,9 @@ class OverlaySoon extends AbstractModal
     currentIdx: 0
     currentSlide: null
 
+    events:
+        'click #btn-explore' : 'startExperience'
+
 
     constructor : (@cb) ->
         super()
@@ -21,6 +24,10 @@ class OverlaySoon extends AbstractModal
 
         return null
 
+    startExperience : =>
+        @B().appView.modalManager.hideOpenModal()
+        Backbone.Events.trigger( 'startExperience' )
+        null
 
     init : =>
         # @animate()
