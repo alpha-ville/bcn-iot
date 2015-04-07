@@ -7,6 +7,6 @@ var reload      = browserSync.reload;
 gulp.task('dataMin', function() {
   gulp.src(pkg.folders.src+'/data/**/*.*')
     // .pipe(prettyData({type: 'minify', preserveComments: false}))
-    .pipe(gulp.dest(pkg.folders.dest+'/data/**/*.*'))
+    .pipe(gulp.dest(pkg.folders.dest+'/data'))
     .pipe(reload({stream: true}));
 });
