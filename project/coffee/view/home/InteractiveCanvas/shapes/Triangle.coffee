@@ -33,13 +33,13 @@ class Triangle extends BasicShape
         @ripple2.lineTo @w/2, h
         @ripple2.pivot = new PIXI.Point 0, 0
 
-        
+
 
         textures = [
-          "img/icons/placeholder_white.png"
-          "img/icons/placeholder2.png"
-          "img/icons/placeholder3.png"
-          "img/icons/placeholder4.png"
+          "https://googledrive.com/host/0Bw4Qy0dXirckbkwzcjA0SENiSlU"
+          "https://googledrive.com/host/0Bw4Qy0dXirckXy03VGxLWHp6dTg"
+          "https://googledrive.com/host/0Bw4Qy0dXirckazhvLS1MWXNBaTA"
+          "https://googledrive.com/host/0Bw4Qy0dXirckaTY0Q2laRmRmN1U"
         ]
 
         @sprite.alpha = .2
@@ -49,7 +49,7 @@ class Triangle extends BasicShape
           texture = new PIXI.Texture.fromImage( textures[ Math.floor( Math.random() * 4 ) ] )
           @icon = new PIXI.Sprite( texture )
           @icon.anchor.x = @icon.anchor.y = .5
-          
+
           @icon.position.x = 0
           @icon.position.y = 35
           @icon.scale.x = @icon.scale.y = .5
@@ -62,7 +62,7 @@ class Triangle extends BasicShape
           @ripplesAnimation.add( TweenMax.to(@ripple1.position, 1, x: 0, y: -35, delay: -1 ) )
           @ripplesAnimation.stop()
 
-        
+
 
         null
 

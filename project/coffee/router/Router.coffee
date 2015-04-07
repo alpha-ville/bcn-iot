@@ -26,7 +26,6 @@ class Router extends Backbone.Router
 
         # if !@area then @area = @B().nav.sections.HOME
         # @area = ""
-        console.log @area
 
         if(@FIRST_ROUTE)
             @trigger Router.EVENT_HASH_CHANGED, "", @sub, @params

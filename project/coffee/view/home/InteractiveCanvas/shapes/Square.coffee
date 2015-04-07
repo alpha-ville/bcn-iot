@@ -17,7 +17,7 @@ class Square extends BasicShape
 
         @ripple2 = new PIXI.Graphics()
         @ripple2.beginFill( @color )
-        @ripple2.drawRect 0,0, @w, @h        
+        @ripple2.drawRect 0,0, @w, @h
         @ripple2.pivot = new PIXI.Point @w/2, @h/2
 
         @sprite.pivot = new PIXI.Point @w/2, @h/2
@@ -25,13 +25,13 @@ class Square extends BasicShape
         @sprite.alpha = .2
 
         textures = [
-          "img/icons/placeholder2.png"
-          "img/icons/placeholder3.png"
-          "img/icons/placeholder4.png"
+          "https://googledrive.com/host/0Bw4Qy0dXirckXy03VGxLWHp6dTg"
+          "https://googledrive.com/host/0Bw4Qy0dXirckazhvLS1MWXNBaTA"
+          "https://googledrive.com/host/0Bw4Qy0dXirckaTY0Q2laRmRmN1U"
         ]
 
         if @w == 60
-          
+
           texture = new PIXI.Texture.fromImage( textures[ Math.floor( Math.random() * 3 ) ] )
           @icon = new PIXI.Sprite( texture )
           @icon.anchor.x = @icon.anchor.y = -.5

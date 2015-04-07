@@ -9,7 +9,6 @@ class ObjectsList extends AbstractView
         console.log list
         @templateVars =
             projects : list
-            path : "/img/video/"
 
         super()
 
