@@ -347,7 +347,7 @@
                         <b>Web version coming soon</b>
                     </p> -->
 
-                    <button>EXPLORE</button>
+                    <button id="btn-explore">EXPLORE</button>
 
                 </div>
 

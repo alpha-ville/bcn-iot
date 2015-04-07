@@ -10,13 +10,15 @@ CreditsCollection    = require './collections/CreditsCollection'
 
 class App
 
-    LIVE         : null
-    objReady     : 0
-    purposes     : null
-    dataSources  : null
-    objects      : null
-    categories   : null
-    credits      : null
+    LIVE        : null
+    objReady    : 0
+    purposes    : null
+    dataSources : null
+    objects     : null
+    categories  : null
+    credits     : null
+
+    BASE_PATH   : "/";
 
     objectsContentHack      : null
     objectsContentHackOrder : null
@@ -46,7 +48,7 @@ class App
         null
 
     init : =>
-        @soundParam = @getQueryVariable 'sound'
+        @soundParam = @getQueryVariable 'sound' or true
         @groupName = (@getQueryVariable 'group') or 'home'
         @initObjects()
         null
@@ -116,9 +118,7 @@ class App
     openHelp: =>
         @appView.modalManager.hideOpenModal()
         @appView.modalManager.showModal 'overlayHelp'
-
         null
-
 
     openOverlaySoon: =>
         @appView.modalManager.showModal 'overlaySoon'

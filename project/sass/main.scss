@@ -1128,7 +1128,6 @@ $color : $blue;
 
     img {
         width: 100px;
-        margin-bottom: 180px;
     }
 
     .project-by
@@ -1157,6 +1156,11 @@ $color : $blue;
         img
         {
             width: 120px;
+        }
+
+        a
+        {
+            pointer-events: visible;
         }
 
         width: 100%;

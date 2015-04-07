@@ -68,18 +68,22 @@ class InteractiveCanvas extends AbstractView
 
         @addLines()
         @addDecorations()
-        console.log @B().groupName
         if @B().groupName
-            @addShapes()
+            # @addShapes()
             @addHelpButton()
-            @addPointer()
-            @initTooltip()
+            # @addPointer()
+            # @initTooltip()
             @bindEvents()
 
         @update()
 
         null
 
+    startExplore : =>
+        @addShapes()
+        @addPointer()
+        @initTooltip()
+        null
 
     initTooltip: ->
         @tooltip = new HomeTootip()
@@ -87,6 +91,9 @@ class InteractiveCanvas extends AbstractView
         @$el[0].appendChild @tooltip.el
 
         @tooltip.setDefaultText( @groupName, @groupName )
+
+        Backbone.Events.on( 'hideHomeTooltip', @tooltip.hide )
+        Backbone.Events.on( 'showHomeTooltip', @tooltip.show )
 
         null
 
@@ -162,6 +169,9 @@ class InteractiveCanvas extends AbstractView
             @gardenNodes.push( node )
             @scene.addChild( node.sprite )
 
+        null
+
+    addGroupShapes : =>
         null
 
     addShapes : =>
@@ -319,14 +329,13 @@ class InteractiveCanvas extends AbstractView
 
         @B().appView.on @B().appView.EVENT_UPDATE_DIMENSIONS, @setDims
 
+        Backbone.Events.on( 'startExperience', @startExplore )
         Backbone.Events.on( 'centralButtonTouched', @onCentralButtonTouched )
         Backbone.Events.on( 'circleSelected', @onCircleSelected )
         Backbone.Events.on( 'circleUnselected', @onCircleUnselected )
         Backbone.Events.on( 'shapeSelected', @onShapeSelected )
         Backbone.Events.on( 'shapeUnselected', @onShapeUnselected )
         Backbone.Events.on( 'shapeGotAbsorbed', @onShapeGotAbsorbed )
-        Backbone.Events.on( 'hideHomeTooltip', @tooltip.hide )
-        Backbone.Events.on( 'showHomeTooltip', @tooltip.show )
 
         # @$window.on 'resize orientationchange', @onResize
 
@@ -372,9 +381,9 @@ class InteractiveCanvas extends AbstractView
             @gotoStep( @step - 1 )
         , 30000
 
-        @pointer.sprite.position.x = evt.pageX
-        @pointer.sprite.position.y = evt.pageY
-        @pointer.animate()
+        @pointer?.sprite.position.x = evt.pageX
+        @pointer?.sprite.position.y = evt.pageY
+        @pointer?.animate()
 
         null
 
@@ -388,17 +397,6 @@ class InteractiveCanvas extends AbstractView
         @tooltip.transitionIn @currentSelectedCircle.config.get('name_en'), @currentSelectedCircle.config.get('name_cat')
 
         @gotoStep(2)
-
-        # @step2Timer = setTimeout =>
-        #     @gotoStep(1)
-        # , 30000
-
-
-
-        # for c in @circles
-        #     c.isDisable = true
-        #     c.isPulsating = false
-        #     if c.id != circle.id then c.disable()
 
         @currentSelectedCircle.isDisable = false
         @currentSelectedCircle.goToCenterAndScaleUp()

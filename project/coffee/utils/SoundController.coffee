@@ -63,8 +63,9 @@ class SoundController
     null
 
   play: ( soundName ) =>
-    @sounds[soundName].currentTime = 0
-    @sounds[soundName].play()
+    if @B().soundParam is 'true'
+        @sounds[soundName].currentTime = 0
+        @sounds[soundName].play()
 
     null
 

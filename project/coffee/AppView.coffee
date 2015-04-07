@@ -25,6 +25,7 @@ class AppView extends AbstractView
 
     events :
         'click a' : 'linkManager'
+        'click #btn-explore' : 'startExperience'
 
     clicks : 0
 
@@ -43,6 +44,11 @@ class AppView extends AbstractView
 
         @soundControlller = new SoundController( @B )
         super()
+        null
+
+    startExperience : =>
+        @B().appView.modalManager.hideOpenModal()
+        Backbone.Events.trigger( 'startExperience' )
         null
 
     setGroupName: ->
@@ -141,14 +147,16 @@ class AppView extends AbstractView
 
     navigateToUrl : ( href, e = null ) =>
 
+        if(href.match("^(http|https)://"))
+            @handleExternalLink href
+            return
+
         route   = if href.match(@B().BASE_PATH) then href.split(@B().BASE_PATH)[1] else href
         section = if route.indexOf('/') is 0 then route.split('/')[1] else route
 
         if @B().nav.getSection section
             e?.preventDefault()
             @B().router.navigateTo route
-        else
-            @handleExternalLink href
 
         return
 
