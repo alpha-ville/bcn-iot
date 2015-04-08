@@ -48,10 +48,15 @@ class App
         null
 
     init : =>
+
         @soundParam = @getQueryVariable 'sound'
         @groupName = @getQueryVariable 'group'
         @initObjects()
-        console.log 'init'
+
+        if location.href.indexOf('localhost') > -1
+            document.body.className = 'show-cursor'
+            @soundParam = false
+
         @initTimeout = setTimeout =>
             location.reload();
         , 10000
