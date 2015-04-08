@@ -96,7 +96,6 @@ class App
         ### Starts application ###
         @router  = new Router
         @nav     = new Nav
-
         @appView = new AppView
 
         videojs.options.flash.swf = "data/video/video-js.swf"
@@ -111,6 +110,7 @@ class App
         @router.area or "home"
 
     openOverlayContent : (@selectedCategoryId) =>
+        console.log selectedCategoryId
         @appView.modalManager.hideOpenModal()
         @appView.modalManager.showModal 'overlayContent'
         null

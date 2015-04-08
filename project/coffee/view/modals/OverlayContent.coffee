@@ -48,33 +48,12 @@ class OverlayContent extends AbstractModal
 
         @initEvents()
 
-        @closeTimer = setTimeout =>
-            @closeButton()
-        , 460000
-
         return null
 
     initEvents: ->
-        $(window).on 'click', @onWindowClick
-
         Backbone.Events.on('OverlayData:open', @onOverlayDataOpen)
-
         null
 
-
-    removeEvents: ->
-        $(window).off 'click'
-
-        null
-
-
-    onWindowClick: =>
-        clearInterval( @closeTimer )
-        @closeTimer = setTimeout =>
-            @closeButton()
-        , 460000
-
-        null
 
     beforeChange : () =>
         @breadCrumbs.animateOut()
@@ -109,8 +88,6 @@ class OverlayContent extends AbstractModal
         null
 
     onOverlayDataOpen: =>
-        clearInterval( @closeTimer )
-
         null
 
     slideChange : (slideID, delay = 0) =>
@@ -127,16 +104,7 @@ class OverlayContent extends AbstractModal
         null
 
     closeButton : =>
-        Backbone.trigger( 'SoundController:play', 'nontouchable' )
-        Backbone.trigger( 'SoundController:play', 'loop' )
-        clearInterval( @closeTimer )
-        @removeEvents()
-        @B().objectsContentHack = null
-        @B().objectsContentHackOrder = null
-        Backbone.Events.trigger( 'showHomeTooltip')
-
-        @B().resetIDs()
-        @B().appView.modalManager.hideOpenModal()
+        @B().router.navigateTo @B().groupName()
 
         null
 

@@ -14,6 +14,8 @@ class InteractiveCanvas extends AbstractView
 
     template         : 'interactive-element'
 
+    startedExplore   : false
+
     pointer          : null
 
     shapes           : null
@@ -80,6 +82,7 @@ class InteractiveCanvas extends AbstractView
         null
 
     startExplore : =>
+        @startedExplore = true
         @addShapes()
         @addPointer()
         @initTooltip()
@@ -355,7 +358,7 @@ class InteractiveCanvas extends AbstractView
         @w = window.innerWidth
         @h = window.innerHeight
 
-        @centralButton.move( @w / 2, @h / 2 )
+        @centralButton?.move( @w / 2, @h / 2 )
 
         if @currentSelectedCircle
             @currentSelectedCircle.move( @w / 2, @h / 2 )
@@ -505,7 +508,8 @@ class InteractiveCanvas extends AbstractView
         if @absorbedShapes.length == @activeShapes.length
             @tooltip.hide()
             category = @currentSelectedCircle.config.get('category_name')
-            @B().openOverlayContent category
+
+            @B().router.navigateTo @B().groupName() + '/' + category
 
             if @openOverlayTimer then clearInterval( @openOverlayTimer )
 

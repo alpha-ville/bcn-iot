@@ -16,10 +16,10 @@ class Wrapper extends AbstractView
 
     constructor : ->
 
-        @views =
-            home    : classRef : HomeView,        route : @B().nav.sections.HOME,    view : null, type : @VIEW_TYPE_PAGE
+        # @views =
+        #     home    : classRef : HomeView,        route : @B().nav.sections.HOME,    view : null, type : @VIEW_TYPE_PAGE
 
-        @createClasses()
+        # (@views[name].view = new @views[name].classRef) for name, data of @views
 
         super()
 
@@ -28,103 +28,104 @@ class Wrapper extends AbstractView
 
         return null
 
+    begin : =>
+        home = new HomeView
+        home.show()
+        null
+
     createClasses : =>
-        (@views[name].view = new @views[name].classRef) for name, data of @views
-
         null
 
-    addClasses : =>
-         for name, data of @views
-            if data.type is @VIEW_TYPE_PAGE then @addChild data.view
+    # addClasses : =>
+    #      for name, data of @views
+    #         if data.type is @VIEW_TYPE_PAGE then @addChild data.view
 
-        null
+    #     null
 
-    getViewByRoute : (route) =>
+    # getViewByRoute : (route) =>
 
-        for name, data of @views
-            return @views[name] if route is @views[name].route
+    #     for name, data of @views
+    #         return @views[name] if route is @views[name].route
 
-        null
+    #     null
 
-    init : =>
+    # init : =>
 
-        @B().appView.on 'start', @start
+    #     @B().appView.on 'start', @start
 
-        null
+    #     null
 
-    start : =>
+    # start : =>
 
-        @B().appView.off 'start', @start
+    #     @B().appView.off 'start', @start
 
-        @bindEvents()
+    #     @bindEvents()
 
-        null
+    #     null
 
-    bindEvents : =>
+    # bindEvents : =>
 
-        @B().nav.on Nav.EVENT_CHANGE_VIEW, @changeView
-        @B().nav.on Nav.EVENT_CHANGE_SUB_VIEW, @changeSubView
+    #     @B().nav.on Nav.EVENT_CHANGE_VIEW, @changeView
+    #     @B().nav.on Nav.EVENT_CHANGE_SUB_VIEW, @changeSubView
 
-        null
+    #     null
 
-    ###
+    # ###
 
-    THIS IS A MESS, SORT IT (neil)
+    # THIS IS A MESS, SORT IT (neil)
 
-    ###
-    changeView : (previous, current) =>
+    # ###
+    # changeView : (previous, current) =>
 
-        console.log('previous, current ' , previous, current)
+    #     @previousView = @getViewByRoute previous.area
+    #     @currentView  = @getViewByRoute current.area
 
-        @previousView = @getViewByRoute previous.area
-        @currentView  = @getViewByRoute current.area
+    #     if !@previousView
 
-        if !@previousView
+    #         if @currentView.type is @VIEW_TYPE_PAGE
+    #             @transitionViews false, @currentView.view
+    #         else if @currentView.type is @VIEW_TYPE_MODAL
+    #             @backgroundView = @views.home
+    #             @transitionViews false, @currentView.view, true
+    #     else
 
-            if @currentView.type is @VIEW_TYPE_PAGE
-                @transitionViews false, @currentView.view
-            else if @currentView.type is @VIEW_TYPE_MODAL
-                @backgroundView = @views.home
-                @transitionViews false, @currentView.view, true
-        else
+    #         if @currentView.type is @VIEW_TYPE_PAGE and @previousView.type is @VIEW_TYPE_PAGE
+    #             @transitionViews @previousView.view, @currentView.view
+    #         else if @currentView.type is @VIEW_TYPE_MODAL and @previousView.type is @VIEW_TYPE_PAGE
+    #             @backgroundView = @previousView
+    #             @transitionViews false, @currentView.view, true
+    #         else if @currentView.type is @VIEW_TYPE_PAGE and @previousView.type is @VIEW_TYPE_MODAL
+    #             @backgroundView = @backgroundView or @views.home
+    #             if @backgroundView isnt @currentView
+    #                 @transitionViews @previousView.view, @currentView.view, false, true
+    #             else if @backgroundView is @currentView
+    #                 @transitionViews @previousView.view, false
+    #         else if @currentView.type is @VIEW_TYPE_MODAL and @previousView.type is @VIEW_TYPE_MODAL
+    #             @backgroundView = @backgroundView or @views.home
+    #             @transitionViews @previousView.view, @currentView.view, true
 
-            if @currentView.type is @VIEW_TYPE_PAGE and @previousView.type is @VIEW_TYPE_PAGE
-                @transitionViews @previousView.view, @currentView.view
-            else if @currentView.type is @VIEW_TYPE_MODAL and @previousView.type is @VIEW_TYPE_PAGE
-                @backgroundView = @previousView
-                @transitionViews false, @currentView.view, true
-            else if @currentView.type is @VIEW_TYPE_PAGE and @previousView.type is @VIEW_TYPE_MODAL
-                @backgroundView = @backgroundView or @views.home
-                if @backgroundView isnt @currentView
-                    @transitionViews @previousView.view, @currentView.view, false, true
-                else if @backgroundView is @currentView
-                    @transitionViews @previousView.view, false
-            else if @currentView.type is @VIEW_TYPE_MODAL and @previousView.type is @VIEW_TYPE_MODAL
-                @backgroundView = @backgroundView or @views.home
-                @transitionViews @previousView.view, @currentView.view, true
+    #     null
 
-        null
+    # changeSubView : (current) =>
 
-    changeSubView : (current) =>
+    #     @currentView.view.trigger Nav.EVENT_CHANGE_SUB_VIEW, current.sub
 
-        @currentView.view.trigger Nav.EVENT_CHANGE_SUB_VIEW, current.sub
+    #     null
 
-        null
+    # transitionViews : (from, to, toModal=false, fromModal=false) =>
 
-    transitionViews : (from, to, toModal=false, fromModal=false) =>
+    #     return unless from isnt to
 
-        return unless from isnt to
+    #     if toModal then @backgroundView.view?.show()
+    #     if fromModal then @backgroundView.view?.hide()
 
-        if toModal then @backgroundView.view?.show()
-        if fromModal then @backgroundView.view?.hide()
+    #     if from and to
+    #         from.hide to.show
+    #     else if from
+    #         from.hide()
+    #     else if to
+    #         to.show()
 
-        if from and to
-            from.hide to.show
-        else if from
-            from.hide()
-        else if to
-            to.show()
-
-        null
+    #     null
 
 module.exports = Wrapper

@@ -87,10 +87,9 @@ class AppView extends AbstractView
 
     begin : =>
         @trigger 'start'
-        @B().router.start()
+        @wrapper.begin()
         @preloader.hide()
-
-        @B().openOverlaySoon()
+        @B().router.start()
 
         @updateMediaQueriesLog()
         return

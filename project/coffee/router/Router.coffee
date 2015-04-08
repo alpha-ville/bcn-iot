@@ -27,9 +27,26 @@ class Router extends Backbone.Router
         # if !@area then @area = @B().nav.sections.HOME
         # @area = ""
 
-        if(@FIRST_ROUTE)
-            @trigger Router.EVENT_HASH_CHANGED, "", @sub, @params
-            @FIRST_ROUTE = false
+        # console.log @area, @sub
+
+        @trigger Router.EVENT_HASH_CHANGED, "", @sub, @params
+
+        switch true
+            when !@area and !@sub
+                @B().openOverlaySoon()
+                @B().objectsContentHack = null
+                @B().objectsContentHackOrder = null
+                Backbone.Events.trigger( 'showHomeTooltip')
+
+            when @area and !@sub
+                Backbone.trigger( 'SoundController:play', 'nontouchable' )
+                Backbone.trigger( 'SoundController:play', 'loop' )
+                Backbone.Events.trigger( 'startExperience' )
+                @B().resetIDs()
+                @B().appView.modalManager.hideOpenModal()
+
+            else
+                @B().openOverlayContent @sub
 
         null
 
