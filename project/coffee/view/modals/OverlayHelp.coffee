@@ -66,24 +66,24 @@ class OverlayHelp extends AbstractModal
 
         delay = .2
 
-        t = $(@$el.find('h1')[0])
-        TweenMax.to t, .5, opacity: 1, delay: delay
-
-        cont = @$el.find('p')
-        TweenMax.to cont, .5, opacity: 1, delay: delay + .2
-
-        cont = @$el.find('hr')
-        TweenMax.to cont, .5, opacity: 1, delay: delay + .3
-
         bts = $(@$el.find('.lang-buttons')[0])
-        TweenMax.to bts, .5, 'margin-top' : margin, opacity: 1, delay: delay + .7
+        TweenMax.to bts, .5, 'margin-top' : margin, opacity: 1, delay: delay
 
         cb = $(@$el.find('.close-button')[0])
-        TweenMax.to cb, .5, 'margin-top' : margin, opacity: 1, delay: delay + .7
+        TweenMax.to cb, .5, 'margin-top' : margin, opacity: 1, delay: delay
+
+        t = $(@$el.find('h1')[0])
+        TweenMax.to t, .5, opacity: 1, delay: delay + .3
+
+        cont = @$el.find('p')
+        TweenMax.to cont, .5, opacity: 1, delay: delay + .7
+
+        cont = @$el.find('hr')
+        TweenMax.to cont, .5, opacity: 1, delay: delay + .5
 
         @$el.find('.container-shape-help .object-container').each (a, b) ->
             TweenMax.to b, 0, y : -20
-            TweenMax.to b, .5, y : 0, opacity: 1, delay: (delay + (a * .1))
+            TweenMax.to b, .5, y : 0, opacity: 1, delay: (delay + (a * .1)) + .5
 
         null
 

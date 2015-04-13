@@ -22,8 +22,6 @@ class OverlayContent extends AbstractModal
 
         node = @B().categories.findWhere category_name : @B().selectedCategoryId
 
-        # console.log node
-
         @objects = @B().objects.where "category" : node.get('category_name')
 
         for object in @objects
