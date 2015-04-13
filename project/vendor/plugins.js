@@ -14,9 +14,9 @@ Array.prototype.remove = function(from, to) {
 };
 
 // mouse events
-// window.touchStartInteraction = Modernizr.touch ? "touchstart" : "mousedown"
-// window.touchEndInteraction   = Modernizr.touch ? "touchend" : "mouseup"
-// window.touchMoveInteraction  = Modernizr.touch ? 'touchmove' : 'mousemove'
+window.touchStartInteraction = 'ontouchstart' in document ? "touchstart" : "mousedown"
+window.touchEndInteraction   = 'ontouchstart' in document ? "touchend" : "mouseup"
+window.touchMoveInteraction  = 'ontouchstart' in document ? 'touchmove' : 'mousemove'
 
 // getComputedStyle for IE8
 if (!window.getComputedStyle) {

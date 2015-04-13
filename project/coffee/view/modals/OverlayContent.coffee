@@ -12,8 +12,9 @@ class OverlayContent extends AbstractModal
     closeTimer: null
 
     events:
-        'click ul>li' : "toggleLang"
-        'click .close-button' : "closeButton"
+        'click ul>li'  : 'toggleLang'
+        'click .close-button' : 'closeButton'
+
         # 'tap ul>li' : "toggleLang"
 
     constructor : (@cb) ->
@@ -105,7 +106,8 @@ class OverlayContent extends AbstractModal
         @setBreadcrumb a, delay
         null
 
-    closeButton : =>
+    closeButton : (e) =>
+        console.log e, 'asdasdasd'
         @B().router.navigateTo @B().groupName()
 
         null
