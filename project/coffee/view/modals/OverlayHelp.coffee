@@ -5,6 +5,7 @@ class OverlayHelp extends AbstractModal
     name     : 'overlayHelp'
     template : 'overlay-help'
     cb       : null
+    called   : false
 
     events:
         'click ul>li' : "toggleLang"
@@ -35,8 +36,18 @@ class OverlayHelp extends AbstractModal
         return null
 
     closeButton : =>
-        Backbone.trigger( 'showHomeTooltip' )
-        @B().appView.modalManager.hideOpenModal()
+        ###
+        hack touch
+        ###
+        return if @called
+        @called = true
+
+        if(!@B().router.area)
+            @B().router.showHome()
+        else
+            Backbone.trigger( 'showHomeTooltip' )
+            @B().appView.modalManager.hideOpenModal()
+
         # @B().appView.modalManager.showModal 'overlayContent'
         null
 

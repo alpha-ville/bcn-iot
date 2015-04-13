@@ -105,7 +105,6 @@ class OverlayContent extends AbstractModal
         null
 
     closeButton : (e) =>
-        console.log e, 'asdasdasd'
         @B().router.navigateTo @B().groupName()
 
         null
