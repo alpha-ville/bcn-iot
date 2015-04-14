@@ -38,7 +38,7 @@ class Router extends Backbone.Router
             when @area and !@sub
                 Backbone.trigger( 'SoundController:play', 'nontouchable' )
                 Backbone.trigger( 'SoundController:play', 'loop' )
-                Backbone.Events.trigger( 'startExperience' )
+                Backbone.Events.trigger( 'groupSelected', @area )
                 @B().resetIDs()
                 @B().appView.modalManager.hideOpenModal()
 

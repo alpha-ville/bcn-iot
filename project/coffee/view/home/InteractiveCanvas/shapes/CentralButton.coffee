@@ -10,6 +10,7 @@ class CentralButton extends BasicShape
     isAnimating: false
 
     isVisible: false
+    isSelected: false
 
     init : =>
 
@@ -80,7 +81,12 @@ class CentralButton extends BasicShape
         (@B().groups.where group : @B().groupName())[0].get('icon_id')
 
     onMouseUp: ->
-        Backbone.Events.trigger( 'centralButtonTouched' )
+        if @isSelected
+            Backbone.Events.trigger( 'centralButtonTouched', @ )
+        else
+            @isSelected = true
+            Backbone.Events.trigger( 'groupSelected', @config.get('group') )
+
         Backbone.trigger( 'SoundController:play', 'nontouchable' )
 
         null
@@ -144,15 +150,48 @@ class CentralButton extends BasicShape
         null
 
 
-    transitionOut: =>
-        if !@isVisible then return
+    transitionOut: ( cb ) =>
+        # if !@isVisible then return
 
         @isVisible = false
 
-        TweenMax.to( @sprite, .6, { alpha: 0  } )
-        TweenMax.to( @sprite.scale, .1, { x: 0, y: 0, delay: .6 } )
+        console.log 'transitionOut !'
+
+        TweenMax.to( @sprite, .2, { alpha: 0  } )
+        TweenMax.to( @sprite.scale, .2, { x: 0, y: 0, delay: .6, onComplete: =>
+            cb?()
+        } )
 
         null
+
+
+    becomeMain: ( cb ) ->
+        # Backbone.trigger( 'SoundController:play', 'touchable' )
+        @behavior = 'none'
+        @isSelected = true
+
+        TweenMax.to( @sprite, 1.5, { alpha: 1 } )
+        TweenMax.to( @sprite.position, 2, { x: window.innerWidth/2, y: window.innerHeight/2, ease: Elastic.easeOut } )
+        TweenMax.to( @sprite.scale, .8, { x: 1, y: 1, delay: 1, ease: Elastic.easeOut, onComplete: =>
+            cb()
+         } )
+
+        # setTimeout( =>
+        #     Backbone.trigger( 'SoundController:play', 'objectconnected' )
+        # , 1000 )
+
+        null
+
+
+    unbecomeMain: ->
+        @isSelected = false
+        @behavior = 'basic'
+        TweenMax.to( @sprite.scale, .4, { x: .5, y: .5, ease: Elastic.easeOut } )
+
+        null
+
+
+
 
 
 module.exports = CentralButton

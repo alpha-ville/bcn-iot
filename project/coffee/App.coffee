@@ -126,7 +126,6 @@ class App
         null
 
     openOverlaySoon: =>
-        console.log 'sdadas'
         # @appView.modalManager.hideOpenModal()
         @appView.modalManager.showModal 'overlaySoon'
         Backbone.Events.trigger( 'stopExperience' )

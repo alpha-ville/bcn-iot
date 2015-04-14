@@ -48,7 +48,7 @@ class InteractiveCanvas extends AbstractView
 
     tooltip             : null
 
-    step                : -1
+    step                : -3
     stepTimer           : null
     step2Timer          : null
     step1Timer          : null
@@ -95,13 +95,13 @@ class InteractiveCanvas extends AbstractView
         @addPointer()
         @initTooltip()
 
-        @gotoStep -1
+        @gotoStep -2
 
         null
 
 
     stopExplore: =>
-        @gotoStep -2
+        @gotoStep -3
 
         null
 
@@ -211,9 +211,9 @@ class InteractiveCanvas extends AbstractView
 
 
         # @centralButton = new CentralButton null, 240, @scene
-        # @centralButton.move @w/2, @h/2
-        # @scene.addChild @centralButton.sprite
-        # @centralButton.animate()
+        # @currentCentralButton.move @w/2, @h/2
+        # @scene.addChild @currentCentralButton.sprite
+        # @currentCentralButton.animate()
 
         objs =
             "circle"   : Circle
@@ -366,6 +366,7 @@ class InteractiveCanvas extends AbstractView
 
         Backbone.Events.on( 'startExperience', @startExplore )
         Backbone.Events.on( 'stopExperience', @stopExplore )
+        Backbone.Events.on( 'groupSelected', @onGroupSelected )
         Backbone.Events.on( 'centralButtonTouched', @onCentralButtonTouched )
         Backbone.Events.on( 'circleSelected', @onCircleSelected )
         Backbone.Events.on( 'circleUnselected', @onCircleUnselected )
@@ -413,9 +414,9 @@ class InteractiveCanvas extends AbstractView
     onClick: ( evt ) =>
 
         clearInterval( @stepTimer )
-        @stepTimer = setTimeout =>
-            @gotoStep( @step - 1 )
-        , 30000
+        # @stepTimer = setTimeout =>
+        #     @gotoStep( @step - 1 )
+        # , 30000
 
         @pointer?.sprite.position.x = evt.pageX
         @pointer?.sprite.position.y = evt.pageY
@@ -449,7 +450,7 @@ class InteractiveCanvas extends AbstractView
             @clearTimer( 2 )
 
 
-        @centralButton.stop()
+        @currentCentralButton.stop()
 
         @tooltip.transitionOut()
 
@@ -531,7 +532,7 @@ class InteractiveCanvas extends AbstractView
 
 
     onShapeGotAbsorbed: ( shape ) =>
-        @centralButton.animate()
+        @currentCentralButton.animate()
 
         scale = @currentSelectedCircle.sprite.scale.x + .5
         TweenMax.to( @currentSelectedCircle.sprite.scale, 1, { x: scale, y: scale, ease: Elastic.easeOut, onComplete: =>
@@ -560,7 +561,8 @@ class InteractiveCanvas extends AbstractView
         null
 
 
-    onCentralButtonTouched: =>
+    onCentralButtonTouched: ( centralButton ) =>
+        console.log centralButton
 
         if @step == 0
             @gotoStep(1)
@@ -571,25 +573,45 @@ class InteractiveCanvas extends AbstractView
         null
 
 
+    onGroupSelected: ( groupName ) =>
+        @B().router.navigateTo groupName
+
+        for centralButton in @centralButtons
+            if centralButton.config.get('group') == groupName
+                @currentCentralButton = centralButton
+
+
+        @gotoStep 0
+
+        null
+
+
     gotoStep: ( step ) =>
         ### -------------------------
         - STEP -2
         Nothing but decoration
         -------------------------- ###
-        if step == -2
+        if step == -3
             @step = -2
-            console.log @centralButtons
+
+            @currentCentralButton?.unbecomeMain()
+            # @currentCentralButton?.transitionOut()
+            # @currentCentralButton = null
+
             for centralButton in @centralButtons
                 centralButton.transitionOut()
+
+            for shape in @shapes
+                shape.fadeTo( 0 )
 
         ### -------------------------
         - STEP -1
         Only groups are visible
         Waiting an action on any group button
         -------------------------- ###
-        if step == -1
-            console.log @centralButtons
-            @step = -1
+        if step == -2
+
+            @step = -2
             for centralButton in @centralButtons
                 centralButton.transitionIn()
 
@@ -604,11 +626,15 @@ class InteractiveCanvas extends AbstractView
             for centralButton in @centralButtons
                 centralButton.transitionOut()
 
-            for circle in @circles
-                circle.stopBouncing()
+            @currentCentralButton.becomeMain( =>
+                @gotoStep 1
+            )
 
-            for shape in @shapes
-                shape.fadeTo( .8 )
+            # for circle in @circles
+            #     circle.stopBouncing()
+
+            # for shape in @shapes
+            #     shape.fadeTo( .8 )
 
         ### -------------------------
         - STEP1
@@ -617,25 +643,20 @@ class InteractiveCanvas extends AbstractView
         Other shapes fadeOut
         -------------------------- ###
         if step == 1
-
-            clearInterval( @stepTimer )
-            # @stepTimer = setTimeout =>
-            #     @gotoStep( 0 )
-            # , 30000
-
             @step = 1
+
             if @currentSelectedCircle then @onCircleUnselected( @currentSelectedCircle )
             for shape in @shapes
                 shape.stopBouncing()
-                if shape.type != 'circle' then shape.sprite.alpha = .2
+                if shape.type != 'circle' then shape.fadeTo( .2, .3 + Math.random() )
 
             for shape in @activeShapes
                 shape.stopBouncing()
 
 
             for circle in @circles
-                circle.sprite.alpha = .8
-                circle.startBouncing()
+                circle.fadeTo( .8, Math.random() * .3 )
+                # circle.startBouncing()
                 @scene.removeChild(  circle.sprite )
                 @scene.addChild(  circle.sprite )
 

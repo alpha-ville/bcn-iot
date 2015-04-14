@@ -25,7 +25,9 @@ class OverlaySoon extends AbstractModal
         return null
 
     startExperience : =>
-        @B().router.navigateTo @B().groupName()
+        @hide()
+        Backbone.Events.trigger( 'startExperience' )
+        # @B().router.navigateTo @B().groupName()
         null
 
     init : =>
