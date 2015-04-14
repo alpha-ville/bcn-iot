@@ -360,7 +360,7 @@ class InteractiveCanvas extends AbstractView
         #temporary
         window.addEventListener('keyup', @onKeyup)
         window.addEventListener('resize', @onResize)
-        window.addEventListener('click', @onClick)
+        window.addEventListener(window.touchStartInteraction, @onClick)
 
         @B().appView.on @B().appView.EVENT_UPDATE_DIMENSIONS, @setDims
 

@@ -110,7 +110,6 @@ class App
         @router.area or "home"
 
     openOverlayContent : (@selectedCategoryId) =>
-        console.log selectedCategoryId
         @appView.modalManager.hideOpenModal()
         @appView.modalManager.showModal 'overlayContent'
         null
@@ -127,10 +126,11 @@ class App
         null
 
     openOverlaySoon: =>
+        console.log 'sdadas'
+        # @appView.modalManager.hideOpenModal()
         @appView.modalManager.showModal 'overlaySoon'
         Backbone.Events.trigger( 'stopExperience' )
         # document.body.className = 'show-cursor'
-
         null
 
     resetIDs : =>

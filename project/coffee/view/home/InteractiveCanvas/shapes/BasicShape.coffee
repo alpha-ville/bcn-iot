@@ -1,9 +1,9 @@
-NumUtil = require('../../../../utils/NumUtil');
-add = require('vectors/add')(2)
-sub = require('vectors/sub')(2)
-normalize = require('vectors/normalize')(2)
-mult = require('vectors/mult')(2)
-mag = require('vectors/mag')(2)
+NumUtil      = require('../../../../utils/NumUtil');
+add          = require('vectors/add')(2)
+sub          = require('vectors/sub')(2)
+normalize    = require('vectors/normalize')(2)
+mult         = require('vectors/mult')(2)
+mag          = require('vectors/mag')(2)
 AbstractView = require('../../../AbstractView.coffee');
 
 class BasicShape extends AbstractView
@@ -115,8 +115,8 @@ class BasicShape extends AbstractView
     bindEvents : ->
         @sprite.interactive = true
 
-        @sprite.mousedown = @onMouseDown
-        @sprite.mouseup = @onMouseUp
+        @sprite.mousedown = @sprite.touchstart = @onMouseDown
+        @sprite.mouseup = @sprite.touchend = @onMouseUp
 
         null
 
@@ -344,7 +344,6 @@ class BasicShape extends AbstractView
         # TweenMax.to( @sprite.scale, speed, { x:1, y:1, ease: Elastic.easeOut , delay: delay } )
 
         null
-
 
 
 module.exports = BasicShape

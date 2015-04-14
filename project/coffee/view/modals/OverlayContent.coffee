@@ -12,16 +12,15 @@ class OverlayContent extends AbstractModal
     closeTimer: null
 
     events:
-        'click ul>li' : "toggleLang"
-        'click .close-button' : "closeButton"
+        'click ul>li'  : 'toggleLang'
+        'click .close-button' : 'closeButton'
+
         # 'tap ul>li' : "toggleLang"
 
     constructor : (@cb) ->
         breadcrumbsList = []
 
         node = @B().categories.findWhere category_name : @B().selectedCategoryId
-
-        # console.log node
 
         @objects = @B().objects.where "category" : node.get('category_name')
 
@@ -49,6 +48,8 @@ class OverlayContent extends AbstractModal
         @initEvents()
 
         return null
+
+        null
 
     initEvents: ->
         Backbone.Events.on('OverlayData:open', @onOverlayDataOpen)
@@ -103,7 +104,7 @@ class OverlayContent extends AbstractModal
         @setBreadcrumb a, delay
         null
 
-    closeButton : =>
+    closeButton : (e) =>
         @B().router.navigateTo @B().groupName()
 
         null
@@ -144,7 +145,7 @@ class OverlayContent extends AbstractModal
         TweenMax.to c, 1, scaleX: 1, scaleY: 1, ease: Back.easeOut.config(18), opacity: 1, delay: .5
 
         t = $(@$el.find('.title-container')[0])
-        TweenMax.to t, .5, 'margin-top' : margin, opacity: 1, delay: 1
+        TweenMax.to t, .5, 'margin-top' : margin, opacity: 1, delay: 1.4
 
         cont = $(@$el.find('.content')[0])
         TweenMax.to cont, .5, 'margin-top' : margin, opacity: 1, delay: 1.4
@@ -155,7 +156,7 @@ class OverlayContent extends AbstractModal
         TweenMax.to pnc, .5, 'margin-top' : margin, opacity: 1, delay: 1.4
 
         bts = $(@$el.find('.lang-buttons')[0])
-        TweenMax.to bts, .5, 'margin-top' : margin, opacity: 1, delay: 1.4
+        TweenMax.to bts, .5, 'margin-top' : 30, opacity: 1, delay: 1.4
 
         cb = $(@$el.find('.close-button')[0])
         TweenMax.to cb, .5, 'margin-top' : 20, opacity: 1, delay: 1.4

@@ -129,34 +129,38 @@
             <div id="overlay-content" class="overlays overlay-content">
                 <div class="container">
 
-                    <div class='container-top'>
+                    <div class='container-top-sticky'>
 
-                        <div class='container-cell'>
-                            <ul class="lang-buttons">
-                                <li data-selected data-lang='en'>EN </li>
-                                <li data-lang='cat'>CAT</li>
-                            </ul>
-                        </div>
+                        <div class='container-top'>
 
-                        <div class='container-cell'>
+                            <div class='container-cell'>
+                                <ul class="lang-buttons">
+                                    <li data-selected data-lang='en'>EN </li>
+                                    <li data-lang='cat'>CAT</li>
+                                </ul>
+                            </div>
 
-                            <div class="close-button">
-                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                     viewBox="10 -43 200 200" enable-background="new 10 -43 200 200" xml:space="preserve">
-                                <!-- <g>
-                                    <path d="M110-28.2c47,0,85.2,38.2,85.2,85.2S157,142.2,110,142.2c-47,0-85.2-38.2-85.2-85.2C24.8,10,63-28.2,110-28.2 M110-38.2
-                                        C57.4-38.2,14.8,4.4,14.8,57c0,52.6,42.6,95.2,95.2,95.2c52.6,0,95.2-42.6,95.2-95.2C205.2,4.4,162.6-38.2,110-38.2L110-38.2z"/>
-                                </g> -->
-                                <line fill="none" stroke="#000000" stroke-width="10" stroke-miterlimit="10" x1="79.7" y1="26.7" x2="140.3" y2="87.3"/>
-                                <line fill="none" stroke="#000000" stroke-width="10" stroke-miterlimit="10" x1="140.3" y1="26.7" x2="79.7" y2="87.3"/>
-                                </svg>
+                            <div class='container-cell'>
+
+                                <div class="close-button">
+                                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                         viewBox="10 -43 200 200" enable-background="new 10 -43 200 200" xml:space="preserve">
+                                    <!-- <g>
+                                        <path d="M110-28.2c47,0,85.2,38.2,85.2,85.2S157,142.2,110,142.2c-47,0-85.2-38.2-85.2-85.2C24.8,10,63-28.2,110-28.2 M110-38.2
+                                            C57.4-38.2,14.8,4.4,14.8,57c0,52.6,42.6,95.2,95.2,95.2c52.6,0,95.2-42.6,95.2-95.2C205.2,4.4,162.6-38.2,110-38.2L110-38.2z"/>
+                                    </g> -->
+                                    <line fill="none" stroke="#000000" stroke-width="10" stroke-miterlimit="10" x1="79.7" y1="26.7" x2="140.3" y2="87.3"/>
+                                    <line fill="none" stroke="#000000" stroke-width="10" stroke-miterlimit="10" x1="140.3" y1="26.7" x2="79.7" y2="87.3"/>
+                                    </svg>
+                                </div>
+
                             </div>
 
                         </div>
 
-                    </div>
+                        <hr hr-first/>
 
-                    <hr hr-first/>
+                    </div>
 
                     <div class="container-shape">
                         <div class='<%=shape%>'>
@@ -241,34 +245,39 @@
         <![CDATA[
             <div id="overlay-help" class="overlays overlay-help">
                 <div class="container">
-                    <div class='container-top'>
 
-                        <div class='container-cell'>
-                            <ul class="lang-buttons">
-                                <li data-selected data-lang='en'>EN </li>
-                                <li data-lang='cat'>CAT</li>
-                            </ul>
-                        </div>
+                    <div class='container-top-sticky'>
 
-                        <div class='container-cell'>
+                        <div class='container-top'>
 
-                            <div class="close-button">
-                                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                     viewBox="10 -43 200 200" enable-background="new 10 -43 200 200" xml:space="preserve">
-                                <!-- <g>
-                                    <path d="M110-28.2c47,0,85.2,38.2,85.2,85.2S157,142.2,110,142.2c-47,0-85.2-38.2-85.2-85.2C24.8,10,63-28.2,110-28.2 M110-38.2
-                                        C57.4-38.2,14.8,4.4,14.8,57c0,52.6,42.6,95.2,95.2,95.2c52.6,0,95.2-42.6,95.2-95.2C205.2,4.4,162.6-38.2,110-38.2L110-38.2z"/>
-                                </g> -->
-                                <line fill="none" stroke="#000000" stroke-width="10" stroke-miterlimit="10" x1="79.7" y1="26.7" x2="140.3" y2="87.3"/>
-                                <line fill="none" stroke="#000000" stroke-width="10" stroke-miterlimit="10" x1="140.3" y1="26.7" x2="79.7" y2="87.3"/>
-                                </svg>
+                            <div class='container-cell'>
+                                <ul class="lang-buttons">
+                                    <li data-selected data-lang='en'>EN </li>
+                                    <li data-lang='cat'>CAT</li>
+                                </ul>
+                            </div>
+
+                            <div class='container-cell'>
+
+                                <div class="close-button">
+                                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                         viewBox="10 -43 200 200" enable-background="new 10 -43 200 200" xml:space="preserve">
+                                    <!-- <g>
+                                        <path d="M110-28.2c47,0,85.2,38.2,85.2,85.2S157,142.2,110,142.2c-47,0-85.2-38.2-85.2-85.2C24.8,10,63-28.2,110-28.2 M110-38.2
+                                            C57.4-38.2,14.8,4.4,14.8,57c0,52.6,42.6,95.2,95.2,95.2c52.6,0,95.2-42.6,95.2-95.2C205.2,4.4,162.6-38.2,110-38.2L110-38.2z"/>
+                                    </g> -->
+                                    <line fill="none" stroke="#000000" stroke-width="10" stroke-miterlimit="10" x1="79.7" y1="26.7" x2="140.3" y2="87.3"/>
+                                    <line fill="none" stroke="#000000" stroke-width="10" stroke-miterlimit="10" x1="140.3" y1="26.7" x2="79.7" y2="87.3"/>
+                                    </svg>
+                                </div>
+
                             </div>
 
                         </div>
 
-                    </div>
+                        <hr hr-first />
 
-                    <hr hr-first />
+                    </div>
 
                     <h1>IOTORAMA</h1>
                     <div class="desc">

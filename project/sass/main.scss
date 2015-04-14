@@ -187,7 +187,7 @@ body {
         h1
         {
             opacity: 0;
-            margin-top: 30px;
+            margin-top: 90px;
         }
     }
 
@@ -202,6 +202,17 @@ body {
         {
             max-width: 500px;
             margin: 20px auto;
+        }
+
+        .container-top-sticky
+        {
+            max-width: 100%;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            text-align: center;
+            z-index: 999;
+            background-color: rgba(246, 246, 246, .90);
         }
 
         .container-top
@@ -227,6 +238,11 @@ body {
                     vertical-align: bottom;
                 }
             }
+        }
+
+        .sticky
+        {
+
         }
 
         .close-button
@@ -311,7 +327,7 @@ body {
             {
                 opacity: 0;
                 width: $size-shape;
-                margin: 30px auto;
+                margin: 90px auto 30px;
                 img
                 {
                     margin-top: 7px;
@@ -603,12 +619,13 @@ body {
 
         .title-container
         {
-            margin: 60px 0 0 !important;
+            margin: 90px 0 0;
             opacity: 0;
         }
 
         .content
         {
+            margin: 60px 0 0;
             opacity: 0;
         }
 

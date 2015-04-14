@@ -27,16 +27,13 @@ class Router extends Backbone.Router
         # if !@area then @area = @B().nav.sections.HOME
         # @area = ""
 
-        # console.log @area, @sub
+        console.log @area, @sub
 
         @trigger Router.EVENT_HASH_CHANGED, "", @sub, @params
 
         switch true
             when !@area and !@sub
-                @B().openOverlaySoon()
-                @B().objectsContentHack = null
-                @B().objectsContentHackOrder = null
-                Backbone.Events.trigger( 'showHomeTooltip')
+                @showHome()
 
             when @area and !@sub
                 Backbone.trigger( 'SoundController:play', 'nontouchable' )
@@ -48,6 +45,13 @@ class Router extends Backbone.Router
             else
                 @B().openOverlayContent @sub
 
+        null
+
+    showHome : =>
+        @B().openOverlaySoon()
+        @B().objectsContentHack = null
+        @B().objectsContentHackOrder = null
+        Backbone.Events.trigger( 'showHomeTooltip')
         null
 
     navigateTo : (where = '', trigger = true, replace = false, @params) =>

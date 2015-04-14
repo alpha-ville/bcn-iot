@@ -5,8 +5,8 @@ class HomeTooltip extends AbstractView
 
     template : 'home-tooltip'
 
-    events :
-        "click" : "clickBreadcrumb"
+    # events :
+    #     "click" : "clickBreadcrumb"
 
     labels: null
     labelEn: null
