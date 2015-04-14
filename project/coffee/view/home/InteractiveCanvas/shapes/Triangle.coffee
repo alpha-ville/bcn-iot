@@ -42,7 +42,7 @@ class Triangle extends BasicShape
           "https://googledrive.com/host/0Bw4Qy0dXirckaTY0Q2laRmRmN1U"
         ]
 
-        @sprite.alpha = .2
+        # @sprite.alpha = .2
 
         # if not in the background
         if @w == 60

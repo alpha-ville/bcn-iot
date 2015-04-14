@@ -9,11 +9,11 @@ class CentralButton extends BasicShape
 
     isAnimating: false
 
+    isVisible: false
+
     init : =>
 
         super()
-
-
 
         textureMap =
             'environment': '0B7kWGoq62sNjbUtrNWVYVUJNQlE'
@@ -23,12 +23,13 @@ class CentralButton extends BasicShape
             'diy': '0B7kWGoq62sNjcUIzb1pxakk0a0k'
             'social': '0B7kWGoq62sNjVlR1TTJDYzhUSjg'
 
-        @sprite.alpha = 1
+
 
         @background = new PIXI.Graphics()
         @background.beginFill @color
         @background.drawCircle( 0, 0, @radius() )
         @background.alpha = .3
+        # @background.alpha = .6
 
         @ripple1 = new PIXI.Graphics()
         @ripple1.beginFill @color
@@ -58,7 +59,8 @@ class CentralButton extends BasicShape
 
             currentAngle += step
 
-        textureName = "https://googledrive.com/host/" + @getTexture()
+        # textureName = "https://googledrive.com/host/" + @getTexture()
+        textureName = "https://googledrive.com/host/" + @config.get 'icon_id'
         texture = new PIXI.Texture.fromImage( textureName )
         @icon = new PIXI.Sprite( texture )
         @icon.scale.x = @icon.scale.y = .4
@@ -67,6 +69,10 @@ class CentralButton extends BasicShape
         @sprite.addChild( @icon )
 
         @sprite.isInteractive = false
+
+        @sprite.alpha = 0
+        @sprite.scale.x = @sprite.scale.y = 0
+
 
         null
 
@@ -81,6 +87,8 @@ class CentralButton extends BasicShape
 
 
     update: ->
+        super()
+
         @rotation += .003
 
         if @rotation > 360 then @rotation = 0
@@ -123,6 +131,26 @@ class CentralButton extends BasicShape
                     @sprite.removeChild( @lines[i] )
          } )
 
+
+        null
+
+    transitionIn: =>
+        @isVisible = true
+
+        delay = Math.random()
+        TweenMax.to( @sprite, 1, { alpha: 1, delay: delay } )
+        TweenMax.to( @sprite.scale, 1, { x: .5, y: .5, ease: Elastic.easeOut , delay: delay } )
+
+        null
+
+
+    transitionOut: =>
+        if !@isVisible then return
+
+        @isVisible = false
+
+        TweenMax.to( @sprite, .6, { alpha: 0  } )
+        TweenMax.to( @sprite.scale, .1, { x: 0, y: 0, delay: .6 } )
 
         null
 

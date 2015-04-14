@@ -64,6 +64,7 @@ class AppView extends AbstractView
 
         @bindEvents()
         @onAllRendered()
+
         return
 
     bindEvents : =>

@@ -72,16 +72,17 @@ class BasicShape extends AbstractView
 
         @w = size
         @h = size
-        @mass = size 
+        @mass = size
         @acc = Math.random()
 
         @sprite = new PIXI.Sprite()
-        @sprite.alpha = alpha || 1
-        @sprite.blendMode = PIXI.blendModes.ADD
+        @sprite.alpha = 0
+        # @sprite.scale.x = @sprite.scale.y = .3
+        # @sprite.blendMode = PIXI.blendModes.ADD
 
         @g = new PIXI.Graphics()
         @g.beginFill @color
-        
+
         @sprite.addChild @g
 
         @init()
@@ -96,7 +97,7 @@ class BasicShape extends AbstractView
         @vel = [ .5 * (( Math.random() * 2 ) - 1), .5 * (( Math.random() * 2 ) - 1) ]
         @target = [ window.innerWidth / 2, window.innerHeight / 2 ]
 
-        if @radius() > 35 
+        if @radius() > 35
             delay = Math.random() * .2
             @bounceTimeline = new TimelineMax({ repeat: -1, repeatDelay: 1 })
             @bounceTimeline.to( @sprite.scale, .4, { x: 2, y: 2, ease: Elastic.easeIn , delay: delay } )
@@ -127,9 +128,9 @@ class BasicShape extends AbstractView
         if @behavior == 'basic'
             @applyForce @vel
 
-            if @radius() > 35
-                @offset = 120
-            
+            # if @radius() > 35
+            #     @offset = 120
+
             # behavior on bounds
             if ( @pos[0] > @_scene.width - @offset )
                 @vel[0] *= -1
@@ -163,8 +164,8 @@ class BasicShape extends AbstractView
             if distanceToTarget < @distanceToTargetMax
                 @setBehaviorProps()
 
-            @sprite.position.x += @speedScale * ( @toX - @sprite.position.x) * .005 
-            @sprite.position.y += @speedScale * ( @toY - @sprite.position.y) * .005 
+            @sprite.position.x += @speedScale * ( @toX - @sprite.position.x) * .005
+            @sprite.position.y += @speedScale * ( @toY - @sprite.position.y) * .005
 
             @pos[0] = @sprite.position.x
             @pos[1] = @sprite.position.y
@@ -209,7 +210,7 @@ class BasicShape extends AbstractView
     applyForce: ( vec ) ->
         add( @pos, vec )
 
-        
+
 
         null
 
@@ -233,7 +234,7 @@ class BasicShape extends AbstractView
         @vel[1] += ay
         @vel[0] *= @friction;
         @vel[1] *= @friction;
-        
+
         @pos[0] += @vel[0]
         @pos[1] += @vel[1]
 
@@ -259,7 +260,7 @@ class BasicShape extends AbstractView
 
     move : ( x, y ) =>
         @pos[0] = x
-        @pos[1] = y 
+        @pos[1] = y
 
         @sprite.position.x = @pos[0]
         @sprite.position.y = @pos[1]
@@ -275,7 +276,7 @@ class BasicShape extends AbstractView
 
     moveY: ( y ) ->
         @pos[1] = y
-        
+
         # @sprite.position.y = @pos.y
 
         null
@@ -284,15 +285,15 @@ class BasicShape extends AbstractView
     height : => return @h
     radius : => return @w / 2
 
-    onMouseDown: => 
+    onMouseDown: =>
         # console.warn 'BasicShape::onMouseDown should be overrided'
 
         null
 
-    onMouseUp: => 
+    onMouseUp: =>
         if @canOrbit
             @behavior = 'attraction'
-        else 
+        else
             @bounceScale()
 
         null
@@ -318,7 +319,7 @@ class BasicShape extends AbstractView
         TweenMax.to( @sprite.scale, .4, { x:2, y:2, ease: Power4.easeIn , delay: Math.random() * .2, onComplete: =>
             TweenMax.to( @sprite.scale, .8, { x: 1, y: 1, ease: Elastic.easeOut } )
          } )
-        
+
         null
 
 
@@ -337,6 +338,13 @@ class BasicShape extends AbstractView
 
         null
 
-    
+
+    transitionIn: ( speed = .3, delay = 0, alpha = .8 ) =>
+        TweenMax.to( @sprite, speed, { alpha: alpha, delay: delay } )
+        # TweenMax.to( @sprite.scale, speed, { x:1, y:1, ease: Elastic.easeOut , delay: delay } )
+
+        null
+
+
 
 module.exports = BasicShape

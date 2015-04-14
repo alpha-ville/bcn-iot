@@ -12,43 +12,46 @@ Pointer         = require './Pointer'
 
 class InteractiveCanvas extends AbstractView
 
-    template         : 'interactive-element'
+    template            : 'interactive-element'
 
-    startedExplore   : false
+    startedExplore      : false
 
-    pointer          : null
+    pointer             : null
 
-    shapes           : null
-    selectedShapes   : null
+    currentCentralButton : null
+    centralButtons      : null
 
-    circles          : null
-    triangles        : null
-    squares          : null
-    gardenNodes      : null
+    shapes              : null
+    selectedShapes      : null
 
-    smallCircles     : null
-    smallTriangle    : null
-    smallSquares     : null
-    smallShapes      : null
+    circles             : null
+    triangles           : null
+    squares             : null
+    gardenNodes         : null
+
+    smallCircles        : null
+    smallTriangle       : null
+    smallSquares        : null
+    smallShapes         : null
 
 
-    linesObj         : null
-    linesAlphaScale  : 0
+    linesObj            : null
+    linesAlphaScale     : 0
 
-    scene            : null
+    scene               : null
 
-    deltaTime        : 0
-    lastTime         : Date.now()
+    deltaTime           : 0
+    lastTime            : Date.now()
 
-    absorbedShapes   : null
-    openOverlayTimer : null
+    absorbedShapes      : null
+    openOverlayTimer    : null
 
-    tooltip          : null
+    tooltip             : null
 
-    step             : 0
-    stepTimer        : null
-    step2Timer       : null
-    step1Timer       : null
+    step                : -1
+    stepTimer           : null
+    step2Timer          : null
+    step1Timer          : null
 
 
     init : =>
@@ -58,6 +61,7 @@ class InteractiveCanvas extends AbstractView
 
         @scene = new Scene container: @$el[0]
 
+        @centralButtons     = []
         @shapes             = []
         @selectedShapes     = []
         @circles            = []
@@ -73,9 +77,12 @@ class InteractiveCanvas extends AbstractView
         @addHelpButton()
         @bindEvents()
 
-        # @addShapes()
+        @addShapes()
         # @addPointer()
         # @initTooltip()
+        #
+
+        # console.log @B().groups
 
         @update()
 
@@ -83,9 +90,19 @@ class InteractiveCanvas extends AbstractView
 
     startExplore : =>
         @startedExplore = true
-        @addShapes()
+
+        # @addShapes()
         @addPointer()
         @initTooltip()
+
+        @gotoStep -1
+
+        null
+
+
+    stopExplore: =>
+        @gotoStep -2
+
         null
 
     initTooltip: ->
@@ -126,6 +143,7 @@ class InteractiveCanvas extends AbstractView
 
         @smallCircles = []
         for i in [ 0 ... nbSpread ]
+        # for i in [ 0 ... 3 ]
             size = _.random( 8, 40 )
             # size = 500
             circle = new Circle( null, size, @scene, .2 )
@@ -133,6 +151,7 @@ class InteractiveCanvas extends AbstractView
             circle.behavior = 'basic'
             circle.vel[0] *= .3
             circle.vel[1] *= .3
+            circle.transitionIn( 2,  Math.random() * 3, .2 )
 
             @smallCircles.push( circle )
             @scene.addChild( circle.sprite )
@@ -145,6 +164,8 @@ class InteractiveCanvas extends AbstractView
             triangle.behavior = 'basic'
             triangle.vel[0] *= .3
             triangle.vel[1] *= .3
+            triangle.transitionIn( 2,  Math.random() * 3, .2 )
+
             @smallTriangles.push( triangle )
             @smallShapes.push( triangle )
             @scene.addChild( triangle.sprite )
@@ -157,6 +178,7 @@ class InteractiveCanvas extends AbstractView
             square.behavior = 'basic'
             square.vel[0] *= .3
             square.vel[1] *= .3
+            square.transitionIn( 2,  Math.random() * 3, .2 )
             @smallSquares.push( square )
             @smallShapes.push( square )
             @scene.addChild( square.sprite )
@@ -187,9 +209,10 @@ class InteractiveCanvas extends AbstractView
 
         filteredCategories = @B().categories.where group : @B().groupName()
 
-        @centralButton = new CentralButton null, 240, @scene
-        @centralButton.move @w/2, @h/2
-        @scene.addChild @centralButton.sprite
+
+        # @centralButton = new CentralButton null, 240, @scene
+        # @centralButton.move @w/2, @h/2
+        # @scene.addChild @centralButton.sprite
         # @centralButton.animate()
 
         objs =
@@ -203,7 +226,7 @@ class InteractiveCanvas extends AbstractView
         for i in [ 0 ... filteredCategories.length ]
             data = filteredCategories[i]
             object = new Circle(data, size, @scene)
-            object.sprite.alpha = .8
+            # object.sprite.alpha = .8
             object.move _.random(120, @w - 120), _.random(120, @h - 120)
             # object.isPulsating = true
             object.vel[0] *= 1 +  Math.random()
@@ -215,7 +238,7 @@ class InteractiveCanvas extends AbstractView
         for j in [ 0 ... @B().purposes.models.length ]
             data = @B().purposes.models[j]
             object = new Triangle(data, size - 10, @scene)
-            object.sprite.alpha = .7
+            # object.sprite.alpha = .7
             object.move _.random(120, @w - 120), _.random(120, @h - 120)
             @shapes.push( object )
             @triangles.push( object )
@@ -225,12 +248,21 @@ class InteractiveCanvas extends AbstractView
         for k in [ 0 ... @B().dataSources.models.length ]
             data = @B().dataSources.models[k]
             object = new Square(data, size - 20, @scene)
-            object.sprite.alpha = .7
+            # object.sprite.alpha = .7
             object.move _.random(120, @w - 120), _.random(120, @h - 120)
             @shapes.push( object )
             @squares.push( object )
             @triangleAndSquares.push(object)
             @scene.addChild object.sprite
+
+        for group in @B().groups.models
+            button = new CentralButton group, 240, @scene
+            button.move _.random( 0, @w ), _.random( 0, @h )
+            button.behavior = 'basic'
+            button.vel[0] *= 3 +  Math.random()
+            button.vel[1] *= 3 +  Math.random()
+            @centralButtons.push button
+            @scene.addChild button.sprite
 
 
         null
@@ -253,6 +285,9 @@ class InteractiveCanvas extends AbstractView
 
         for shape in @shapes
             shape.update()
+
+        for centralButton in @centralButtons
+            centralButton.update()
 
         @tooltip?.update()
         @centralButton?.update()
@@ -330,6 +365,7 @@ class InteractiveCanvas extends AbstractView
         @B().appView.on @B().appView.EVENT_UPDATE_DIMENSIONS, @setDims
 
         Backbone.Events.on( 'startExperience', @startExplore )
+        Backbone.Events.on( 'stopExperience', @stopExplore )
         Backbone.Events.on( 'centralButtonTouched', @onCentralButtonTouched )
         Backbone.Events.on( 'circleSelected', @onCircleSelected )
         Backbone.Events.on( 'circleUnselected', @onCircleUnselected )
@@ -537,12 +573,37 @@ class InteractiveCanvas extends AbstractView
 
     gotoStep: ( step ) =>
         ### -------------------------
+        - STEP -2
+        Nothing but decoration
+        -------------------------- ###
+        if step == -2
+            @step = -2
+            console.log @centralButtons
+            for centralButton in @centralButtons
+                centralButton.transitionOut()
+
+        ### -------------------------
+        - STEP -1
+        Only groups are visible
+        Waiting an action on any group button
+        -------------------------- ###
+        if step == -1
+            console.log @centralButtons
+            @step = -1
+            for centralButton in @centralButtons
+                centralButton.transitionIn()
+
+        ### -------------------------
         - STEP0
         Everything is visible,
         Waiting an action on central button
         -------------------------- ###
         if step == 0
             @step = 0
+
+            for centralButton in @centralButtons
+                centralButton.transitionOut()
+
             for circle in @circles
                 circle.stopBouncing()
 
@@ -558,9 +619,9 @@ class InteractiveCanvas extends AbstractView
         if step == 1
 
             clearInterval( @stepTimer )
-            @stepTimer = setTimeout =>
-                @gotoStep( 0 )
-            , 30000
+            # @stepTimer = setTimeout =>
+            #     @gotoStep( 0 )
+            # , 30000
 
             @step = 1
             if @currentSelectedCircle then @onCircleUnselected( @currentSelectedCircle )
@@ -578,10 +639,6 @@ class InteractiveCanvas extends AbstractView
                 @scene.removeChild(  circle.sprite )
                 @scene.addChild(  circle.sprite )
 
-
-
-
-
         ### -------------------------
         - STEP2
         One circle has been touched, it goes to center
@@ -597,9 +654,9 @@ class InteractiveCanvas extends AbstractView
                 shape.sprite.alpha = .1
 
             clearInterval( @stepTimer )
-            @stepTimer = setTimeout =>
-                @gotoStep( 1 )
-            , 30000
+            # @stepTimer = setTimeout =>
+            #     @gotoStep( 1 )
+            # , 30000
 
         null
 
@@ -608,9 +665,9 @@ class InteractiveCanvas extends AbstractView
         if timerId == 1 then currentTimer = @step1Timer
         else if timerId == 2 then currentTimer = @step2Timer
 
-        window.setTimeout =>
-            @gotoStep( timerId - 1 )
-        , 30000
+        # window.setTimeout =>
+        #     @gotoStep( timerId - 1 )
+        # , 30000
 
         null
 

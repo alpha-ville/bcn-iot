@@ -66,7 +66,7 @@ class App
                 @objects     = new ObjectsCollection data['new-objects'].elements
                 @credits     = new CreditsCollection data['credits-copy'].elements
                 @groups      = new GroupsCollection data['groups'].elements
-                console.log @groups
+
                 @objectComplete()
 
         # if new objects are added don't forget to change the `@objectComplete` function
@@ -128,6 +128,7 @@ class App
 
     openOverlaySoon: =>
         @appView.modalManager.showModal 'overlaySoon'
+        Backbone.Events.trigger( 'stopExperience' )
         # document.body.className = 'show-cursor'
 
         null
