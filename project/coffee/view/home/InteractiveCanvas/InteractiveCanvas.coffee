@@ -49,9 +49,6 @@ class InteractiveCanvas extends AbstractView
     tooltip             : null
 
     step                : -3
-    stepTimer           : null
-    step2Timer          : null
-    step1Timer          : null
 
 
     init : =>
@@ -413,11 +410,6 @@ class InteractiveCanvas extends AbstractView
 
     onClick: ( evt ) =>
 
-        clearInterval( @stepTimer )
-        # @stepTimer = setTimeout =>
-        #     @gotoStep( @step - 1 )
-        # , 30000
-
         @pointer?.sprite.position.x = evt.pageX
         @pointer?.sprite.position.y = evt.pageY
         @pointer?.animate()
@@ -513,10 +505,6 @@ class InteractiveCanvas extends AbstractView
 
 
     onShapeSelected: ( shape ) =>
-        if @step == 1
-            @clearTimer( 1 )
-        else if @step == 2
-            @clearTimer( 2 )
 
         @selectedShapes.push( shape )
 
@@ -549,7 +537,7 @@ class InteractiveCanvas extends AbstractView
 
             @B().router.navigateTo @B().groupName() + '/' + category
 
-            if @openOverlayTimer then clearInterval( @openOverlayTimer )
+            # if @openOverlayTimer then clearInterval( @openOverlayTimer )
 
             @openOverlayTimer = setTimeout =>
                 Backbone.trigger( 'SoundController:play', 'transition' )
@@ -679,7 +667,7 @@ class InteractiveCanvas extends AbstractView
             for shape in @triangleAndSquares
                 shape.sprite.alpha = .1
 
-            clearInterval( @stepTimer )
+            # clearInterval( @stepTimer )
             # @stepTimer = setTimeout =>
             #     @gotoStep( 1 )
             # , 30000
