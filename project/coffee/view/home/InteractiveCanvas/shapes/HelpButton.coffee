@@ -21,6 +21,8 @@ class HelpButton extends BasicShape
         @text.position.x = -5
         @text.position.y = -10
 
+        @sprite.buttonMode = true
+
         @sprite.addChild( @text )
 
         null
@@ -33,6 +35,6 @@ class HelpButton extends BasicShape
         @B().openHelp()
 
         null
-        
+
 
 module.exports = HelpButton

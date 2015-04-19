@@ -431,7 +431,7 @@ class InteractiveCanvas extends AbstractView
 
         @currentSelectedCircle = circle
 
-        @tooltip.transitionIn @currentSelectedCircle.config.get('name_en'), @currentSelectedCircle.config.get('name_cat')
+        @tooltip?.transitionIn @currentSelectedCircle.config.get('name_en'), @currentSelectedCircle.config.get('name_cat')
 
         @gotoStep(2)
 
@@ -452,7 +452,7 @@ class InteractiveCanvas extends AbstractView
 
         @currentCentralButton.stop()
 
-        @tooltip.transitionOut()
+        @tooltip?.transitionOut()
 
         circle.goBackAndScaleDown playSound
 
@@ -505,6 +505,7 @@ class InteractiveCanvas extends AbstractView
             if shape.type == 'triangle' then shape.fadeTo( .6 ) else shape.fadeTo( .8 )
             shape.startBouncing()
             shape.canOrbit = true
+            shape.sprite.buttonMode = true
             @scene.removeChild(  shape.sprite )
             @scene.addChild(  shape.sprite )
 
@@ -543,7 +544,7 @@ class InteractiveCanvas extends AbstractView
         @absorbedShapes.push( shape )
 
         if @absorbedShapes.length == @activeShapes.length
-            @tooltip.hide()
+            @tooltip?.hide()
             category = @currentSelectedCircle.config.get('category_name')
 
             @B().router.navigateTo @B().groupName() + '/' + category
@@ -613,6 +614,7 @@ class InteractiveCanvas extends AbstractView
 
             @step = -2
             for centralButton in @centralButtons
+                centralButton.sprite.buttonMode = true
                 centralButton.transitionIn()
 
         ### -------------------------
@@ -624,6 +626,7 @@ class InteractiveCanvas extends AbstractView
             @step = 0
 
             for centralButton in @centralButtons
+                centralButton.sprite.buttonMode = false
                 centralButton.transitionOut()
 
             @currentCentralButton.becomeMain( =>
@@ -658,6 +661,7 @@ class InteractiveCanvas extends AbstractView
                 circle.fadeTo( .8, Math.random() * .3 )
                 # circle.startBouncing()
                 @scene.removeChild(  circle.sprite )
+                circle.sprite.buttonMode = true
                 @scene.addChild(  circle.sprite )
 
         ### -------------------------
@@ -668,6 +672,7 @@ class InteractiveCanvas extends AbstractView
         if step == 2
             @step = 2
             for circle in @circles
+                circle.sprite.buttonMode = false
                 circle.stopBouncing()
                 circle.sprite.alpha = .1
 

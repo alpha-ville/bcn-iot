@@ -6,7 +6,6 @@ class ObjectsList extends AbstractView
     videoPlayer : null
 
     constructor : (list) ->
-        console.log list
         @templateVars =
             projects : list
 
