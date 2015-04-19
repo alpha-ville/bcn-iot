@@ -57,6 +57,7 @@
     "gulp-util": "^3.0.1",
     "pretty-hrtime": "^0.2.2",
     "require-dir": "^0.1.0",
+    "rimraf": "^2.3.2",
     "run-sequence": "^1.0.1",
     "vector2d": "^2.1.0",
     "vectors": "^0.1.0",
