@@ -65,7 +65,7 @@ $blue   : #2773be;
 $yellow : #e79d33;
 
 $alpha : .9;
-$max-width : 900px;
+$max-width : 800px;
 
 $red-alpha    : rgba(208, 42, 64, $alpha);
 $blue-alpha   : rgba(39, 115, 190, $alpha);
@@ -86,7 +86,7 @@ body {
 
 .video-js
 {
-    margin: 31px auto !important;
+    margin: 0 auto !important;
 }
 
 // * {
@@ -167,9 +167,9 @@ body {
         .list-background-image
         {
             overflow: hidden;
-            max-width: 600px;
-            max-height: 400px;
-            height: 400px;
+            max-width: 800px;
+            max-height: 500px;
+            height: 500px;
             background-position: 50%;
             background-repeat: no-repeat;
             background-size: cover;
@@ -252,7 +252,11 @@ body {
             // border: 1px solid black;
 
             svg {
-                width: 70%;
+                width: 150%;
+                line
+                {
+                    stroke-width: 5;
+                }
             }
 
             span

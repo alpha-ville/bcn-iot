@@ -42,13 +42,8 @@ class OverlayHelp extends AbstractModal
         return if @called
         @called = true
 
-        if(!@B().router.area)
-            @B().router.showHome()
-        else
-            Backbone.trigger( 'showHomeTooltip' )
-            @B().appView.modalManager.hideOpenModal()
-
-        # @B().appView.modalManager.showModal 'overlayContent'
+        dest = if @B().prevPage then @B().prevPage.join('/') else ""
+        @B().router.navigateTo dest
         null
 
     toggleLang : (e) =>
@@ -81,10 +76,10 @@ class OverlayHelp extends AbstractModal
         TweenMax.to bts, .5, 'margin-top' : margin, opacity: 1, delay: delay
 
         cb = $(@$el.find('.close-button')[0])
-        TweenMax.to cb, .5, 'margin-top' : margin, opacity: 1, delay: delay
+        TweenMax.to cb, .5, 'margin-top' : 8, opacity: 1, delay: delay
 
         t = $(@$el.find('h1')[0])
-        TweenMax.to t, .5, opacity: 1, delay: delay + .3
+        TweenMax.to t, .5, opacity: 1, 'margin-top': 60, delay: delay + .3
 
         cont = @$el.find('p')
         TweenMax.to cont, .5, opacity: 1, delay: delay + .7

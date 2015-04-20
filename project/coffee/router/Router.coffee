@@ -27,13 +27,19 @@ class Router extends Backbone.Router
         # if !@area then @area = @B().nav.sections.HOME
         # @area = ""
 
-        console.log @area, @sub
+        # console.log @area, @sub
 
         @trigger Router.EVENT_HASH_CHANGED, "", @sub, @params
 
         switch true
             when !@area and !@sub
                 @showHome()
+                break
+
+            when @area is 'about'
+                @B().appView.modalManager.hideOpenModal()
+                @B().appView.modalManager.showModal 'overlayHelp'
+                break
 
             when @area and !@sub
                 Backbone.trigger( 'SoundController:play', 'nontouchable' )
@@ -41,6 +47,7 @@ class Router extends Backbone.Router
                 Backbone.Events.trigger( 'groupSelected', @area )
                 @B().resetIDs()
                 @B().appView.modalManager.hideOpenModal()
+                break
 
             else
                 @B().openOverlayContent @sub

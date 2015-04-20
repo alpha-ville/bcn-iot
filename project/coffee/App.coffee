@@ -24,6 +24,8 @@ class App
     objectsContentHack      : null
     objectsContentHackOrder : null
 
+    prevPage : null
+
     storage      : null
 
     _toClean   : ['objReady', 'setFlags', 'objectComplete', 'init', 'initObjects', 'initSDKs', 'initApp', 'go', 'cleanup', '_toClean']
@@ -115,14 +117,13 @@ class App
         null
 
     openOverlayData : () =>
-
         @appView.modalManager.hideOpenModal()
         @appView.modalManager.showModal 'overlayDataContent'
         null
 
     openHelp: =>
-        @appView.modalManager.hideOpenModal()
-        @appView.modalManager.showModal 'overlayHelp'
+        @prevPage = [@router.area, @router.sub]
+        @router.navigateTo('about')
         null
 
     openOverlaySoon: =>

@@ -160,7 +160,7 @@ class OverlayContent extends AbstractModal
         TweenMax.to bts, .5, 'margin-top' : 30, opacity: 1, delay: 1.8
 
         cb = $(@$el.find('.close-button')[0])
-        TweenMax.to cb, .5, 'margin-top' : 25, opacity: 1, delay: 2.2
+        TweenMax.to cb, .5, 'margin-top' : 8, opacity: 1, delay: 2.2
 
         @objectCarosel.animate 2.5
         null
