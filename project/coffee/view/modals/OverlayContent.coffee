@@ -143,7 +143,7 @@ class OverlayContent extends AbstractModal
         TweenMax.to c, 0, scaleX: 0, scaleY: 0
         TweenMax.to c, 1, scaleX: 1, scaleY: 1, ease: Back.easeOut.config(18), opacity: 1, delay: .2
 
-        TweenMax.to c, .5, "margin-top": 20, delay: 1.1
+        TweenMax.to c, .5, "margin-top": 40, delay: 1.1
 
         t = $(@$el.find('.title-container')[0])
         TweenMax.to t, .5, 'margin-top' : margin, opacity: 1, delay: 1.3
@@ -151,7 +151,7 @@ class OverlayContent extends AbstractModal
         TweenMax.to @$el.find('hr'), .5, opacity: 1, delay: 1.5
 
         cont = $(@$el.find('.content')[0])
-        TweenMax.to cont, .5, 'margin-top' : margin, opacity: 1, delay: 1.6
+        TweenMax.to cont, .5, 'margin-top' : 60, opacity: 1, delay: 1.6
 
         pnc = $(@$el.find('.project-name-container')[0])
         TweenMax.to pnc, .5, 'margin-top' : margin, opacity: 1, delay: 1.5

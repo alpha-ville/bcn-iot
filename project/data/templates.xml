@@ -291,42 +291,90 @@
 
                 <div class="container">
 
-                    <h1>IOTORAMA</h1>
+                    <div class='video-container'>
+                        <iframe src="https://player.vimeo.com/video/123302454?color=ffffff&title=0&byline=0&portrait=0" width="800" height="450" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    </div>
+
                     <div class="desc">
+
                         <p data-lang='en'><%=first_paragraph_en%></p>
                         <p data-lang='cat'><%=first_paragraph_cat%></p>
-                        <br>
-                        <p data-lang='en'><%=second_paragraph_en%></p>
-                        <p data-lang='cat'><%=second_paragraph_cat%></p>
-                        <div class="container-shape-help">
-                            <div class='object-container'>
-                                <div class="circle"></div>
-                                <div class="label" data-lang='en'><%=circle_name_en%></div>
-                                <div class="label" data-lang='cat'><%=circle_name_cat%></div>
-                            </div>
-                            <div class='object-container'>
-                                <div class="square"></div>
-                                <div class="label" data-lang='en'><%=square_name_en%></div>
-                                <div class="label" data-lang='cat'><%=square_name_cat%></div>
-                            </div>
-                            <div class='object-container'>
-                                <div class="triangle"></div>
-                                <div class="label" data-lang='en'><%=triangle_name_en%></div>
-                                <div class="label" data-lang='cat'><%=triangle_name_cat%></div>
-                            </div>
+                        <hr />
+
+                        <h1 data-lang='en'><%=how_it_works_en%></h1>
+                        <h1 data-lang='cat'><%=how_it_works_cat%></h1>
+
+                        <p data-lang='en'><%=how_it_works_paragraph_en%></p>
+                        <p data-lang='cat'><%=how_it_works_paragraph_cat%></p>
+
+                        <hr/>
+
+                        <h1 data-lang='en'><%=credits_title_en%></h1>
+                        <h1 data-lang='cat'><%=credits_title_cat%></h1>
+
+                        <div class="credits" data-lang='en'>
+                            <%=credits_paragraph_en%>
                         </div>
-                        <p data-lang='en'><%=third_paragraph_en%></p>
-                        <p data-lang='cat'><%=third_paragraph_cat%></p>
-                        <br>
-                        <p data-lang='en' class="license"><%=fourth_paragraph_en%></p>
-                        <p data-lang='cat' class="license"><%=fourth_paragraph_cat%></p>
-                    </div>
-                    <hr/>
-                    <div class="credits-container">
-                        <div class="credits">
-                            <p data-lang='en'><%=people_en%></p>
-                            <p data-lang='cat'><%=people_cat%></p>
+
+                        <div class="credits" data-lang='cat'>
+                            <%=credits_paragraph_cat%>
                         </div>
+
+                        <p data-lang='en' class="project-by"><%=project_by_en%></p>
+                        <p data-lang='cat' class="project-by"><%=project_by_cat%></p>
+
+                        <img class="credits-logo" src="https://googledrive.com/host/0Bw4Qy0dXirckUWpGcGVZVERTY3M" alt=""/>
+
+                        <p data-lang='en' class="project-by"><%=project_commission_en%></p>
+                        <p data-lang='cat' class="project-by"><%=project_commission_cat%></p>
+
+                        <hr/>
+
+                        <h1 data-lang='en'><%=concept_title_en%></h1>
+                        <h1 data-lang='cat'><%=concept_title_cat%></h1>
+
+                        <p data-lang='en'><%=concept_paragraph_en%></p>
+                        <p data-lang='cat'><%=concept_paragraph_cat%></p>
+
+                        <hr/>
+
+                        <h1 data-lang='en'><%=design_title_en%></h1>
+                        <h1 data-lang='cat'><%=design_title_cat%></h1>
+
+                        <p data-lang='en'><%=design_paragraph_en%></p>
+                        <p data-lang='cat'><%=design_paragraph_cat%></p>
+
+                        <hr/>
+
+                        <h1 data-lang='en'><%=tech_title_en%></h1>
+                        <h1 data-lang='cat'><%=tech_title_cat%></h1>
+
+                        <p data-lang='en'><%=tech_paragraph_en%></p>
+                        <p data-lang='cat'><%=tech_paragraph_cat%></p>
+
+                        <hr/>
+
+                        <h1 data-lang='en'><%=installation_title_en%></h1>
+                        <h1 data-lang='cat'><%=installation_title_cat%></h1>
+
+                        <!-- installation_photos -->
+
+                        <p data-lang='en'><%=installation_paragraph_en%></p>
+                        <p data-lang='cat'><%=installation_paragraph_cat%></p>
+
+                        <hr/>
+
+                        <h1 data-lang='en'><%=exhibition_title_en%></h1>
+                        <h1 data-lang='cat'><%=exhibition_title_cat%></h1>
+
+                        <p data-lang='en'><%=exhibition_paragraph_en%></p>
+                        <p data-lang='cat'><%=exhibition_paragraph_cat%></p>
+
+                        <hr/>
+
+                        <p data-lang='en' class="copyright"><%=copyright_en%></p>
+                        <p data-lang='cat' class="copyright"><%=copyright_cat%></p>
+
                     </div>
                 </div>
             </div>
