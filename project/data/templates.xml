@@ -357,7 +357,14 @@
                         <h1 data-lang='en'><%=installation_title_en%></h1>
                         <h1 data-lang='cat'><%=installation_title_cat%></h1>
 
-                        <!-- installation_photos -->
+                        <div class="object-list-container">
+                            <% var array = installation_photos.split(" ").join("").split(","); %>
+                            <% for(var i = 0; i<array.length; i++){ console.log(array[i]); %>
+                                <div class="carousel-item">
+                                    <div class="list-background-image" style="background-image:url('https://googledrive.com/host/<%= array[i] %>')"></div>
+                                </div>
+                            <% } %>
+                        </div>
 
                         <p data-lang='en'><%=installation_paragraph_en%></p>
                         <p data-lang='cat'><%=installation_paragraph_cat%></p>

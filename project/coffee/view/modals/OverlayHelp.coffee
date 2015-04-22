@@ -13,7 +13,9 @@ class OverlayHelp extends AbstractModal
         # 'tap ul>li' : "toggleLang"
 
     constructor : (@cb) ->
+
         @templateVars =
+            installation_photos        : @B().credits.at(0).get('installation_photos')
             first_paragraph_en         : @B().credits.at(0).get 'first_paragraph_en'
             first_paragraph_cat        : @B().credits.at(0).get 'first_paragraph_cat'
             how_it_works_en            : @B().credits.at(0).get 'how_it_works_en'
@@ -85,6 +87,17 @@ class OverlayHelp extends AbstractModal
 
     init : =>
         @toggleLang()
+
+        photo = $(@$el.find('.object-list-container')[0])
+        setTimeout =>
+            photo.slick
+                  dots          : false
+                  infinite      : true
+                  speed         : 1000
+                  arrows        : true
+                  slidesToShow  : 1
+        , 100
+
         @animate()
         null
 

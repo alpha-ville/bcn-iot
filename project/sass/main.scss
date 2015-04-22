@@ -736,6 +736,12 @@ body {
             {
                 max-width: $max-width;
 
+                .object-list-container
+                {
+                    margin-top: 50px;
+                    opacity: 1;
+                }
+
                 .credits-logo
                 {
                     margin-top: 20px;
