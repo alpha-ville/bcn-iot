@@ -59,6 +59,7 @@ class InteractiveCanvas extends AbstractView
         @scene = new Scene container: @$el[0]
 
         @centralButtons     = []
+        @allCategoryShapes  = []
         @shapes             = []
         @selectedShapes     = []
         @circles            = []
@@ -219,18 +220,7 @@ class InteractiveCanvas extends AbstractView
 
         size = 100
 
-        # circles
-        for i in [ 0 ... filteredCategories.length ]
-            data = filteredCategories[i]
-            object = new Circle(data, size, @scene)
-            # object.sprite.alpha = .8
-            object.move _.random(120, @w - 120), _.random(120, @h - 120)
-            # object.isPulsating = true
-            object.vel[0] *= 1 +  Math.random()
-            object.vel[1] *= 1 +  Math.random()
-            @shapes.push( object )
-            @circles.push( object )
-            @scene.addChild object.sprite
+
 
         for j in [ 0 ... @B().purposes.models.length ]
             data = @B().purposes.models[j]
@@ -260,6 +250,21 @@ class InteractiveCanvas extends AbstractView
             button.vel[1] *= 3 +  Math.random()
             @centralButtons.push button
             @scene.addChild button.sprite
+
+        for category in @B().categories.models
+
+            data = category
+            object = new Circle(data, size, @scene)
+            # object.sprite.alpha = .8
+            object.move _.random(120, @w - 120), _.random(120, @h - 120)
+            # object.isPulsating = true
+            object.vel[0] *= 1 +  Math.random()
+            object.vel[1] *= 1 +  Math.random()
+            @shapes.push( object )
+            @circles.push( object )
+            @scene.addChild object.sprite
+
+        console.log @B()
 
 
         null
@@ -569,6 +574,19 @@ class InteractiveCanvas extends AbstractView
             if centralButton.config.get('group') == groupName
                 @currentCentralButton = centralButton
 
+        # circles
+        # for i in [ 0 ... filteredCategories.length ]
+            # data = filteredCategories[i]
+            # object = new Circle(data, size, @scene)
+            # # object.sprite.alpha = .8
+            # object.move _.random(120, @w - 120), _.random(120, @h - 120)
+            # # object.isPulsating = true
+            # object.vel[0] *= 1 +  Math.random()
+            # object.vel[1] *= 1 +  Math.random()
+            # @shapes.push( object )
+            # @circles.push( object )
+            # @scene.addChild object.sprite
+
 
         @gotoStep 0
 
@@ -589,6 +607,7 @@ class InteractiveCanvas extends AbstractView
 
             for centralButton in @centralButtons
                 centralButton.transitionOut()
+                centralButton.isDisable = true
 
             for shape in @shapes
                 shape.fadeTo( 0 )
@@ -602,6 +621,7 @@ class InteractiveCanvas extends AbstractView
 
             @step = -2
             for centralButton in @centralButtons
+                centralButton.isDisable = false
                 centralButton.sprite.buttonMode = true
                 centralButton.transitionIn()
 
@@ -614,6 +634,7 @@ class InteractiveCanvas extends AbstractView
             @step = 0
 
             for centralButton in @centralButtons
+                centralButton.isDisable = true
                 centralButton.sprite.buttonMode = false
                 centralButton.transitionOut()
 
@@ -646,11 +667,16 @@ class InteractiveCanvas extends AbstractView
 
 
             for circle in @circles
-                circle.fadeTo( .8, Math.random() * .3 )
-                # circle.startBouncing()
-                @scene.removeChild(  circle.sprite )
-                circle.sprite.buttonMode = true
-                @scene.addChild(  circle.sprite )
+                if @currentCentralButton.config.get('group') == circle.config.get('group')
+                    circle.fadeTo( .8, Math.random() * .3 )
+                    # circle.startBouncing()
+                    # @scene.removeChild(  circle.sprite )
+                    circle.sprite.buttonMode = true
+                    circle.isDisable = false
+                    @scene.addChild(  circle.sprite )
+                else
+                    circle.isDisable = true
+                    circle.sprite?.buttonMode = false
 
         ### -------------------------
         - STEP2

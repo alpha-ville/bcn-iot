@@ -56,7 +56,7 @@ class AppView extends AbstractView
         return
 
     render : =>
-        @preloader    = new Preloader
+        # @preloader    = new Preloader
         @modalManager = new ModalManager
         @wrapper      = new Wrapper
 
@@ -89,7 +89,7 @@ class AppView extends AbstractView
     begin : =>
         @trigger 'start'
         @wrapper.begin()
-        @preloader.hide()
+        # @preloader.hide()
         @B().router.start()
 
         @updateMediaQueriesLog()

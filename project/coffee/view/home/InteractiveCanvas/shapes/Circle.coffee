@@ -34,6 +34,8 @@ class Circle extends BasicShape
 
 
     onMouseUp: ->
+        if @isDisable then return
+
         if @radius() != 50 then return
 
         if @isSelected

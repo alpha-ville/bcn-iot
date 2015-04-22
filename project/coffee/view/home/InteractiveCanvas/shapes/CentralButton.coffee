@@ -11,6 +11,7 @@ class CentralButton extends BasicShape
 
     isVisible: false
     isSelected: false
+    isDisable: true
 
     init : =>
 
@@ -81,6 +82,8 @@ class CentralButton extends BasicShape
         (@B().groups.where group : @B().groupName())[0].get('icon_id')
 
     onMouseUp: ->
+        if @isDisable then return
+
         if @isSelected
             Backbone.Events.trigger( 'centralButtonTouched', @ )
         else
@@ -155,8 +158,6 @@ class CentralButton extends BasicShape
 
         @isVisible = false
 
-        console.log 'transitionOut !'
-
         TweenMax.to( @sprite, .2, { alpha: 0  } )
         TweenMax.to( @sprite.scale, .2, { x: 0, y: 0, delay: .6, onComplete: =>
             cb?()
@@ -166,6 +167,7 @@ class CentralButton extends BasicShape
 
 
     becomeMain: ( cb ) ->
+        @isDisable = false
         # Backbone.trigger( 'SoundController:play', 'touchable' )
         @behavior = 'none'
         @isSelected = true
