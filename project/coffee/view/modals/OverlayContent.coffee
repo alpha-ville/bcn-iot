@@ -154,7 +154,7 @@ class OverlayContent extends AbstractModal
         TweenMax.to cont, .5, 'margin-top' : 60, opacity: 1, delay: 1.6
 
         pnc = $(@$el.find('.project-name-container')[0])
-        TweenMax.to pnc, .5, 'margin-top' : margin, opacity: 1, delay: 1.5
+        TweenMax.to pnc, .5, 'margin-top' : 40, opacity: 1, delay: 1.5
 
         bts = $(@$el.find('.lang-buttons')[0])
         TweenMax.to bts, .5, 'margin-top' : 30, opacity: 1, delay: 1.8
