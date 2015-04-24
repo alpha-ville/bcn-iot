@@ -7,7 +7,8 @@ CategoriesCollection = require './collections/CategoriesCollection'
 DataSourceCollection = require './collections/DataSourceCollection'
 PurposeCollection    = require './collections/PurposeCollection'
 CreditsCollection    = require './collections/CreditsCollection'
-GroupsCollection    = require './collections/GroupsCollection'
+GroupsCollection     = require './collections/GroupsCollection'
+PreloaderView        = require './view/preloader/PreloaderView'
 
 class App
 
@@ -51,6 +52,9 @@ class App
         null
 
     init : =>
+        @preloaderView = new PreloaderView
+        @update()
+
         @soundParam = if(location.href.indexOf("localhost") > -1) then true else @getQueryVariable 'sound'
         @initObjects()
         null
@@ -128,8 +132,10 @@ class App
 
     openOverlaySoon: =>
         # @appView.modalManager.hideOpenModal()
-        @appView.modalManager.showModal 'overlaySoon'
-        Backbone.Events.trigger( 'stopExperience' )
+        #
+        # @appView.modalManager.showModal 'overlaySoon'
+        # Backbone.Events.trigger( 'stopExperience' )
+        #
         # document.body.className = 'show-cursor'
         null
 
@@ -154,6 +160,15 @@ class App
         for fn in @_toClean
             @[fn] = null
             delete @[fn]
+
+        null
+
+
+    update: =>
+        requestAnimFrame @update
+
+        @preloaderView.update()
+        @appView?.update()
 
         null
 

@@ -297,7 +297,6 @@ class InteractiveCanvas extends AbstractView
 
         @render()
 
-        requestAnimFrame @update
 
         null
 

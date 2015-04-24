@@ -3,20 +3,26 @@ InteractiveCanvas = require './InteractiveCanvas/InteractiveCanvas'
 
 class HomeView extends AbstractViewPage
 
-	template : 'page-home'
+    template : 'page-home'
 
-	constructor : ->
+    constructor : ->
 
-		# @templateVars =
-		# 	desc : @B().locale.get "home_desc"
+        # @templateVars =
+        #   desc : @B().locale.get "home_desc"
 
-		@interactive = new InteractiveCanvas
+        @interactive = new InteractiveCanvas
 
-		super()
+        super()
 
-		@
-			.addChild(@interactive)
+        @
+            .addChild(@interactive)
 
-		return null
+        return null
+
+
+    update : =>
+        @interactive?.update()
+
+        return null
 
 module.exports = HomeView

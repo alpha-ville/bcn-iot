@@ -29,11 +29,17 @@ class Wrapper extends AbstractView
         return null
 
     begin : =>
-        home = new HomeView
-        home.show()
+        @home = new HomeView
+        @home.show()
         null
 
     createClasses : =>
+        null
+
+
+    update: =>
+        @home?.update()
+
         null
 
     # addClasses : =>
