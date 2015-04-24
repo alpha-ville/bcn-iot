@@ -525,7 +525,7 @@ class InteractiveCanvas extends AbstractView
 
 
     onShapeGotAbsorbed: ( shape ) =>
-        @currentCentralButton.animate()
+        @currentCentralButton?.animate()
 
         scale = @currentSelectedCircle.sprite.scale.x + .5
         TweenMax.to( @currentSelectedCircle.sprite.scale, 1, { x: scale, y: scale, ease: Elastic.easeOut, onComplete: =>
