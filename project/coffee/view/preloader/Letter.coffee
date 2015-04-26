@@ -62,8 +62,9 @@ class Letter
 
 
     stick: =>
+        offset = ( window.innerWidth - 167 ) / 2 # 167 = IOTORAMA word width
         #pos x
-        dx = ( 80 + @originPosX) - @pos.x
+        dx = ( offset + @originPosX) - @pos.x
         ax = dx * @spring;
         @vx += ax;
         @vx *= @friction;

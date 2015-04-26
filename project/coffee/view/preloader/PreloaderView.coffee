@@ -3,6 +3,7 @@ Letter = require './Letter'
 class PreloaderView
 
     el: null
+    refLetters: null
     letters: null
 
     isLoading: null
@@ -22,13 +23,13 @@ class PreloaderView
 
         originPos = [
             373
-            388
-            412
-            429
-            453
-            473
-            495
-            522
+            384
+            408
+            425
+            449
+            469
+            491
+            518
         ]
 
         domEl = @el.querySelectorAll( '.letter' )
@@ -37,7 +38,7 @@ class PreloaderView
         for i in [ 0 ... domEl.length ]
             el = domEl[ i ]
             pos = originPos[ i ]
-            letter = new Letter( el, pos )
+            letter = new Letter( el, pos - 373 )
             @letters.push( letter )
 
 
@@ -45,7 +46,7 @@ class PreloaderView
 
         setTimeout =>
             @transitionIn()
-        , 3000
+        , 4000
 
 
         null
