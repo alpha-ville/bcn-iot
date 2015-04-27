@@ -58,7 +58,8 @@ class Router extends Backbone.Router
         @B().openOverlaySoon()
         @B().objectsContentHack = null
         @B().objectsContentHackOrder = null
-        Backbone.Events.trigger( 'showHomeTooltip')
+        # Backbone.Events.trigger( 'showHomeTooltip')
+        Backbone.Events.trigger( 'showHome')
         null
 
     navigateTo : (where = '', trigger = true, replace = false, @params) =>
@@ -73,6 +74,8 @@ class Router extends Backbone.Router
             return
 
         @navigate where, trigger: true, replace: replace
+
+        Backbone.Events.trigger( 'Router:navigate', where)
 
         null
 

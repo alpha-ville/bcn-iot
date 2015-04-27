@@ -62,9 +62,13 @@ class Letter
 
 
     stick: =>
-        offset = ( window.innerWidth - 167 ) / 2 # 167 = IOTORAMA word width
+        offsetX = ( window.innerWidth - 167 ) / 2 # 167 = IOTORAMA word width
+
         #pos x
-        dx = ( offset + @originPosX) - @pos.x
+        dx = ( offsetX + @originPosX) - @pos.x
+
+        # if Math.abs dx < .0001 then return
+
         ax = dx * @spring;
         @vx += ax;
         @vx *= @friction;
@@ -84,9 +88,7 @@ class Letter
         @vr *= @friction;
         @rotation += @vr;
 
-        # console.log dx
-
-
+        # too expensive
         # @tween = new TweenMax( @pos, 1, { x: @originPos.x, y: @originPos.y, ease: Elastic.easeOut, onUpdate: @updatePos } )
 
         null
@@ -101,9 +103,9 @@ class Letter
 
 
     updatePos: =>
-        # console.log  @rotation
         transform = "translate(#{@pos.x}px, #{@pos.y}px) rotate(#{@rotation}deg)"
         @el.style.transform = transform
+        @el.style.mozTransform = transform
 
         null
 

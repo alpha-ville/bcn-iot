@@ -71,7 +71,8 @@
     <template id="page-home">
         <![CDATA[
             <section id="page-home" class="page page-home">
-
+                <div class="arrow-left"></div>
+                <div class="arrow-right"></div>
             </section>
         ]]>
     </template>

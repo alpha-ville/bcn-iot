@@ -72,7 +72,6 @@ class InteractiveCanvas extends AbstractView
 
         @addLines()
         @addDecorations()
-        @addHelpButton()
         @bindEvents()
 
         @addShapes()
@@ -92,6 +91,7 @@ class InteractiveCanvas extends AbstractView
         # @addShapes()
         @addPointer()
         @initTooltip()
+        @addHelpButton()
 
         @gotoStep -2
 
@@ -137,7 +137,9 @@ class InteractiveCanvas extends AbstractView
 
         @smallShapes = []
 
-        if @B().groupName() then nbSpread = 50 else nbSpread = 15
+        nbSpread = 10
+        if window.innerWidth > 1024 then nbSpread = 25
+        if window.innerWidth > 1280 then nbSpread = 35
 
         @smallCircles = []
         for i in [ 0 ... nbSpread ]
@@ -149,7 +151,7 @@ class InteractiveCanvas extends AbstractView
             circle.behavior = 'basic'
             circle.vel[0] *= .3
             circle.vel[1] *= .3
-            circle.transitionIn( 2,  Math.random() * 4, .2 )
+            circle.transitionIn( 2,  Math.random() * 4, .065 )
 
             @smallCircles.push( circle )
             @scene.addChild( circle.sprite )
@@ -162,7 +164,7 @@ class InteractiveCanvas extends AbstractView
             triangle.behavior = 'basic'
             triangle.vel[0] *= .3
             triangle.vel[1] *= .3
-            triangle.transitionIn( 2,  Math.random() * 4, .2 )
+            triangle.transitionIn( 2,  Math.random() * 4, .065 )
 
             @smallTriangles.push( triangle )
             @smallShapes.push( triangle )
@@ -176,7 +178,7 @@ class InteractiveCanvas extends AbstractView
             square.behavior = 'basic'
             square.vel[0] *= .3
             square.vel[1] *= .3
-            square.transitionIn( 2,  Math.random() * 4, .2 )
+            square.transitionIn( 2,  Math.random() * 4, .065 )
             @smallSquares.push( square )
             @smallShapes.push( square )
             @scene.addChild( square.sprite )
@@ -374,6 +376,7 @@ class InteractiveCanvas extends AbstractView
         Backbone.Events.on( 'shapeSelected', @onShapeSelected )
         Backbone.Events.on( 'shapeUnselected', @onShapeUnselected )
         Backbone.Events.on( 'shapeGotAbsorbed', @onShapeGotAbsorbed )
+        Backbone.Events.on( 'Router:navigate', @onRouterChanged)
 
         # @$window.on 'resize orientationchange', @onResize
 
@@ -596,6 +599,7 @@ class InteractiveCanvas extends AbstractView
         ### -------------------------
         - STEP -2
         Nothing but decoration
+        Waiting to click on explore button
         -------------------------- ###
         if step == -3
             @step = -2
@@ -676,6 +680,7 @@ class InteractiveCanvas extends AbstractView
                 else
                     circle.isDisable = true
                     circle.sprite?.buttonMode = false
+                    circle.fadeTo( 0 )
 
         ### -------------------------
         - STEP2
@@ -696,6 +701,24 @@ class InteractiveCanvas extends AbstractView
             # @stepTimer = setTimeout =>
             #     @gotoStep( 1 )
             # , 30000
+
+        null
+
+
+    onRouterChanged: ( route ) =>
+        routeArgs = route.split('/')
+
+        if routeArgs[1] == @B().router.area then return
+
+        console.log 'category changed'
+
+        @closeCurrentGroupAndOpen( routeArgs[1] )
+
+        null
+
+
+    closeCurrentGroupAndOpen: ( area ) ->
+        console.log 'open ' + area
 
         null
 

@@ -141,6 +141,26 @@ body {
 
     &.page-home {
         background: #ebebeb;
+
+        .arrow-left,
+        .arrow-right {
+            width: 50px;
+            height: 30px;
+            position: absolute;
+            top: 50%;
+            border: 2px solid red;
+            cursor: pointer;
+            z-index: 9999;
+            @include transform( translateY(-50%) );
+        }
+
+        .arrow-left {
+            left: 20px;
+        }
+
+        .arrow-right {
+            right: 20px;
+        }
     }
 }
 
@@ -1372,8 +1392,7 @@ $color : $blue;
     }
 
     .by {
-        color: grey;
-        opacity: 0;
+
 
     }
 
@@ -1385,6 +1404,7 @@ $color : $blue;
         text-align: center;
         border: 2px solid black;
         text-transform: uppercase;
+        cursor: pointer;
         @include font-size(1.5);
         @include transition(all, .3s);
 
@@ -1400,6 +1420,8 @@ $color : $blue;
         position: absolute;
         bottom: 50px;
         pointer-events: none;
+        color: grey;
+        opacity: 0;
 
         @include font-size(1.3);
 
