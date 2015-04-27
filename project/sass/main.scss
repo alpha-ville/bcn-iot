@@ -111,10 +111,12 @@ body {
     }
     h2
     {
-        @include font-size(1.8);
+        @include font-size(1.6);
         font-family: 'Avenir-Roman';
-        letter-spacing: 1.5px;
-        width: 80%;
+        letter-spacing: 1px;
+        @include rem-fallback(line-height, 2.5);
+        width: 60%;
+        color: #757575;
         margin: 0 auto;
     }
     .for-best
@@ -137,9 +139,10 @@ body {
 
             p
             {
-                @include font-size(1.7);
+                @include font-size(1.6);
                 font-family: 'Avenir-Roman';
-                width: 80%;
+                width: 75%;
+                letter-spacing: 1.2px;
                 margin: 0 auto;
             }
         }
@@ -147,7 +150,7 @@ body {
 
     h3
     {
-        @include font-size(1.4);
+        @include font-size(1.2);
         font-family: 'Avenir-Roman';
         width: 80%;
         margin: 0 auto;
@@ -166,9 +169,9 @@ body {
             {
                 padding-top: 10px;
                 @include filter(invert, 100%);
-                width: 120px;
+                width: 110px;
                 @media screen and (min-width: 568px) {
-                    width: 90px;
+                    width: 80px;
                 }
             }
         }
