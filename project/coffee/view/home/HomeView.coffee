@@ -5,8 +5,11 @@ class HomeView extends AbstractViewPage
 
     template : 'page-home'
 
+    logoEl: null
     arrowLeftEl: null
     arrowRightEl: null
+
+    isVisible: false
 
     constructor : ->
 
@@ -20,6 +23,7 @@ class HomeView extends AbstractViewPage
         @
             .addChild(@interactive)
 
+        @logoEl = @el.querySelector( '.logo' )
         @arrowLeftEl = @el.querySelector( '.arrow-left' )
         @arrowRightEl = @el.querySelector( '.arrow-right' )
 
@@ -29,13 +33,23 @@ class HomeView extends AbstractViewPage
 
 
     addListeners: ->
+        Backbone.Events.on( 'startExperience', @transitionIn )
+        @logoEl.addEventListener( 'click', @onLogoClicked )
         @arrowLeftEl.addEventListener( 'click', @onArrowClicked )
         @arrowRightEl.addEventListener( 'click', @onArrowClicked )
 
         null
 
 
+    onLogoClicked: =>
+        @B().router.navigateTo( '' )
+
+        null
+
+
     onArrowClicked: ( evt ) =>
+        if !@isVisible then return
+
         # prev or next has been clicked ?
         if evt.target.className == 'arrow-left' then direction = -1 else direction = 1
 
@@ -60,6 +74,27 @@ class HomeView extends AbstractViewPage
 
     changeSection: ( area ) ->
         @B().router.navigateTo( area )
+
+        null
+
+
+    transitionIn: =>
+        @isVisible = true
+
+        @logoEl.classList.add('transitionIn')
+        @arrowLeftEl.classList.add('transitionIn')
+        @arrowRightEl.classList.add('transitionIn')
+
+
+        null
+
+
+    transitoutOut: =>
+        @isVisible = false
+
+        @logoEl.classList.remove('transitionIn')
+        @arrowLeftEl.classList.remove('transitionIn')
+        @arrowRightEl.classList.remove('transitionIn')
 
         null
 

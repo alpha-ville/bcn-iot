@@ -142,6 +142,7 @@ body {
     &.page-home {
         background: #ebebeb;
 
+
         .arrow-left,
         .arrow-right {
             width: 50px;
@@ -149,9 +150,16 @@ body {
             position: absolute;
             top: 50%;
             border: 2px solid red;
-            cursor: pointer;
             z-index: 9999;
+            opacity: 0;
             @include transform( translateY(-50%) );
+            @include transition( all, .3s, linear );
+
+            &.transitionIn {
+                opacity: 1;
+                cursor: pointer;
+            }
+
         }
 
         .arrow-left {
@@ -1327,11 +1335,7 @@ $color : $blue;
         @include transform(translateX(-50%) translateY(-50%));
     }
 
-    .ref {
-        font-size: 28px;
-        font-family: "Avenir-Black";
-        letter-spacing: 1.5px;
-    }
+
 
     .letters {
         font-size: 28px;
@@ -1443,7 +1447,25 @@ $color : $blue;
 
 }
 
+.logo {
+    font-size: 20px;
+    font-family: "Avenir-Black";
+    letter-spacing: 1.5px;
+    display: block;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    @include transform( translateX(-50%) );
+    text-align: center;
+    z-index: 9999;
+    opacity: 0;
+    @include transition( all, .3s, linear );
 
+    &.transitionIn {
+        opacity: 1;
+        cursor: pointer;
+    }
+}
 
 
 
