@@ -16,8 +16,8 @@ class OverlayHelp extends AbstractModal
 
         @templateVars =
             installation_photos        : @B().credits.at(0).get('installation_photos')
-            first_paragraph_en         : @B().credits.at(0).get 'first_paragraph_en'
-            first_paragraph_cat        : @B().credits.at(0).get 'first_paragraph_cat'
+            first_paragraph_en         : @B().credits.at(0).get 'new_first_paragraph_en'
+            first_paragraph_cat        : @B().credits.at(0).get 'new_first_paragraph_cat'
             how_it_works_en            : @B().credits.at(0).get 'how_it_works_en'
             how_it_works_cat           : @B().credits.at(0).get 'how_it_works_cat'
             how_it_works_paragraph_en  : @B().credits.at(0).get 'how_it_works_paragraph_en'
