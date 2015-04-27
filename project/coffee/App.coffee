@@ -52,6 +52,11 @@ class App
         null
 
     init : =>
+        if(window.mobilecheck())
+            $('#mobile-fallback').show()
+            $('#preloader-anim').remove()
+            return
+
         @preloaderView = new PreloaderView
         @update()
 
