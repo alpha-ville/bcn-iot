@@ -29,7 +29,16 @@ class HomeTooltip extends AbstractView
         @labels.push( @labelEn )
 
         # for easy testing
-        window.addEventListener( 'keyup', @onKeyUp )
+        # window.addEventListener( 'keyup', @onKeyUp )
+
+        @addListeners()
+
+        null
+
+
+    addListeners: ->
+        Backbone.Events.on( 'Tooltip:setCategory', @setCategory )
+        Backbone.Events.on( 'Tooltip:setInstruction', @setInstruction )
 
         null
 
@@ -52,36 +61,33 @@ class HomeTooltip extends AbstractView
         null
 
     show: =>
-        if @el.classList.contains('hide') then @el.classList.remove('hide')
+        # if @el.classList.contains('hide') then @el.classList.remove('hide')
+        @el.classList.add('transitionIn')
 
         null
 
     hide: =>
-        if !@el.classList.contains('hide') then @el.classList.add('hide')
+        @el.classList.remove('transitionIn')
+        # if !@el.classList.contains('hide') then @el.classList.add('hide')
 
         null
 
 
-    transitionIn: ( en, cat ) ->
+    transitionIn: ( en, cat ) =>
         @el.classList.add('active')
 
-        @setText( en, cat )
-
         null
 
 
-    transitionOut: ( en, cat ) ->
+    transitionOut: ( en, cat ) =>
         @el.classList.remove('active')
-
-        @setText @defaultEn, @defaultCat
-
 
         null
 
 
     setText: ( en, cat ) ->
         @labelEn.innerHTML = en
-        @labelCat.innerHTML = cat
+        # @labelCat.innerHTML = cat
 
         null
 
@@ -106,6 +112,18 @@ class HomeTooltip extends AbstractView
         transform = "translate(-50%, #{y}px)"
 
         @el.style.transform = transform
+
+        null
+
+
+    setCategory: ( category ) =>
+        @labelEn.innerHTML = category
+
+        null
+
+
+    setInstruction: ( step ) =>
+        @labelCat.innerHTML = step
 
         null
 

@@ -70,6 +70,10 @@ class InteractiveCanvas extends AbstractView
         @activeShapes       = []
         @absorbedShapes     = []
 
+        @instruction1 = 'Pick an object'
+        @instruction2 = 'Connect data or purpose'
+        @instructionIdle = '–'
+
         @addLines()
         @addDecorations()
         @bindEvents()
@@ -94,6 +98,8 @@ class InteractiveCanvas extends AbstractView
         @addHelpButton()
 
         @gotoStep -2
+
+        Backbone.trigger('SoundController:play', 'loop')
 
         null
 
@@ -444,11 +450,7 @@ class InteractiveCanvas extends AbstractView
 
 
     onCircleUnselected: ( circle, playSound = true ) =>
-        if @step == 1
-            @clearTimer( 1 )
-        else if @step == 2
-            @clearTimer( 2 )
-
+        Backbone.Events.trigger( 'Tooltip:setInstruction', @instruction1 )
 
         @currentCentralButton.stop()
 
@@ -546,11 +548,14 @@ class InteractiveCanvas extends AbstractView
             @B().router.navigateTo @B().groupName() + '/' + category
 
             # if @openOverlayTimer then clearInterval( @openOverlayTimer )
+            #
+            Backbone.Events.trigger('hideArrows')
 
             @openOverlayTimer = setTimeout =>
                 Backbone.trigger( 'SoundController:play', 'transition' )
                 @absorbedShapes = []
                 @onCircleUnselected @currentSelectedCircle, false
+
 
             , 300
 
@@ -654,6 +659,9 @@ class InteractiveCanvas extends AbstractView
                 @gotoStep 1
             )
 
+            Backbone.Events.trigger( 'showHomeTooltip' )
+            Backbone.Events.trigger( 'Tooltip:setInstruction', @instruction1 )
+
             # for circle in @circles
             #     circle.stopBouncing()
 
@@ -691,6 +699,9 @@ class InteractiveCanvas extends AbstractView
                     circle.sprite?.buttonMode = false
                     circle.fadeTo( 0 )
 
+            Backbone.Events.trigger( 'showHomeTooltip' )
+            Backbone.Events.trigger( 'Tooltip:setInstruction', @instruction1 )
+
         ### -------------------------
         - STEP2
         One circle has been touched, it goes to center
@@ -705,6 +716,9 @@ class InteractiveCanvas extends AbstractView
 
             for shape in @triangleAndSquares
                 shape.sprite.alpha = .1
+
+            Backbone.Events.trigger( 'showHomeTooltip' )
+            Backbone.Events.trigger( 'Tooltip:setInstruction', @instruction2 )
 
             # clearInterval( @stepTimer )
             # @stepTimer = setTimeout =>
@@ -723,6 +737,7 @@ class InteractiveCanvas extends AbstractView
 
         @closeCurrentGroupAndOpen( routeArgs[1] )
 
+
         null
 
 
@@ -736,6 +751,8 @@ class InteractiveCanvas extends AbstractView
         if !@startedExplore then return
 
         @gotoStep( -2 )
+
+        Backbone.Events.trigger( 'hideHomeTooltip' )
 
 
         null

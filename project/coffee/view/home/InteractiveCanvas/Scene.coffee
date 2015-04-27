@@ -29,7 +29,7 @@ class Scene
         transparent: true
       } )
 
-    @renderer = new PIXI.CanvasRenderer( @width, @height, { transparent: false } )
+    @renderer = new PIXI.CanvasRenderer( @width, @height, { transparent: true } )
 
     @attachToContainer()
 

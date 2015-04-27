@@ -76,6 +76,7 @@ class Router extends Backbone.Router
         @navigate where, trigger: true, replace: replace
 
         Backbone.Events.trigger( 'Router:navigate', where)
+        Backbone.Events.trigger( 'Tooltip:setCategory', @area )
 
         null
 

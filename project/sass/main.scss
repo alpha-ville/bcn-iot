@@ -140,7 +140,7 @@ body {
     }
 
     &.page-home {
-        background: #ebebeb;
+        // background: #ebebeb;
 
 
         .arrow-left,
@@ -1051,11 +1051,18 @@ $color : $blue;
 }
 
 .toolTip {
-    position: relative;
+    position: absolute;
     margin: auto;
     top: 0;
     left: 50%;
     text-align: center;
+    // z-index: 9999;
+    opacity: 0;
+    @include transition( opacity, .3s, linear );
+
+    &.transitionIn {
+        opacity: 1;
+    }
 
     *,
     *:before,
@@ -1080,6 +1087,10 @@ $color : $blue;
         .text {
             color: #e79d33 !important;
         }
+    }
+
+    .cat {
+        font-family: "Avenir";
     }
 }
 
@@ -1117,6 +1128,10 @@ $color : $blue;
     span:first-of-type {
         margin: 0px 0px -15px;
         display: block;
+    }
+
+    span:nth-child(2) {
+        font-family: 'Avenir-Roman';
     }
 }
 

@@ -30,6 +30,7 @@ class HelpButton extends BasicShape
 
     onMouseUp: ->
         Backbone.trigger( 'hideHomeTooltip' )
+        Backbone.Events.trigger('hideArrows')
         Backbone.trigger( 'SoundController:play', 'touchable' )
 
         @B().openHelp()

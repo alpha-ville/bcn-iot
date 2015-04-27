@@ -105,6 +105,7 @@ class OverlayContent extends AbstractModal
     closeButton : (e) =>
         @containerContent.off 'scroll'
         @B().router.navigateTo @B().groupName()
+        Backbone.Events.trigger('showArrows')
 
         null
 

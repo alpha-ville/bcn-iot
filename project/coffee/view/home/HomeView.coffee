@@ -10,6 +10,7 @@ class HomeView extends AbstractViewPage
     arrowRightEl: null
 
     isVisible: false
+    areArrowsVisible: true
 
     constructor : ->
 
@@ -34,6 +35,8 @@ class HomeView extends AbstractViewPage
 
     addListeners: ->
         Backbone.Events.on( 'startExperience', @transitionIn )
+        Backbone.Events.on( 'showArrows', @showArrows )
+        Backbone.Events.on( 'hideArrows', @hideArrows )
         @logoEl.addEventListener( 'click', @onLogoClicked )
         @arrowLeftEl.addEventListener( 'click', @onArrowClicked )
         @arrowRightEl.addEventListener( 'click', @onArrowClicked )
@@ -93,6 +96,26 @@ class HomeView extends AbstractViewPage
         @isVisible = false
 
         @logoEl.classList.remove('transitionIn')
+        @arrowLeftEl.classList.remove('transitionIn')
+        @arrowRightEl.classList.remove('transitionIn')
+
+        null
+
+
+    showArrows: =>
+        if @areArrowsVisible then return
+
+        @areArrowsVisible = true
+
+        @arrowLeftEl.classList.add('transitionIn')
+        @arrowRightEl.classList.add('transitionIn')
+
+
+    hideArrows: =>
+        if !@areArrowsVisible then return
+
+        @areArrowsVisible = false
+
         @arrowLeftEl.classList.remove('transitionIn')
         @arrowRightEl.classList.remove('transitionIn')
 
