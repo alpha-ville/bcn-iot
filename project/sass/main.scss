@@ -1442,7 +1442,7 @@ $color : $blue;
         width: 100%;
         text-align: center;
         position: absolute;
-        bottom: 50px;
+        bottom: 14px;
         pointer-events: none;
         color: grey;
         opacity: 0;
@@ -1487,6 +1487,45 @@ $color : $blue;
     }
 }
 
+.partners {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    opacity: 0;
+    // @include transition( opacity, .3s, linear );
+
+    &.transitionIn {
+        opacity: 1;
+    }
+
+    .partner {
+        float: left;
+        text-align: left;
+
+        span {
+            opacity: .6;
+        }
+
+        img {
+            display: block;
+            margin: 10px 0 0 0;
+            height: 40px;
+        }
+
+        &:nth-child(1) {
+            margin: 0 20px 0 0;
+
+            img {
+                margin: 20px 0 0 0;
+            }
+        }
+
+    }
+
+
+
+
+}
 
 
 

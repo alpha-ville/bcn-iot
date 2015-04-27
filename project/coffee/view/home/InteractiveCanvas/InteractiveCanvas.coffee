@@ -157,7 +157,7 @@ class InteractiveCanvas extends AbstractView
             circle.behavior = 'basic'
             circle.vel[0] *= .3
             circle.vel[1] *= .3
-            circle.transitionIn( 2,  Math.random() * 4, .065 )
+            circle.transitionIn( 2,  Math.random() * 4, .1 )
 
             @smallCircles.push( circle )
             @scene.addChild( circle.sprite )
@@ -170,7 +170,7 @@ class InteractiveCanvas extends AbstractView
             triangle.behavior = 'basic'
             triangle.vel[0] *= .3
             triangle.vel[1] *= .3
-            triangle.transitionIn( 2,  Math.random() * 4, .065 )
+            triangle.transitionIn( 2,  Math.random() * 4, .1 )
 
             @smallTriangles.push( triangle )
             @smallShapes.push( triangle )
@@ -184,7 +184,7 @@ class InteractiveCanvas extends AbstractView
             square.behavior = 'basic'
             square.vel[0] *= .3
             square.vel[1] *= .3
-            square.transitionIn( 2,  Math.random() * 4, .065 )
+            square.transitionIn( 2,  Math.random() * 4, .1 )
             @smallSquares.push( square )
             @smallShapes.push( square )
             @scene.addChild( square.sprite )

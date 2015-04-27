@@ -16,6 +16,9 @@ class PreloaderView
         @exploreBtn = @el.querySelector( '.explore' )
         @by = @el.querySelector( '.by' )
         @subtitle = @el.querySelector( '.subtitle' )
+        @partners = @el.querySelector( '.partners' )
+
+        console.log @partners
 
         pos =
             x: @el.getBoundingClientRect().left
@@ -81,6 +84,7 @@ class PreloaderView
             TweenMax.to( @exploreBtn, .3, { opacity: 1, delay: 1 } )
          } )
         TweenMax.to( @by, .3, { opacity: 1, delay: 2.5 } )
+        TweenMax.to( @partners, .3, { opacity: 1, delay: 2.5 } )
 
 
         for letter in @letters
