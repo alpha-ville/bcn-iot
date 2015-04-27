@@ -134,7 +134,12 @@ body {
 
             svg
             {
-                margin-bottom: 20px;
+                margin: 12%;
+                @include transform(scale(1.5));
+                @media screen and (min-width: 568px) {
+                    margin: 4%;
+                    // margin-top: 5%;
+                }
             }
 
             p
