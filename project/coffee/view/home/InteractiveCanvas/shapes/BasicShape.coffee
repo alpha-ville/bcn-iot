@@ -132,14 +132,14 @@ class BasicShape extends AbstractView
             #     @offset = 120
 
             # behavior on bounds
-            if ( @pos[0] > @_scene.width - @offset )
+            if ( @pos[0] > @_scene.width - @radius() / 2 )
                 @vel[0] *= -1
-            else if ( @pos[0] < 0 + @offset )
+            else if ( @pos[0] < 0 + @radius() / 2 )
                 @vel[0] *= -1
 
-            if ( @pos[1] > @_scene.height - @offset )
+            if ( @pos[1] > @_scene.height - @radius() / 2 )
                 @vel[1] *= -1
-            else if ( @pos[1] < 0 + @offset )
+            else if ( @pos[1] < 0 + @radius() / 2 )
                 @vel[1] *= -1
 
 

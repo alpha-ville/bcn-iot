@@ -153,7 +153,7 @@ class InteractiveCanvas extends AbstractView
             size = _.random( 8, 40 )
             # size = 500
             circle = new Circle( null, size, @scene, .2 )
-            circle.move _.random(@w), _.random(@h)
+            circle.move _.random( size, @w - size  ), _.random( size, @h - size )
             circle.behavior = 'basic'
             circle.vel[0] *= .3
             circle.vel[1] *= .3
@@ -166,7 +166,7 @@ class InteractiveCanvas extends AbstractView
         for i in [ 0 ... nbSpread * 2 ]
             size = _.random( 8, 40 )
             triangle = new Triangle( null, size, @scene, .001 )
-            triangle.move _.random(@w), _.random(@h)
+            triangle.move _.random( size, @w - size  ), _.random( size, @h - size )
             triangle.behavior = 'basic'
             triangle.vel[0] *= .3
             triangle.vel[1] *= .3
@@ -180,7 +180,7 @@ class InteractiveCanvas extends AbstractView
         for i in [ 0 ... nbSpread * 2 ]
             size = _.random( 8, 40 )
             square = new Square( null, size, @scene, .001 )
-            square.move _.random(@w), _.random(@h)
+            square.move _.random( size, @w - size  ), _.random( size, @h - size )
             square.behavior = 'basic'
             square.vel[0] *= .3
             square.vel[1] *= .3
@@ -195,7 +195,7 @@ class InteractiveCanvas extends AbstractView
         for i in [ 0 ... 100 ]
             size = _.random( 50, 200 )
             node = new NodeShape( null, size, @scene )
-            node.move _.random(@w), _.random(@h)
+            node.move _.random( size, @w - size  ), _.random( size, @h - size )
             node.behavior = 'basic'
             @gardenNodes.push( node )
             @scene.addChild( node.sprite )
@@ -252,7 +252,7 @@ class InteractiveCanvas extends AbstractView
 
         for group in @B().groups.models
             button = new CentralButton group, 240, @scene
-            button.move _.random( 0, @w ), _.random( 0, @h )
+            button.move _.random( 240, @w - 240 ), _.random( 240, @h - 240 )
             button.behavior = 'basic'
             button.vel[0] *= 3 +  Math.random()
             button.vel[1] *= 3 +  Math.random()
