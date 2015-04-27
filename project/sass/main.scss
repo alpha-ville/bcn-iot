@@ -1366,40 +1366,45 @@ $color : $blue;
         position: absolute;
         display: block;
         top: 0;
-        left: 0
+        left: 0;
+        opacity: 0;
+        @include transition( opacity, .2s, linear );
 
-        // &:nth-child(1) {
-        //     left: 373px;
-        //     margin-left: 0;
-        // }
+        &.transitionIn {
+            opacity: 1;
+        }
 
-        // &:nth-child(2) {
-        //     left: 388px;
-        // }
+        &:nth-child(1) {
+            transition-delay: .1
+        }
 
-        // &:nth-child(3) {
-        //     left: 412px;
-        // }
+        &:nth-child(2) {
+            transition-delay: .2
+        }
 
-        // &:nth-child(4) {
-        //     left: 429px;
-        // }
+        &:nth-child(3) {
+            transition-delay: .15
+        }
 
-        // &:nth-child(5) {
-        //     left: 453px;
-        // }
+        &:nth-child(4) {
+            transition-delay: .3
+        }
 
-        // &:nth-child(6) {
-        //     left: 473px;
-        // }
+        &:nth-child(5) {
+            transition-delay: .25
+        }
 
-        // &:nth-child(7) {
-        //     left: 495px;
-        // }
+        &:nth-child(6) {
+            transition-delay: .3
+        }
 
-        // &:nth-child(8) {
-        //     left: 522px;
-        // }
+        &:nth-child(7) {
+            transition-delay: 05
+        }
+
+        &:nth-child(8) {
+            transition-delay: 0
+        }
 
     }
 

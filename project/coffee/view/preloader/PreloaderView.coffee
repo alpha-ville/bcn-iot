@@ -76,9 +76,12 @@ class PreloaderView
     transitionIn: ->
         @el.display = 'block';
 
-        TweenMax.to( @subtitle, .3, { opacity: 1 } )
-        TweenMax.to( @by, .3, { opacity: 1 } )
-        TweenMax.to( @exploreBtn, .3, { opacity: 1 } )
+        TweenMax.to( @subtitle, .3, { opacity: 1, delay: 1.5, onComplete: =>
+            @exploreBtn.style.cursor = 'pointer'
+            TweenMax.to( @exploreBtn, .3, { opacity: 1, delay: 1 } )
+         } )
+        TweenMax.to( @by, .3, { opacity: 1, delay: 2.5 } )
+
 
         for letter in @letters
             letter.stop()

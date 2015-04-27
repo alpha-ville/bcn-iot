@@ -43,6 +43,8 @@ class Letter
         @cx = window.innerWidth/2
         @cy = 0
 
+        @el.classList.add( 'transitionIn' )
+
         null
 
 
@@ -97,7 +99,7 @@ class Letter
     stop: =>
         setTimeout =>
             @shouldUpdate = false
-        , Math.random() * 2000
+        , Math.random() * 1300
 
         null
 
