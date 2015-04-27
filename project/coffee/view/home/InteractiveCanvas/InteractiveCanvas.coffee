@@ -377,6 +377,7 @@ class InteractiveCanvas extends AbstractView
         Backbone.Events.on( 'shapeUnselected', @onShapeUnselected )
         Backbone.Events.on( 'shapeGotAbsorbed', @onShapeGotAbsorbed )
         Backbone.Events.on( 'Router:navigate', @onRouterChanged)
+        Backbone.Events.on( 'showRoot', @showRoot)
 
         # @$window.on 'resize orientationchange', @onResize
 
@@ -426,7 +427,7 @@ class InteractiveCanvas extends AbstractView
 
     onCircleSelected: ( circle ) =>
 
-        if @currentSelectedCircle then return
+        if @currentSelectedCircle or @step < 0 then return
 
         @currentSelectedCircle = circle
 
@@ -597,7 +598,7 @@ class InteractiveCanvas extends AbstractView
 
     gotoStep: ( step ) =>
         ### -------------------------
-        - STEP -2
+        - STEP -3
         Nothing but decoration
         Waiting to click on explore button
         -------------------------- ###
@@ -616,17 +617,25 @@ class InteractiveCanvas extends AbstractView
                 shape.fadeTo( 0 )
 
         ### -------------------------
-        - STEP -1
+        - STEP -2
         Only groups are visible
         Waiting an action on any group button
         -------------------------- ###
         if step == -2
 
             @step = -2
+
             for centralButton in @centralButtons
                 centralButton.isDisable = false
                 centralButton.sprite.buttonMode = true
                 centralButton.transitionIn()
+                centralButton.unbecomeMain()
+
+            for shape in @shapes
+                shape.fadeTo(0)
+
+            for shape in @triangleAndSquares
+                shape.fadeTo(0)
 
         ### -------------------------
         - STEP0
@@ -719,6 +728,15 @@ class InteractiveCanvas extends AbstractView
 
     closeCurrentGroupAndOpen: ( area ) ->
         console.log 'open ' + area
+
+        null
+
+
+    showRoot: =>
+        if !@startedExplore then return
+
+        @gotoStep( -2 )
+
 
         null
 

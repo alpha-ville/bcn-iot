@@ -59,7 +59,7 @@ class Router extends Backbone.Router
         @B().objectsContentHack = null
         @B().objectsContentHackOrder = null
         # Backbone.Events.trigger( 'showHomeTooltip')
-        Backbone.Events.trigger( 'showHome')
+        Backbone.Events.trigger( 'showRoot')
         null
 
     navigateTo : (where = '', trigger = true, replace = false, @params) =>
