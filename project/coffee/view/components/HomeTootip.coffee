@@ -13,7 +13,7 @@ class HomeTooltip extends AbstractView
     labelCat: null
 
     angleForMotion: 0
-    motionAmplitude: 10
+    motionAmplitude: 3
     motionSpeed: .05
 
     constructor : (@list) ->
@@ -108,7 +108,7 @@ class HomeTooltip extends AbstractView
 
         offset = Math.sin(@angleForMotion) * @motionAmplitude
 
-        y = ( window.innerHeight / 2 ) - offset - 320 # minus central button radius
+        y = ( window.innerHeight / 2 ) - offset - 245 # minus central button radius
         transform = "translate(-50%, #{y}px)"
 
         @el.style.transform = transform

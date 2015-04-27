@@ -56,7 +56,7 @@
                 </div>
 
                 <svg width="140" height="20" class="arrow">
-                    <path d="M0,0 L55,0 L70,20 L85,0 L140,0" style="stroke: #000000; fill:none; stroke-width:4px; stroke-linejoin: miter;"> </path>
+                    <path d="M0,0 L55,0 L70,20 L85,0 L140,0" style="stroke: #000000; fill:none; stroke-width:2px; stroke-linejoin: miter;"> </path>
                 </svg>
 
             </div>
@@ -72,8 +72,8 @@
         <![CDATA[
             <section id="page-home" class="page page-home">
                 <span class="logo">IOTORAMA</span>
-                <div class="arrow-left"></div>
-                <div class="arrow-right"></div>
+                <div class="arrow-left slick-prev"></div>
+                <div class="arrow-right slick-next"></div>
             </section>
         ]]>
     </template>
