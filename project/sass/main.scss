@@ -1556,6 +1556,12 @@ $color : $blue;
             margin: 10px auto;
             display: block;
             @include filter(invert, 100%);
+            opacity: .75;
+            @include transition( opacity, .2s, linear );
+
+            &:hover {
+                opacity: 1;
+            }
         }
 
         a {
@@ -1612,6 +1618,12 @@ $color : $blue;
             display: block;
             margin: 10px 0 0 0;
             height: 40px;
+            opacity: .6;
+            @include transition( opacity, .2s, linear );
+
+            &:hover {
+                opacity: 1;
+            }
         }
 
         &:nth-child(1) {
