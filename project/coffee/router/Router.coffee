@@ -13,10 +13,26 @@ class Router extends Backbone.Router
     params : null
 
     start : =>
+        startRoute = window.location.pathname.substr( 1, window.location.pathname.length );
 
-        Backbone.history.start
-            pushState : true
-            root      : '/'
+        if startRoute != ''
+
+            @B().preloaderView.stopPlaying( =>
+
+                @B().preloaderView.startExperience( -1 )
+
+                Backbone.history.start
+                    pushState : true
+                    root      : '/'
+
+            )
+        else
+            @B().preloaderView.stopPlaying()
+            Backbone.history.start
+                pushState : true
+                root      : '/'
+
+
 
         null
 
@@ -63,7 +79,6 @@ class Router extends Backbone.Router
         null
 
     navigateTo : (where = '', trigger = true, replace = false, @params) =>
-
         if where.charAt(0) isnt "/"
             where = "/#{where}"
         if where.charAt( where.length-1 ) isnt "/"

@@ -18,7 +18,6 @@ class PreloaderView
         @subtitle = @el.querySelector( '.subtitle' )
         @partners = @el.querySelector( '.partners' )
 
-        console.log @partners
 
         pos =
             x: @el.getBoundingClientRect().left
@@ -45,23 +44,15 @@ class PreloaderView
             @letters.push( letter )
 
 
-        @addListeners()
 
-        setTimeout =>
-            @transitionIn()
-        , 4000
 
 
         null
+
 
 
     addListeners: ->
-        @exploreBtn.addEventListener 'click', @startExperience
-
-        null
-
-
-    render: ->
+        @exploreBtn.addEventListener 'click', => @startExperience()
 
         null
 
@@ -79,16 +70,28 @@ class PreloaderView
     transitionIn: ->
         @el.display = 'block';
 
-        TweenMax.to( @subtitle, .3, { opacity: 1, delay: 1.5, onComplete: =>
-            @exploreBtn.style.cursor = 'pointer'
-            TweenMax.to( @exploreBtn, .3, { opacity: 1, delay: 1 } )
-         } )
-        TweenMax.to( @by, .3, { opacity: 1, delay: 2.5 } )
-        TweenMax.to( @partners, .3, { opacity: 1, delay: 2.5 } )
+        TweenMax.to( @subtitle, .3, { opacity: 1, delay: 1.5, onComplete: @onFirstTransitionComplete} )
+
 
 
         for letter in @letters
             letter.stop()
+
+        null
+
+
+    onFirstTransitionComplete: =>
+        if @cb
+            setTimeout =>
+                @cb()
+            , 2000
+        else
+            @exploreBtn.style.cursor = 'pointer'
+            TweenMax.to( @exploreBtn, .2, { opacity: 1, delay: 1 } )
+            @addListeners()
+
+            TweenMax.to( @by, .3, { opacity: 1, delay: 2 } )
+            TweenMax.to( @partners, .3, { opacity: 1, delay: 3 } )
 
         null
 
@@ -105,12 +108,11 @@ class PreloaderView
         null
 
 
-    playLoading: ->
 
-        null
-
-
-    stopPlaying: ->
+    stopPlaying: ( @cb ) ->
+        setTimeout =>
+            @transitionIn()
+        , 2000
 
         null
 
@@ -124,9 +126,10 @@ class PreloaderView
         null
 
 
-    startExperience: =>
+    startExperience: ( step = -2 ) =>
+        console.log step
         @transitionOut()
-        Backbone.Events.trigger( 'startExperience' )
+        Backbone.Events.trigger( 'startExperience', step )
 
         null
 

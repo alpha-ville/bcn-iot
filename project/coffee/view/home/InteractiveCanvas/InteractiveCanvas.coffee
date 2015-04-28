@@ -89,7 +89,7 @@ class InteractiveCanvas extends AbstractView
 
         null
 
-    startExplore : =>
+    startExplore : ( step ) =>
         @startedExplore = true
 
         # @addShapes()
@@ -97,7 +97,7 @@ class InteractiveCanvas extends AbstractView
         @initTooltip()
         @addHelpButton()
 
-        @gotoStep -2
+        @gotoStep step
 
         Backbone.trigger('SoundController:play', 'loop')
 

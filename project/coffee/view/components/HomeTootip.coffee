@@ -92,7 +92,7 @@ class HomeTooltip extends AbstractView
         null
 
     setDefaultText: ( groupName ) ->
-
+        return
         en = (@B().groups.where group : @B().groupName())[0].get('group_name_en')
         cat = (@B().groups.where group : @B().groupName())[0].get('group_name_cat')
 
