@@ -143,7 +143,6 @@ class OverlayContent extends AbstractModal
         c = $(@$el.find('.container-shape')[0])
         TweenMax.to c, 0, scaleX: 0, scaleY: 0
         TweenMax.to c, 1, scaleX: 1, scaleY: 1, ease: Back.easeOut.config(18), opacity: 1, delay: .2
-        console.log(c)
         TweenMax.to c, .5, marginTop: 40, delay: 1.1
 
         t = $(@$el.find('.title-container')[0])

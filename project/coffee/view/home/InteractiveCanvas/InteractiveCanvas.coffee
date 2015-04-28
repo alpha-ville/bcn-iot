@@ -274,8 +274,6 @@ class InteractiveCanvas extends AbstractView
             @circles.push( object )
             @scene.addChild object.sprite
 
-        console.log @B()
-
 
         null
 
