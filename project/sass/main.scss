@@ -175,7 +175,7 @@ body {
             img
             {
                 padding-top: 10px;
-                @include filter(invert, 100%);
+                // @include filter(invert, 100%);
                 width: 110px;
                 @media screen and (min-width: 568px) {
                     width: 80px;
@@ -648,7 +648,6 @@ body {
                   }
 
                   .svg {
-                    @include filter(invert, 100%);
                     margin-bottom: 30px;
                   }
                 }
@@ -1402,7 +1401,7 @@ $color : $blue;
         bottom: 50px;
         pointer-events: none;
 
-        @include filter(invert, 100%);
+        // @include filter(invert, 100%);
      }
 
 
@@ -1557,7 +1556,7 @@ $color : $blue;
             width: 120px;
             margin: 10px auto;
             display: block;
-            @include filter(invert, 100%);
+            // @include filter(invert, 100%);
             opacity: .75;
             @include transition( opacity, .2s, linear );
 
