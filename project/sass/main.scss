@@ -711,7 +711,6 @@ body {
                     p
                     {
                         max-width: 90px;
-                        display: none;
                         @include font-size(1.1);
                         max-width: 80px;
                         @include rem-fallback(line-height, 1.5);
