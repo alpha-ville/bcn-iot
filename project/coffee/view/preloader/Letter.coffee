@@ -1,6 +1,7 @@
 class Letter
 
     el: null
+    style: null
 
     angle: 0
     speed: 0
@@ -25,6 +26,8 @@ class Letter
 
     constructor: ( _el, @originPosX ) ->
         @el = _el
+
+        @style = @el.style
 
         @angle = Math.random() * 360
         @speed = Math.random() * .2
@@ -106,8 +109,13 @@ class Letter
 
     updatePos: =>
         transform = "translate(#{@pos.x}px, #{@pos.y}px) rotate(#{@rotation}deg)"
-        @el.style.transform = transform
-        @el.style.mozTransform = transform
+
+        @style.webkitTransform = transform
+        @style.MozTransform = transform
+        @style.msTransform = transform
+        @style.OTransform = transform
+        @style.transform = transform
+
 
         null
 

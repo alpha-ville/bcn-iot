@@ -22,6 +22,8 @@ class HomeTooltip extends AbstractView
 
         super()
 
+        @style = @el.style
+
         @labels = []
 
         @labelEn = @el.querySelector('.en')
@@ -111,7 +113,11 @@ class HomeTooltip extends AbstractView
         y = ( window.innerHeight / 2 ) - offset - 245 # minus central button radius
         transform = "translate(-50%, #{y}px)"
 
-        @el.style.transform = transform
+        @style.webkitTransform = transform
+        @style.MozTransform = transform
+        @style.msTransform = transform
+        @style.OTransform = transform
+        @style.transform = transform
 
         null
 
