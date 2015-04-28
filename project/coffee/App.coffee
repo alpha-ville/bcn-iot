@@ -74,7 +74,7 @@ class App
                 @categories  = new CategoriesCollection data['new-categories'].elements
                 @purposes    = new PurposeCollection data['new-purpose'].elements
                 @dataSources = new DataSourceCollection data['new-data'].elements
-                @objects     = new ObjectsCollection data['new-objects'].elements
+                @objects     = new ObjectsCollection data['web-new-objects'].elements
                 @credits     = new CreditsCollection data['new-credits-copy'].elements
                 @groups      = new GroupsCollection data['groups'].elements
 

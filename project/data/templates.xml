@@ -325,7 +325,7 @@
                         <p data-lang='en' class="project-by"><%=project_by_en%></p>
                         <p data-lang='cat' class="project-by"><%=project_by_cat%></p>
 
-                        <img class="credits-logo" src="https://googledrive.com/host/0Bw4Qy0dXirckUWpGcGVZVERTY3M" alt=""/>
+                        <a href="http://www.alpha-ville.co.uk/" target="_blank"><img class="credits-logo" src="https://googledrive.com/host/0Bw4Qy0dXirckUWpGcGVZVERTY3M" alt=""/></a>
 
                         <p data-lang='en' class="project-by"><%=project_commission_en%></p>
                         <p data-lang='cat' class="project-by"><%=project_commission_cat%></p>
