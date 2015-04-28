@@ -487,8 +487,9 @@ body {
             .help-button-container
             {
                 width: 100%;
+                height: 130px;
                 text-align: center;
-                padding: 20px 0 60px;
+                margin: 20px 0 60px;
             }
 
             .help-button
@@ -803,7 +804,7 @@ body {
         {
             opacity: 0;
             list-style: none;
-            // margin: 0 auto;
+            // margin: 15px auto 0;
             @include font-size(1.2);
             border: 2px solid black;
             display: inline-block;
@@ -860,6 +861,7 @@ body {
             .desc
             {
                 max-width: $max-width;
+                padding-bottom: 100px;
 
                 .object-list-container
                 {
@@ -870,7 +872,6 @@ body {
                 .credits-logo
                 {
                     margin-top: 20px;
-                    @include filter(invert, 100%);
                     width: 130px;
                 }
 

@@ -16,7 +16,7 @@ class ObjectsList extends AbstractView
 
     animate : (delay) =>
         margin = 30
-        TweenMax.to @$el, .5, 'margin-top' : margin, opacity: 1, delay: 1.2
+        TweenMax.to @$el, .5, marginTop : margin, opacity: 1, delay: 1.2
         null
 
     afterChange : (event, slick, currentSlide, nextSlide) =>

@@ -108,13 +108,13 @@ class OverlayHelp extends AbstractModal
         delay = .2
 
         bts = $(@$el.find('.lang-buttons')[0])
-        TweenMax.to bts, .5, 'margin-top' : margin, opacity: 1, delay: delay
+        TweenMax.to bts, .5, marginTop: margin, opacity: 1, delay: delay
 
         cb = $(@$el.find('.close-button')[0])
-        TweenMax.to cb, .5, 'margin-top' : 8, opacity: 1, delay: delay
+        TweenMax.to cb, .5, marginTop : 8, opacity: 1, delay: delay
 
         # t = $(@$el.find('h1')[0])
-        # TweenMax.to t, .5, opacity: 1, 'margin-top': 60, delay: delay + .3
+        # TweenMax.to t, .5, opacity: 1, marginTop: 60, delay: delay + .3
 
         cont = @$el.find('p')
         TweenMax.to cont, .5, opacity: 1, delay: delay + .7
