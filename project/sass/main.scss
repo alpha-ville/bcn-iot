@@ -1185,13 +1185,14 @@ $color : $blue;
     }
 
     .en {
+        text-transform: uppercase;
         font-size: 16px;
     }
 
     .cat {
         font-family: "Avenir";
         font-size: 14px;
-        text-transform: lowercase;
+        // text-transform: lowercase;
     }
 }
 
@@ -1220,7 +1221,7 @@ $color : $blue;
     min-width: 170px;
     box-sizing: border-box;
 
-    text-transform: uppercase;
+
     color: #000 !important;
     font-size: 18px;
     font-family: 'Avenir-Black';
