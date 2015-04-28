@@ -175,6 +175,9 @@ class App
         @preloaderView.update()
         @appView?.update()
 
+        if @appView?
+            @preloaderView.update( @appView.wrapper.home.interactive.helpButton )
+
         null
 
 module.exports = App

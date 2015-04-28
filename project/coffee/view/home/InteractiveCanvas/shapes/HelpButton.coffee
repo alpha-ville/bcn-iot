@@ -11,7 +11,7 @@ class HelpButton extends BasicShape
 
         @offset = 200
 
-        @sprite.alpha = .8
+        @sprite.alpha = 0
 
         @g.beginFill @color
 

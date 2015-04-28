@@ -79,6 +79,7 @@ class InteractiveCanvas extends AbstractView
         @bindEvents()
 
         @addShapes()
+        @addHelpButton()
         # @addPointer()
         # @initTooltip()
         #
@@ -95,7 +96,8 @@ class InteractiveCanvas extends AbstractView
         # @addShapes()
         @addPointer()
         @initTooltip()
-        @addHelpButton()
+
+        @helpButton.sprite.alpha = .8
 
         @gotoStep step
 

@@ -1,3 +1,4 @@
+NumUtil = require '../../utils/NumUtil'
 Letter = require './Letter'
 
 class PreloaderView
@@ -10,6 +11,10 @@ class PreloaderView
 
     exploreBtn: null
 
+    shadowHelpBtn: null
+    shadowHelpBtnStyle: null
+    shadowHelpBtnScale: 0
+
 
     constructor: ->
         @el = document.querySelector( '#preloader-anim' )
@@ -17,6 +22,8 @@ class PreloaderView
         @by = @el.querySelector( '.by' )
         @subtitle = @el.querySelector( '.subtitle' )
         @partners = @el.querySelector( '.partners' )
+        @shadowHelpBtn = @el.querySelector( '.shadowHelp' )
+        @shadowHelpBtnStyle = @shadowHelpBtn.style
 
 
         pos =
@@ -44,7 +51,7 @@ class PreloaderView
             @letters.push( letter )
 
 
-
+        @addListeners()
 
 
         null
@@ -52,7 +59,10 @@ class PreloaderView
 
 
     addListeners: ->
-        @exploreBtn.addEventListener 'click', => @startExperience()
+        Backbone.Events.on( 'showRoot', @transitionIn)
+        @shadowHelpBtn.addEventListener( 'click', @onShadowHelpBtnClicked )
+        @shadowHelpBtn.addEventListener( 'mouseenter', @onShadowHelpBtnOver )
+        @shadowHelpBtn.addEventListener( 'mouseleave', @onShadowHelpBtnOut )
 
         null
 
@@ -67,9 +77,7 @@ class PreloaderView
         null
 
 
-    transitionIn: ->
-        @el.display = 'block';
-
+    stop: ->
         TweenMax.to( @subtitle, .3, { opacity: 1, delay: 1.5, onComplete: @onFirstTransitionComplete} )
 
 
@@ -88,7 +96,7 @@ class PreloaderView
         else
             @exploreBtn.style.cursor = 'pointer'
             TweenMax.to( @exploreBtn, .2, { opacity: 1, delay: 1 } )
-            @addListeners()
+            @exploreBtn.addEventListener 'click', => @startExperience()
 
             TweenMax.to( @by, .3, { opacity: 1, delay: 2 } )
             TweenMax.to( @partners, .3, { opacity: 1, delay: 3 } )
@@ -96,7 +104,15 @@ class PreloaderView
         null
 
 
-    transitionOut: ->
+    transitionIn: =>
+        @el.style.display = 'block';
+
+        TweenMax.to( @el, .3, { opacity: 1, delay: .1 } )
+
+        null
+
+
+    transitionOut: ( @cb ) =>
         TweenMax.to( @el, .3, { opacity: 0, onComplete: @onTransitionOutComplete } )
 
         null
@@ -105,33 +121,82 @@ class PreloaderView
     onTransitionOutComplete: =>
         @el.style.display = 'none'
 
+        if @cb then @cb()
+
+        null
+
+
+    transitionInShadowHelpBtn: ->
+        @shadowHelpBtnTween = new TweenMax( @, 1.5, { shadowHelpBtnScale: 1, ease: Elastic.easeOut, delay: 4 } )
+
         null
 
 
 
     stopPlaying: ( @cb ) ->
         setTimeout =>
-            @transitionIn()
+            @stop()
         , 2000
 
         null
 
 
-    update: =>
+    update: ( canvasHelpBtn ) =>
         for letter in @letters
             letter.update()
 
         # @letters[0].update()
 
+        if canvasHelpBtn
+
+            if @shadowHelpBtnScale == 0
+                @transitionInShadowHelpBtn()
+
+            transform = "translate(#{canvasHelpBtn.pos[0] - 35}px, #{canvasHelpBtn.pos[1]- 35}px) rotate(#{canvasHelpBtn.sprite.rotation}rad) scale(#{@shadowHelpBtnScale})"
+
+            @shadowHelpBtnStyle.webkitTransform = transform
+            @shadowHelpBtnStyle.MozTransform = transform
+            @shadowHelpBtnStyle.msTransform = transform
+            @shadowHelpBtnStyle.OTransform = transform
+            @shadowHelpBtnStyle.transform = transform
+
+
+
+        null
+
+
+    onShadowHelpBtnClicked: =>
+        @transitionOut =>
+            @B().router.navigateTo( 'about' )
+
+
+        null
+
+
+    onShadowHelpBtnOver: =>
+        @shadowHelpBtnTween = new TweenMax( @, 1, { shadowHelpBtnScale: 1.2, ease: Elastic.easeOut } )
+
+        null
+
+
+    onShadowHelpBtnOut: =>
+        @shadowHelpBtnTween = new TweenMax( @, 1, { shadowHelpBtnScale: 1, ease: Elastic.easeOut } )
+
         null
 
 
     startExperience: ( step = -2 ) =>
-        console.log step
         @transitionOut()
+        Backbone.Events.off( 'showRoot', @transitionIn)
         Backbone.Events.trigger( 'startExperience', step )
 
         null
+
+
+    B: ->
+
+        return window.B
+
 
 
 module.exports = PreloaderView

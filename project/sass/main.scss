@@ -1636,11 +1636,26 @@ $color : $blue;
 
     }
 
-
-
-
 }
 
+.shadowHelp {
+
+    width: 70px;
+    height: 70px;
+    opacity: .8;
+    background: black;
+    border-radius: 35px;
+    position: absolute;
+    font-family: "Arial";
+    font-size: 20px;
+    text-align: center;
+    line-height: 70px;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    @include transform( translate(-100px, -100px) );
+
+}
 
 
 @import 'videojs/video-js';
