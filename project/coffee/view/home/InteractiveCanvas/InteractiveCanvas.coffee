@@ -506,12 +506,13 @@ class InteractiveCanvas extends AbstractView
         if Math.random() < .5 then @activeShapes.push( copyTriangles[rand2] )
 
         for shape in @activeShapes
-            if shape.type == 'triangle' then shape.fadeTo( .6 ) else shape.fadeTo( .8 )
+            # if shape.type == 'triangle' then shape.fadeTo( .6 ) else shape.fadeTo( .8 )
             shape.startBouncing()
             shape.canOrbit = true
             shape.sprite.buttonMode = true
             @scene.removeChild(  shape.sprite )
             @scene.addChild(  shape.sprite )
+            if shape.type == 'triangle' then shape.sprite.alpha = .6 else shape.sprite.alpha = .8
 
         null
 

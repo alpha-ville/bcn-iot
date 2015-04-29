@@ -1203,7 +1203,7 @@ $color : $blue;
     display: inline-block;
     position: relative;
     padding: 0px;
-    height: 90px;
+    height: 115px;
     /*border: 2px solid #000;*/
     margin: auto;
 
@@ -1212,7 +1212,7 @@ $color : $blue;
 .arrow {
     margin: auto;
     position: relative;
-    top: -1px;
+    top: 2px;
     display: block;
     overflow: visible !important;
 }
@@ -1244,7 +1244,7 @@ $color : $blue;
     position: absolute;
     top: 0;
     left: 0;
-    border-top: 2px solid #000;
+    border-top: 4px solid #000;
     margin: 0 auto;
 }
 
@@ -1255,9 +1255,9 @@ $color : $blue;
     top:0;
     left: 0;
     display: inline-block;
-    border-left: 2px solid #000;
-    border-top: 2px solid #000;
-    border-bottom: 2px solid #000;
+    border-left: 4px solid #000;
+    border-top: 4px solid #000;
+    border-bottom: 4px solid #000;
 }
 
 .rightBoarder {
@@ -1267,9 +1267,9 @@ $color : $blue;
     top: 0;
     right: 0;
     display: inline-block;
-    border-right: 2px solid #000;
-    border-top: 2px solid #000;
-    border-bottom: 2px solid #000;
+    border-right: 4px solid #000;
+    border-top: 4px solid #000;
+    border-bottom: 4px solid #000;
 
 }
 
