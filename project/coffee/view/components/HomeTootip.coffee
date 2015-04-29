@@ -5,43 +5,24 @@ class HomeTooltip extends AbstractView
 
     template : 'home-tooltip'
 
-    events :
-        "click" : "clickBreadcrumb"
+    # events :
+    #     "click" : "clickBreadcrumb"
 
     labels: null
     labelEn: null
     labelCat: null
 
     angleForMotion: 0
-    motionAmplitude: 10
+    motionAmplitude: 3
     motionSpeed: .05
 
     constructor : (@list) ->
         # @templateVars =
         #     list : @list
-        
-
-        @nameMap = 
-            'environment':
-                'en': 'Environment'
-                'cat': 'Entorn urbà i natural'
-            'home':
-                'en': 'home'
-                'cat': 'La Llar'
-            'body_mind':
-                'en': 'Body & Mind'
-                'cat': 'Cos i Ment'
-            'culture':
-                'en': 'Culture'
-                'cat': 'Cultura'
-            'diy':
-                'en': 'DIY'
-                'cat': 'Creació pròpia'
-            'social':
-                'en': 'Social'
-                'cat': 'Vida Social'
 
         super()
+
+        @style = @el.style
 
         @labels = []
 
@@ -50,7 +31,16 @@ class HomeTooltip extends AbstractView
         @labels.push( @labelEn )
 
         # for easy testing
-        window.addEventListener( 'keyup', @onKeyUp )
+        # window.addEventListener( 'keyup', @onKeyUp )
+
+        @addListeners()
+
+        null
+
+
+    addListeners: ->
+        Backbone.Events.on( 'Tooltip:setCategory', @setCategory )
+        Backbone.Events.on( 'Tooltip:setInstruction', @setInstruction )
 
         null
 
@@ -73,44 +63,42 @@ class HomeTooltip extends AbstractView
         null
 
     show: =>
-        if @el.classList.contains('hide') then @el.classList.remove('hide')
+        # if @el.classList.contains('hide') then @el.classList.remove('hide')
+        @el.classList.add('transitionIn')
 
         null
 
     hide: =>
-        if !@el.classList.contains('hide') then @el.classList.add('hide')
+        @el.classList.remove('transitionIn')
+        # if !@el.classList.contains('hide') then @el.classList.add('hide')
 
         null
 
 
-    transitionIn: ( en, cat ) ->
+    transitionIn: ( en, cat ) =>
         @el.classList.add('active')
 
-        @setText( en, cat )        
-
         null
 
 
-    transitionOut: ( en, cat ) ->
+    transitionOut: ( en, cat ) =>
         @el.classList.remove('active')
-
-        @setText @defaultEn, @defaultCat
-        
 
         null
 
 
     setText: ( en, cat ) ->
         @labelEn.innerHTML = en
-        @labelCat.innerHTML = cat
+        # @labelCat.innerHTML = cat
 
         null
 
     setDefaultText: ( groupName ) ->
-        en = @nameMap[groupName]['en']
-        cat = @nameMap[groupName]['cat']
+        return
+        en = (@B().groups.where group : @B().groupName())[0].get('group_name_en')
+        cat = (@B().groups.where group : @B().groupName())[0].get('group_name_cat')
 
-        @defaultEn = en 
+        @defaultEn = en
         @defaultCat = cat
 
         @setText @defaultEn, @defaultCat
@@ -122,10 +110,26 @@ class HomeTooltip extends AbstractView
 
         offset = Math.sin(@angleForMotion) * @motionAmplitude
 
-        y = ( window.innerHeight / 2 ) - offset - 320 # minus central button radius
-        transform = "translate(-50%, #{y}px)"
+        y = ( window.innerHeight / 2 ) - offset - 250 # minus central button radius
+        transform = "translate(-50%, #{Math.floor(y)}px)"
 
-        @el.style.transform = transform
+        @style.webkitTransform = transform
+        @style.MozTransform = transform
+        @style.msTransform = transform
+        @style.OTransform = transform
+        @style.transform = transform
+
+        null
+
+
+    setCategory: ( category ) =>
+        @labelEn.innerHTML = category
+
+        null
+
+
+    setInstruction: ( step ) =>
+        @labelCat.innerHTML = step
 
         null
 

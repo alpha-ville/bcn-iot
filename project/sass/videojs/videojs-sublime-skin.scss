@@ -1,0 +1,310 @@
+//colors
+$white: #fff;
+$white_30: rgba(255,255,255,.3);
+$white_70: rgba(255,255,255,.7);
+$black: #000;
+
+//data-uris
+$data_uri_0: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAcCAQAAACw95UnAAAAMElEQVRIx2NgoBL4n4YKGUYNHkEG4zJg1OCRYDCpBowaPJwMppbLRg0eNXjUYBLEAXWNUA6QNm1lAAAAAElFTkSuQmCC";
+$data_uri_1: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAcAQAAAAAyhWABAAAAAnRSTlMAAHaTzTgAAAAZSURBVHgBYwAB/g9EUv+JokCqiaT+U4MCAPKPS7WUUOc1AAAAAElFTkSuQmCC";
+
+//@extend-elements
+//original selectors
+//.vjs-sublime-skin.vjs-playing .vjs-play-control:before, .vjs-sublime-skin.vjs-playing .vjs-play-control:after
+%extend_1 {
+    background-color: $white;
+    border: none;
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 6px;
+}
+
+
+.vjs-sublime-skin {
+    color: $white;
+    .vjs-big-play-button {
+        cursor: pointer;
+        line-height: 50px;
+        margin: -25px;
+        opacity: 1;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        height: 50px;
+        width: 50px;
+        //Instead of the line below you could use @includetransition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+        transition: opacity 100ms cubic-bezier(.455,.03,.515,.955);
+        z-index: 2;
+        &:before {
+            border-color: transparent transparent transparent $white;
+            border-style: solid;
+            border-width: 25px 0 25px 50px;
+            content: "";
+            display: block;
+        }
+    }
+    &.vjs-controls-disabled {
+        .vjs-big-play-button {
+            opacity: 0;
+        }
+        .vjs-control-bar {
+            display: none;
+        }
+    }
+    &.vjs-has-started {
+        .vjs-big-play-button {
+            opacity: 0;
+        }
+        .vjs-control-bar {
+            opacity: 1;
+            //Instead of the line below you could use @includetransition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+            transition: opacity 100ms cubic-bezier(.455,.03,.515,.955);
+        }
+        &.vjs-user-inactive.vjs-playing .vjs-control-bar {
+            opacity: 0;
+            //Instead of the line below you could use @includetransition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+            transition: opacity 1s cubic-bezier(.455,.03,.515,.955);
+        }
+    }
+    &.vjs-using-native-controls {
+        .vjs-big-play-button {
+            opacity: 0;
+        }
+        .vjs-control-bar {
+            display: none;
+        }
+    }
+    .vjs-control-bar {
+        height: 50px;
+        opacity: 0;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 2s;
+    }
+    .vjs-progress-control {
+        position: absolute;
+        top: 0;
+        right: 95px;
+        bottom: 0;
+        left: 50px;
+        .vjs-progress-holder {
+            cursor: pointer;
+            height: 20px;
+            margin-top: -10px;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            left: 0;
+            &:after {
+                background-color: $white_30;
+                //Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
+                border-radius: 2px;
+                content: "";
+                display: block;
+                height: 4px;
+                margin-top: -2px;
+                position: absolute;
+                top: 50%;
+                right: 0;
+                left: 0;
+            }
+        }
+        .vjs-play-progress {
+            background-color: $white_70;
+            //Instead of the line below you could use @includeborder-radius($radius, $vertical-radius)
+            border-radius: 2px;
+            height: 4px;
+            margin-top: -2px;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            left: 0;
+        }
+    }
+    .vjs-play-control {
+        cursor: pointer;
+        margin-top: -8px;
+        position: absolute;
+        top: 50%;
+        left: 20px;
+        height: 16px;
+        width: 15px;
+        &:before {
+            border-color: transparent transparent transparent $white;
+            border-style: solid;
+            border-width: 8px 0 8px 15px;
+            content: "";
+            display: block;
+        }
+        .vjs-control-content {
+            display: none;
+        }
+    }
+    .vjs-fullscreen-control {
+        border: 3px solid $white;
+        //Instead of the line below you could use @includebox-sizing($bs)
+        box-sizing: border-box;
+        cursor: pointer;
+        margin-top: -7px;
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        height: 14px;
+        width: 22px;
+        .vjs-control-text {
+            display: none;
+        }
+    }
+    .vjs-volume-control {
+        cursor: pointer;
+        margin-top: -7px;
+        position: absolute;
+        top: 50%;
+        right: 55px;
+        height: 14px;
+        width: 22px;
+    }
+    .vjs-volume-bar {
+        background: url($data_uri_0);
+        background-size: 22px 14px;
+        height: 100%;
+        width: 100%;
+    }
+    .vjs-volume-level {
+        background: url($data_uri_1);
+        background-size: 22px 14px;
+        height: 100%;
+    }
+    .vjs-current-time {
+        display: none;
+    }
+    .vjs-time-divider {
+        display: none;
+    }
+    .vjs-duration {
+        display: none;
+    }
+    .vjs-remaining-time {
+        display: none;
+    }
+    .vjs-load-progress {
+        display: none;
+    }
+    .vjs-slider-handle {
+        display: none;
+    }
+    .vjs-volume-handle {
+        display: none;
+    }
+    .vjs-live-controls {
+        display: none;
+    }
+    .vjs-playback-rate {
+        display: none;
+    }
+    .vjs-subtitles-button {
+        display: none;
+    }
+    .vjs-captions-button {
+        display: none;
+    }
+    .vjs-mute-control {
+        display: none;
+    }
+    &.vjs-playing .vjs-play-control {
+        &:before {
+            @extend %extend_1;
+        }
+        &:after {
+            @extend %extend_1;
+            left: auto;
+            right: 0;
+        }
+    }
+    &.vjs-fullscreen .vjs-fullscreen-control {
+        background: $white;
+        &:after {
+            background: $black;
+            content: "";
+            display: block;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 5px;
+            width: 5px;
+        }
+    }
+    .vjs-play-progress .vjs-control-text {
+        display: none;
+    }
+}
+.video-js {
+    background-color: $black;
+    padding: 0;
+    position: relative;
+    //Instead of the line below you could use @includeuser-select($select)
+    user-select: none;
+    vertical-align: middle;
+    .vjs-tech {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+    }
+    &:-moz-full-screen {
+        position: absolute;
+    }
+    &.vjs-fullscreen {
+        position: fixed;
+        overflow: hidden;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%!important;
+        height: 100%!important;
+        &.vjs-user-inactive {
+            cursor: none;
+        }
+    }
+    &:-webkit-full-screen {
+        width: 100%!important;
+        height: 100%!important;
+    }
+    &.vjs-using-native-controls .vjs-poster {
+        display: none;
+    }
+}
+.vjs-poster {
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: contain;
+    cursor: pointer;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    width: 100%;
+    img {
+        display: block;
+        margin: 0 auto;
+        max-height: 100%;
+        padding: 0;
+        width: 100%;
+    }
+}
+body.vjs-full-window {
+    height: 100%;
+    margin: 0;
+    overflow-y: auto;
+    padding: 0;
+}

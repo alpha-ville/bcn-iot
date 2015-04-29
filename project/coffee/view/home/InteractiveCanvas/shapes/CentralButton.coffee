@@ -9,6 +9,10 @@ class CentralButton extends BasicShape
 
     isAnimating: false
 
+    isVisible: false
+    isSelected: false
+    isDisable: true
+
     init : =>
 
         super()
@@ -21,12 +25,13 @@ class CentralButton extends BasicShape
             'diy': '0B7kWGoq62sNjcUIzb1pxakk0a0k'
             'social': '0B7kWGoq62sNjVlR1TTJDYzhUSjg'
 
-        @sprite.alpha = 1
+
 
         @background = new PIXI.Graphics()
         @background.beginFill @color
         @background.drawCircle( 0, 0, @radius() )
         @background.alpha = .3
+        # @background.alpha = .6
 
         @ripple1 = new PIXI.Graphics()
         @ripple1.beginFill @color
@@ -56,7 +61,8 @@ class CentralButton extends BasicShape
 
             currentAngle += step
 
-        textureName = "https://googledrive.com/host/" + textureMap[@B().groupName]
+        # textureName = "https://googledrive.com/host/" + @getTexture()
+        textureName = "https://googledrive.com/host/" + @config.get 'icon_id'
         texture = new PIXI.Texture.fromImage( textureName )
         @icon = new PIXI.Sprite( texture )
         @icon.scale.x = @icon.scale.y = .4
@@ -64,22 +70,34 @@ class CentralButton extends BasicShape
         @icon.anchor.y = .6
         @sprite.addChild( @icon )
 
-
-        
-
         @sprite.isInteractive = false
+
+        @sprite.alpha = 0
+        @sprite.scale.x = @sprite.scale.y = 0
+
 
         null
 
+    getTexture : () =>
+        (@B().groups.where group : @B().groupName())[0].get('icon_id')
 
     onMouseUp: ->
-        Backbone.Events.trigger( 'centralButtonTouched' )
+        if @isDisable then return
+
+        if @isSelected
+            Backbone.Events.trigger( 'centralButtonTouched', @ )
+        else
+            @isSelected = true
+            Backbone.Events.trigger( 'groupSelected', @config.get('group') )
+
         Backbone.trigger( 'SoundController:play', 'nontouchable' )
 
         null
 
 
     update: ->
+        super()
+
         @rotation += .003
 
         if @rotation > 360 then @rotation = 0
@@ -87,7 +105,7 @@ class CentralButton extends BasicShape
         @g.rotation = @rotation
 
         null
-        
+
 
     animate : ( initialScale = 1 ) =>
         scale = 1.8
@@ -109,7 +127,7 @@ class CentralButton extends BasicShape
         @ripplesAnimation.stop()
 
 
-        
+
 
         TweenMax.to( @lines[0].scale, 1, { x: 8, y: 8 } )
         TweenMax.fromTo( @lines[0], 2, { alpha: 5 }, { alpha: 0, delay: -1.3, onComplete: =>
@@ -121,9 +139,63 @@ class CentralButton extends BasicShape
                 for i in [0...@lines.length]
                     @sprite.removeChild( @lines[i] )
          } )
-        
+
 
         null
+
+    transitionIn: =>
+        @isVisible = true
+
+        delay = Math.random()
+        TweenMax.to( @sprite, 1, { alpha: 1, delay: delay } )
+        TweenMax.to( @sprite.scale, 1, { x: .5, y: .5, ease: Elastic.easeOut , delay: delay } )
+
+        null
+
+
+    transitionOut: ( cb ) =>
+        # if !@isVisible then return
+
+        @isVisible = false
+
+        TweenMax.to( @sprite, .2, { alpha: 0  } )
+        TweenMax.to( @sprite.scale, .2, { x: 0, y: 0, delay: .6, onComplete: =>
+            cb?()
+        } )
+
+        null
+
+
+    becomeMain: ( cb ) ->
+        Backbone.trigger( 'SoundController:play', 'touchable' )
+
+        @isDisable = false
+        # Backbone.trigger( 'SoundController:play', 'touchable' )
+        @behavior = 'none'
+        @isSelected = true
+
+        TweenMax.to( @sprite, 1.5, { alpha: 1 } )
+        TweenMax.to( @sprite.position, 2, { x: window.innerWidth/2, y: window.innerHeight/2, ease: Elastic.easeOut } )
+        TweenMax.to( @sprite.scale, .8, { x: 1, y: 1, delay: 1, ease: Elastic.easeOut, onComplete: =>
+            cb()
+         } )
+
+        # setTimeout( =>
+        #     Backbone.trigger( 'SoundController:play', 'objectconnected' )
+        # , 1000 )
+
+        null
+
+
+    unbecomeMain: ->
+        @isSelected = false
+        @behavior = 'basic'
+        TweenMax.to( @sprite.scale, .4, { x: .5, y: .5, ease: Elastic.easeOut } )
+
+        null
+
+
+
 
 
 module.exports = CentralButton

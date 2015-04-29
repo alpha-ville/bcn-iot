@@ -5,9 +5,9 @@ class AbstractView extends Backbone.View
 	children     : null
 	template     : null
 	templateVars : null
-	
+
 	initialize : ->
-		
+
 		@children = []
 
 		if @template
@@ -16,7 +16,7 @@ class AbstractView extends Backbone.View
 
 		@$el.attr 'id', @id if @id
 		@$el.addClass @className if @className
-		
+
 		@init()
 
 		@paused = false
@@ -39,12 +39,12 @@ class AbstractView extends Backbone.View
 
 		@children.push child if child.el
 		target = if @addToSelector then @$el.find(@addToSelector).eq(0) else @$el
-		
+
 		c = if child.el then child.$el else child
 
-		if !prepend 
+		if !prepend
 			target.append c
-		else 
+		else
 			target.prepend c
 
 		@
@@ -61,7 +61,7 @@ class AbstractView extends Backbone.View
 
 		unless child?
 			return
-		
+
 		c = if child.el then child.$el else $(child)
 		child.dispose() if c and child.dispose
 

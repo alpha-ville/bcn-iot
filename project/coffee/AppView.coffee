@@ -1,11 +1,11 @@
-AbstractView = require './view/AbstractView'
-Preloader    = require './view/base/Preloader'
-# Header       = require './view/base/Header'
-Wrapper      = require './view/base/Wrapper'
-# Footer       = require './view/base/Footer'
-ModalManager = require './view/modals/_ModalManager'
-MediaQueries = require './utils/MediaQueries'
-SoundController = require('./utils/SoundController.coffee');
+AbstractView    = require './view/AbstractView'
+Preloader       = require './view/base/Preloader'
+# Header        = require './view/base/Header'
+Wrapper         = require './view/base/Wrapper'
+# Footer        = require './view/base/Footer'
+ModalManager    = require './view/modals/_ModalManager'
+MediaQueries    = require './utils/MediaQueries'
+SoundController = require './utils/SoundController'
 
 class AppView extends AbstractView
 
@@ -39,21 +39,8 @@ class AppView extends AbstractView
         @$window = $(window)
         @$body   = $('body').eq(0)
 
-        super()
-
-        @diableRightClick()
-        @setGroupName()
-
         @soundControlller = new SoundController( @B )
-
-    setGroupName: ->
-        @groupName = @B().getQueryVariable 'group'
-
-        null
-
-    diableRightClick: =>
-        document.body.setAttribute("oncontextmenu", "return false")
-
+        super()
         null
 
     disableTouch: =>
@@ -77,6 +64,7 @@ class AppView extends AbstractView
 
         @bindEvents()
         @onAllRendered()
+
         return
 
     bindEvents : =>
@@ -100,11 +88,9 @@ class AppView extends AbstractView
 
     begin : =>
         @trigger 'start'
-        @B().router.start()
+        @wrapper.begin()
         @preloader.hide()
-
-        # @B().openOverlayContent @B().selectedCategoryId
-        if !@groupName then @B().openOverlaySoon()
+        @B().router.start()
 
         @updateMediaQueriesLog()
         return
@@ -145,14 +131,16 @@ class AppView extends AbstractView
 
     navigateToUrl : ( href, e = null ) =>
 
+        if(href.match("^(http|https)://"))
+            @handleExternalLink href
+            return
+
         route   = if href.match(@B().BASE_PATH) then href.split(@B().BASE_PATH)[1] else href
         section = if route.indexOf('/') is 0 then route.split('/')[1] else route
 
         if @B().nav.getSection section
             e?.preventDefault()
             @B().router.navigateTo route
-        else
-            @handleExternalLink href
 
         return
 
@@ -165,5 +153,11 @@ class AppView extends AbstractView
         ###
 
         return
+
+
+    update: ->
+        @wrapper.update()
+
+        null
 
 module.exports = AppView

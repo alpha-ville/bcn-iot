@@ -14,6 +14,7 @@ gulp.task('browserSync', ['build'], function() {
 
     server: {
       baseDir: [pkg.folders.src, pkg.folders.dest],
+      port: 8080,
       middleware: function (req, res, next) {
 
         var filePath = req.url.split("?");

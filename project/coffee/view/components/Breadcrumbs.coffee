@@ -4,8 +4,8 @@ class Breadcrumbs extends AbstractView
 
     template : 'breadcrumbs'
 
-    events :
-        "click" : "clickBreadcrumb"
+    # events :
+    #     "click" : "clickBreadcrumb"
 
     constructor : (@list) ->
         # @list = _.shuffle(@list)
@@ -31,9 +31,21 @@ class Breadcrumbs extends AbstractView
         null
 
     toggleLang : () =>
-        @$el.find('p[data-lang]').each (a, b) =>
+
+        browser = bowser
+
+        @$el.find('[data-lang]').each (a, b) =>
+            style = if $(b).attr('data-inline') isnt undefined then 'inline-flex' else 'block'
+            if(style is 'inline-flex')
+                switch(browser.name.toLowerCase())
+                    when "safari" then style = '-webkit-inline-flex'
+                    when "msie" then style = '-ms-inline-flex'
+                    else
+                        style = "inline-flex"
+
             $(b).css
-                display : if $(b).attr('data-lang') is @B().langSelected then 'inline-flex' else 'none !important'
+                display : if $(b).attr('data-lang') is @B().langSelected then style else 'none'
+
         null
 
     animateOut : =>
@@ -43,6 +55,7 @@ class Breadcrumbs extends AbstractView
             TweenMax.to s, .3, opacity: 0, y: 20, delay: (.08 * index)
 
     clickBreadcrumb: (e) =>
+        return
         Backbone.Events.trigger('OverlayData:open')
         Backbone.trigger( 'SoundController:play', 'touchable' )
 

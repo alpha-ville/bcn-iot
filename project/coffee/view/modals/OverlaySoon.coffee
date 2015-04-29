@@ -11,6 +11,9 @@ class OverlaySoon extends AbstractModal
     currentIdx: 0
     currentSlide: null
 
+    events:
+        'click #btn-explore' : 'startExperience'
+
 
     constructor : (@cb) ->
         super()
@@ -21,25 +24,30 @@ class OverlaySoon extends AbstractModal
 
         return null
 
+    startExperience : =>
+        @hide()
+        Backbone.Events.trigger( 'startExperience' )
+        # @B().router.navigateTo @B().groupName()
+        null
 
     init : =>
-        @animate()
+        # @animate()
         null
 
     animate : =>
-        setInterval( @goToNextSlide, 8000 )
+        # setInterval( @goToNextSlide, 8000 )
 
         null
 
-    goToNextSlide: =>
-        @currentSlide.classList.remove('active')
+    # goToNextSlide: =>
+    #     @currentSlide.classList.remove('active')
 
-        @currentIdx++
-        if @currentIdx > 3 then @currentIdx = 0
+    #     @currentIdx++
+    #     if @currentIdx > 3 then @currentIdx = 0
 
-        @currentSlide = @slides[ @currentIdx ]
+    #     @currentSlide = @slides[ @currentIdx ]
 
-        @currentSlide.classList.add('active')
+    #     @currentSlide.classList.add('active')
 
         null
 

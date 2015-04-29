@@ -4,24 +4,21 @@ ObjectsList   = require '../components/ObjectsList'
 
 class OverlayContent extends AbstractModal
 
-    name     : 'overlayContent'
-    template : 'overlay-content'
-    cb       : null
-    lang     : 'en'
-    objects  : null
-    closeTimer: null
+    name       : 'overlayContent'
+    template   : 'overlay-content'
+    cb         : null
+    lang       : 'en'
+    objects    : null
 
     events:
-        'click ul>li' : "toggleLang"
-        'click .close-button' : "closeButton"
-        # 'tap ul>li' : "toggleLang"
+        'click ul>li'  : 'toggleLang'
+        'click .close-button' : 'closeButton'
+        'click .help-button' : 'openHelp'
 
     constructor : (@cb) ->
         breadcrumbsList = []
 
         node = @B().categories.findWhere category_name : @B().selectedCategoryId
-
-        # console.log node
 
         @objects = @B().objects.where "category" : node.get('category_name')
 
@@ -44,37 +41,29 @@ class OverlayContent extends AbstractModal
 
         super()
 
+        @containerContent = $(@$el.find('.container')[0])
+        @title = $( @containerContent.find('.title-container')[0] )
+        @titleSticky = $(@$el.find('.sticky-title')[0])
+
         Backbone.trigger( 'SoundController:stop', 'loop' )
 
         @initEvents()
 
-        @closeTimer = setTimeout =>
-            @closeButton()
-        , 460000
-
         return null
 
-    initEvents: ->
-        $(window).on 'click', @onWindowClick
-
-        Backbone.Events.on('OverlayData:open', @onOverlayDataOpen)
-
         null
 
+    openHelp : =>
+        @containerContent.off 'scroll'
+        @B().openHelp()
 
-    removeEvents: ->
-        $(window).off 'click'
-
+    initEvents : =>
+        @containerContent.on 'scroll', @scrollWindow
         null
 
-
-    onWindowClick: =>
-        clearInterval( @closeTimer )
-        @closeTimer = setTimeout =>
-            @closeButton()
-        , 460000
-
-        null
+    scrollWindow : =>
+        op = if @title.position().top < -70 then 1 else 0
+        @titleSticky.css 'opacity', op
 
     beforeChange : () =>
         @breadCrumbs.animateOut()
@@ -92,15 +81,7 @@ class OverlayContent extends AbstractModal
 
         selectablePurposes = object.get('purpose_type').toLowerCase().split(" ").join("").split(";")
         for i in selectablePurposes
-            # console.log i
             breadcrumbsList.push @B().purposes.findWhere type : i
-
-        # console.log @B().purposes
-
-        # console.log object.get('data_type')
-        # console.log selectableSources
-        # console.log selectablePurposes
-        # console.log breadcrumbsList
 
         @breadCrumbs = new BreadCrumbs breadcrumbsList
         @bcContainer.empty()
@@ -108,35 +89,23 @@ class OverlayContent extends AbstractModal
         @breadCrumbs.animate delay
         null
 
-    onOverlayDataOpen: =>
-        clearInterval( @closeTimer )
-
-        null
-
     slideChange : (slideID, delay = 0) =>
         a = @B().objects.findWhere id : String(slideID)
-        
+
         pn = $(@$el.find('.project-name-container>.project-name')[0])
         pn2 = $(@$el.find('.project-name-container>.project-name')[1])
         pn.text a.get('name_en')
         pn2.text a.get('name_cat')
-        
+
         TweenMax.to $(@$el.find('.project-name-container>.project-name')[0]), .2, opacity: 1
 
         @setBreadcrumb a, delay
         null
 
-    closeButton : =>
-        Backbone.trigger( 'SoundController:play', 'nontouchable' )
-        Backbone.trigger( 'SoundController:play', 'loop' )
-        clearInterval( @closeTimer )
-        @removeEvents()
-        @B().objectsContentHack = null
-        @B().objectsContentHackOrder = null
-        Backbone.Events.trigger( 'showHomeTooltip')
-
-        @B().resetIDs()
-        @B().appView.modalManager.hideOpenModal()
+    closeButton : (e) =>
+        @containerContent.off 'scroll'
+        @B().router.navigateTo @B().groupName()
+        Backbone.Events.trigger('showArrows')
 
         null
 
@@ -173,26 +142,27 @@ class OverlayContent extends AbstractModal
 
         c = $(@$el.find('.container-shape')[0])
         TweenMax.to c, 0, scaleX: 0, scaleY: 0
-        TweenMax.to c, 1, scaleX: 1, scaleY: 1, ease: Back.easeOut.config(18), opacity: 1, delay: .5
+        TweenMax.to c, 1, scaleX: 1, scaleY: 1, ease: Back.easeOut.config(18), opacity: 1, delay: .2
+        TweenMax.to c, .5, marginTop: 40, delay: 1.1
 
         t = $(@$el.find('.title-container')[0])
-        TweenMax.to t, .5, 'margin-top' : margin, opacity: 1, delay: 1
+        TweenMax.to t, .5, marginTop : margin, opacity: 1, delay: 1.3
+
+        TweenMax.to @$el.find('hr'), .5, opacity: 1, delay: 1.5
 
         cont = $(@$el.find('.content')[0])
-        TweenMax.to cont, .5, 'margin-top' : margin, opacity: 1, delay: 1.4
-
-        TweenMax.to @$el.find('hr'), .5, opacity: 1, delay: 1.4
+        TweenMax.to cont, .5, marginTop : 40, opacity: 1, delay: 1.6
 
         pnc = $(@$el.find('.project-name-container')[0])
-        TweenMax.to pnc, .5, 'margin-top' : margin, opacity: 1, delay: 1.4
+        TweenMax.to pnc, .5, marginTop : 40, opacity: 1, delay: 1.5
 
         bts = $(@$el.find('.lang-buttons')[0])
-        TweenMax.to bts, .5, 'margin-top' : margin, opacity: 1, delay: 1.4
+        TweenMax.to bts, .5, marginTop : 30, opacity: 1, delay: 1.8
 
         cb = $(@$el.find('.close-button')[0])
-        TweenMax.to cb, .5, 'margin-top' : margin, opacity: 1, delay: 1.4
+        TweenMax.to cb, .5, marginTop : 8, opacity: 1, delay: 2.2
 
-        @objectCarosel.animate 1.4
+        @objectCarosel.animate 2.5
         null
 
 module.exports = OverlayContent

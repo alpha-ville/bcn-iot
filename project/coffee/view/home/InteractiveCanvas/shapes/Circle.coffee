@@ -18,22 +18,24 @@ class Circle extends BasicShape
         if @radius() == 50
             url = "https://googledrive.com/host/" + @config.get("icon_id")
             texture = new PIXI.Texture.fromImage(url)
-            
+
             @icon = new PIXI.Sprite( texture )
             @icon.anchor.x = @icon.anchor.y = .5
             @icon.scale.x = @icon.scale.y = .5
             @sprite.addChild( @icon )
 
         @g.drawCircle 0, 0, @radius()
-        
-        
+
+
         @lines = []
- 
+
 
         null
 
 
     onMouseUp: ->
+        if @isDisable then return
+
         if @radius() != 50 then return
 
         if @isSelected
@@ -48,7 +50,7 @@ class Circle extends BasicShape
         null
 
 
-    goToCenterAndScaleUp: ->
+    goToCenterAndScaleUp: ( cb ) ->
         # Backbone.trigger( 'SoundController:play', 'touchable' )
         @behavior = 'none'
         @isSelected = true
@@ -58,7 +60,7 @@ class Circle extends BasicShape
         TweenMax.to( @sprite, 1.5, { alpha: 1 } )
         TweenMax.to( @sprite.position, 2, { x: window.innerWidth/2, y: window.innerHeight/2, ease: Elastic.easeOut } )
         TweenMax.to( @sprite.scale, .8, { x: scale, y: scale, delay: 1, ease: Elastic.easeOut, onComplete: =>
-            
+            cb?()
          } )
 
         setTimeout( =>
@@ -89,6 +91,11 @@ class Circle extends BasicShape
         @sprite.interactive = true
         @alphaTween = new TweenMax( @sprite, .3, { alpha: 1, ease: Power4.easeIn, delay: Math.random() } )
 
+        null
+
+
+    onResize: =>
+        super
         null
 
 module.exports = Circle

@@ -1,9 +1,9 @@
 AbstractView = require '../AbstractView'
 
 class Preloader extends AbstractView
-	
+
 	cb              : null
-	
+
 	TRANSITION_TIME : 0.5
 
 	constructor : ->

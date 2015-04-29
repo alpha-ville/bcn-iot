@@ -2,24 +2,31 @@ Templates            = require './data/Templates'
 Router               = require './router/Router'
 Nav                  = require './router/Nav'
 AppView              = require './AppView'
+Requester            = require './utils/Requester'
 ObjectsCollection    = require './collections/ObjectsCollection'
 CategoriesCollection = require './collections/CategoriesCollection'
 DataSourceCollection = require './collections/DataSourceCollection'
 PurposeCollection    = require './collections/PurposeCollection'
 CreditsCollection    = require './collections/CreditsCollection'
+GroupsCollection     = require './collections/GroupsCollection'
+PreloaderView        = require './view/preloader/PreloaderView'
 
 class App
 
-    LIVE         : null
-    objReady     : 0
-    purposes     : null
-    dataSources  : null
-    objects      : null
-    categories   : null
-    credits      : null
+    LIVE        : null
+    objReady    : 0
+    purposes    : null
+    dataSources : null
+    objects     : null
+    categories  : null
+    credits     : null
+
+    BASE_PATH   : "/";
 
     objectsContentHack      : null
     objectsContentHackOrder : null
+
+    prevPage : null
 
     storage      : null
 
@@ -40,43 +47,69 @@ class App
         null
 
     objectComplete : =>
-        console.log 'object complete'
         @objReady++
         @initApp() if @objReady == 2
-        # @initApp()
 
         null
 
     init : =>
-        @soundParam = @getQueryVariable 'sound'
-        @groupName = @getQueryVariable 'group'
-        @initObjects()
-        console.log 'init'
-        @initTimeout = setTimeout =>
-            location.reload();
-        , 10000
+        if(window.mobilecheck())
+            $('#mobile-fallback').show()
+            $('#preloader-anim').remove()
+            return
 
+        @preloaderView = new PreloaderView
+        @update()
+
+        @soundParam = if(location.href.indexOf("localhost") > -1) then true else @getQueryVariable 'sound'
+        @initObjects()
         null
 
     initObjects : =>
 
         @templates = new Templates "/data/templates#{(if @LIVE then '.min' else '')}.xml", @objectComplete
+        #url : '/data/cachedDatabase.json',
 
-        @storage = Tabletop.init
-            key: "1HIWOpkgxY5oJ9PjKQ3QxAWV_GMFWEIiszFpi37TMLaI"
-            callback : (data) =>
-                @categories  = new CategoriesCollection data['new-categories'].elements
-                @purposes    = new PurposeCollection data['new-purpose'].elements
-                @dataSources = new DataSourceCollection data['new-data'].elements
-                @objects     = new ObjectsCollection data['new-objects'].elements
-                @credits     = new CreditsCollection data['credits-copy'].elements
-
+        Requester.request
+            type : 'GET',
+            url : "https://googledrive.com/host/0B0uHwEQ4FBZxeDI5UVV3RE9XOEk",
+            done : (e) =>
+                @categories  = new CategoriesCollection e.categories
+                @purposes    = new PurposeCollection e.purpose
+                @dataSources = new DataSourceCollection e.sources
+                @objects     = new ObjectsCollection e.objects
+                @credits     = new CreditsCollection e.credits
+                @groups      = new GroupsCollection e.groups
                 @objectComplete()
 
+        # @generateJSON()
+
+        # @categories  = new CategoriesCollection data['new-categories'].elements
+        # @purposes    = new PurposeCollection data['web-new-purpose'].elements
+        # @dataSources = new DataSourceCollection data['web-new-data'].elements
+        # @objects     = new ObjectsCollection data['web-new-objects'].elements
+        # @credits     = new CreditsCollection data['new-credits-copy'].elements
+        # @groups      = new GroupsCollection data['groups'].elements
 
         # if new objects are added don't forget to change the `@objectComplete` function
 
         null
+
+    generateJSON : =>
+        @storage = Tabletop.init
+            key: "1HIWOpkgxY5oJ9PjKQ3QxAWV_GMFWEIiszFpi37TMLaI"
+            callback : (data) =>
+
+                cachedData =
+                    categories : data['new-categories'].elements
+                    purpose    : data['web-new-purpose'].elements
+                    sources    : data['web-new-data'].elements
+                    objects    : data['web-new-objects'].elements
+                    credits    : data['new-credits-copy'].elements
+                    groups     : data['groups'].elements
+
+                download = "data:application/octet-stream;charset=utf-8," + encodeURIComponent(JSON.stringify(cachedData))
+                window.open download
 
     getQueryVariable : (variable) =>
        query = window.location.search.substring(1)
@@ -87,12 +120,6 @@ class App
        return false
 
     initApp : =>
-        clearInterval @initTimeout
-        @initTimeout = setTimeout =>
-            location.reload();
-        , 1800000
-
-        console.log 'initapp'
         @setFlags()
 
         @selectedCategoryId = "door_locks"
@@ -102,12 +129,12 @@ class App
 
         # source id to show on detailed screen
         @selectedDataType = null
-        @selectedDataId = null
+        @selectedDataId   = null
 
         ### Starts application ###
-        @appView = new AppView
         @router  = new Router
         @nav     = new Nav
+        @appView = new AppView
 
         videojs.options.flash.swf = "data/video/video-js.swf"
 
@@ -117,28 +144,31 @@ class App
 
         null
 
+    groupName : =>
+        @router.area or "home"
+
     openOverlayContent : (@selectedCategoryId) =>
         @appView.modalManager.hideOpenModal()
         @appView.modalManager.showModal 'overlayContent'
         null
 
     openOverlayData : () =>
-
         @appView.modalManager.hideOpenModal()
         @appView.modalManager.showModal 'overlayDataContent'
         null
 
     openHelp: =>
-        @appView.modalManager.hideOpenModal()
-        @appView.modalManager.showModal 'overlayHelp'
-
+        @prevPage = [@router.area, @router.sub]
+        @router.navigateTo('about')
         null
 
-
     openOverlaySoon: =>
-        @appView.modalManager.showModal 'overlaySoon'
-        document.body.className = 'show-cursor'
-
+        # @appView.modalManager.hideOpenModal()
+        #
+        # @appView.modalManager.showModal 'overlaySoon'
+        # Backbone.Events.trigger( 'stopExperience' )
+        #
+        # document.body.className = 'show-cursor'
         null
 
     resetIDs : =>
@@ -162,6 +192,18 @@ class App
         for fn in @_toClean
             @[fn] = null
             delete @[fn]
+
+        null
+
+
+    update: =>
+        requestAnimFrame @update
+
+        @preloaderView.update()
+        @appView?.update()
+
+        if @appView?
+            @preloaderView.update( @appView.wrapper.home.interactive.helpButton )
 
         null
 

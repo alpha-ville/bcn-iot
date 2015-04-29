@@ -11,7 +11,7 @@ class HelpButton extends BasicShape
 
         @offset = 200
 
-        @sprite.alpha = 1
+        @sprite.alpha = 0
 
         @g.beginFill @color
 
@@ -21,6 +21,8 @@ class HelpButton extends BasicShape
         @text.position.x = -5
         @text.position.y = -10
 
+        @sprite.buttonMode = true
+
         @sprite.addChild( @text )
 
         null
@@ -28,11 +30,12 @@ class HelpButton extends BasicShape
 
     onMouseUp: ->
         Backbone.trigger( 'hideHomeTooltip' )
+        Backbone.Events.trigger('hideArrows')
         Backbone.trigger( 'SoundController:play', 'touchable' )
 
         @B().openHelp()
 
         null
-        
+
 
 module.exports = HelpButton

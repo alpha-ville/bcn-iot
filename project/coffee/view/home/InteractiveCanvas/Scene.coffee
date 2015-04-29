@@ -8,7 +8,7 @@ class Scene
   stage: null
   renderer: null
 
-  backgroundColor: 'rgba(0, 0, 0, 1)'
+  backgroundColor: 0xebebeb
 
   camera: null
 

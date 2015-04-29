@@ -23,7 +23,7 @@ class SoundController
     @sounds['objectconnected'].volume = @sfxVolume
     @sounds['transition'].volume = @sfxVolume
 
-    if @B().groupName and @B().soundParam is 'true'
+    if @B().groupName() and @B().soundParam is 'true'
       @sounds['loop'].play()
 
     # @play('loop')
@@ -63,6 +63,8 @@ class SoundController
     null
 
   play: ( soundName ) =>
+    # console.log soundName
+    # if @B().soundParam is 'true'
     @sounds[soundName].currentTime = 0
     @sounds[soundName].play()
 

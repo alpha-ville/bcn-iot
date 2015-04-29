@@ -62,19 +62,19 @@ class OverlayDataContent extends AbstractModal
         TweenMax.to c, 1, scaleX: 1, scaleY: 1, ease: Back.easeOut.config(12), opacity: 1, delay: .5
 
         t = $(@$el.find('.title-container')[0])
-        TweenMax.to t, .5, 'margin-top' : margin, opacity: 1, delay: 1
+        TweenMax.to t, .5, marginTop : margin, opacity: 1, delay: 1
 
         cont = $(@$el.find('.content')[0])
-        TweenMax.to cont, .5, 'margin-top' : margin, opacity: 1, delay: 1.4
+        TweenMax.to cont, .5, marginTop : 40, opacity: 1, delay: 1.4
 
         bts = $(@$el.find('.lang-buttons')[0])
-        TweenMax.to bts, .5, 'margin-top' : margin, opacity: 1, delay: 1.4
+        TweenMax.to bts, .5, marginTop : margin, opacity: 1, delay: 1.4
 
         bts = $(@$el.find('.lang-buttons')[0])
-        TweenMax.to bts, .5, 'margin-top' : margin, opacity: 1, delay: 1.4
+        TweenMax.to bts, .5, marginTop : margin, opacity: 1, delay: 1.4
 
         cb = $(@$el.find('.close-button')[0])
-        TweenMax.to cb, .5, 'margin-top' : margin, opacity: 1, delay: 1.4
+        TweenMax.to cb, .5, marginTop : margin, opacity: 1, delay: 1.4
 
         null
 

@@ -6,10 +6,8 @@ class ObjectsList extends AbstractView
     videoPlayer : null
 
     constructor : (list) ->
-        console.log list
         @templateVars =
             projects : list
-            path : "/img/video/"
 
         super()
 
@@ -18,7 +16,7 @@ class ObjectsList extends AbstractView
 
     animate : (delay) =>
         margin = 30
-        TweenMax.to @$el, .5, 'margin-top' : margin, opacity: 1, delay: 1.2
+        TweenMax.to @$el, .5, marginTop : margin, opacity: 1, delay: 1.2
         null
 
     afterChange : (event, slick, currentSlide, nextSlide) =>
@@ -47,8 +45,7 @@ class ObjectsList extends AbstractView
 
 
     loadVideos: =>
-        console.log 'plop'
-        $("video").each (index) -> 
+        $("video").each (index) ->
             $(@).get(0).load()
             $(@).get(0).addEventListener "canplaythrough", ->
                 this.play()

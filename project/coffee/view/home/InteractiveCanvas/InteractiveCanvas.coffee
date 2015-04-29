@@ -1,99 +1,125 @@
 AbstractView    = require '../../AbstractView'
-Scene           = require('./Scene.coffee');
-CentralButton   = require('./shapes/CentralButton.coffee');
+Scene           = require './Scene'
+CentralButton   = require './shapes/CentralButton'
 Circle          = require './shapes/Circle'
 Triangle        = require './shapes/Triangle'
-Square          = require('./shapes/Square.coffee');
-NumUtil         = require('../../../utils/NumUtil.coffee');
-NodeShape       = require('./shapes/NodeShape.coffee');
-HelpButton      = require('./shapes/HelpButton.coffee');
-HomeTootip      = require('../../components/HomeTootip.coffee');
-Pointer         = require('./Pointer.coffee');
+Square          = require './shapes/Square'
+NumUtil         = require '../../../utils/NumUtil'
+NodeShape       = require './shapes/NodeShape'
+HelpButton      = require './shapes/HelpButton'
+HomeTootip      = require '../../components/HomeTootip'
+Pointer         = require './Pointer'
 
 class InteractiveCanvas extends AbstractView
 
-    template : 'interactive-element'
+    template            : 'interactive-element'
 
-    pointer  : null
+    startedExplore      : false
 
-    shapes   : null
-    selectedShapes: null
+    pointer             : null
 
-    circles : null
-    triangles: null
-    squares : null
-    gardenNodes: null
+    currentCentralButton : null
+    centralButtons      : null
 
-    smallCircles: null
-    smallTriangle: null
-    smallSquares: null
-    smallShapes: null
+    shapes              : null
+    selectedShapes      : null
+
+    circles             : null
+    triangles           : null
+    squares             : null
+    gardenNodes         : null
+
+    smallCircles        : null
+    smallTriangle       : null
+    smallSquares        : null
+    smallShapes         : null
 
 
-    linesObj: null
-    linesAlphaScale: 0
+    linesObj            : null
+    linesAlphaScale     : 0
 
-    scene: null
+    scene               : null
 
-    deltaTime: 0
-    lastTime: Date.now()
+    deltaTime           : 0
+    lastTime            : Date.now()
 
-    absorbedShapes: null
-    openOverlayTimer: null
+    absorbedShapes      : null
+    openOverlayTimer    : null
 
-    tooltip: null
+    tooltip             : null
 
-    step: 0
-    stepTimer: null
-    step2Timer: null
-
-    @step1Timer = null
+    step                : -3
 
 
     init : =>
-        console.log @B()
         PIXI.dontSayHello = true
         @w = window.innerWidth
         @h = window.innerHeight
 
-        @scene = new Scene({
-            container: @$el[0]
-        })
+        @scene = new Scene container: @$el[0]
 
-        @shapes = []
-        @selectedShapes = []
-        @circles = []
-        @triangles = []
-        @squares = []
-        @gardenNodes = []
+        @centralButtons     = []
+        @allCategoryShapes  = []
+        @shapes             = []
+        @selectedShapes     = []
+        @circles            = []
+        @triangles          = []
+        @squares            = []
+        @gardenNodes        = []
         @triangleAndSquares = []
-        @activeShapes = []
+        @activeShapes       = []
+        @absorbedShapes     = []
 
-        @absorbedShapes = []
-
-
+        @instruction1 = 'Pick an object'
+        @instruction2 = 'Connect data or purpose'
+        @instructionIdle = '–'
 
         @addLines()
         @addDecorations()
-        if @B().groupName
-        
-            @addShapes()
-            @addHelpButton()
-            @addPointer()
-            @initTooltip()
-            @bindEvents()
+        @bindEvents()
+
+        @addShapes()
+        @addHelpButton()
+        # @addPointer()
+        # @initTooltip()
+        #
+
+        # console.log @B().groups
 
         @update()
 
         null
 
+    startExplore : ( step ) =>
+        @startedExplore = true
+
+        # @addShapes()
+        @addPointer()
+        @initTooltip()
+
+        @helpButton.sprite.alpha = .8
+
+        @gotoStep step
+
+        Backbone.trigger('SoundController:play', 'loop')
+
+        null
+
+
+    stopExplore: =>
+        @gotoStep -3
+
+        null
 
     initTooltip: ->
         @tooltip = new HomeTootip()
 
         @$el[0].appendChild @tooltip.el
 
-        @tooltip.setDefaultText( @groupName, @groupName )
+        @tooltip.setDefaultText( @B().groupName() )
+
+        Backbone.Events.on( 'hideHomeTooltip', @tooltip.hide )
+        Backbone.Events.on( 'showHomeTooltip', @tooltip.show )
 
         null
 
@@ -119,17 +145,22 @@ class InteractiveCanvas extends AbstractView
 
         @smallShapes = []
 
-        if @B().groupName then nbSpread = 50 else nbSpread = 15
+        nbSpread = 10
+        if window.innerWidth > 1024 then nbSpread = 25
+        if window.innerWidth > 1280 then nbSpread = 35
 
         @smallCircles = []
         for i in [ 0 ... nbSpread ]
+        # for i in [ 0 ... 3 ]
             size = _.random( 8, 40 )
             # size = 500
             circle = new Circle( null, size, @scene, .2 )
-            circle.move _.random(@w), _.random(@h)
+            circle.move _.random( size, @w - size  ), _.random( size, @h - size )
             circle.behavior = 'basic'
             circle.vel[0] *= .3
             circle.vel[1] *= .3
+            circle.transitionIn( 2,  Math.random() * 4, .1 )
+            circle.isDeco = true
 
             @smallCircles.push( circle )
             @scene.addChild( circle.sprite )
@@ -138,10 +169,13 @@ class InteractiveCanvas extends AbstractView
         for i in [ 0 ... nbSpread * 2 ]
             size = _.random( 8, 40 )
             triangle = new Triangle( null, size, @scene, .001 )
-            triangle.move _.random(@w), _.random(@h)
+            triangle.move _.random( size, @w - size  ), _.random( size, @h - size )
             triangle.behavior = 'basic'
             triangle.vel[0] *= .3
             triangle.vel[1] *= .3
+            triangle.transitionIn( 2,  Math.random() * 4, .1 )
+            triangle.isDeco = true
+
             @smallTriangles.push( triangle )
             @smallShapes.push( triangle )
             @scene.addChild( triangle.sprite )
@@ -150,13 +184,17 @@ class InteractiveCanvas extends AbstractView
         for i in [ 0 ... nbSpread * 2 ]
             size = _.random( 8, 40 )
             square = new Square( null, size, @scene, .001 )
-            square.move _.random(@w), _.random(@h)
+            square.move _.random( size, @w - size  ), _.random( size, @h - size )
             square.behavior = 'basic'
             square.vel[0] *= .3
             square.vel[1] *= .3
+            square.transitionIn( 2,  Math.random() * 4, .1 )
+            square.isDeco = true
+
             @smallSquares.push( square )
             @smallShapes.push( square )
             @scene.addChild( square.sprite )
+
 
         null
 
@@ -164,11 +202,14 @@ class InteractiveCanvas extends AbstractView
         for i in [ 0 ... 100 ]
             size = _.random( 50, 200 )
             node = new NodeShape( null, size, @scene )
-            node.move _.random(@w), _.random(@h)
+            node.move _.random( size, @w - size  ), _.random( size, @h - size )
             node.behavior = 'basic'
             @gardenNodes.push( node )
             @scene.addChild( node.sprite )
 
+        null
+
+    addGroupShapes : =>
         null
 
     addShapes : =>
@@ -179,15 +220,13 @@ class InteractiveCanvas extends AbstractView
 
         ###
 
-        @groupName = (@B().getQueryVariable 'group') or 'home'
-        filteredCategories = @B().categories.where group : @groupName
+        filteredCategories = @B().categories.where group : @B().groupName()
 
-        @B().groupName = @groupName
 
-        @centralButton = new CentralButton null, 240, @scene
-        @centralButton.move @w/2, @h/2
-        @scene.addChild @centralButton.sprite
-        # @centralButton.animate()
+        # @centralButton = new CentralButton null, 240, @scene
+        # @currentCentralButton.move @w/2, @h/2
+        # @scene.addChild @currentCentralButton.sprite
+        # @currentCentralButton.animate()
 
         objs =
             "circle"   : Circle
@@ -198,26 +237,10 @@ class InteractiveCanvas extends AbstractView
 
 
 
-
-
-
-        # circles
-        for i in [ 0 ... filteredCategories.length ]
-            data = filteredCategories[i]
-            object = new Circle(data, size, @scene)
-            object.sprite.alpha = .8
-            object.move _.random(120, @w - 120), _.random(120, @h - 120)
-            # object.isPulsating = true
-            object.vel[0] *= 1 +  Math.random()
-            object.vel[1] *= 1 +  Math.random()
-            @shapes.push( object )
-            @circles.push( object )
-            @scene.addChild object.sprite
-
         for j in [ 0 ... @B().purposes.models.length ]
             data = @B().purposes.models[j]
             object = new Triangle(data, size - 10, @scene)
-            object.sprite.alpha = .7
+            # object.sprite.alpha = .7
             object.move _.random(120, @w - 120), _.random(120, @h - 120)
             @shapes.push( object )
             @triangles.push( object )
@@ -227,11 +250,33 @@ class InteractiveCanvas extends AbstractView
         for k in [ 0 ... @B().dataSources.models.length ]
             data = @B().dataSources.models[k]
             object = new Square(data, size - 20, @scene)
-            object.sprite.alpha = .7
+            # object.sprite.alpha = .7
             object.move _.random(120, @w - 120), _.random(120, @h - 120)
             @shapes.push( object )
             @squares.push( object )
             @triangleAndSquares.push(object)
+            @scene.addChild object.sprite
+
+        for group in @B().groups.models
+            button = new CentralButton group, 240, @scene
+            button.move _.random( 240, @w - 240 ), _.random( 240, @h - 240 )
+            button.behavior = 'basic'
+            button.vel[0] *= 3 +  Math.random()
+            button.vel[1] *= 3 +  Math.random()
+            @centralButtons.push button
+            @scene.addChild button.sprite
+
+        for category in @B().categories.models
+
+            data = category
+            object = new Circle(data, size, @scene)
+            # object.sprite.alpha = .8
+            object.move _.random(120, @w - 120), _.random(120, @h - 120)
+            # object.isPulsating = true
+            object.vel[0] *= 1 +  Math.random()
+            object.vel[1] *= 1 +  Math.random()
+            @shapes.push( object )
+            @circles.push( object )
             @scene.addChild object.sprite
 
 
@@ -256,13 +301,15 @@ class InteractiveCanvas extends AbstractView
         for shape in @shapes
             shape.update()
 
+        for centralButton in @centralButtons
+            centralButton.update()
+
         @tooltip?.update()
         @centralButton?.update()
         @helpButton?.update()
 
         @render()
 
-        requestAnimFrame @update
 
         null
 
@@ -327,18 +374,21 @@ class InteractiveCanvas extends AbstractView
         #temporary
         window.addEventListener('keyup', @onKeyup)
         window.addEventListener('resize', @onResize)
-        window.addEventListener('click', @onClick)
+        window.addEventListener(window.touchStartInteraction, @onClick)
 
         @B().appView.on @B().appView.EVENT_UPDATE_DIMENSIONS, @setDims
 
+        Backbone.Events.on( 'startExperience', @startExplore )
+        Backbone.Events.on( 'stopExperience', @stopExplore )
+        Backbone.Events.on( 'groupSelected', @onGroupSelected )
         Backbone.Events.on( 'centralButtonTouched', @onCentralButtonTouched )
         Backbone.Events.on( 'circleSelected', @onCircleSelected )
         Backbone.Events.on( 'circleUnselected', @onCircleUnselected )
         Backbone.Events.on( 'shapeSelected', @onShapeSelected )
         Backbone.Events.on( 'shapeUnselected', @onShapeUnselected )
         Backbone.Events.on( 'shapeGotAbsorbed', @onShapeGotAbsorbed )
-        Backbone.Events.on( 'hideHomeTooltip', @tooltip.hide )
-        Backbone.Events.on( 'showHomeTooltip', @tooltip.show )
+        Backbone.Events.on( 'Router:navigate', @onRouterChanged)
+        Backbone.Events.on( 'showRoot', @showRoot)
 
         # @$window.on 'resize orientationchange', @onResize
 
@@ -361,10 +411,22 @@ class InteractiveCanvas extends AbstractView
         @w = window.innerWidth
         @h = window.innerHeight
 
-        @centralButton.move( @w / 2, @h / 2 )
+        @currentCentralButton?.move( @w / 2, @h / 2 )
 
         if @currentSelectedCircle
             @currentSelectedCircle.move( @w / 2, @h / 2 )
+
+        for shape in @shapes
+            shape.onResize()
+
+        for c in @smallCircles
+            c.onResize()
+
+        for t in @smallTriangles
+            t.onResize()
+
+        for s in @smallSquares
+            s.onResize()
 
         @scene.resize()
 
@@ -379,38 +441,22 @@ class InteractiveCanvas extends AbstractView
 
     onClick: ( evt ) =>
 
-        clearInterval( @stepTimer )
-        @stepTimer = setTimeout => 
-            @gotoStep( @step - 1 ) 
-        , 30000
-
-        @pointer.sprite.position.x = evt.pageX
-        @pointer.sprite.position.y = evt.pageY
-        @pointer.animate()
+        @pointer?.sprite.position.x = evt.pageX
+        @pointer?.sprite.position.y = evt.pageY
+        @pointer?.animate()
 
         null
 
 
     onCircleSelected: ( circle ) =>
 
-        if @currentSelectedCircle then return
+        if @currentSelectedCircle or @step < 0 then return
 
         @currentSelectedCircle = circle
 
-        @tooltip.transitionIn @currentSelectedCircle.config.get('name_en'), @currentSelectedCircle.config.get('name_cat')
+        @tooltip?.transitionIn @currentSelectedCircle.config.get('name_en'), @currentSelectedCircle.config.get('name_cat')
 
         @gotoStep(2)
-
-        # @step2Timer = setTimeout =>
-        #     @gotoStep(1)
-        # , 30000
-
-
-
-        # for c in @circles
-        #     c.isDisable = true
-        #     c.isPulsating = false
-        #     if c.id != circle.id then c.disable()
 
         @currentSelectedCircle.isDisable = false
         @currentSelectedCircle.goToCenterAndScaleUp()
@@ -421,15 +467,11 @@ class InteractiveCanvas extends AbstractView
 
 
     onCircleUnselected: ( circle, playSound = true ) =>
-        if @step == 1
-            @clearTimer( 1 )
-        else if @step == 2
-            @clearTimer( 2 )
+        Backbone.Events.trigger( 'Tooltip:setInstruction', @instruction1 )
 
+        @currentCentralButton.stop()
 
-        @centralButton.stop()
-
-        @tooltip.transitionOut()
+        @tooltip?.transitionOut()
 
         circle.goBackAndScaleDown playSound
 
@@ -479,24 +521,22 @@ class InteractiveCanvas extends AbstractView
         if Math.random() < .5 then @activeShapes.push( copyTriangles[rand2] )
 
         for shape in @activeShapes
-            if shape.type == 'triangle' then shape.fadeTo( .6 ) else shape.fadeTo( .8 )
+            # if shape.type == 'triangle' then shape.fadeTo( .6 ) else shape.fadeTo( .8 )
             shape.startBouncing()
             shape.canOrbit = true
+            shape.sprite.buttonMode = true
             @scene.removeChild(  shape.sprite )
             @scene.addChild(  shape.sprite )
+            if shape.type == 'triangle' then shape.sprite.alpha = .6 else shape.sprite.alpha = .8
 
         null
 
 
     onShapeSelected: ( shape ) =>
-        if @step == 1
-            @clearTimer( 1 )
-        else if @step == 2
-            @clearTimer( 2 )
 
         @selectedShapes.push( shape )
 
-        if @selectedShapes.length == @activeShapes.length then isTheLast = true else isTheLast = false        
+        if @selectedShapes.length == @activeShapes.length then isTheLast = true else isTheLast = false
 
         shape.getAbsorbed( isTheLast )
 
@@ -509,7 +549,7 @@ class InteractiveCanvas extends AbstractView
 
 
     onShapeGotAbsorbed: ( shape ) =>
-        @centralButton.animate()
+        @currentCentralButton?.animate()
 
         scale = @currentSelectedCircle.sprite.scale.x + .5
         TweenMax.to( @currentSelectedCircle.sprite.scale, 1, { x: scale, y: scale, ease: Elastic.easeOut, onComplete: =>
@@ -520,16 +560,20 @@ class InteractiveCanvas extends AbstractView
         @absorbedShapes.push( shape )
 
         if @absorbedShapes.length == @activeShapes.length
-            @tooltip.hide()
+            @tooltip?.hide()
             category = @currentSelectedCircle.config.get('category_name')
-            @B().openOverlayContent category
 
-            if @openOverlayTimer then clearInterval( @openOverlayTimer )
+            @B().router.navigateTo @B().groupName() + '/' + category
+
+            # if @openOverlayTimer then clearInterval( @openOverlayTimer )
+            #
+            Backbone.Events.trigger('hideArrows')
 
             @openOverlayTimer = setTimeout =>
                 Backbone.trigger( 'SoundController:play', 'transition' )
                 @absorbedShapes = []
                 @onCircleUnselected @currentSelectedCircle, false
+
 
             , 300
 
@@ -537,7 +581,8 @@ class InteractiveCanvas extends AbstractView
         null
 
 
-    onCentralButtonTouched: =>
+    onCentralButtonTouched: ( centralButton ) =>
+        console.log centralButton
 
         if @step == 0
             @gotoStep(1)
@@ -548,72 +593,186 @@ class InteractiveCanvas extends AbstractView
         null
 
 
+    onGroupSelected: ( groupName ) =>
+        @B().router.navigateTo groupName
+
+        for centralButton in @centralButtons
+            if centralButton.config.get('group') == groupName
+                @currentCentralButton = centralButton
+
+        # circles
+        # for i in [ 0 ... filteredCategories.length ]
+            # data = filteredCategories[i]
+            # object = new Circle(data, size, @scene)
+            # # object.sprite.alpha = .8
+            # object.move _.random(120, @w - 120), _.random(120, @h - 120)
+            # # object.isPulsating = true
+            # object.vel[0] *= 1 +  Math.random()
+            # object.vel[1] *= 1 +  Math.random()
+            # @shapes.push( object )
+            # @circles.push( object )
+            # @scene.addChild object.sprite
+
+
+        @gotoStep 0
+
+        null
+
+
     gotoStep: ( step ) =>
+        ### -------------------------
+        - STEP -3
+        Nothing but decoration
+        Waiting to click on explore button
+        -------------------------- ###
+        if step == -3
+            @step = -2
+
+            @currentCentralButton?.unbecomeMain()
+            # @currentCentralButton?.transitionOut()
+            # @currentCentralButton = null
+
+            for centralButton in @centralButtons
+                centralButton.transitionOut()
+                centralButton.isDisable = true
+
+            for shape in @shapes
+                shape.fadeTo( 0 )
+
+        ### -------------------------
+        - STEP -2
+        Only groups are visible
+        Waiting an action on any group button
+        -------------------------- ###
+        if step == -2
+
+            @step = -2
+
+            for centralButton in @centralButtons
+                centralButton.isDisable = false
+                centralButton.sprite.buttonMode = true
+                centralButton.transitionIn()
+                centralButton.unbecomeMain()
+
+            for shape in @shapes
+                shape.fadeTo(0)
+
+            for shape in @triangleAndSquares
+                shape.fadeTo(0)
+
         ### -------------------------
         - STEP0
         Everything is visible,
         Waiting an action on central button
-        -------------------------- ### 
+        -------------------------- ###
         if step == 0
             @step = 0
-            for circle in @circles
-                circle.stopBouncing()
 
-            for shape in @shapes
-                shape.fadeTo( .8 )
+            for centralButton in @centralButtons
+                centralButton.isDisable = true
+                centralButton.sprite.buttonMode = false
+                centralButton.transitionOut()
+
+            @currentCentralButton.becomeMain( =>
+                @gotoStep 1
+            )
+
+            Backbone.Events.trigger( 'showHomeTooltip' )
+            Backbone.Events.trigger( 'Tooltip:setInstruction', @instruction1 )
+
+            # for circle in @circles
+            #     circle.stopBouncing()
+
+            # for shape in @shapes
+            #     shape.fadeTo( .8 )
 
         ### -------------------------
         - STEP1
         Central button has been touched,
         Circles start pulsating like hell
         Other shapes fadeOut
-        -------------------------- ### 
+        -------------------------- ###
         if step == 1
-
-            clearInterval( @stepTimer )
-            @stepTimer = setTimeout =>
-                @gotoStep( 0 )
-            , 30000
-
             @step = 1
-            if @currentSelectedCircle then @onCircleUnselected( @currentSelectedCircle )
-            for shape in @shapes 
-                shape.stopBouncing()
-                if shape.type != 'circle' then shape.sprite.alpha = .2
 
-            for shape in @activeShapes 
+            if @currentSelectedCircle then @onCircleUnselected( @currentSelectedCircle )
+            for shape in @shapes
+                shape.stopBouncing()
+                if shape.type != 'circle' then shape.fadeTo( .2, .3 + Math.random() )
+
+            for shape in @activeShapes
                 shape.stopBouncing()
 
 
             for circle in @circles
-                circle.sprite.alpha = .8
-                circle.startBouncing()
-                @scene.removeChild(  circle.sprite )
-                @scene.addChild(  circle.sprite )
+                if @currentCentralButton.config.get('group') == circle.config.get('group')
+                    circle.fadeTo( .8, Math.random() * .3 )
+                    # circle.startBouncing()
+                    # @scene.removeChild(  circle.sprite )
+                    circle.sprite.buttonMode = true
+                    circle.isDisable = false
+                    @scene.addChild(  circle.sprite )
+                else
+                    circle.isDisable = true
+                    circle.sprite?.buttonMode = false
+                    circle.fadeTo( 0 )
 
-            
-
-            
+            Backbone.Events.trigger( 'showHomeTooltip' )
+            Backbone.Events.trigger( 'Tooltip:setInstruction', @instruction1 )
 
         ### -------------------------
         - STEP2
         One circle has been touched, it goes to center
         Other shapes start pulsating like hell
-        -------------------------- ### 
+        -------------------------- ###
         if step == 2
             @step = 2
             for circle in @circles
+                circle.sprite.buttonMode = false
                 circle.stopBouncing()
                 circle.sprite.alpha = .1
 
             for shape in @triangleAndSquares
                 shape.sprite.alpha = .1
 
-            clearInterval( @stepTimer )
-            @stepTimer = setTimeout =>
-                @gotoStep( 1 )
-            , 30000
-        
+            Backbone.Events.trigger( 'showHomeTooltip' )
+            Backbone.Events.trigger( 'Tooltip:setInstruction', @instruction2 )
+
+            # clearInterval( @stepTimer )
+            # @stepTimer = setTimeout =>
+            #     @gotoStep( 1 )
+            # , 30000
+
+        null
+
+
+    onRouterChanged: ( route ) =>
+        routeArgs = route.split('/')
+
+        if routeArgs[1] == @B().router.area then return
+
+        console.log 'category changed'
+
+        @closeCurrentGroupAndOpen( routeArgs[1] )
+
+
+        null
+
+
+    closeCurrentGroupAndOpen: ( area ) ->
+        console.log 'open ' + area
+
+        null
+
+
+    showRoot: =>
+        if !@startedExplore then return
+
+        @gotoStep( -2 )
+
+        Backbone.Events.trigger( 'hideHomeTooltip' )
+
+
         null
 
     clearTimer: ( timerId ) =>
@@ -621,9 +780,9 @@ class InteractiveCanvas extends AbstractView
         if timerId == 1 then currentTimer = @step1Timer
         else if timerId == 2 then currentTimer = @step2Timer
 
-        window.setTimeout =>
-            @gotoStep( timerId - 1 )
-        , 30000
+        # window.setTimeout =>
+        #     @gotoStep( timerId - 1 )
+        # , 30000
 
         null
 
