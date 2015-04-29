@@ -196,8 +196,8 @@ class BasicShape extends AbstractView
 
         @sprite.rotation += @velRot
 
-        if @isBouncing and @sprite.alpha != 1
-            @sprite.alpha = 1
+        # if @isBouncing and @sprite.alpha != 1
+
 
         null
 
@@ -248,6 +248,8 @@ class BasicShape extends AbstractView
 
     getAbsorbed: ( isTheLast )->
         # @spring = .7
+        #
+        @isBouncing = false
 
         delay = .1
 
@@ -320,6 +322,8 @@ class BasicShape extends AbstractView
 
     bounce: =>
         if !@isBouncing then return
+
+        @sprite.alpha = 1
 
         TweenMax.to( @sprite.scale, .4, { x:2, y:2, ease: Power4.easeIn , delay: Math.random() * .2, onComplete: =>
             TweenMax.to( @sprite.scale, .8, { x: 1, y: 1, ease: Elastic.easeOut } )
