@@ -31,8 +31,18 @@ class Breadcrumbs extends AbstractView
         null
 
     toggleLang : () =>
+
+        browser = bowser
+
         @$el.find('[data-lang]').each (a, b) =>
             style = if $(b).attr('data-inline') isnt undefined then 'inline-flex' else 'block'
+            if(style is 'inline-flex')
+                switch(browser.name.toLowerCase())
+                    when "safari" then style = '-webkit-inline-flex'
+                    when "msie" then style = '-ms-inline-flex'
+                    else
+                        style = "inline-flex"
+
             $(b).css
                 display : if $(b).attr('data-lang') is @B().langSelected then style else 'none'
 

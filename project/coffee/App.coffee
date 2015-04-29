@@ -71,6 +71,8 @@ class App
         @storage = Tabletop.init
             key: "1HIWOpkgxY5oJ9PjKQ3QxAWV_GMFWEIiszFpi37TMLaI"
             callback : (data) =>
+                console.log(data)
+
                 @categories  = new CategoriesCollection data['new-categories'].elements
                 @purposes    = new PurposeCollection data['web-new-purpose'].elements
                 @dataSources = new DataSourceCollection data['web-new-data'].elements

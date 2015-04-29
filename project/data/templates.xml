@@ -98,8 +98,8 @@
                 </div>
 
                 <div class="name-container">
-                    <p data-lang='en' data-inline><%= data.get('name_en') %></p>
-                    <p data-lang='cat' data-inline><%= data.get('name_cat') %></p>
+                    <p data-lang='en' data-inline="true"><%= data.get('name_en') %></p>
+                    <p data-lang='cat' data-inline="true"><%= data.get('name_cat') %></p>
                 </div>
             </div>
         <% }) %>

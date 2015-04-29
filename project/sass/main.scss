@@ -685,6 +685,7 @@ body {
                     display: inline-block;
                     cursor: pointer;
                     text-align: center;
+
                 }
 
                 .breadcrumbItem:hover div[tooltip] {
@@ -709,7 +710,6 @@ body {
                     margin: 0 auto;
                     p
                     {
-                        max-width: 90px;
                         @include font-size(1.1);
                         max-width: 80px;
                         @include rem-fallback(line-height, 1.5);
