@@ -196,6 +196,9 @@ class BasicShape extends AbstractView
 
         @sprite.rotation += @velRot
 
+        if @isBouncing and @sprite.alpha != 1
+            @sprite.alpha = 1
+
         null
 
     setBehaviorProps: ->
