@@ -98,4 +98,8 @@ class Triangle extends BasicShape
 
       null
 
+    onResize: =>
+      super
+      null
+
 module.exports = Triangle

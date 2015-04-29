@@ -160,6 +160,7 @@ class InteractiveCanvas extends AbstractView
             circle.vel[0] *= .3
             circle.vel[1] *= .3
             circle.transitionIn( 2,  Math.random() * 4, .1 )
+            circle.isDeco = true
 
             @smallCircles.push( circle )
             @scene.addChild( circle.sprite )
@@ -173,6 +174,7 @@ class InteractiveCanvas extends AbstractView
             triangle.vel[0] *= .3
             triangle.vel[1] *= .3
             triangle.transitionIn( 2,  Math.random() * 4, .1 )
+            triangle.isDeco = true
 
             @smallTriangles.push( triangle )
             @smallShapes.push( triangle )
@@ -187,9 +189,12 @@ class InteractiveCanvas extends AbstractView
             square.vel[0] *= .3
             square.vel[1] *= .3
             square.transitionIn( 2,  Math.random() * 4, .1 )
+            square.isDeco = true
+
             @smallSquares.push( square )
             @smallShapes.push( square )
             @scene.addChild( square.sprite )
+
 
         null
 
@@ -406,10 +411,22 @@ class InteractiveCanvas extends AbstractView
         @w = window.innerWidth
         @h = window.innerHeight
 
-        @centralButton?.move( @w / 2, @h / 2 )
+        @currentCentralButton?.move( @w / 2, @h / 2 )
 
         if @currentSelectedCircle
             @currentSelectedCircle.move( @w / 2, @h / 2 )
+
+        for shape in @shapes
+            shape.onResize()
+
+        for c in @smallCircles
+            c.onResize()
+
+        for t in @smallTriangles
+            t.onResize()
+
+        for s in @smallSquares
+            s.onResize()
 
         @scene.resize()
 

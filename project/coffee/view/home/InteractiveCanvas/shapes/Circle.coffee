@@ -93,4 +93,9 @@ class Circle extends BasicShape
 
         null
 
+
+    onResize: =>
+        super
+        null
+
 module.exports = Circle

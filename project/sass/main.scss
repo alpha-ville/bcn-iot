@@ -1200,7 +1200,7 @@ $color : $blue;
 
 .textBoxWrapper {
     text-align: center;
-    width: 190px;
+    width: 210px;
     display: inline-block;
     position: relative;
     padding: 0px;
@@ -1230,11 +1230,12 @@ $color : $blue;
     span:nth-child(1) {
         margin: 0px 0px -20px 0;
         display: block;
-        letter-spacing: 3px;
+        letter-spacing: 2px;
     }
 
     span:nth-child(2) {
         font-family: 'Avenir-Roman';
+        letter-spacing: 1px;
     }
 }
 

@@ -134,14 +134,16 @@ class BasicShape extends AbstractView
             # behavior on bounds
             if ( @pos[0] > @_scene.width - @radius() / 2 )
                 @vel[0] *= -1
+                @pos[0] = @_scene.width - @radius() / 2
             else if ( @pos[0] < 0 + @radius() / 2 )
                 @vel[0] *= -1
-
+                @pos[0] = 0 + @radius() / 2
             if ( @pos[1] > @_scene.height - @radius() / 2 )
                 @vel[1] *= -1
+                @pos[1] = @_scene.height - @radius() / 2
             else if ( @pos[1] < 0 + @radius() / 2 )
                 @vel[1] *= -1
-
+                @pos[1] = 0 + @radius() / 2
 
             @sprite.position.x = @pos[0]
             @sprite.position.y = @pos[1]
@@ -342,6 +344,14 @@ class BasicShape extends AbstractView
     transitionIn: ( speed = .3, delay = 0, alpha = .8 ) =>
         TweenMax.to( @sprite, speed, { alpha: alpha, delay: delay } )
         # TweenMax.to( @sprite.scale, speed, { x:1, y:1, ease: Elastic.easeOut , delay: delay } )
+
+        null
+
+
+    onResize: =>
+        if @isDeco
+            @pos[0] = _.random( @w, @_scene.width - @w  )
+            @pos[1] = _.random( @w, @_scene.height - @w )
 
         null
 

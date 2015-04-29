@@ -83,6 +83,10 @@ class Square extends BasicShape
 
       null
 
+    onResize: =>
+      super
+      null
+
 
 
 module.exports = Square

@@ -167,6 +167,8 @@ class CentralButton extends BasicShape
 
 
     becomeMain: ( cb ) ->
+        Backbone.trigger( 'SoundController:play', 'touchable' )
+
         @isDisable = false
         # Backbone.trigger( 'SoundController:play', 'touchable' )
         @behavior = 'none'
