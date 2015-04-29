@@ -190,7 +190,7 @@ class BasicShape extends AbstractView
 
             val = Math.abs(Math.sin( @angleMotion + @pulsatingOffset ) )
             scale = NumUtil.map val, 0, 1, 1, 1.15
-            alpha = NumUtil.map val, 0, 1, .7, 1
+            # alpha = NumUtil.map val, 0, 1, .7, 1
             @sprite.scale.x = @sprite.scale.y = scale
             @sprite.alpha = alpha
 
