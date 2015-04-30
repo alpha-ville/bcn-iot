@@ -78,6 +78,8 @@ class App
         # @groups      = new GroupsCollection data.groups
         # @objectComplete()
 
+        # @generateJSON()
+
         Requester.request
             type : 'GET',
             url : "/data/cachedDatabase.txt",
@@ -90,7 +92,7 @@ class App
                 @groups      = new GroupsCollection e.groups
                 @objectComplete()
 
-        # @generateJSON()
+        #
 
         # @categories  = new CategoriesCollection data['new-categories'].elements
         # @purposes    = new PurposeCollection data['web-new-purpose'].elements
