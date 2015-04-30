@@ -72,7 +72,7 @@ class App
 
         Requester.request
             type : 'GET',
-            url : "https://googledrive.com/host/0B0uHwEQ4FBZxeDI5UVV3RE9XOEk",
+            url : "/data/cachedDatabase.txt",
             done : (e) =>
                 @categories  = new CategoriesCollection e.categories
                 @purposes    = new PurposeCollection e.purpose
