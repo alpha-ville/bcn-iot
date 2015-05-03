@@ -110,7 +110,7 @@ class HomeTooltip extends AbstractView
 
         offset = Math.sin(@angleForMotion) * @motionAmplitude
 
-        y = ( window.innerHeight / 2 ) - offset - 250 # minus central button radius
+        y = ( window.innerHeight / 2 ) - offset - 280 # minus central button radius
         transform = "translate(-50%, #{Math.floor(y)}px)"
 
         @style.webkitTransform = transform

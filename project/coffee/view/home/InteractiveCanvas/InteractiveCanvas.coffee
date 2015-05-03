@@ -91,6 +91,8 @@ class InteractiveCanvas extends AbstractView
         null
 
     startExplore : ( step ) =>
+
+
         @startedExplore = true
 
         # @addShapes()
@@ -101,6 +103,7 @@ class InteractiveCanvas extends AbstractView
 
         @gotoStep step
 
+        Backbone.trigger('SoundController:stop', 'intro')
         Backbone.trigger('SoundController:play', 'loop')
 
         null
@@ -677,6 +680,7 @@ class InteractiveCanvas extends AbstractView
                 @gotoStep 1
             )
 
+            Backbone.Events.trigger('showArrows')
             Backbone.Events.trigger( 'showHomeTooltip' )
             Backbone.Events.trigger( 'Tooltip:setInstruction', @instruction1 )
 
@@ -770,6 +774,7 @@ class InteractiveCanvas extends AbstractView
 
         @gotoStep( -2 )
 
+        Backbone.Events.trigger('hideArrows')
         Backbone.Events.trigger( 'hideHomeTooltip' )
 
 

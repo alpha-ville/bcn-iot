@@ -85,8 +85,8 @@ class HomeView extends AbstractViewPage
         @isVisible = true
 
         @logoEl.classList.add('transitionIn')
-        @arrowLeftEl.classList.add('transitionIn')
-        @arrowRightEl.classList.add('transitionIn')
+        # @arrowLeftEl.classList.add('transitionIn')
+        # @arrowRightEl.classList.add('transitionIn')
 
 
         null
@@ -103,7 +103,8 @@ class HomeView extends AbstractViewPage
 
 
     showArrows: =>
-        if @areArrowsVisible then return
+        # console.log(@areArrowsVisible)
+        # if @areArrowsVisible then return
 
         @areArrowsVisible = true
 
@@ -112,7 +113,7 @@ class HomeView extends AbstractViewPage
 
 
     hideArrows: =>
-        if !@areArrowsVisible then return
+        # if !@areArrowsVisible then return
 
         @areArrowsVisible = false
 

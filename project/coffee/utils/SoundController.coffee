@@ -8,6 +8,7 @@ class SoundController
 
   constructor: ( @B ) ->
     @sounds =
+      'intro': document.querySelector('.audio-intro')
       'loop': document.querySelector('.audio-loop')
       'touchable': document.querySelector('.audio-touchable')
       'nontouchable': document.querySelector('.audio-nontouchable')

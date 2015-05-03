@@ -62,6 +62,7 @@ class App
         @update()
 
         @soundParam = if(location.href.indexOf("localhost") > -1) then true else @getQueryVariable 'sound'
+        @soundParam = true
         @initObjects()
         null
 

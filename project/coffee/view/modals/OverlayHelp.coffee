@@ -67,7 +67,6 @@ class OverlayHelp extends AbstractModal
 
         dest = if @B().prevPage then @B().prevPage.join('/') else ""
         @B().router.navigateTo dest
-        Backbone.Events.trigger('showArrows')
         null
 
     toggleLang : (e) =>

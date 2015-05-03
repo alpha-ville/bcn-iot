@@ -220,6 +220,20 @@ body {
     display: block;
  }
 
+ @keyframes arrowsLeft
+{
+    0% {@include transform(translate(0px, -50%));}
+    50% {@include transform(translate(-15px, -50%));}
+    100% {@include transform(translate(0px, -50%));}
+}
+
+@keyframes arrowsRight
+{
+    0% {@include transform(translate(0px, -50%));}
+    50% {@include transform(translate(15px, -50%));}
+    100% {@include transform(translate(0px, -50%));}
+}
+
 .page {
     position: absolute;
     top: 0;
@@ -261,13 +275,18 @@ body {
 
         .arrow-left {
             left: 60px;
+            animation: arrowsLeft 1.5s infinite;
         }
 
         .arrow-right {
             right: 60px;
+            animation: arrowsRight 1.5s infinite;
+
         }
     }
 }
+
+
 
 .overlays
 {

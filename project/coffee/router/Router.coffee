@@ -53,11 +53,15 @@ class Router extends Backbone.Router
                 break
 
             when @area is 'about'
+                Backbone.Events.trigger('hideArrows')
                 @B().appView.modalManager.hideOpenModal()
                 @B().appView.modalManager.showModal 'overlayHelp'
                 break
 
             when @area and !@sub
+                console.log('asdasd')
+
+                Backbone.Events.trigger('showArrows')
                 Backbone.trigger( 'SoundController:play', 'nontouchable' )
                 Backbone.trigger( 'SoundController:play', 'loop' )
                 Backbone.Events.trigger( 'groupSelected', @area )
@@ -66,6 +70,7 @@ class Router extends Backbone.Router
                 break
 
             else
+                Backbone.Events.trigger('hideArrows')
                 @B().openOverlayContent @sub
 
         null
