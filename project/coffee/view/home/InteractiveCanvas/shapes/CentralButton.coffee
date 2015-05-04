@@ -62,7 +62,7 @@ class CentralButton extends BasicShape
             currentAngle += step
 
         # textureName = "https://googledrive.com/host/" + @getTexture()
-        textureName = "https://googledrive.com/host/" + @config.get 'icon_id'
+        textureName = "https://googledrive.com/host/" + @config.get('icon_id') + "?r=#{Math.floor(Math.random() * 999999)}"
         texture = new PIXI.Texture.fromImage( textureName )
         @icon = new PIXI.Sprite( texture )
         @icon.scale.x = @icon.scale.y = .4

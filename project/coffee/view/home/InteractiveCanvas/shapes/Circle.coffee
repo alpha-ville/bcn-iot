@@ -16,7 +16,7 @@ class Circle extends BasicShape
         super()
 
         if @radius() == 50
-            url = "https://googledrive.com/host/" + @config.get("icon_id")
+            url = "https://googledrive.com/host/" + @config.get("icon_id") + "?r=#{Math.floor(Math.random() * 999999)}"
             texture = new PIXI.Texture.fromImage(url)
 
             @icon = new PIXI.Sprite( texture )

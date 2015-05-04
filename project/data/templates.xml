@@ -86,7 +86,7 @@
                     <!-- <span class="<%=data.get('icon_id')%>" data-pack="default"></span> -->
 
                     <div tooltip <%=data.get('shape')%>>
-                        <img width="60" height="60" class="svg" src="https://googledrive.com/host/<%= data.get('icon_id') %>">
+                        <img width="60" height="60" class="svg" src="https://googledrive.com/host/<%= data.get('icon_id') %>?r=<%= Math.floor(Math.random() * 999999) %>">
 
                         <h1 data-lang='en'><%= data.get('name_en') %></h1>
                         <h1 data-lang='cat'><%= data.get('name_cat') %></h1>
@@ -114,11 +114,11 @@
                     <% if(object.get('video') != "") { %>
 
                     <video class="video-js vjs-sublime-skin" controls fullscreen="none" preload="auto" width="800" height="500">
-                        <source src="https://googledrive.com/host/<%= object.get('video') %>" type='video/mp4'>
+                        <source src="https://googledrive.com/host/<%= object.get('video') %>?r=<%= Math.floor(Math.random() * 999999) %>" type='video/mp4'>
                     </video>
 
                     <% } else { %>
-                        <div class="list-background-image" style="background-image:url('https://googledrive.com/host/<%= object.get('image') %>')"></div>
+                        <div class="list-background-image" style="background-image:url('https://googledrive.com/host/<%= object.get('image') %>?r=<%= Math.floor(Math.random() * 999999) %>')"></div>
                     <% } %>
                 </div>
             <% }) %>
@@ -171,7 +171,7 @@
 
                     <div class="container-shape">
                         <div class='<%=shape%>'>
-                            <img class="svg" width="100" height="100" src="https://googledrive.com/host/<%= icon %>">
+                            <img class="svg" width="100" height="100" src="https://googledrive.com/host/<%= icon %>?r=<%= Math.floor(Math.random() * 999999) %>">
                         </div>
                     </div>
 
@@ -215,7 +215,7 @@
 
                     <div class="container-shape">
                         <div class='<%=shape%>'>
-                            <img class="svg" width="100" height="100" src="https://googledrive.com/host/<%= icon %>">
+                            <img class="svg" width="100" height="100" src="https://googledrive.com/host/<%= icon %>?r=<%= Math.floor(Math.random() * 999999) %>">
                         </div>
                     </div>
 
@@ -325,7 +325,7 @@
                         <p data-lang='en' class="project-by"><%=project_by_en%></p>
                         <p data-lang='cat' class="project-by"><%=project_by_cat%></p>
 
-                        <a href="http://www.alpha-ville.co.uk/" target="_blank"><img class="credits-logo" src="https://googledrive.com/host/0B0uHwEQ4FBZxcjd0NWhaWnEzVTQ" alt=""/></a>
+                        <a href="http://www.alpha-ville.co.uk/" target="_blank"><img class="credits-logo" src="https://googledrive.com/host/0B0uHwEQ4FBZxcjd0NWhaWnEzVTQ?r=<%= Math.floor(Math.random() * 999999) %>" alt=""/></a>
 
                         <p data-lang='en' class="project-by"><%=project_commission_en%></p>
                         <p data-lang='cat' class="project-by"><%=project_commission_cat%></p>
@@ -363,7 +363,7 @@
                             <% var array = installation_photos.split(" ").join("").split(","); %>
                             <% for(var i = 0; i<array.length; i++){ console.log(array[i]); %>
                                 <div class="carousel-item">
-                                    <div class="list-background-image" style="background-image:url('https://googledrive.com/host/<%= array[i] %>')"></div>
+                                    <div class="list-background-image" style="background-image:url('https://googledrive.com/host/<%= array[i] %>?r=<%= Math.floor(Math.random() * 999999) %>')"></div>
                                 </div>
                             <% } %>
                         </div>
@@ -427,7 +427,7 @@
                 <div class='logo-container'>
                     <span class="project-by">A project by</span><br><br>
                     <a href="http://www.alpha-ville.co.uk" target="_blank">
-                        <img src="https://googledrive.com/host/0B0uHwEQ4FBZxcjd0NWhaWnEzVTQ" alt=""/>
+                        <img src="https://googledrive.com/host/0B0uHwEQ4FBZxcjd0NWhaWnEzVTQ?r=<%= Math.floor(Math.random() * 999999) %>" alt=""/>
                     </a>
                 </div>
 

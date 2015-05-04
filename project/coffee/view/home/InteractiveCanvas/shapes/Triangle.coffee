@@ -36,10 +36,10 @@ class Triangle extends BasicShape
 
 
         textures = [
-          "https://googledrive.com/host/0Bw4Qy0dXirckbkwzcjA0SENiSlU"
-          "https://googledrive.com/host/0Bw4Qy0dXirckXy03VGxLWHp6dTg"
-          "https://googledrive.com/host/0Bw4Qy0dXirckazhvLS1MWXNBaTA"
-          "https://googledrive.com/host/0Bw4Qy0dXirckaTY0Q2laRmRmN1U"
+          "https://googledrive.com/host/0Bw4Qy0dXirckbkwzcjA0SENiSlU?r=#{Math.floor(Math.random() * 999999)}"
+          "https://googledrive.com/host/0Bw4Qy0dXirckXy03VGxLWHp6dTg?r=#{Math.floor(Math.random() * 999999)}"
+          "https://googledrive.com/host/0Bw4Qy0dXirckazhvLS1MWXNBaTA?r=#{Math.floor(Math.random() * 999999)}"
+          "https://googledrive.com/host/0Bw4Qy0dXirckaTY0Q2laRmRmN1U?r=#{Math.floor(Math.random() * 999999)}"
         ]
 
         # @sprite.alpha = .2

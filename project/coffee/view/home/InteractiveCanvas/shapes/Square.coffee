@@ -25,9 +25,9 @@ class Square extends BasicShape
         # @sprite.alpha = .2
 
         textures = [
-          "https://googledrive.com/host/0Bw4Qy0dXirckXy03VGxLWHp6dTg"
-          "https://googledrive.com/host/0Bw4Qy0dXirckazhvLS1MWXNBaTA"
-          "https://googledrive.com/host/0Bw4Qy0dXirckaTY0Q2laRmRmN1U"
+          "https://googledrive.com/host/0Bw4Qy0dXirckXy03VGxLWHp6dTg?r=#{Math.floor(Math.random() * 999999)}"
+          "https://googledrive.com/host/0Bw4Qy0dXirckazhvLS1MWXNBaTA?r=#{Math.floor(Math.random() * 999999)}"
+          "https://googledrive.com/host/0Bw4Qy0dXirckaTY0Q2laRmRmN1U?r=#{Math.floor(Math.random() * 999999)}"
         ]
 
         if @w == 60
