@@ -59,8 +59,6 @@ class Router extends Backbone.Router
                 break
 
             when @area and !@sub
-                console.log('asdasd')
-
                 Backbone.Events.trigger('showArrows')
                 Backbone.trigger( 'SoundController:play', 'nontouchable' )
                 Backbone.trigger( 'SoundController:play', 'loop' )

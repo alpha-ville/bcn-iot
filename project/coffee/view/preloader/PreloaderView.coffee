@@ -92,8 +92,9 @@ class PreloaderView
         if @cb
             setTimeout =>
                 @cb()
-            , 2000
+            , 1500
         else
+            Backbone.trigger('SoundController:play', 'intro')
             @exploreBtn.style.cursor = 'pointer'
             TweenMax.to( @exploreBtn, .2, { opacity: 1, delay: 1 } )
             @exploreBtn.addEventListener 'click', => @startExperience()
@@ -120,6 +121,7 @@ class PreloaderView
 
     onTransitionOutComplete: =>
         @el.style.display = 'none'
+        @el.remove()
 
         if @cb then @cb()
 

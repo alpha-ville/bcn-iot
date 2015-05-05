@@ -2,45 +2,45 @@ AbstractView = require '../AbstractView'
 
 class Preloader extends AbstractView
 
-	cb              : null
+    cb              : null
 
-	TRANSITION_TIME : 0.5
+    TRANSITION_TIME : 0.5
 
-	constructor : ->
+    constructor : ->
 
-		@setElement $('#preloader')
+        @setElement $('#preloader')
 
-		super()
+        super()
 
-		return null
+        return null
 
-	init : =>
+    init : =>
 
-		null
+        null
 
-	show : (@cb) =>
+    show : (@cb) =>
 
-		@$el.css 'display' : 'block'
+        @$el.css 'display' : 'block'
 
-		null
+        null
 
-	onShowComplete : =>
+    onShowComplete : =>
 
-		@cb?()
+        @cb?()
 
-		null
+        null
 
-	hide : (@cb) =>
+    hide : (@cb) =>
 
-		@onHideComplete()
+        @onHideComplete()
 
-		null
+        null
 
-	onHideComplete : =>
+    onHideComplete : =>
 
-		@$el.css 'display' : 'none'
-		@cb?()
+        @$el.css 'display' : 'none'
+        @cb?()
 
-		null
+        null
 
 module.exports = Preloader

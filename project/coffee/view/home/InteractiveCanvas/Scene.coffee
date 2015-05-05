@@ -24,8 +24,7 @@ class Scene
 
     @stage = new PIXI.Stage( @backgroundColor, {
         antialias : true
-        transparent : false
-        resolution: 1
+        resolution: window.deviceAspectRatio
         transparent: true
       } )
 

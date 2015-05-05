@@ -123,7 +123,7 @@ class HomeTooltip extends AbstractView
 
 
     setCategory: ( category ) =>
-        @labelEn.innerHTML = category
+        @labelEn.innerHTML = category.split('_').join(" ")
 
         null
 

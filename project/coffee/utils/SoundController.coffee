@@ -5,6 +5,7 @@ class SoundController
   isMuted: false
   loopVolume: .2
   sfxVolume: .2
+  introVolume: .7
 
   constructor: ( @B ) ->
     @sounds =
@@ -16,9 +17,9 @@ class SoundController
       'transition': document.querySelector('.audio-transition')
 
     @sounds['loop'].setAttribute 'loop', true
-
     @sounds['loop'].volume = @loopVolume
 
+    @sounds['intro'].volume = @introVolume
     @sounds['touchable'].volume = @sfxVolume
     @sounds['nontouchable'].volume = @sfxVolume
     @sounds['objectconnected'].volume = @sfxVolume
