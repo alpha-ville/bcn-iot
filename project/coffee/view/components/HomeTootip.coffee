@@ -28,6 +28,7 @@ class HomeTooltip extends AbstractView
 
         @labelEn = @el.querySelector('.en')
         @labelCat = @el.querySelector('.cat')
+        # @labelGroup = @el.querySelector('.group')
         @labels.push( @labelEn )
 
         # for easy testing
@@ -76,12 +77,15 @@ class HomeTooltip extends AbstractView
 
 
     transitionIn: ( en, cat ) =>
+        @labelEn.innerHTML = en
+        # console.log(en)
         @el.classList.add('active')
 
         null
 
 
     transitionOut: ( en, cat ) =>
+        @setDefaultText()
         @el.classList.remove('active')
 
         null
@@ -94,7 +98,6 @@ class HomeTooltip extends AbstractView
         null
 
     setDefaultText: ( groupName ) ->
-        return
         en = (@B().groups.where group : @B().groupName())[0].get('group_name_en')
         cat = (@B().groups.where group : @B().groupName())[0].get('group_name_cat')
 

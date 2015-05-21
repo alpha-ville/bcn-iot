@@ -1219,14 +1219,14 @@ $color : $blue;
 
 .textBoxWrapper {
     text-align: center;
-    width: 210px;
+    max-width: 250px;
+    min-width: 250px;
     display: inline-block;
     position: relative;
     padding: 0px;
     height: 115px;
     /*border: 2px solid #000;*/
     margin: auto;
-
 }
 
 .arrow {

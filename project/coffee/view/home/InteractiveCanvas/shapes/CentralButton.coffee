@@ -82,6 +82,7 @@ class CentralButton extends BasicShape
         (@B().groups.where group : @B().groupName())[0].get('icon_id')
 
     onMouseUp: ->
+
         if @isDisable then return
 
         if @isSelected

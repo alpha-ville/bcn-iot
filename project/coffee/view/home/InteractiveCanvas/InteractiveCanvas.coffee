@@ -470,6 +470,7 @@ class InteractiveCanvas extends AbstractView
 
 
     onCircleUnselected: ( circle, playSound = true ) =>
+
         Backbone.Events.trigger( 'Tooltip:setInstruction', @instruction1 )
 
         @currentCentralButton.stop()
@@ -585,7 +586,6 @@ class InteractiveCanvas extends AbstractView
 
 
     onCentralButtonTouched: ( centralButton ) =>
-        console.log centralButton
 
         if @step == 0
             @gotoStep(1)
